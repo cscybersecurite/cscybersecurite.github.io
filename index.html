@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CS Cybersécurité - Ressources pédagogiques</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6fa;
+      color: #1e293b;
+    }
+
+    header {
+      background: #17365d;
+      color: white;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.85;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 45px auto;
+      padding: 0 20px;
+    }
+
+    h2 { font-size: 1.4rem; }
+
+    .ressource {
+      display: block;
+      max-width: 450px;
+      margin-top: 25px;
+      padding: 25px;
+      background: white;
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .ressource:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+    }
+
+    .ressource h3 {
+      margin: 0 0 12px;
+      color: #17365d;
+    }
+
+    .ressource p {
+      margin: 0 0 20px;
+      line-height: 1.5;
+    }
+
+    .acces {
+      color: #1558a6;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>CS Cybersécurité</h1>
+    <p>Ressources pédagogiques interactives</p>
+  </header>
+
+  <main>
+    <h2>Réseaux informatiques</h2>
+
+    <a class="ressource"
+       href="https://chaoli22000bzh.github.io/Manuel-Adressage-IPv4/">
+      <h3>Manuel d'adressage IPv4</h3>
+      <p>
+        Comprendre les adresses IPv4, les masques
+        de sous-réseau et les calculs en binaire
+        et en décimal.
+      </p>
+      <span class="acces">Accéder au manuel →</span>
+    </a>
+
+    <!-- Remplacer # par l'adresse publique d'IPcalc -->
+    <a class="ressource" href="#">
+      <h3>IPcalc</h3>
+      <p>
+        Calculer et analyser les réseaux IPv4 et IPv6
+        à l'aide d'un outil interactif.
+      </p>
+      <span class="acces">Accéder à IPcalc →</span>
+    </a>
+
+  </main>
+
+  <footer>
+    CS Cybersécurité - Portail pédagogique
+  </footer>
+
+</body>
+</html>
