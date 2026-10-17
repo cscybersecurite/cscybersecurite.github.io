@@ -15,21 +15,16 @@
       color: #1e293b;
     }
 
-    header {
-      background: #17365d;
-      color: white;
-      padding: 35px 20px;
-      text-align: center;
+    header { background: #001006; }
+    header img {
+      display: block;
+      width: 100%;
+      height: clamp(150px, 19vw, 300px);
+      object-fit: cover;
+      object-position: center;
     }
-
-    header h1 {
-      margin: 0 0 8px;
-      font-size: 2rem;
-    }
-
-    header p {
-      margin: 0;
-      opacity: 0.85;
+    @media (max-width: 850px) {
+      header img { height: auto; object-fit: contain; }
     }
 
     main {
@@ -109,8 +104,7 @@
 <body>
 
   <header>
-    <h1>CS Cybersécurité</h1>
-    <p>Ressources pédagogiques interactives</p>
+    <img src="bandeau-cs-cybersecurite.webp" alt="CS Cybersécurité - bandeau de chiffres binaires verts" width="2048" height="728">
   </header>
 
   <main><h2>Pas à pas</h2><div class="ressources">
