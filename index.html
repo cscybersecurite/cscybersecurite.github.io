@@ -113,6 +113,18 @@
     @media (max-width:1199px) { main { max-width:830px; } .ressources { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (max-width:719px) { main { max-width:480px; margin:16px auto; padding:0 12px; } .ressources { grid-template-columns:1fr; gap:12px; } .ressource .contenu { padding:11px 14px 10px; } .ressource h3 { font-size:19px; } .ressource .visuel { height:112px; padding:8px 12px; } }
     @media (max-width:360px) { .ressource .visuel { height:100px; } }
+    /* Adaptation automatique au thème clair ou sombre du navigateur */
+    :root { color-scheme: light dark; }
+    @media (prefers-color-scheme: dark) {
+      body { background:#10151e; color:#e5edf7; }
+      .ressource { background:#1b2533; color:#e2ebf7; border-color:#344459; box-shadow:0 5px 16px rgba(0,0,0,.25); }
+      .ressource:hover,.ressource:focus-visible { box-shadow:0 10px 24px rgba(0,0,0,.4); }
+      .ressource h3 { color:#f0f5fc; }
+      .ressource p { color:#c4d2e3; }
+      .ressource:focus-visible { outline-color:#80b6ff; }
+      .ressource .picto-type { stroke:#80b6ff; }
+      .ressource.ipcalc .picto-type { stroke:#53d8a7; }
+    }
     @media(prefers-reduced-motion:reduce){.ressource{transition:none}}
 
 
