@@ -102,7 +102,7 @@
     .ressource .contenu { display:flex; flex-direction:column; align-items:flex-start; gap:5px; min-width:0; padding:12px 15px 11px; }
     .ressource .entete-carte { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-width:0; }
     .ressource .picto-type { width:25px; height:25px; flex:0 0 25px; fill:none; stroke:#2563eb; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; filter:none; }
-    .ressource[data-couleur="bleu"] .picto-type { stroke:#2563eb; }
+    .ressource[data-couleur="bleu"] .picto-type { stroke:#005bff; }
     .ressource[data-couleur="vert"] .picto-type { stroke:#168651; }
     .ressource[data-couleur="jaune"] .picto-type { stroke:#e5bd00; }
     .ressource h3 { margin:0; font-size:20px; line-height:1.2; color:#102751; }
@@ -110,11 +110,15 @@
     .ressource .visuel { display:flex; align-items:center; justify-content:center; width:100%; height:130px; padding:10px 15px; min-width:0; overflow:hidden; }
     .ressource svg { display:block; height:100%; width:100%; max-width:360px; filter:drop-shadow(0 2px 4px rgba(15,35,70,.12)); }
     .ressource.ipv4 .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
-    .ressource.flsm .visuel { background:linear-gradient(135deg,#f0eaff,#7c5be1); }
-    .ressource.ipcalc .visuel { background:linear-gradient(135deg,#d9f8f2,#009b90); }
+    .ressource[data-couleur="bleu"] .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
+    .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#ddf8ec,#8edab9); }
+    .ressource[data-couleur="jaune"] .visuel { background:linear-gradient(130deg,#fff9d8,#ffe784); }
+    /* Essai IPCalc : marge autour du module plus fine, IPv4 inchangé */
+    .ressource.ipcalc .visuel { padding:5px 6px; }
     @media (max-width:1199px) { main { max-width:830px; } .ressources { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (max-width:719px) { main { max-width:480px; margin:16px auto; padding:0 12px; } .ressources { grid-template-columns:1fr; gap:12px; } .ressource .contenu { padding:11px 14px 10px; } .ressource h3 { font-size:19px; } .ressource .visuel { height:112px; padding:8px 12px; } }
     @media (max-width:360px) { .ressource .visuel { height:100px; } }
+    @media (max-width:719px) { .ressource.ipcalc .visuel { padding:4px 5px; } }
     @media (max-width:719px) { .outils-grille { right:12px; } }
     /* Adaptation automatique au thème clair ou sombre du navigateur */
     :root { color-scheme: light dark; }
@@ -126,9 +130,12 @@
       .ressource p { color:#c4d2e3; }
       .ressource:focus-visible { outline-color:#80b6ff; }
       .ressource .picto-type { stroke:#80b6ff; }
-      .ressource[data-couleur="bleu"] .picto-type { stroke:#80b6ff; }
+      .ressource[data-couleur="bleu"] .picto-type { stroke:#168bff; }
       .ressource[data-couleur="vert"] .picto-type { stroke:#53d8a7; }
       .ressource[data-couleur="jaune"] .picto-type { stroke:#faff20; }
+      .ressource[data-couleur="bleu"] .visuel { background:linear-gradient(130deg,#1b4064,#2a6393); }
+      .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#174c3a,#26795d); }
+      .ressource[data-couleur="jaune"] .visuel { background:linear-gradient(130deg,#594919,#9b7a24); }
     }
     /* Commutateur discret des cours en préparation */
     main { position:relative; }
@@ -143,14 +150,12 @@
     .commutateur:focus-visible { outline:3px solid #2563eb; outline-offset:2px; border-radius:99px; }
     .ressource.en-preparation { cursor:default; }
     .ressource.en-preparation:hover { transform:none; box-shadow:0 5px 16px rgba(20,41,78,.08); }
-    .ressource.en-preparation .visuel { background:linear-gradient(130deg,#e8f1ff,#c8dbf6); }
     .ressource.en-preparation .visuel .visuel-attente { width:54px; height:54px; color:#7793bd; opacity:.7; }
     .ressource.en-preparation[hidden] { display:none; }
     @media(prefers-color-scheme:dark) {
       .commutateur .rail { background:#64748b; }
       .commutateur[aria-pressed="true"] .rail { background:#8aa2c2; }
       .ressource.en-preparation:hover { box-shadow:0 5px 16px rgba(0,0,0,.25); }
-      .ressource.en-preparation .visuel { background:linear-gradient(130deg,#263a52,#344b69); }
       .ressource.en-preparation .visuel .visuel-attente { color:#b0c9ed; }
     }
     @media(prefers-reduced-motion:reduce) { .commutateur .rail,.commutateur .curseur {transition:none;} }
