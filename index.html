@@ -109,18 +109,21 @@
     .ressource p { margin:0; font-size:14px; line-height:1.4; }
     .ressource .visuel { display:flex; align-items:center; justify-content:center; width:100%; height:130px; padding:10px 15px; min-width:0; overflow:hidden; }
     .ressource svg { display:block; height:100%; width:100%; max-width:360px; filter:drop-shadow(0 2px 4px rgba(15,35,70,.12)); }
-    /* Encadrement des cinq visuels de cours encore en préparation */
-    article.ressource.en-preparation .visuel img {
+    /* Bordures intérieures des six visuels de cours, assorties à leur catégorie */
+    .ressource[data-type="cours"] .visuel img {
       display:block;
       width:100%;
       height:100%;
       max-width:360px;
       object-fit:cover;
       border-radius:13px;
-      border:2px solid rgba(255,255,255,.95);
+      border:2px solid;
       box-shadow:0 2px 5px rgba(15,35,70,.16);
       box-sizing:border-box;
     }
+    .ressource[data-type="cours"][data-couleur="vert"] .visuel img { border-color:#49ad83; }
+    .ressource[data-type="cours"][data-couleur="jaune"] .visuel img { border-color:#e1b63d; }
+    .ressource[data-type="cours"][data-couleur="bleu"] .visuel img { border-color:#569cdb; }
     .ressource.ipv4 .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
     .ressource[data-couleur="bleu"] .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
     .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#ddf8ec,#8edab9); }
