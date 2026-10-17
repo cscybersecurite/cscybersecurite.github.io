@@ -15,7 +15,23 @@
       color: #1e293b;
     }
 
-    header { background: #001006; }
+    header { position: relative; background: #001006; }
+    header h1 {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0 10px;
+      color: #164d25;
+      font-size: clamp(17px, 4.3vw, 76px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.035em;
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(68, 255, 99, .55), 0 1px 1px rgba(109, 255, 126, .4);
+    }
     header img {
       display: block;
       width: 100%;
@@ -100,6 +116,7 @@
 
   <header>
     <img src="bandeau-cs-matrix-pc.webp" alt="Fond Matrix de chiffres binaires verts en perspective" width="2172" height="724">
+    <h1>CS Cybersécurité</h1>
   </header>
 
   <main><div class="ressources">
