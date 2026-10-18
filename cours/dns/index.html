@@ -129,7 +129,13 @@ header{padding:9px 12px}
 </div>
 
 </div>
-<p><strong>Le serveur DNS fournit l'adresse IP. C'est ensuite le serveur web qui envoie la page au navigateur.</strong></p>
+
+<details id="exercice-2" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><form id="quiz-2" autocomplete="off"><fieldset><legend>Après avoir reçu l'adresse IP du serveur DNS, que fait l'ordinateur ?</legend>
+<label class="choice"><input type="radio" name="reponse-2" value="a">Il demande au serveur DNS de télécharger la page web.</label>
+<label class="choice"><input type="radio" name="reponse-2" value="b">Il contacte directement le serveur web.</label>
+<label class="choice"><input type="radio" name="reponse-2" value="c">Il envoie la page web au serveur DNS.</label>
+<label class="choice"><input type="radio" name="reponse-2" value="d">Il attend que le serveur DNS lui transmette le site web.</label>
+</fieldset><button type="submit">Vérifier ma réponse</button><p class="feedback" id="feedback-2" role="status" aria-live="polite" hidden></p></form></div></details>
 </div></details>
 <details id="chapitre-3"><summary>3. Structure d'un nom de domaine</summary><div class="inside"><p>Exemple : <strong>serveur1.infra.athenyx.net</strong></p><div class="example">Hôte : serveur1<br>Sous-domaine : infra<br>Domaine : athenyx<br>Extension (TLD) : net</div><p>Les noms DNS sont organisés de façon hiérarchique, à partir de la racine et du domaine de premier niveau.</p></div></details>
 <details id="chapitre-4"><summary>4. Les enregistrements DNS</summary><div class="inside"><p>Chaque type d'enregistrement répond à un besoin différent.</p><div class="example"><strong>A</strong> : nom vers IPv4<br><strong>AAAA</strong> : nom vers IPv6<br><strong>CNAME</strong> : alias vers un autre nom<br><strong>MX</strong> : serveurs de réception du courrier<br><strong>TXT</strong> : informations textuelles, notamment certains paramètres de sécurité</div><p>SPF, DKIM et DMARC sont des mécanismes utilisés pour la sécurité des courriels. Ils s'appuient notamment sur des enregistrements DNS de type TXT.</p></div></details>
@@ -155,6 +161,11 @@ form.reset();
 window.addEventListener('pageshow',()=>{form.reset();feedback.hidden=true;feedback.textContent=''});
 form.addEventListener('submit',e=>{e.preventDefault();const value=new FormData(form).get('reponse');feedback.hidden=false;feedback.textContent=!value?'Choisis une réponse.':value==='b'?'Bonne réponse. Le DNS retrouve l’adresse IP associée au nom demandé.':'Ce n’est pas la bonne réponse. Le DNS fournit des informations sur les noms, sans vérifier le serveur ni transmettre la page.';});
 form.addEventListener('change',()=>{feedback.hidden=true;feedback.textContent=''});
+const form2=document.getElementById('quiz-2'),feedback2=document.getElementById('feedback-2');
+form2.reset();
+window.addEventListener('pageshow',()=>{form2.reset();feedback2.hidden=true;feedback2.textContent='';});
+form2.addEventListener('submit',e=>{e.preventDefault();const value=new FormData(form2).get('reponse-2');feedback2.hidden=false;feedback2.textContent=!value?'Choisis une réponse.':value==='b'?'Bonne réponse. L’ordinateur contacte directement le serveur web avec l’adresse IP obtenue.':'Ce n’est pas la bonne réponse. Le DNS indique l’adresse IP ; il ne transmet pas la page web.';});
+form2.addEventListener('change',()=>{feedback2.hidden=true;feedback2.textContent='';});
 const chapters=[...document.querySelectorAll('main > details')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -219,4 +230,4 @@ frame=requestAnimationFrame(back);
 }
 button.addEventListener('click',start);
 })();
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.19</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.21</div></body></html>
