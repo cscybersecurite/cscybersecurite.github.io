@@ -100,20 +100,23 @@ header{padding:9px 12px}
 @media(prefers-color-scheme:dark){.dns-structure{background:#233952}.dns-host{color:#e3a8ff}.dns-sub{color:#7de6c6}.dns-domain{color:#ffbf84}.dns-ext{color:#9cc8ff}.dns-ex3-name{background:#294b6b;color:#fff;border-color:#648ab2}.dns-ex3-rows select{background:#1e2d40;color:#f1f6ff;border-color:#6687a9}}
 @media(max-width:480px){.dns-structure{padding:9px 6px}.dns-name{font-size:clamp(12px,3.45vw,16px);letter-spacing:-.04em}.dns-ex3-rows{grid-template-columns:minmax(64px,110px) 144px}}
 
-/* Chapitre 4 : exemples professionnels et exercices */
-#chapitre-4 h3{margin:19px 0 5px;font-size:1.12em}
-.dns-q4-ex{background:#edf6ff;border-radius:9px;padding:8px 12px;margin:8px 0 13px}
-.dns-q4-ex p{margin:6px 0;overflow-wrap:anywhere}.dns-q4-ex code{font-size:.93em}
-.dns-q4-file{background:#111c2c;color:#e5eefc;border-radius:9px;padding:12px;margin:10px 0 15px}
-.dns-q4-filetitle{color:#bdd0e8;font-weight:bold;font-size:.86em;margin-bottom:8px}
-.dns-q4-file pre{margin:0;font:clamp(11px,1.5vw,14px)/1.6 Consolas,'Courier New',monospace;white-space:pre;overflow-x:auto}
+/* Chapitre 4 : une hierarchie visuelle nette entre cours, exemples et fichiers */
+#chapitre-4 h3{font-size:clamp(19px,2.4vw,25px);margin:25px 0 8px;padding:7px 0 7px 11px;border-left:5px solid #2471c8;border-bottom:1px solid #aac6df;color:#174b80}
+#chapitre-4 h3:first-of-type{margin-top:15px}
+.dns-q4-ex{background:transparent;border:0;border-radius:0;padding:1px 0 4px 12px;margin:7px 0 12px}
+.dns-q4-ex p{margin:8px 0;line-height:1.5;overflow-wrap:anywhere}
+.dns-q4-ex strong{color:#125b9f}
+.dns-q4-ex code{font-size:.93em;font-weight:600}
+.dns-q4-file{background:#111c2c;color:#e5eefc;border-radius:9px;padding:11px 13px;margin:11px 0 17px}
+.dns-q4-filetitle{color:#bcd3ee;font-weight:bold;font-size:.88em;margin-bottom:7px}
+.dns-q4-file pre{margin:0;font:clamp(11px,1.5vw,14px)/1.65 Consolas,'Courier New',monospace;white-space:pre;overflow-x:auto}
 .dns-q4-comment{color:#a6c0dc}
-.dns-q4-rows{display:grid;gap:13px;margin:12px 0 18px}
-.dns-q4-row{display:grid;grid-template-columns:minmax(0,1fr) 116px;gap:10px;align-items:center;padding:9px 11px;background:#f1f5fa;border-radius:9px}
-.dns-q4-row label{cursor:pointer;line-height:1.4}.dns-q4-num{font-weight:bold}
-.dns-q4-row select{width:116px;font:inherit;font-size:15px;box-sizing:border-box;padding:7px 3px;border:1px solid #9db6d2;border-radius:7px;background:white;color:#102d4a}
-@media(prefers-color-scheme:dark){.dns-q4-ex{background:#233952}.dns-q4-row{background:#24384f}.dns-q4-row select{background:#1e2d40;color:#fff;border-color:#6687a9}}
-@media(max-width:480px){.dns-q4-row{grid-template-columns:minmax(0,1fr) 104px;gap:6px;padding:8px}.dns-q4-row select{width:104px;font-size:14px}}
+.dns-q4-rows{display:grid;gap:5px;margin:10px 0 13px}
+.dns-q4-row{display:grid;grid-template-columns:minmax(0,1fr) 116px;gap:9px;align-items:center;padding:7px 9px;background:#f1f5fa;border-radius:7px}
+.dns-q4-row label{cursor:pointer;line-height:1.35}.dns-q4-num{font-weight:bold}
+.dns-q4-row select{width:116px;font:inherit;font-size:15px;box-sizing:border-box;padding:6px 3px;border:1px solid #9db6d2;border-radius:7px;background:white;color:#102d4a}
+@media(prefers-color-scheme:dark){#chapitre-4 h3{color:#a8d1ff;border-color:#5c83ab}.dns-q4-ex strong{color:#a8d1ff}.dns-q4-row{background:#24384f}.dns-q4-row select{background:#1e2d40;color:#fff;border-color:#6687a9}}
+@media(max-width:480px){.dns-q4-row{grid-template-columns:minmax(0,1fr) 104px;gap:6px;padding:6px}.dns-q4-row select{width:104px;font-size:14px}#chapitre-4 h3{font-size:20px}}
 </style>
 </head>
 <body>
@@ -212,14 +215,13 @@ frtelix.net.  IN  MX  10 mail.frtelix.net.
 cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <details id="exercice-4" class="nested-exercise"><summary>Je me teste</summary><div class="inside">
 <p>Pour chaque situation, choisis le type d'enregistrement DNS adapté.</p>
-<form id="quiz-4" autocomplete="off"><div class="dns-q4-rows"><div class="dns-q4-row"><label for="dns-q4-1"><span class="dns-q4-num">1.</span> Réseau local : associer l’imprimante à 192.168.1.50.</label><select id="dns-q4-1" name="q1"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-2"><span class="dns-q4-num">2.</span> Internet : indiquer le serveur qui reçoit les courriels de frtelix.net.</label><select id="dns-q4-2" name="q2"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-3"><span class="dns-q4-num">3.</span> Réseau local : utiliser partage.rennes.cybernet.fr comme autre nom du serveur de fichiers.</label><select id="dns-q4-3" name="q3"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-4"><span class="dns-q4-num">4.</span> Internet : associer un serveur à 2001:db8::10.</label><select id="dns-q4-4" name="q4"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-5"><span class="dns-q4-num">5.</span> Réseau local : associer un ordinateur à fd12:3456::20.</label><select id="dns-q4-5" name="q5"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-6"><span class="dns-q4-num">6.</span> Internet : faire pointer boutique.athenyx.net vers serveur1.hebergement.fr.</label><select id="dns-q4-6" name="q6"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-7"><span class="dns-q4-num">7.</span> Réseau local : indiquer le serveur qui reçoit les courriels de l’entreprise.</label><select id="dns-q4-7" name="q7"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-8"><span class="dns-q4-num">8.</span> Internet : associer un serveur à 203.0.113.25.</label><select id="dns-q4-8" name="q8"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div></div>
+<form id="quiz-4" autocomplete="off"><div class="dns-q4-rows"><div class="dns-q4-row"><label for="dns-q4-1"><span class="dns-q4-num">1.</span> CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.</label><select id="dns-q4-1" name="q1"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-2"><span class="dns-q4-num">2.</span> Frtelix souhaite que les courriels envoyés à contact@frtelix.net soient reçus par mail.frtelix.net.</label><select id="dns-q4-2" name="q2"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-3"><span class="dns-q4-num">3.</span> CyberNet Rennes souhaite utiliser partage.rennes.cybernet.fr comme autre nom de srv-fichiers.rennes.cybernet.fr.</label><select id="dns-q4-3" name="q3"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-4"><span class="dns-q4-num">4.</span> CyberNet Rennes souhaite associer le serveur srv-fichiers.rennes.cybernet.fr à l’adresse IPv6 2001:0db8:1234:5678:abcd:ef12:3456:789a.</label><select id="dns-q4-4" name="q4"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-5"><span class="dns-q4-num">5.</span> Athenyx souhaite que boutique.athenyx.net désigne le service hébergé sous le nom serveur1.hebergement.fr.</label><select id="dns-q4-5" name="q5"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-6"><span class="dns-q4-num">6.</span> CyberNet souhaite que les courriels envoyés à support@cybernet.fr soient reçus par mail.cybernet.fr.</label><select id="dns-q4-6" name="q6"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-7"><span class="dns-q4-num">7.</span> Frtelix souhaite associer le serveur mail.paris.frtelix.net à l’adresse IPv4 203.0.113.25.</label><select id="dns-q4-7" name="q7"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div></div>
 <button type="submit">Vérifier mes réponses</button><p id="feedback-4" class="feedback" role="status" aria-live="polite" hidden></p></form>
 </div></details>
 </div></details>
@@ -258,13 +260,13 @@ quiz3.addEventListener('change',()=>{feedback3.hidden=true;feedback3.textContent
 quiz3.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(quiz3),expected={pc01:'host',atelier:'sub',cybernet:'domain',fr:'ext'};const values=Object.keys(expected).map(k=>data.get(k));feedback3.hidden=false;feedback3.textContent=values.some(v=>!v)?'Choisis une réponse pour chaque élément.':Object.keys(expected).every(k=>data.get(k)===expected[k])?'Bonne réponse ! Tu as identifié les quatre parties du nom DNS.':'Ce n’est pas tout à fait correct. Vérifie les quatre parties et essaie encore.';});
 
 const quiz4=document.getElementById('quiz-4'),feedback4=document.getElementById('feedback-4');
-const dns4Expected=['A','MX','CNAME','AAAA','AAAA','CNAME','MX','A'];
+const dns4Expected=['A','MX','CNAME','AAAA','CNAME','MX','A'];
 quiz4.reset();
 window.addEventListener('pageshow',()=>{quiz4.reset();feedback4.hidden=true;feedback4.textContent='';});
 quiz4.addEventListener('change',()=>{feedback4.hidden=true;feedback4.textContent='';});
 quiz4.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(quiz4),answers=dns4Expected.map((_,i)=>data.get('q'+(i+1)));feedback4.hidden=false;
-if(answers.some(v=>!v)){feedback4.textContent='Choisis une réponse pour les huit situations.';return;}
-const score=answers.filter((v,i)=>v===dns4Expected[i]).length;feedback4.textContent=score===8?'Bravo ! 8 bonnes réponses sur 8.':score+' bonnes réponses sur 8. Vérifie tes choix et essaie encore.';});
+if(answers.some(v=>!v)){feedback4.textContent='Choisis une réponse pour les sept situations.';return;}
+const score=answers.filter((v,i)=>v===dns4Expected[i]).length;feedback4.textContent=score===7?'Bravo ! 7 bonnes réponses sur 7.':score+' bonnes réponses sur 7. Vérifie tes choix et essaie encore.';});
 const chapters=[...document.querySelectorAll('main > details')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -329,4 +331,4 @@ frame=requestAnimationFrame(back);
 }
 button.addEventListener('click',start);
 })();
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.26</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.27</div></body></html>
