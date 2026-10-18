@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNS - Cours interactif</title>
+<style>
+:root{font-family:Arial,sans-serif;color-scheme:light dark;--ink:#102d4a;--line:#cad8e7;--bg:#f2f6fb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}header{background:#102b51;color:white;padding:16px max(18px,calc((100% - 950px)/2))}header h1{margin:3px 0;font-size:clamp(24px,3vw,34px)}header p{margin:4px 0;font-size:15px}main{max-width:950px;margin:20px auto;padding:0 16px 55px}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}button,.link{font:inherit;border:1px solid #185ba4;background:#185ba4;color:white;border-radius:9px;padding:11px 16px;cursor:pointer;text-decoration:none;display:inline-block}button:hover,.link:hover{filter:brightness(1.12)}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #e69a21;outline-offset:2px}.secondary{background:white;color:#174b85}.panel,details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:13px;overflow:hidden}.panel{padding:20px}summary{cursor:pointer;font-size:20px;font-weight:bold;padding:18px 20px;list-style-position:inside}details .inside{border-top:1px solid var(--line);padding:18px 20px;line-height:1.6}.example{background:#edf6ff;padding:15px;border-radius:9px;margin:15px 0;font-size:19px}fieldset{border:0;padding:0;margin:12px 0}legend{font-weight:bold;margin-bottom:12px}label.choice{display:block;padding:11px;margin:7px 0;background:#f1f5fa;border-radius:9px;cursor:pointer}input{transform:scale(1.3);margin-right:10px}.feedback{font-weight:bold;min-height:24px}small,.muted{color:#587087}.qr{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.qr img{width:132px;height:132px;image-rendering:pixelated;background:white;border:8px solid white}.qr p{flex:1;min-width:200px}footer{max-width:950px;margin:0 auto;padding:0 16px 16px;color:#52647a;font-size:12px}
+.presentation body{background:#08182e}.presentation header{padding:10px 18px}.presentation main{max-width:100%;margin:8px auto;padding:0 14px 12px}.presentation .qr-panel,.presentation .intro,.presentation footer{display:none}.presentation details,.presentation .panel{border:0;border-radius:0}.presentation summary{font-size:clamp(30px,4vw,44px)}.presentation details .inside{font-size:clamp(26px,3vw,36px);line-height:1.32}.presentation .example{font-size:clamp(27px,3vw,39px)}.presentation .toolbar{margin:4px 0 9px}.presentation button{font-size:18px}.presentation .choice{font-size:clamp(22px,2.6vw,30px)}.presentation header p{display:none}
+@media(max-width:480px){.panel{padding:15px}summary{padding:15px;font-size:19px}details .inside{padding:15px}.qr img{width:115px;height:115px}button,.link{width:100%;text-align:center}.toolbar>*{flex:1}}
+@media(max-height:620px){.presentation details .inside{padding:10px 16px}.presentation .example{margin:8px 0;padding:9px}}
+.version-fixe{position:fixed;right:10px;bottom:7px;z-index:20;font:11px Arial,sans-serif;color:#64748b;background:rgba(242,246,251,.92);padding:3px 6px;border-radius:5px;pointer-events:none}.presentation .version-fixe{color:#b8c8df;background:#08182e}@media(max-width:480px){.version-fixe{font-size:10px;right:5px;bottom:4px}}
+.dns-lab{border:1px solid #b5cbe4;background:#f8fbff;border-radius:12px;padding:16px;font-size:16px}.dns-lab h3{margin:0 0 6px}.dns-lab h4{margin:0 0 12px}.dns-label{display:block;font-weight:bold;margin:14px 0 6px}.dns-lab select{display:block;width:100%;max-width:480px;font:inherit;padding:11px;background:white;color:#102d4a;border:1px solid #809dbb;border-radius:8px;margin-bottom:12px}.dns-lab button{margin:3px 5px 8px 0}.dns-table-wrap{overflow-x:auto}.dns-table{width:100%;border-collapse:collapse;text-align:left;font-size:clamp(13px,1.8vw,17px)}.dns-table th,.dns-table td{border-bottom:1px solid #cbd9eb;padding:6px 3px;overflow-wrap:break-word}.dns-table .dns-test-btn{width:auto;min-width:0;padding:7px 7px;margin:0;font-size:13px;white-space:nowrap}.dns-table td:first-child,.dns-table td:nth-child(2){white-space:nowrap}.dns-table td:nth-child(3){overflow-wrap:normal}.dns-table .dns-row-value{display:block;width:100%;min-width:0;max-width:none;box-sizing:border-box;padding:6px 17px 6px 4px;margin:0;border:1px solid #91a9c8;border-radius:6px;background:#fff;color:#102d4a;font:inherit;cursor:pointer}.dns-table td:nth-child(3){width:50%}.dns-reset{margin-top:12px!important}.dns-table td:last-child,.dns-table th:last-child{text-align:right;width:1%;white-space:nowrap}.dns-console{background:#0b1520;color:#d9f8e1;border:2px solid #263c4e;border-radius:8px;padding:12px;margin:14px 0;font:15px/1.55 Consolas,"Courier New",monospace;overflow-x:auto}.dns-console-title{color:#77dba2;margin-bottom:8px;border-bottom:1px solid #314b5e;padding-bottom:5px}.dns-console pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.dns-result{border-left:4px solid #2364a6;background:#eaf3ff;padding:12px;margin:12px 0;border-radius:6px;min-height:48px;overflow-wrap:anywhere}.dns-lab hr{border:0;border-top:1px solid #ccd9e9;margin:19px 0}.presentation .dns-lab{font-size:clamp(18px,2.5vw,26px)}.presentation .dns-lab select{font-size:inherit;max-width:100%}.presentation .dns-table{font-size:clamp(15px,2vw,24px)}@media(max-width:480px){.dns-lab{padding:8px}.dns-table{font-size:12px}.dns-table th,.dns-table td{padding:6px 2px}.dns-table .dns-test-btn{font-size:12px;padding:7px 5px}.dns-table .dns-row-value{padding:5px 12px 5px 2px;font-size:12px}.dns-lab button:not(.dns-test-btn){width:100%}}
+.nested-exercise{margin:10px -16px 0;border-color:#b8cce0;background:#f7faff}.nested-exercise>summary{font-size:18px;padding:12px 12px}.nested-exercise>.inside{padding:12px 12px}@media(min-width:700px){.dns-table .dns-row-value{max-width:260px}}
+@media(max-width:480px){.nested-exercise{margin-left:-15px;margin-right:-15px}.nested-exercise>summary{padding:11px 9px}.nested-exercise>.inside{padding:10px 9px}}
+#feedback[hidden]{display:none}#quiz fieldset{margin:8px 0}#quiz .choice{padding:9px 11px;margin:5px 0}#quiz .feedback{margin:8px 0 0;min-height:0}.nested-exercise>.inside{padding-bottom:9px}
+
+@media(prefers-color-scheme:dark){
+:root{--ink:#e4ecf7;--line:#3b5069;--bg:#111d2b}
+header{background:#071426;color:#f3f7fc}
+.panel,details{background:#1c2b3d;color:var(--ink);border-color:var(--line)}
+details .inside{border-color:var(--line)}
+.example{background:#253c53;color:#eff6ff}
+label.choice{background:#263a50;color:#eff6ff}
+.secondary{background:#223b56;color:#e7f2ff;border-color:#587da6}
+small,.muted,footer{color:#b2c3d8}
+a:not(.link){color:#8dc1ff}
+.nested-exercise{background:#20344b;border-color:#42617e}
+.dns-lab{background:#192c40;color:#e4ecf7;border-color:#42617e}
+.dns-table th,.dns-table td{border-color:#41576e}
+.dns-lab select,.dns-table .dns-row-value{background:#263e56;color:#f2f7ff;border-color:#6787a8;color-scheme:dark}
+.dns-lab hr{border-color:#466078}
+.dns-console{background:#0b1520;color:#d9f8e1;border-color:#263c4e}
+.dns-console-title{color:#77dba2;border-color:#314b5e}
+.version-fixe{background:rgba(17,29,43,.94);color:#b9c8dc}
+}
+.dns-examples .dns-example+.dns-example{margin-top:18px}.dns-examples .dns-example-title{font-weight:normal}.dns-examples .dns-example p{margin:4px 0 0;line-height:1.5;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<header><h1>DNS</h1></header>
+<main>
+<div class="toolbar"><button type="button" id="mode" aria-pressed="false">Mode présentation</button><a class="link secondary" href="/">Retour au portail</a></div>
+<details id="cours"><summary>1. À quoi sert le DNS ?</summary><div class="inside">
+<p>Le DNS (Domain Name System) permet à un ordinateur de trouver l'adresse IP associée à un nom.</p>
+<p>Grâce au DNS, nous utilisons des noms faciles à retenir plutôt que des adresses IP.</p>
+<div class="example dns-examples"><div class="dns-example"><div class="dns-example-title">Exemple sur Internet :</div><p>Le serveur DNS associe le nom <strong>www.athenyx.net</strong> à l'adresse IPv4 <strong>192.0.2.10</strong>.</p></div><div class="dns-example"><div class="dns-example-title">Exemple dans une entreprise :</div><p>Le serveur DNS peut associer le nom <strong>srv-fichiers.entreprise.local</strong> à l'adresse IPv4 <strong>192.168.1.10</strong>.</p></div></div>
+<p>Quand ton ordinateur veut contacter un serveur, il peut demander son adresse IP au serveur DNS.</p>
+<p>Le serveur DNS lui répond. Ton ordinateur peut alors contacter le serveur recherché.</p>
+<details id="exercice" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><form id="quiz" autocomplete="off"><fieldset><legend>Lorsque tu ouvres un site web, quel rôle le DNS joue-t-il ?</legend>
+<label class="choice"><input type="radio" name="reponse" value="a">Il vérifie que le serveur web est disponible.</label>
+<label class="choice"><input type="radio" name="reponse" value="b">Il recherche l'adresse IP associée au nom du site web.</label>
+<label class="choice"><input type="radio" name="reponse" value="c">Il établit la connexion entre ton ordinateur et le serveur web.</label>
+<label class="choice"><input type="radio" name="reponse" value="d">Il transmet le contenu du site web à ton navigateur.</label>
+</fieldset><button type="submit">Vérifier ma réponse</button><p class="feedback" id="feedback" role="status" aria-live="polite" hidden></p></form></div></details>
+</div></details>
+<details id="chapitre-2"><summary>2. Fonctionnement simplifié du DNS</summary><div class="inside"><p>Le PC demande au serveur DNS une information associée à un nom. Le serveur renvoie une réponse, par exemple une adresse IP.</p><div class="example">PC → Requête DNS → Serveur DNS<br>PC ← Réponse DNS ← Serveur DNS</div><p>Le DNS ne transporte pas les pages web : il aide le PC à trouver le service demandé.</p></div></details>
+<details id="chapitre-3"><summary>3. Structure d'un nom de domaine</summary><div class="inside"><p>Exemple : <strong>serveur1.infra.athenyx.net</strong></p><div class="example">Hôte : serveur1<br>Sous-domaine : infra<br>Domaine : athenyx<br>Extension (TLD) : net</div><p>Les noms DNS sont organisés de façon hiérarchique, à partir de la racine et du domaine de premier niveau.</p></div></details>
+<details id="chapitre-4"><summary>4. Les enregistrements DNS</summary><div class="inside"><p>Chaque type d'enregistrement répond à un besoin différent.</p><div class="example"><strong>A</strong> : nom vers IPv4<br><strong>AAAA</strong> : nom vers IPv6<br><strong>CNAME</strong> : alias vers un autre nom<br><strong>MX</strong> : serveurs de réception du courrier<br><strong>TXT</strong> : informations textuelles, notamment certains paramètres de sécurité</div><p>SPF, DKIM et DMARC sont des mécanismes utilisés pour la sécurité des courriels. Ils s'appuient notamment sur des enregistrements DNS de type TXT.</p></div></details>
+<details id="chapitre-5"><summary>5. Lire une zone DNS</summary><div class="inside">
+<p>Une zone DNS regroupe des enregistrements administrés pour un domaine. Observe cette zone simplifiée de <strong>athenyx.net</strong>, puis lance des requêtes ou modifie un enregistrement.</p>
+<section class="dns-lab" aria-label="Simulateur de zone DNS">
+<h3>Serveur DNS virtuel : athenyx.net</h3>
+<p class="muted">Simulation pédagogique, sans modification d'un véritable serveur.</p>
+<div class="dns-table-wrap"><table class="dns-table"><thead><tr><th>Nom</th><th>Type</th><th>Valeur</th><th><span class="visually-hidden">Action</span></th></tr></thead><tbody id="dns-records"></tbody></table></div>
+<div id="dns-result" class="dns-console" role="status" aria-live="polite" hidden><div class="dns-console-title">Console DNS</div><pre id="dns-output"></pre></div>
+<p id="dns-status" role="status" aria-live="polite" class="muted"></p>
+</section>
+<p>Le nom <strong>www</strong> est un alias CNAME. L'enregistrement MX indique un serveur de réception et sa priorité. Compare les réponses avant et après une modification.</p>
+</div></details>
+<details id="chapitre-6"><summary>6. DNS et cybersécurité</summary><div class="inside"><p>Une mauvaise configuration ou une modification malveillante des réponses DNS peut rediriger l'utilisateur vers un faux service ou rendre un site inaccessible.</p><div class="example">Exemple : le nom d'un site pointe vers une mauvaise adresse IP.</div><p>Parmi les risques : détournement DNS, hameçonnage, vol d'identifiants et interruption de services. Les protections de messagerie SPF, DKIM et DMARC seront approfondies dans le cours sur la messagerie.</p></div></details>
+<details id="chapitre-7"><summary>7. Reverse DNS (PTR)</summary><div class="inside"><p>La résolution inverse sert à rechercher un nom à partir d'une adresse IP. Elle utilise un enregistrement <strong>PTR</strong>.</p><div class="example">192.0.2.10<br>↓<br>10.2.0.192.in-addr.arpa<br>↓ (si un PTR existe)<br>athenyx.net</div><p>Pour une adresse IPv4, les quatre nombres sont inversés dans le nom de recherche. La réponse dépend de l'existence et du contenu de l'enregistrement PTR.</p></div></details>
+<details id="chapitre-8"><summary>8. Incidents DNS et diagnostic</summary><div class="inside"><p>En fin de cours, nous étudierons des situations professionnelles : un site joignable par son IP mais pas par son nom, un mauvais enregistrement, un serveur de messagerie introuvable ou un PTR absent.</p><div class="example">Situation : un PC accède à 192.0.2.10, mais n'arrive pas à ouvrir www.athenyx.net. Que faut-il vérifier en premier ?</div><p>Les exercices de diagnostic interactifs seront ajoutés au fur et à mesure. Les commandes telles que <code>nslookup</code> permettront de vérifier la résolution.</p></div></details>
+</main>
+<script>
+const mode=document.getElementById('mode'),cours=document.getElementById('cours'),exercice=document.getElementById('exercice'),form=document.getElementById('quiz'),feedback=document.getElementById('feedback');
+mode.addEventListener('click',()=>{const active=document.documentElement.classList.toggle('presentation');mode.textContent=active?'Quitter la présentation':'Mode présentation';mode.setAttribute('aria-pressed',String(active));});
+form.reset();
+window.addEventListener('pageshow',()=>{form.reset();feedback.hidden=true;feedback.textContent=''});
+form.addEventListener('submit',e=>{e.preventDefault();const value=new FormData(form).get('reponse');feedback.hidden=false;feedback.textContent=!value?'Choisis une réponse.':value==='b'?'Bonne réponse. Le DNS retrouve l’adresse IP associée au nom demandé.':'Ce n’est pas la bonne réponse. Le DNS fournit des informations sur les noms, sans vérifier le serveur ni transmettre la page.';});
+form.addEventListener('change',()=>{feedback.hidden=true;feedback.textContent=''});
+const chapters=[...document.querySelectorAll('main > details')];
+chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
+ if(!chapter.open)return;
+ chapters.forEach(other=>{if(other!==chapter)other.open=false});
+ requestAnimationFrame(()=>{if(chapter.open){const top=chapter.getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:Math.max(0,top),behavior:'instant'});}});
+}));
+
+const dnsInitial={site:"192.0.2.10",www:"athenyx.net",mail:"192.0.2.20",mx:"10 mail.athenyx.net"};
+let dnsZone={...dnsInitial};
+const dnsNames={site:"athenyx.net",www:"www",mail:"mail",mx:"athenyx.net"};
+const dnsTypes={site:"A",www:"CNAME",mail:"A",mx:"MX"};
+const dnsChoices={site:["192.0.2.10","192.0.2.30","192.0.2.50"],www:["athenyx.net","mail.athenyx.net","serveur-inconnu.athenyx.net"],mail:["192.0.2.20","192.0.2.40","192.0.2.50"],mx:["10 mail.athenyx.net","10 www.athenyx.net","10 serveur-inconnu.athenyx.net"]};
+let dnsActiveTest=null;
+const dnsRows=document.getElementById("dns-records"),dnsResult=document.getElementById("dns-result"),dnsOutput=document.getElementById("dns-output"),dnsStatus=document.getElementById("dns-status");
+function dnsRender(){dnsRows.replaceChildren(...["site","www","mail","mx"].map(k=>{const tr=document.createElement("tr");for(const v of [dnsNames[k],dnsTypes[k]]){const td=document.createElement("td");td.textContent=v;tr.appendChild(td)}
+const valueCell=document.createElement("td"),select=document.createElement("select");select.className="dns-row-value";select.setAttribute("aria-label","Valeur de "+dnsTypes[k]+" "+dnsNames[k]);for(const v of dnsChoices[k]){const option=document.createElement("option");option.value=v;option.textContent=v;select.appendChild(option)}select.value=dnsZone[k];select.addEventListener("change",()=>{dnsZone[k]=select.value;dnsResult.hidden=true;dnsActiveTest=null;dnsStatus.textContent="Valeur modifiée. Clique sur Test pour vérifier.";});valueCell.appendChild(select);tr.appendChild(valueCell);
+const cell=document.createElement("td"),btn=document.createElement("button");btn.type="button";btn.className="dns-test-btn";btn.textContent="Test";btn.setAttribute("aria-label","Tester "+dnsTypes[k]+" "+(k==="www"?"www.athenyx.net":k==="mail"?"mail.athenyx.net":"athenyx.net"));btn.addEventListener("click",()=>dnsTest(k));cell.appendChild(btn);tr.appendChild(cell);return tr}))}
+function dnsLookup(name,seen=[]){if(seen.includes(name))return null;if(name==="athenyx.net")return dnsZone.site;if(name==="mail.athenyx.net")return dnsZone.mail;if(name==="www.athenyx.net")return dnsLookup(dnsZone.www,[...seen,name]);return null}
+function dnsTest(k){if(!dnsResult.hidden&&dnsActiveTest===k){dnsResult.hidden=true;dnsActiveTest=null;return}dnsActiveTest=k;const name=k==="www"?"www.athenyx.net":k==="mail"?"mail.athenyx.net":"athenyx.net",type=dnsTypes[k];let lines=["C:\\> nslookup -type="+type+" "+name,""];if(k==="www"){lines.push(name+".  CNAME  "+dnsZone.www+".");}else if(k==="mx"){lines.push(name+".  MX  "+dnsZone.mx+".");}else{const ip=dnsLookup(name);lines.push(ip?name+".  A  "+ip:"*** Aucun enregistrement A trouvé");}dnsOutput.textContent=lines.join("\n");dnsResult.hidden=false;dnsStatus.textContent=""}
+dnsRender();
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.11</div></body></html>
