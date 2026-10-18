@@ -1,0 +1,22 @@
+/* Barre de navigation commune aux cours CS, inspirée du cours DNS. */
+header.cours-topbar{padding:9px 16px;background:#102b51;color:#fff}
+header.cours-topbar .cours-topbar-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;max-width:1200px;margin:auto}
+header.cours-topbar h1{grid-column:2;justify-self:center;text-align:center;margin:0;padding:0;color:#fff;font:bold clamp(20px,3vw,32px)/1.22 Arial,sans-serif;letter-spacing:normal}
+header.cours-topbar .cours-topbar-nav{grid-column:3;justify-self:end;display:flex;gap:8px;align-items:center}
+header.cours-topbar .cours-icon{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:42px;height:42px;min-width:42px;padding:7px;margin:0;border-radius:9px;border:1px solid #54779c;background:#223d60;color:#fff;text-decoration:none;cursor:pointer;font:inherit;box-shadow:none}
+header.cours-topbar button.cours-icon{background:#185ba4;border-color:#185ba4}
+header.cours-topbar .cours-icon:hover{filter:brightness(1.18)}
+header.cours-topbar .cours-icon:focus-visible{outline:3px solid #f0ba4a;outline-offset:2px}
+header.cours-topbar .cours-icon svg{display:block;width:23px;height:23px;flex:none}
+html.cours-presentation main{max-width:100%;width:100%;padding:12px 18px}
+html.cours-presentation main p,html.cours-presentation main li{font-size:clamp(20px,2.3vw,29px);line-height:1.4}
+html.cours-presentation main summary{font-size:clamp(22px,2.5vw,32px);line-height:1.3}
+html.cours-presentation main h2{font-size:clamp(24px,2.8vw,36px)}
+@media(max-width:600px){
+header.cours-topbar{padding:8px 10px}
+header.cours-topbar .cours-topbar-inner{grid-template-columns:77px minmax(0,1fr) 77px;gap:5px}
+header.cours-topbar h1{font-size:clamp(15px,3.7vw,21px);max-width:100%;overflow-wrap:break-word;hyphens:auto}
+header.cours-topbar .cours-topbar-nav{gap:5px}
+header.cours-topbar .cours-icon{width:36px;height:36px;min-width:36px;padding:5px}
+header.cours-topbar .cours-icon svg{width:20px;height:20px}
+}
