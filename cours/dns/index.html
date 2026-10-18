@@ -68,16 +68,28 @@ header{padding:9px 12px}
 .header-bar .toolbar svg{width:20px;height:20px}
 }
 
-/* Chapitre 2 : parcours DNS interactif */
-.dns-parcours{background:#edf6ff;color:#102d4a;border:1px solid #a9c5e2;border-radius:12px;padding:14px;margin:18px 0}
-.dns-parcours-machines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
-.dns-machine{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;min-height:95px;padding:9px 5px;border:2px solid #b5c9de;border-radius:10px;background:#fff;transition:background .2s,border-color .2s}
-.dns-machine span{font-size:29px;line-height:1.2}.dns-machine strong{font-size:clamp(12px,1.7vw,16px);line-height:1.25}
-.dns-machine.active{background:#d4e9ff;border-color:#1767c3}
-.dns-parcours-etape{margin:12px 0;background:#fff;border-radius:9px;padding:12px;min-height:94px;border:1px solid #bfd2e5}
-.dns-parcours-etape p{margin:5px 0 0}.dns-parcours button{padding:10px 17px}
-@media(prefers-color-scheme:dark){.dns-parcours{background:#192c40;color:#eff6ff;border-color:#42617e}.dns-machine,.dns-parcours-etape{background:#20344b;border-color:#42617e}.dns-machine.active{background:#254e75;border-color:#7cb9ff}}
-@media(max-width:480px){.dns-parcours{padding:9px}.dns-parcours-machines{gap:5px}.dns-machine{min-height:84px;padding:7px 3px}.dns-machine span{font-size:25px}.dns-machine strong{font-size:12px}.dns-parcours button{width:100%}}
+/* Chapitre 2 : animation DNS en triangle */
+.dns-parcours{margin:18px 0;padding:12px;border:1px solid #a9c5e2;border-radius:12px;background:#edf6ff;color:#102d4a}
+.dns-scene{position:relative;max-width:680px;margin:0 auto;overflow:hidden}
+.dns-scene svg{display:block;width:100%;height:auto}
+.dns-scene .dns-node rect{fill:#fff;stroke:#5183b5;stroke-width:2}
+.dns-scene .dns-node text{fill:#153556;text-anchor:middle;font-family:Arial,sans-serif;font-weight:700}
+.dns-scene .dns-node{transition:opacity .5s ease;opacity:1}
+.dns-scene .dns-node.dim{opacity:.24}
+.dns-scene .dns-node.active rect{stroke:#1971c7;stroke-width:3}
+.dns-scene .dns-wire{fill:none;stroke-width:3;stroke-linecap:round;opacity:0;transition:opacity .25s}
+.dns-scene .dns-wire.on{opacity:1}
+.dns-scene .dns-wire.dns-query{stroke:#1d72d1}.dns-scene .dns-wire.dns-answer{stroke:#0d9771}.dns-scene .dns-wire.dns-web{stroke:#d27a22}
+.dns-scene .dns-packet{opacity:0}.dns-scene .dns-packet.on{opacity:1}
+.dns-scene .dns-packet circle{fill:#ffb12c;stroke:#fff;stroke-width:2}
+.dns-scene .dns-bubble{position:absolute;left:8%;top:1%;width:84%;min-height:50px;padding:7px 10px;background:#fff;border:2px solid #3d76b0;border-radius:10px;text-align:center;font-size:clamp(12px,2.3vw,17px);line-height:1.35;box-shadow:0 3px 10px #0002}
+.dns-scene .dns-bubble[hidden]{display:none}
+.dns-scene .dns-bubble strong{display:block;font-size:.82em;color:#195a9c}
+.dns-scene .dns-bubble.answer{border-color:#0d9771}.dns-scene .dns-bubble.answer strong{color:#0d7c5f}
+.dns-scene .dns-bubble.web{border-color:#d27a22}.dns-scene .dns-bubble.web strong{color:#a45a13}
+.dns-parcours-controls{text-align:center;margin-top:4px}.dns-parcours-controls button{min-width:130px;padding:9px 16px}
+@media(prefers-color-scheme:dark){.dns-parcours{background:#192c40;color:#eff6ff;border-color:#42617e}.dns-scene .dns-node rect{fill:#233f5b;stroke:#87b4e5}.dns-scene .dns-node text{fill:#f0f7ff}.dns-scene .dns-bubble{background:#20344b;color:#fff;box-shadow:none}.dns-scene .dns-bubble strong{color:#9ac8ff}.dns-scene .dns-bubble.answer strong{color:#92e7cd}.dns-scene .dns-bubble.web strong{color:#ffce90}}
+@media(max-width:480px){.dns-parcours{padding:6px}.dns-scene .dns-bubble{font-size:12px;padding:5px;top:0%;min-height:40px}}
 </style>
 </head>
 <body>
@@ -101,10 +113,20 @@ header{padding:9px 12px}
 <p>Il interroge un serveur DNS pour obtenir cette adresse.</p>
 <p>Le serveur DNS lui répond : <strong>192.0.2.10</strong>.</p>
 <p>Ton ordinateur peut alors contacter le serveur web pour récupérer la page demandée.</p>
-<div class="dns-parcours" aria-label="Les trois étapes d'une recherche DNS">
-<div class="dns-parcours-machines"><div class="dns-machine" data-role="pc"><span aria-hidden="true">💻</span><strong>Ordinateur</strong></div><div class="dns-machine" data-role="dns"><span aria-hidden="true">🗄️</span><strong>Serveur DNS</strong></div><div class="dns-machine" data-role="web"><span aria-hidden="true">🌐</span><strong>Serveur web</strong></div></div>
-<div class="dns-parcours-etape" aria-live="polite"><strong id="dns-parcours-titre">À toi de lancer les échanges</strong><p id="dns-parcours-texte">Observe comment l'ordinateur retrouve le serveur web.</p></div>
-<button type="button" id="dns-parcours-suivant">Démarrer</button>
+<div class="dns-parcours" aria-label="Animation des échanges entre ordinateur, DNS et serveur web">
+<div class="dns-scene">
+<svg viewBox="0 0 360 345" role="img" aria-label="Triangle : ordinateur à gauche, serveur DNS en haut à droite, serveur web en bas à droite. Les flèches montrent leurs échanges.">
+<g transform="translate(0 65)"><path class="dns-wire dns-query" id="dns-trajet-query" d="M99 129 L250 79"/>
+<path class="dns-wire dns-answer" id="dns-trajet-answer" d="M250 79 L99 129"/>
+<path class="dns-wire dns-web" id="dns-trajet-web" d="M99 160 L250 217"/>
+<g class="dns-node active" id="dns-anim-pc"><rect x="13" y="110" width="86" height="75" rx="9"/><text x="56" y="138" font-size="22">💻</text><text x="56" y="159" font-size="13">Ordinateur</text></g>
+<g class="dns-node active" id="dns-anim-dns"><rect x="250" y="43" width="97" height="73" rx="9"/><text x="298" y="68" font-size="21">🗄️</text><text x="298" y="88" font-size="13">Serveur DNS</text></g>
+<g class="dns-node dim" id="dns-anim-web"><rect x="250" y="180" width="97" height="76" rx="9"/><text x="298" y="207" font-size="22">🌐</text><text x="298" y="229" font-size="13">Serveur web</text><text x="298" y="245" font-size="10">192.0.2.10</text></g>
+<g class="dns-packet" id="dns-anim-packet"><circle r="8" cx="0" cy="0"/></g></g>
+</svg>
+<div class="dns-bubble" id="dns-anim-bubble" hidden aria-live="polite"><strong id="dns-anim-label"></strong><span id="dns-anim-message"></span></div>
+</div>
+<div class="dns-parcours-controls"><button type="button" id="dns-parcours-suivant">Lancer l'animation</button></div>
 </div>
 <p><strong>Le serveur DNS fournit l'adresse IP. C'est ensuite le serveur web qui envoie la page au navigateur.</strong></p>
 </div></details>
@@ -154,17 +176,46 @@ function dnsTest(k){if(!dnsResult.hidden&&dnsActiveTest===k){dnsResult.hidden=tr
 dnsRender();
 
 (function(){
-const button=document.getElementById('dns-parcours-suivant'),titre=document.getElementById('dns-parcours-titre'),texte=document.getElementById('dns-parcours-texte'),nodes=[...document.querySelectorAll('.dns-parcours .dns-machine')];
+const button=document.getElementById('dns-parcours-suivant');
 if(!button)return;
-const etapes=[
-['1. Demande DNS',"L'ordinateur demande au serveur DNS l'adresse IP de www.athenyx.net.",['pc','dns']],
-['2. Réponse DNS',"Le serveur DNS répond à l'ordinateur : 192.0.2.10.",['dns','pc']],
-['3. Connexion au serveur web',"L'ordinateur utilise 192.0.2.10 pour contacter le serveur web et recevoir la page.",['pc','web']]
-];
-let n=0;
-button.addEventListener('click',()=>{
-if(n===3){n=0;titre.textContent='À toi de lancer les échanges';texte.textContent="Observe comment l'ordinateur retrouve le serveur web.";button.textContent='Démarrer';nodes.forEach(node=>node.classList.remove('active'));return;}
-const [t,d,roles]=etapes[n++];titre.textContent=t;texte.textContent=d;nodes.forEach(node=>node.classList.toggle('active',roles.includes(node.dataset.role)));button.textContent=n===3?'Revoir les étapes':'Étape suivante';
+const nodes={pc:document.getElementById('dns-anim-pc'),dns:document.getElementById('dns-anim-dns'),web:document.getElementById('dns-anim-web')};
+const packet=document.getElementById('dns-anim-packet'),bubble=document.getElementById('dns-anim-bubble'),label=document.getElementById('dns-anim-label'),message=document.getElementById('dns-anim-message');
+const wires=[...document.querySelectorAll('.dns-parcours .dns-wire')];
+let timeouts=[],frame=0,run=0;
+const later=(fn,ms)=>timeouts.push(setTimeout(fn,ms));
+function reset(){
+run++;timeouts.forEach(clearTimeout);timeouts=[];cancelAnimationFrame(frame);
+nodes.pc.classList.remove('dim');nodes.dns.classList.remove('dim');nodes.web.classList.add('dim');
+wires.forEach(w=>w.classList.remove('on'));packet.classList.remove('on');bubble.hidden=true;bubble.className='dns-bubble';button.disabled=false;button.textContent="Lancer l'animation";
+}
+function travel(path,duration,next){
+const length=path.getTotalLength(),started=performance.now(),token=run;packet.classList.add('on');
+function tick(now){if(token!==run)return;const progress=Math.min(1,(now-started)/duration),p=path.getPointAtLength(length*progress);
+packet.setAttribute('transform',`translate(${p.x} ${p.y})`);
+if(progress<1)frame=requestAnimationFrame(tick);else{packet.classList.remove('on');next();}}
+frame=requestAnimationFrame(tick);
+}
+function exchange(type,who,what,duration,next){
+const path=document.getElementById('dns-trajet-'+type);wires.forEach(w=>w.classList.toggle('on',w===path));
+bubble.hidden=false;bubble.className='dns-bubble '+(type==='answer'?'answer':type==='web'?'web':'');label.textContent=who;message.textContent=what;
+travel(path,duration,next);
+}
+function start(){
+reset();button.disabled=true;button.textContent='Animation en cours…';
+exchange('query','Ordinateur → DNS','Quelle est l’adresse IP de www.athenyx.net ?',1800,()=>{
+later(()=>exchange('answer','DNS → Ordinateur','L’adresse IP est 192.0.2.10.',1800,()=>{
+later(()=>{
+nodes.dns.classList.add('dim');nodes.web.classList.remove('dim');
+exchange('web','Ordinateur → Serveur web','Envoie-moi la page web.',1650,()=>{
+later(()=>{bubble.className='dns-bubble web';label.textContent='Serveur web → Ordinateur';message.textContent='Voici les données de la page.';const path=document.getElementById('dns-trajet-web'),total=path.getTotalLength(),started=performance.now(),token=run;packet.classList.add('on');
+function back(now){if(token!==run)return;const t=Math.min(1,(now-started)/1650),p=path.getPointAtLength(total*(1-t));packet.setAttribute('transform',`translate(${p.x} ${p.y})`);if(t<1)frame=requestAnimationFrame(back);else{packet.classList.remove('on');button.disabled=false;button.textContent='Rejouer';}}
+frame=requestAnimationFrame(back);
+},450);
 });
+},600);
+}),550);
+});
+}
+button.addEventListener('click',start);
 })();
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.14</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.15</div></body></html>
