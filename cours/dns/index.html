@@ -82,14 +82,14 @@ header{padding:9px 12px}
 .dns-scene .dns-wire.dns-query{stroke:#1d72d1}.dns-scene .dns-wire.dns-answer{stroke:#0d9771}.dns-scene .dns-wire.dns-web{stroke:#d27a22}
 .dns-scene .dns-packet{opacity:0}.dns-scene .dns-packet.on{opacity:1}
 .dns-scene .dns-packet circle{fill:#ffb12c;stroke:#fff;stroke-width:2}
-.dns-scene .dns-bubble{position:absolute;left:37%;top:38%;width:59%;min-height:38px;padding:5px 6px;background:#ffffffeb;border:1px solid #adc6dd;border-radius:7px;text-align:center;font-size:clamp(12px,1.9vw,16px);line-height:1.22;box-shadow:none}
+.dns-scene .dns-bubble{position:absolute;left:38%;top:40%;width:55%;min-height:38px;padding:5px 6px;background:#ffffffeb;border:1px solid #adc6dd;border-radius:7px;text-align:center;font-size:clamp(12px,1.9vw,16px);line-height:1.22;box-shadow:none}
 .dns-scene .dns-bubble[hidden]{display:none}
 .dns-scene .dns-bubble strong{display:block;font-size:1em;color:#195a9c}
 .dns-scene .dns-bubble.answer{border-color:#0d9771}.dns-scene .dns-bubble.answer strong{color:#0d7c5f}
 .dns-scene .dns-bubble.web{border-color:#d27a22}.dns-scene .dns-bubble.web strong{color:#a45a13}
-.dns-parcours-controls{position:absolute;left:8%;bottom:2%;z-index:2}.dns-parcours-controls button{background:#0879ed;color:#fff;border:1px solid #67b1ff;box-shadow:0 2px 7px #0003;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;min-width:42px;padding:7px;border-radius:9px}.dns-parcours-controls button svg{display:block;width:24px;height:24px}.dns-parcours-controls button svg[hidden]{display:none}.dns-parcours-controls button:disabled{opacity:.65;cursor:default}
+.dns-parcours-controls{position:absolute;left:15.56%;bottom:2%;transform:translateX(-50%);z-index:2}.dns-parcours-controls button{background:#0879ed;color:#fff;border:1px solid #67b1ff;box-shadow:0 2px 7px #0003;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;min-width:42px;padding:7px;border-radius:9px}.dns-parcours-controls button svg{display:block;width:24px;height:24px}.dns-parcours-controls button svg[hidden]{display:none}.dns-parcours-controls button:disabled{opacity:.65;cursor:default}
 @media(prefers-color-scheme:dark){.dns-parcours{background:#192c40;color:#eff6ff;border-color:#42617e}.dns-scene .dns-node rect{fill:#233f5b;stroke:#87b4e5}.dns-scene .dns-node text{fill:#f0f7ff}.dns-scene .dns-bubble{background:#20344b;color:#fff;box-shadow:none}.dns-scene .dns-bubble strong{color:#9ac8ff}.dns-scene .dns-bubble.answer strong{color:#92e7cd}.dns-scene .dns-bubble.web strong{color:#ffce90}}
-@media(max-width:480px){.dns-parcours{padding:6px}.dns-scene .dns-bubble{font-size:clamp(11px,2.75vw,13px);padding:4px;top:36%;min-height:34px;line-height:1.15}}
+@media(max-width:480px){.dns-parcours{padding:6px}.dns-scene .dns-bubble{font-size:clamp(11px,2.75vw,13px);padding:4px;top:39%;min-height:34px;line-height:1.15}}
 </style>
 </head>
 <body>
@@ -118,7 +118,7 @@ header{padding:9px 12px}
 <svg viewBox="0 0 360 182" role="img" aria-label="Triangle : ordinateur à gauche, serveur DNS en haut à droite, serveur web en bas à droite. Les flèches montrent leurs échanges.">
 <g><path class="dns-wire dns-query" id="dns-trajet-query" d="M99 68 L250 38"/>
 <path class="dns-wire dns-answer" id="dns-trajet-answer" d="M250 38 L99 68"/>
-<path class="dns-wire dns-web" id="dns-trajet-web" d="M99 143 L250 137"/>
+<path class="dns-wire dns-web" id="dns-trajet-web" d="M99 117 L250 141"/>
 <g class="dns-node active" id="dns-anim-pc"><rect x="13" y="68" width="86" height="75" rx="9"/><text x="56" y="96" font-size="22">💻</text><text x="56" y="117" font-size="13">Ordinateur</text></g>
 <g class="dns-node active" id="dns-anim-dns"><rect x="250" y="3" width="97" height="66" rx="9"/><text x="298" y="27" font-size="21">🗄️</text><text x="298" y="47" font-size="13">Serveur DNS</text></g>
 <g class="dns-node dim" id="dns-anim-web"><rect x="250" y="108" width="97" height="66" rx="9"/><text x="298" y="127" font-size="22">🌐</text><text x="298" y="146" font-size="13">Serveur web</text><text x="298" y="161" font-size="10">192.0.2.10</text></g>
@@ -219,4 +219,4 @@ frame=requestAnimationFrame(back);
 }
 button.addEventListener('click',start);
 })();
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.18</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.19</div></body></html>
