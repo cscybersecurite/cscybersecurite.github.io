@@ -67,6 +67,17 @@ header{padding:9px 12px}
 .header-bar .toolbar button.icon-control,.header-bar .toolbar a.home-link{flex-basis:36px;width:36px;height:36px}
 .header-bar .toolbar svg{width:20px;height:20px}
 }
+
+/* Chapitre 2 : parcours DNS interactif */
+.dns-parcours{background:#edf6ff;color:#102d4a;border:1px solid #a9c5e2;border-radius:12px;padding:14px;margin:18px 0}
+.dns-parcours-machines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.dns-machine{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;min-height:95px;padding:9px 5px;border:2px solid #b5c9de;border-radius:10px;background:#fff;transition:background .2s,border-color .2s}
+.dns-machine span{font-size:29px;line-height:1.2}.dns-machine strong{font-size:clamp(12px,1.7vw,16px);line-height:1.25}
+.dns-machine.active{background:#d4e9ff;border-color:#1767c3}
+.dns-parcours-etape{margin:12px 0;background:#fff;border-radius:9px;padding:12px;min-height:94px;border:1px solid #bfd2e5}
+.dns-parcours-etape p{margin:5px 0 0}.dns-parcours button{padding:10px 17px}
+@media(prefers-color-scheme:dark){.dns-parcours{background:#192c40;color:#eff6ff;border-color:#42617e}.dns-machine,.dns-parcours-etape{background:#20344b;border-color:#42617e}.dns-machine.active{background:#254e75;border-color:#7cb9ff}}
+@media(max-width:480px){.dns-parcours{padding:9px}.dns-parcours-machines{gap:5px}.dns-machine{min-height:84px;padding:7px 3px}.dns-machine span{font-size:25px}.dns-machine strong{font-size:12px}.dns-parcours button{width:100%}}
 </style>
 </head>
 <body>
@@ -85,7 +96,18 @@ header{padding:9px 12px}
 <label class="choice"><input type="radio" name="reponse" value="d">Il transmet le contenu du site web à ton navigateur.</label>
 </fieldset><button type="submit">Vérifier ma réponse</button><p class="feedback" id="feedback" role="status" aria-live="polite" hidden></p></form></div></details>
 </div></details>
-<details id="chapitre-2"><summary>2. Fonctionnement simplifié du DNS</summary><div class="inside"><p>Le PC demande au serveur DNS une information associée à un nom. Le serveur renvoie une réponse, par exemple une adresse IP.</p><div class="example">PC → Requête DNS → Serveur DNS<br>PC ← Réponse DNS ← Serveur DNS</div><p>Le DNS ne transporte pas les pages web : il aide le PC à trouver le service demandé.</p></div></details>
+<details id="chapitre-2"><summary>2. Fonctionnement simplifié du DNS</summary><div class="inside">
+<p>Lorsque tu saisis <strong>www.athenyx.net</strong> dans ton navigateur, ton ordinateur doit connaître l'adresse IP du serveur web.</p>
+<p>Il interroge un serveur DNS pour obtenir cette adresse.</p>
+<p>Le serveur DNS lui répond : <strong>192.0.2.10</strong>.</p>
+<p>Ton ordinateur peut alors contacter le serveur web pour récupérer la page demandée.</p>
+<div class="dns-parcours" aria-label="Les trois étapes d'une recherche DNS">
+<div class="dns-parcours-machines"><div class="dns-machine" data-role="pc"><span aria-hidden="true">💻</span><strong>Ordinateur</strong></div><div class="dns-machine" data-role="dns"><span aria-hidden="true">🗄️</span><strong>Serveur DNS</strong></div><div class="dns-machine" data-role="web"><span aria-hidden="true">🌐</span><strong>Serveur web</strong></div></div>
+<div class="dns-parcours-etape" aria-live="polite"><strong id="dns-parcours-titre">À toi de lancer les échanges</strong><p id="dns-parcours-texte">Observe comment l'ordinateur retrouve le serveur web.</p></div>
+<button type="button" id="dns-parcours-suivant">Démarrer</button>
+</div>
+<p><strong>Le serveur DNS fournit l'adresse IP. C'est ensuite le serveur web qui envoie la page au navigateur.</strong></p>
+</div></details>
 <details id="chapitre-3"><summary>3. Structure d'un nom de domaine</summary><div class="inside"><p>Exemple : <strong>serveur1.infra.athenyx.net</strong></p><div class="example">Hôte : serveur1<br>Sous-domaine : infra<br>Domaine : athenyx<br>Extension (TLD) : net</div><p>Les noms DNS sont organisés de façon hiérarchique, à partir de la racine et du domaine de premier niveau.</p></div></details>
 <details id="chapitre-4"><summary>4. Les enregistrements DNS</summary><div class="inside"><p>Chaque type d'enregistrement répond à un besoin différent.</p><div class="example"><strong>A</strong> : nom vers IPv4<br><strong>AAAA</strong> : nom vers IPv6<br><strong>CNAME</strong> : alias vers un autre nom<br><strong>MX</strong> : serveurs de réception du courrier<br><strong>TXT</strong> : informations textuelles, notamment certains paramètres de sécurité</div><p>SPF, DKIM et DMARC sont des mécanismes utilisés pour la sécurité des courriels. Ils s'appuient notamment sur des enregistrements DNS de type TXT.</p></div></details>
 <details id="chapitre-5"><summary>5. Lire une zone DNS</summary><div class="inside">
@@ -130,4 +152,19 @@ const cell=document.createElement("td"),btn=document.createElement("button");btn
 function dnsLookup(name,seen=[]){if(seen.includes(name))return null;if(name==="athenyx.net")return dnsZone.site;if(name==="mail.athenyx.net")return dnsZone.mail;if(name==="www.athenyx.net")return dnsLookup(dnsZone.www,[...seen,name]);return null}
 function dnsTest(k){if(!dnsResult.hidden&&dnsActiveTest===k){dnsResult.hidden=true;dnsActiveTest=null;return}dnsActiveTest=k;const name=k==="www"?"www.athenyx.net":k==="mail"?"mail.athenyx.net":"athenyx.net",type=dnsTypes[k];let lines=["C:\\> nslookup -type="+type+" "+name,""];if(k==="www"){lines.push(name+".  CNAME  "+dnsZone.www+".");}else if(k==="mx"){lines.push(name+".  MX  "+dnsZone.mx+".");}else{const ip=dnsLookup(name);lines.push(ip?name+".  A  "+ip:"*** Aucun enregistrement A trouvé");}dnsOutput.textContent=lines.join("\n");dnsResult.hidden=false;dnsStatus.textContent=""}
 dnsRender();
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.13</div></body></html>
+
+(function(){
+const button=document.getElementById('dns-parcours-suivant'),titre=document.getElementById('dns-parcours-titre'),texte=document.getElementById('dns-parcours-texte'),nodes=[...document.querySelectorAll('.dns-parcours .dns-machine')];
+if(!button)return;
+const etapes=[
+['1. Demande DNS',"L'ordinateur demande au serveur DNS l'adresse IP de www.athenyx.net.",['pc','dns']],
+['2. Réponse DNS',"Le serveur DNS répond à l'ordinateur : 192.0.2.10.",['dns','pc']],
+['3. Connexion au serveur web',"L'ordinateur utilise 192.0.2.10 pour contacter le serveur web et recevoir la page.",['pc','web']]
+];
+let n=0;
+button.addEventListener('click',()=>{
+if(n===3){n=0;titre.textContent='À toi de lancer les échanges';texte.textContent="Observe comment l'ordinateur retrouve le serveur web.";button.textContent='Démarrer';nodes.forEach(node=>node.classList.remove('active'));return;}
+const [t,d,roles]=etapes[n++];titre.textContent=t;texte.textContent=d;nodes.forEach(node=>node.classList.toggle('active',roles.includes(node.dataset.role)));button.textContent=n===3?'Revoir les étapes':'Étape suivante';
+});
+})();
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.14</div></body></html>
