@@ -118,6 +118,7 @@ header{padding:9px 12px}
 @media(prefers-color-scheme:dark){#chapitre-4 h3{color:#a8d1ff;border-color:#5c83ab}.dns-q4-ex strong{color:#a8d1ff}.dns-q4-row{background:#24384f}.dns-q4-row select{background:#1e2d40;color:#fff;border-color:#6687a9}}
 @media(max-width:480px){.dns-q4-row{grid-template-columns:minmax(0,1fr) 104px;gap:6px;padding:6px}.dns-q4-row select{width:104px;font-size:14px}#chapitre-4 h3{font-size:20px}}
 .dns-attaques{display:grid;gap:13px;margin:15px 0}.dns-attaque{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:start;border-bottom:1px solid var(--line);padding:6px 0 12px}.dns-attaque:last-child{border-bottom:0}.dns-attaque-icone{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:#edf4fc;border-radius:10px;font-size:25px}.dns-attaque p{margin:5px 0}.dns-quiz-6{margin-top:18px}.dns-quiz-6 summary{font-size:19px}.dns-quiz-6 legend{line-height:1.5}.presentation .dns-attaque{grid-template-columns:58px 1fr}.presentation .dns-attaque-icone{width:58px;height:58px;font-size:29px}
+.dns-quiz-6 legend,.dns-quiz-6 label.choice{font-weight:400}
 </style>
 </head>
 <body>
@@ -247,7 +248,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>DNS tunneling (transport caché de données)</strong><p>Un logiciel malveillant cache des données dans des demandes DNS pour les envoyer vers un serveur extérieur.</p><p><em>Exemple :</em> un ordinateur infecté envoie discrètement des informations de l'entreprise dans ses requêtes DNS.</p></div></div>
 </div>
 <details class="dns-quiz-6"><summary>Je me teste</summary><div class="inside">
-<form id="quiz-6"><fieldset><legend><strong>Situation :</strong> des clients d'une boutique en ligne saisissent la bonne adresse du site. Pourtant, pendant plusieurs heures, ils arrivent sur une copie frauduleuse. L'enquête montre que le serveur DNS consulté par ces clients conserve une information falsifiée. Quel type d'attaque reconnais-tu ?</legend>
+<form id="quiz-6"><fieldset><legend>Des clients d'une boutique en ligne saisissent la bonne adresse du site. Pourtant, pendant plusieurs heures, ils arrivent sur une copie frauduleuse. L'enquête montre que le serveur DNS consulté par ces clients conserve une information falsifiée. Quel type d'attaque reconnais-tu ?</legend>
 <label class="choice"><input type="radio" name="attaque" value="a"> DNS hijacking</label>
 <label class="choice"><input type="radio" name="attaque" value="b"> DNS cache poisoning</label>
 <label class="choice"><input type="radio" name="attaque" value="c"> Attaque DDoS contre le DNS</label>
