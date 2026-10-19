@@ -32,6 +32,8 @@
     .ressource[data-type="cours"][data-couleur="bleu"] .visuel img { border-color:#569cdb; }
     .ressource.ipv4 .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
     .ressource[data-couleur="bleu"] .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
+    /* DNS seulement : blanc en theme clair, theme sombre conserve ci-dessous. */
+    .ressource.dns .visuel { background:#fff; }
     .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#ddf8ec,#8edab9); }
     .ressource[data-couleur="jaune"] .visuel { background:linear-gradient(130deg,#fff9d8,#ffe784); }
     /* Essai IPCalc : marge autour du module plus fine, IPv4 inchangé */
