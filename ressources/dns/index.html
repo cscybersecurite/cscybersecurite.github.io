@@ -117,6 +117,7 @@ header{padding:9px 12px}
 .dns-q4-row select{width:116px;font:inherit;font-size:15px;box-sizing:border-box;padding:6px 3px;border:1px solid #9db6d2;border-radius:7px;background:white;color:#102d4a}
 @media(prefers-color-scheme:dark){#chapitre-4 h3{color:#a8d1ff;border-color:#5c83ab}.dns-q4-ex strong{color:#a8d1ff}.dns-q4-row{background:#24384f}.dns-q4-row select{background:#1e2d40;color:#fff;border-color:#6687a9}}
 @media(max-width:480px){.dns-q4-row{grid-template-columns:minmax(0,1fr) 104px;gap:6px;padding:6px}.dns-q4-row select{width:104px;font-size:14px}#chapitre-4 h3{font-size:20px}}
+.dns-attaques{display:grid;gap:13px;margin:15px 0}.dns-attaque{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:start;border-bottom:1px solid var(--line);padding:6px 0 12px}.dns-attaque:last-child{border-bottom:0}.dns-attaque-icone{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:#edf4fc;border-radius:10px;font-size:25px}.dns-attaque p{margin:5px 0}.dns-quiz-6{margin-top:18px}.dns-quiz-6 summary{font-size:19px}.dns-quiz-6 legend{line-height:1.5}.presentation .dns-attaque{grid-template-columns:58px 1fr}.presentation .dns-attaque-icone{width:58px;height:58px;font-size:29px}
 </style>
 </head>
 <body>
@@ -236,7 +237,24 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </section>
 <p>Le nom <strong>www</strong> est un alias CNAME. L'enregistrement MX indique un serveur de réception et sa priorité. Compare les réponses avant et après une modification.</p>
 </div></details>
-<details id="chapitre-6"><summary>6. DNS et cybersécurité</summary><div class="inside"><p>Une mauvaise configuration ou une modification malveillante des réponses DNS peut rediriger l'utilisateur vers un faux service ou rendre un site inaccessible.</p><div class="example">Exemple : le nom d'un site pointe vers une mauvaise adresse IP.</div><p>Parmi les risques : détournement DNS, hameçonnage, vol d'identifiants et interruption de services. Les protections de messagerie SPF, DKIM et DMARC seront approfondies dans le cours sur la messagerie.</p></div></details>
+<details id="chapitre-6"><summary>6. DNS et cybersécurité</summary><div class="inside">
+<p>Des pirates peuvent utiliser le DNS pour voler des données, envoyer les utilisateurs vers de faux sites ou bloquer des services.</p>
+<div class="dns-attaques">
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🛡️</span><div><strong>DNS spoofing (fausse réponse DNS)</strong><p>Le pirate envoie une fausse adresse IP à un ordinateur.</p><p><em>Exemple :</em> tu veux aller sur le site de ta banque, mais tu arrives sur un faux site qui lui ressemble.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🗃️</span><div><strong>DNS cache poisoning (fausse réponse enregistrée)</strong><p>Le pirate fait enregistrer une fausse adresse IP dans la mémoire d'un serveur DNS.</p><p><em>Exemple :</em> plusieurs clients d'un magasin en ligne sont envoyés vers le même faux site.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🌐</span><div><strong>DNS hijacking (détournement du serveur DNS)</strong><p>Le pirate change les réglages DNS d'un ordinateur ou d'une box. Les demandes DNS passent alors par un serveur qu'il contrôle.</p><p><em>Exemple :</em> ton ordinateur utilise un serveur DNS pirate à la place du serveur habituel.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">⚡</span><div><strong>Attaque DDoS contre le DNS (surcharge)</strong><p>De nombreux appareils envoient énormément de demandes à un serveur DNS pour le rendre indisponible.</p><p><em>Exemple :</em> des clients n'arrivent plus à ouvrir leur site de jeux préféré, car le serveur DNS ne répond plus.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>DNS tunneling (transport caché de données)</strong><p>Un logiciel malveillant cache des données dans des demandes DNS pour les envoyer vers un serveur extérieur.</p><p><em>Exemple :</em> un ordinateur infecté envoie discrètement des informations de l'entreprise dans ses requêtes DNS.</p></div></div>
+</div>
+<details class="dns-quiz-6"><summary>Je me teste</summary><div class="inside">
+<form id="quiz-6"><fieldset><legend><strong>Situation :</strong> un pirate réussit à enregistrer une fausse adresse IP dans la mémoire d'un serveur DNS. Plusieurs clients sont ensuite envoyés vers un faux site. Quel type d'attaque reconnais-tu ?</legend>
+<label class="choice"><input type="radio" name="attaque" value="a"> DNS hijacking</label>
+<label class="choice"><input type="radio" name="attaque" value="b"> DNS cache poisoning</label>
+<label class="choice"><input type="radio" name="attaque" value="c"> Attaque DDoS contre le DNS</label>
+<label class="choice"><input type="radio" name="attaque" value="d"> DNS tunneling</label>
+</fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-6" class="feedback" role="status" aria-live="polite" hidden></p></form>
+</div></details>
+</div></details>
 <details id="chapitre-7"><summary>7. Reverse DNS (PTR)</summary><div class="inside"><p>La résolution inverse sert à rechercher un nom à partir d'une adresse IP. Elle utilise un enregistrement <strong>PTR</strong>.</p><div class="example">192.0.2.10<br>↓<br>10.2.0.192.in-addr.arpa<br>↓ (si un PTR existe)<br>athenyx.net</div><p>Pour une adresse IPv4, les quatre nombres sont inversés dans le nom de recherche. La réponse dépend de l'existence et du contenu de l'enregistrement PTR.</p></div></details>
 <details id="chapitre-8"><summary>8. Incidents DNS et diagnostic</summary><div class="inside"><p>En fin de cours, nous étudierons des situations professionnelles : un site joignable par son IP mais pas par son nom, un mauvais enregistrement, un serveur de messagerie introuvable ou un PTR absent.</p><div class="example">Situation : un PC accède à 192.0.2.10, mais n'arrive pas à ouvrir www.athenyx.net. Que faut-il vérifier en premier ?</div><p>Les exercices de diagnostic interactifs seront ajoutés au fur et à mesure. Les commandes telles que <code>nslookup</code> permettront de vérifier la résolution.</p></div></details>
 </main>
@@ -331,4 +349,8 @@ frame=requestAnimationFrame(back);
 }
 button.addEventListener('click',start);
 })();
+
+const quiz6=document.getElementById('quiz-6'),feedback6=document.getElementById('feedback-6');
+quiz6.addEventListener('submit',e=>{e.preventDefault();const answer=new FormData(quiz6).get('attaque');feedback6.hidden=false;feedback6.textContent=!answer?'Choisis une réponse.':answer==='b'?'Bonne réponse ! Le pirate a placé une fausse adresse IP dans le cache du serveur DNS. Cette fausse réponse peut toucher plusieurs utilisateurs.':'Ce n’est pas la bonne réponse. Ici, la fausse adresse IP est enregistrée dans le cache du serveur DNS : c’est un DNS cache poisoning.';});
+quiz6.addEventListener('change',()=>{feedback6.hidden=true;feedback6.textContent='';});
 </script><div class="version-fixe" aria-label="Version du cours">V0.3.27</div></body></html>
