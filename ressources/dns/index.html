@@ -247,7 +247,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>DNS tunneling (transport caché de données)</strong><p>Un logiciel malveillant cache des données dans des demandes DNS pour les envoyer vers un serveur extérieur.</p><p><em>Exemple :</em> un ordinateur infecté envoie discrètement des informations de l'entreprise dans ses requêtes DNS.</p></div></div>
 </div>
 <details class="dns-quiz-6"><summary>Je me teste</summary><div class="inside">
-<form id="quiz-6"><fieldset><legend><strong>Situation :</strong> un pirate réussit à enregistrer une fausse adresse IP dans la mémoire d'un serveur DNS. Plusieurs clients sont ensuite envoyés vers un faux site. Quel type d'attaque reconnais-tu ?</legend>
+<form id="quiz-6"><fieldset><legend><strong>Situation :</strong> des clients d'une boutique en ligne saisissent la bonne adresse du site. Pourtant, pendant plusieurs heures, ils arrivent sur une copie frauduleuse. L'enquête montre que le serveur DNS consulté par ces clients conserve une information falsifiée. Quel type d'attaque reconnais-tu ?</legend>
 <label class="choice"><input type="radio" name="attaque" value="a"> DNS hijacking</label>
 <label class="choice"><input type="radio" name="attaque" value="b"> DNS cache poisoning</label>
 <label class="choice"><input type="radio" name="attaque" value="c"> Attaque DDoS contre le DNS</label>
@@ -351,6 +351,13 @@ button.addEventListener('click',start);
 })();
 
 const quiz6=document.getElementById('quiz-6'),feedback6=document.getElementById('feedback-6');
-quiz6.addEventListener('submit',e=>{e.preventDefault();const answer=new FormData(quiz6).get('attaque');feedback6.hidden=false;feedback6.textContent=!answer?'Choisis une réponse.':answer==='b'?'Bonne réponse ! Le pirate a placé une fausse adresse IP dans le cache du serveur DNS. Cette fausse réponse peut toucher plusieurs utilisateurs.':'Ce n’est pas la bonne réponse. Ici, la fausse adresse IP est enregistrée dans le cache du serveur DNS : c’est un DNS cache poisoning.';});
+quiz6.addEventListener('submit',e=>{e.preventDefault();const answer=new FormData(quiz6).get('attaque');feedback6.hidden=false;
+const messages={
+ a:"Ce n’est pas la bonne réponse. Dans un détournement DNS, le pirate modifie les réglages DNS pour choisir le serveur interrogé. Relis la situation et réessaie.",
+ c:"Ce n’est pas la bonne réponse. Une attaque DDoS cherche à surcharger un service avec un grand nombre de requêtes. Relis la situation et réessaie.",
+ d:"Ce n’est pas la bonne réponse. Le DNS tunneling sert à faire passer des données dans des requêtes DNS. Relis la situation et réessaie."
+};
+feedback6.textContent=!answer?"Choisis une réponse.":answer==='b'?"Bravo ! Tu as reconnu le DNS cache poisoning. Le serveur DNS conserve une information falsifiée et peut tromper plusieurs utilisateurs.":messages[answer];
+});
 quiz6.addEventListener('change',()=>{feedback6.hidden=true;feedback6.textContent='';});
 </script><div class="version-fixe" aria-label="Version du cours">V0.3.27</div></body></html>
