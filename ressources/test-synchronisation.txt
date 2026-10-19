@@ -1,2 +1,0 @@
-Test automatique de synchronisation des portails pedagogiques - 2026-10-19.
-Ce fichier pourra etre supprime apres verification.
