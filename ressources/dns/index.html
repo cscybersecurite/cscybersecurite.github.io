@@ -120,6 +120,7 @@ header{padding:9px 12px}
 .dns-attaques{display:grid;gap:13px;margin:15px 0}.dns-attaque{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:start;border-bottom:1px solid var(--line);padding:6px 0 12px}.dns-attaque:last-child{border-bottom:0}.dns-attaque-icone{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:#edf4fc;border-radius:10px;font-size:25px}.dns-attaque p{margin:5px 0}.dns-quiz-6{margin-top:18px}.dns-quiz-6 summary{font-size:19px}.dns-quiz-6 legend{line-height:1.5}.presentation .dns-attaque{grid-template-columns:58px 1fr}.presentation .dns-attaque-icone{width:58px;height:58px;font-size:29px}
 .quiz-standard legend{font:400 18px/1.55 Arial,sans-serif;margin-bottom:14px}.quiz-standard label.choice{display:flex;align-items:center;gap:12px;font:400 18px/1.5 Arial,sans-serif;letter-spacing:normal;text-transform:none;padding:11px 14px;cursor:pointer}.quiz-standard label.choice input{flex:0 0 auto;margin:0;transform:none;accent-color:#185ba4}.quiz-standard .feedback{font:400 17px/1.5 Arial,sans-serif;margin:12px 0 0;min-height:0}.quiz-standard .feedback[hidden]{display:none}.quiz-standard .feedback[data-result="correct"]{font-weight:600}@media(max-width:480px){.quiz-standard legend,.quiz-standard label.choice{font-size:17px}}
 .bandeau-cours{max-width:1000px;margin:0 auto 16px}.bandeau-cours img{display:block;width:100%;height:auto;border-radius:12px}.presentation .bandeau-cours{display:none}.dns-txt-extrait{font:400 15px/1.5 Consolas,"Courier New",monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#edf4fc;color:#102d4a;border:1px solid #c7daef;padding:10px 12px;border-radius:8px;margin:9px 0 4px}.dns-extrait-note{font-size:15px;line-height:1.5;margin:4px 0 10px}.dns-a-retenir{font:400 17px/1.6 Arial,sans-serif;background:#cbdff5;color:#102d4a;border-left:4px solid #185ba4;padding:13px 15px;border-radius:7px;margin:16px 0}.dns-a-retenir-titre{font-weight:600;margin-right:4px}.presentation .dns-a-retenir{font-size:inherit;line-height:1.4}.presentation .dns-txt-extrait{font-size:clamp(17px,2vw,25px)}
+.rdns-comparaison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0}.rdns-carte{border:1px solid var(--line);border-radius:10px;padding:15px;text-align:center;background:rgba(148,181,220,.12)}.rdns-carte h3{margin:0 0 8px;font-size:19px}.rdns-carte p{font-size:16px;margin:8px 0;font-weight:400}.rdns-etape{background:#edf4fc;color:#102d4a;border:1px solid #c7daef;border-radius:8px;padding:11px;overflow-wrap:anywhere;font-weight:400}.rdns-fleche{text-align:center;font-size:22px;color:#66a9f5;line-height:1.4}.rdns-note{font-size:16px;border-left:3px solid #66a9f5;padding-left:12px}.rdns-suite{display:grid;gap:4px;margin:14px 0}.rdns-suite .rdns-etape{text-align:center}.rdns-suite .rdns-etape span{display:block;font:400 15px/1.5 Arial,sans-serif;margin-bottom:4px}.rdns-suite .rdns-etape code{font-size:16px}.rdns-comparaison code{font-weight:400}@media(max-width:560px){.rdns-comparaison{grid-template-columns:1fr}}.presentation .rdns-carte p{font-size:inherit}.presentation .rdns-comparaison{gap:10px}
 </style>
 </head>
 <body>
@@ -277,7 +278,32 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-6" class="feedback" role="status" aria-live="polite" hidden></p></form>
 </div></details>
 </div></details>
-<details id="chapitre-8"><summary>8. Reverse DNS (PTR)</summary><div class="inside"><p>La résolution inverse sert à rechercher un nom à partir d'une adresse IP. Elle utilise un enregistrement <strong>PTR</strong>.</p><div class="example">192.0.2.10<br>↓<br>10.2.0.192.in-addr.arpa<br>↓ (si un PTR existe)<br>athenyx.net</div><p>Pour une adresse IPv4, les quatre nombres sont inversés dans le nom de recherche. La réponse dépend de l'existence et du contenu de l'enregistrement PTR.</p></div></details>
+<details id="chapitre-8"><summary>8. Reverse DNS et PTR</summary><div class="inside">
+<p>Le DNS classique permet de trouver une adresse IP à partir d'un nom. Le <strong>Reverse DNS</strong> fait l'inverse : il permet de rechercher un nom à partir d'une adresse IP.</p>
+<div class="rdns-comparaison">
+<div class="rdns-carte"><h3>DNS classique</h3><p>Je connais le nom.</p><div class="rdns-etape">serveur.athenyx.net</div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape">192.0.2.10</div><p>Enregistrement A</p></div>
+<div class="rdns-carte"><h3>Reverse DNS</h3><p>Je connais l'adresse IP.</p><div class="rdns-etape">192.0.2.10</div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape">serveur.athenyx.net</div><p>Enregistrement PTR</p></div>
+</div>
+<p><strong>Quelle différence ?</strong> Le Reverse DNS est une recherche. Le <strong>PTR</strong> est l'enregistrement DNS qui donne le nom trouvé.</p>
+<h3>À quoi sert le Reverse DNS ?</h3>
+<p>Un technicien consulte les journaux d'un pare-feu. Il remarque des connexions venant de l'adresse IP <code>192.0.2.10</code>, mais ne sait pas quelle machine utilise cette adresse.</p>
+<p>Il lance une recherche DNS inverse. Le DNS lui répond <code>serveur.athenyx.net</code>. Ce nom lui donne une piste pour identifier la machine et poursuivre son dépannage.</p>
+<p class="rdns-note">Le PTR peut être absent ou incorrect. Le nom obtenu est une indication, pas une preuve de l'identité du serveur.</p>
+<h3>Comment fonctionne la recherche inverse ?</h3>
+<div class="rdns-suite"><div class="rdns-etape"><span>Adresse IP de départ</span><code>192.0.2.10</code></div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape"><span>Nom demandé au DNS</span><code>10.2.0.192.in-addr.arpa</code></div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape"><span>Nom renvoyé par le PTR</span><code>serveur.athenyx.net</code></div></div>
+<p>En IPv4, les quatre nombres de l'adresse sont placés dans l'ordre inverse. On ajoute ensuite <code>in-addr.arpa</code> : c'est le domaine spécial utilisé pour le DNS inverse IPv4.</p>
+<p>Voici à quoi ressemble un enregistrement dans une zone DNS inverse :</p>
+<pre class="dns-txt-extrait">10.2.0.192.in-addr.arpa. IN PTR serveur.athenyx.net.</pre>
+<p>À gauche, on trouve le nom demandé. <code>PTR</code> est le type d'enregistrement. À droite, on trouve le nom de la machine renvoyé par le DNS.</p>
+<details class="quiz-standard"><summary>Je me teste</summary><div class="inside">
+<form id="quiz-ptr"><fieldset><legend>Un technicien voit l'adresse IP <code>192.0.2.25</code> dans les journaux de son pare-feu. Il veut connaître le nom de cette machine. Quel enregistrement doit-il rechercher ?</legend>
+<label class="choice"><input type="radio" name="type-ptr" value="a"> Un enregistrement A</label>
+<label class="choice"><input type="radio" name="type-ptr" value="b"> Un enregistrement MX</label>
+<label class="choice"><input type="radio" name="type-ptr" value="c"> Un enregistrement PTR</label>
+<label class="choice"><input type="radio" name="type-ptr" value="d"> Un enregistrement TXT</label>
+</fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-ptr" class="feedback" role="status" aria-live="polite" hidden></p></form>
+</div></details>
+</div></details>
 <details id="chapitre-9"><summary>9. Incidents DNS et diagnostic</summary><div class="inside"><p>En fin de cours, nous étudierons des situations professionnelles : un site joignable par son IP mais pas par son nom, un mauvais enregistrement, un serveur de messagerie introuvable ou un PTR absent.</p><div class="example">Situation : un PC accède à 192.0.2.10, mais n'arrive pas à ouvrir www.athenyx.net. Que faut-il vérifier en premier ?</div><p>Les exercices de diagnostic interactifs seront ajoutés au fur et à mesure. Les commandes telles que <code>nslookup</code> permettront de vérifier la résolution.</p></div></details>
 </main>
 <script>
@@ -407,6 +433,15 @@ installerQcm({
   a:'Ce n’est pas la bonne réponse. DKIM sert à vérifier une signature numérique ajoutée à un courriel. Essaie encore.',
   b:'Ce n’est pas la bonne réponse. DMARC indique notamment comment traiter un courriel dont les contrôles d’identité ne correspondent pas au domaine affiché. Essaie encore.',
   d:'Ce n’est pas la bonne réponse. TXT est le type d’enregistrement qui contient du texte, pas le mécanisme qui donne la liste des serveurs autorisés. Essaie encore.'
+ }
+});
+installerQcm({
+ formId:'quiz-ptr',feedbackId:'feedback-ptr',nomChamp:'type-ptr',bonneReponse:'c',
+ felicitations:'Bravo ! Un enregistrement PTR permet de retrouver le nom associé à une adresse IP.',
+ indices:{
+  a:'Ce n’est pas la bonne réponse. Un enregistrement A sert à trouver une adresse IPv4 quand on connaît déjà le nom. Réessaie.',
+  b:'Ce n’est pas la bonne réponse. Un enregistrement MX indique un serveur qui reçoit des courriels pour un domaine. Réessaie.',
+  d:'Ce n’est pas la bonne réponse. Un enregistrement TXT contient du texte publié dans le DNS. Réessaie.'
  }
 });
 </script><div class="version-fixe" aria-label="Version du cours">V0.3.27</div></body></html>
