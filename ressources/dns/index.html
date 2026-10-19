@@ -238,7 +238,25 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </section>
 <p>Le nom <strong>www</strong> est un alias CNAME. L'enregistrement MX indique un serveur de réception et sa priorité. Compare les réponses avant et après une modification.</p>
 </div></details>
-<details id="chapitre-6"><summary>6. DNS et cybersécurité</summary><div class="inside">
+<details id="chapitre-6"><summary>6. Enregistrements TXT et sécurité des courriels</summary><div class="inside">
+<p>Le DNS ne sert pas seulement à retrouver des adresses IP. Il peut aussi publier des informations sous forme de texte.</p>
+<div class="dns-attaques">
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📝</span><div><strong>TXT : publier du texte dans le DNS</strong><p>Un enregistrement TXT contient un texte associé à un nom de domaine. Ce texte peut donner des consignes aux serveurs qui le consultent.</p><p><em>Exemple :</em> le domaine <code>athenyx.net</code> publie une règle indiquant quels serveurs peuvent envoyer ses courriels.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>SPF : qui a le droit d'envoyer ?</strong><p>Le propriétaire d'un domaine indique dans le DNS quels serveurs sont autorisés à envoyer des courriels pour son domaine.</p><p><em>Exemple :</em> un pirate envoie un courriel en utilisant <code>@athenyx.net</code> depuis un serveur non autorisé. Le contrôle SPF peut repérer le problème.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🔏</span><div><strong>DKIM : le courriel est-il bien signé ?</strong><p>Le serveur d'envoi ajoute une signature numérique au courriel. Le serveur de réception utilise une clé publiée dans le DNS pour vérifier cette signature.</p><p><em>Exemple :</em> si le contenu signé change pendant le transport, la vérification DKIM échoue.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🛡️</span><div><strong>DMARC : que faire d'un courriel suspect ?</strong><p>Le domaine publie une règle qui peut demander de laisser passer, de placer en courrier indésirable ou de refuser un courriel suspect. DMARC vérifie aussi que le domaine affiché de l'expéditeur correspond à celui vérifié par SPF ou DKIM.</p><p><em>Exemple :</em> un faux courriel qui semble venir de <code>@athenyx.net</code> peut être refusé selon la règle DMARC.</p></div></div>
+</div>
+<div class="example"><strong>À retenir :</strong> TXT est un type d'enregistrement DNS. SPF, DKIM et DMARC utilisent des informations publiées dans le DNS, souvent dans des enregistrements TXT. Ils aident à vérifier les courriels, mais ne garantissent pas qu'un message est sans danger.</div>
+<details class="quiz-standard"><summary>Je me teste</summary><div class="inside">
+<form id="quiz-txt"><fieldset><legend>Une entreprise veut indiquer quels serveurs ont le droit d'envoyer des courriels avec son nom de domaine. Quel mécanisme doit-elle configurer ?</legend>
+<label class="choice"><input type="radio" name="mecanisme" value="a"> DKIM</label>
+<label class="choice"><input type="radio" name="mecanisme" value="b"> DMARC</label>
+<label class="choice"><input type="radio" name="mecanisme" value="c"> SPF</label>
+<label class="choice"><input type="radio" name="mecanisme" value="d"> PTR</label>
+</fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-txt" class="feedback" role="status" aria-live="polite" hidden></p></form>
+</div></details>
+</div></details>
+<details id="chapitre-7"><summary>7. DNS et cybersécurité</summary><div class="inside">
 <p>Des pirates peuvent utiliser le DNS pour voler des données, envoyer les utilisateurs vers de faux sites ou bloquer des services.</p>
 <div class="dns-attaques">
 <div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🛡️</span><div><strong>DNS spoofing (fausse réponse DNS)</strong><p>Le pirate envoie une fausse adresse IP à un ordinateur.</p><p><em>Exemple :</em> tu veux aller sur le site de ta banque, mais tu arrives sur un faux site qui lui ressemble.</p></div></div>
@@ -256,8 +274,8 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-6" class="feedback" role="status" aria-live="polite" hidden></p></form>
 </div></details>
 </div></details>
-<details id="chapitre-7"><summary>7. Reverse DNS (PTR)</summary><div class="inside"><p>La résolution inverse sert à rechercher un nom à partir d'une adresse IP. Elle utilise un enregistrement <strong>PTR</strong>.</p><div class="example">192.0.2.10<br>↓<br>10.2.0.192.in-addr.arpa<br>↓ (si un PTR existe)<br>athenyx.net</div><p>Pour une adresse IPv4, les quatre nombres sont inversés dans le nom de recherche. La réponse dépend de l'existence et du contenu de l'enregistrement PTR.</p></div></details>
-<details id="chapitre-8"><summary>8. Incidents DNS et diagnostic</summary><div class="inside"><p>En fin de cours, nous étudierons des situations professionnelles : un site joignable par son IP mais pas par son nom, un mauvais enregistrement, un serveur de messagerie introuvable ou un PTR absent.</p><div class="example">Situation : un PC accède à 192.0.2.10, mais n'arrive pas à ouvrir www.athenyx.net. Que faut-il vérifier en premier ?</div><p>Les exercices de diagnostic interactifs seront ajoutés au fur et à mesure. Les commandes telles que <code>nslookup</code> permettront de vérifier la résolution.</p></div></details>
+<details id="chapitre-8"><summary>8. Reverse DNS (PTR)</summary><div class="inside"><p>La résolution inverse sert à rechercher un nom à partir d'une adresse IP. Elle utilise un enregistrement <strong>PTR</strong>.</p><div class="example">192.0.2.10<br>↓<br>10.2.0.192.in-addr.arpa<br>↓ (si un PTR existe)<br>athenyx.net</div><p>Pour une adresse IPv4, les quatre nombres sont inversés dans le nom de recherche. La réponse dépend de l'existence et du contenu de l'enregistrement PTR.</p></div></details>
+<details id="chapitre-9"><summary>9. Incidents DNS et diagnostic</summary><div class="inside"><p>En fin de cours, nous étudierons des situations professionnelles : un site joignable par son IP mais pas par son nom, un mauvais enregistrement, un serveur de messagerie introuvable ou un PTR absent.</p><div class="example">Situation : un PC accède à 192.0.2.10, mais n'arrive pas à ouvrir www.athenyx.net. Que faut-il vérifier en premier ?</div><p>Les exercices de diagnostic interactifs seront ajoutés au fur et à mesure. Les commandes telles que <code>nslookup</code> permettront de vérifier la résolution.</p></div></details>
 </main>
 <script>
 const mode=document.getElementById('mode'),cours=document.getElementById('cours'),exercice=document.getElementById('exercice'),form=document.getElementById('quiz'),feedback=document.getElementById('feedback');
@@ -377,6 +395,15 @@ installerQcm({
   a:'Ce n’est pas la bonne réponse. Dans un détournement DNS, le pirate modifie les réglages DNS pour choisir le serveur interrogé. Relis la situation et réessaie.',
   c:'Ce n’est pas la bonne réponse. Une attaque DDoS cherche à surcharger un service avec un grand nombre de requêtes. Relis la situation et réessaie.',
   d:'Ce n’est pas la bonne réponse. Le DNS tunneling sert à faire passer des données dans des requêtes DNS. Relis la situation et réessaie.'
+ }
+});
+installerQcm({
+ formId:'quiz-txt',feedbackId:'feedback-txt',nomChamp:'mecanisme',bonneReponse:'c',
+ felicitations:'Bravo ! SPF permet de publier dans le DNS quels serveurs sont autorisés à envoyer des courriels pour un domaine.',
+ indices:{
+  a:'Ce n’est pas la bonne réponse. DKIM sert à vérifier une signature numérique ajoutée à un courriel. Essaie encore.',
+  b:'Ce n’est pas la bonne réponse. DMARC indique notamment comment traiter un courriel dont les contrôles d’identité ne correspondent pas au domaine affiché. Essaie encore.',
+  d:'Ce n’est pas la bonne réponse. PTR sert à rechercher un nom à partir d’une adresse IP. Essaie encore.'
  }
 });
 </script><div class="version-fixe" aria-label="Version du cours">V0.3.27</div></body></html>
