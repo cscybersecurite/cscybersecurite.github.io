@@ -32,11 +32,12 @@
     .ressource[data-type="cours"][data-couleur="bleu"] .visuel img { border-color:#569cdb; }
     .ressource.ipv4 .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
     .ressource[data-couleur="bleu"] .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
-    /* DNS seulement : blanc en theme clair, theme sombre conserve ci-dessous. */
+    /* DNS : conserver son fond blanc en mode clair. */
     .ressource.dns .visuel { background:#fff; }
     .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#ddf8ec,#8edab9); }
     .ressource[data-couleur="jaune"] .visuel { background:linear-gradient(130deg,#fff9d8,#ffe784); }
-    /* Trois cartes harmonisées avec DNS : fond blanc en thème clair. */
+    /* Fonds clairs des visuels : harmonisés avec la carte DNS. 
+       En thème sombre, le fond bleu foncé existant reste inchangé. */
     @media (prefers-color-scheme: light) {
       .ressource.ipv4 .visuel,
       .ressource.flsm .visuel,
@@ -139,4 +140,20 @@
  .ressource[data-rubrique="gestion-parc"] .inv-lines{stroke:#46617b}
  .ressource[data-rubrique="gestion-parc"] .inv-main{fill:#f0f6ff}
  .ressource[data-rubrique="gestion-parc"] .inv-sub{fill:#bfd4e9}
+}
+
+/* Illustrations de parc et RAID : fonds et contraste adaptés aux deux thèmes. */
+.ressource[data-rubrique="gestion-parc"] .visuel {padding:5px 8px;background:#fff}
+.ressource.raid .visuel {padding:4px 5px;background:#fff}
+.ressource.raid .visuel svg {max-width:100%;filter:none}
+@media (prefers-color-scheme: dark) {
+ .ressource[data-rubrique="gestion-parc"] .visuel {background:#173451}
+ .ressource[data-rubrique="gestion-parc"] .inv-panel {fill:#192f47;stroke:#609ed9}
+ .ressource[data-rubrique="gestion-parc"] .inv-head {fill:#2a486a}
+ .ressource[data-rubrique="gestion-parc"] .inv-label {fill:#e9f4ff}
+ .ressource[data-rubrique="gestion-parc"] .inv-lines {stroke:#4d6883}
+ .ressource[data-rubrique="gestion-parc"] .inv-main {fill:#f0f7ff}
+ .ressource[data-rubrique="gestion-parc"] .inv-sub {fill:#c0d6ea}
+ .ressource[data-rubrique="gestion-parc"] .inv-location {fill:#e0ebf8}
+ .ressource.raid .visuel {background:#14304c}
 }
