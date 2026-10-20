@@ -139,6 +139,9 @@ const present=document.getElementById('presentation');
 let projectionChapter=null;
 present.addEventListener('click',()=>{
   const root=document.documentElement;
+  const viewportNodes=[...document.querySelectorAll('main>.chapter[open] .inside p, main>.chapter[open] figure, main>.chapter[open] table, main>.chapter[open] .nested, main>.chapter[open] li')];
+  const projectionAnchor=viewportNodes.find(el=>{const box=el.getBoundingClientRect();return box.bottom>90&&box.top<innerHeight-90})||chapters.find(c=>c.open)||null;
+  const anchorTop=projectionAnchor?.getBoundingClientRect().top??0;
   const activating=!root.classList.contains('presentation');
   if(activating){
     const opened=chapters.find(c=>c.open);
@@ -150,7 +153,11 @@ present.addEventListener('click',()=>{
   present.setAttribute('aria-label',activating?'Quitter la projection':'Activer la projection');
   present.title=activating?'Quitter la projection':'Activer la projection';
   present.querySelector('.projection-label').textContent=activating?'Affichage normal':'Projection';
-  if(activating&&projectionChapter)projectionChapter.scrollIntoView({block:'start',behavior:'instant'});
+  // Conserver à l'écran le paragraphe, tableau ou schéma consulté.
+  if(projectionAnchor&&projectionAnchor.isConnected){
+    const delta=projectionAnchor.getBoundingClientRect().top-anchorTop;
+    window.scrollBy(0,delta);
+  }
 });
 document.querySelectorAll('form.quiz').forEach(form=>{const feedback=form.querySelector('.feedback'),expected=form.dataset.answers.split(',');form.addEventListener('change',()=>{feedback.hidden=true;feedback.textContent=''});form.addEventListener('submit',e=>{e.preventDefault();const values=expected.map((_,i)=>new FormData(form).get('q'+i));feedback.hidden=false;if(values.some(x=>x===null||x==='')){feedback.textContent='Réponds à toutes les questions.';return;}const count=values.filter((x,i)=>x===expected[i]).length;feedback.textContent=count===expected.length?'Bravo ! Toutes les réponses sont correctes.':count+' bonne(s) réponse(s) sur '+expected.length+'. Vérifie tes choix et essaie encore.';});});
 </script></body></html>
