@@ -122,6 +122,43 @@ header{padding:9px 12px}
 .bandeau-cours{max-width:1000px;margin:0 auto 16px}.bandeau-cours img{display:block;width:100%;height:auto;border-radius:12px}.presentation .bandeau-cours{display:none}.dns-txt-extrait{font:400 15px/1.5 Consolas,"Courier New",monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#edf4fc;color:#102d4a;border:1px solid #c7daef;padding:10px 12px;border-radius:8px;margin:9px 0 4px}.dns-extrait-note{font-size:15px;line-height:1.5;margin:4px 0 10px}.dns-a-retenir{font:400 17px/1.6 Arial,sans-serif;background:#cbdff5;color:#102d4a;border-left:4px solid #185ba4;padding:13px 15px;border-radius:7px;margin:16px 0}.dns-a-retenir-titre{font-weight:600;margin-right:4px}.presentation .dns-a-retenir{font-size:inherit;line-height:1.4}.presentation .dns-txt-extrait{font-size:clamp(17px,2vw,25px)}
 .rdns-comparaison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0}.rdns-carte{border:1px solid var(--line);border-radius:10px;padding:15px;text-align:center;background:rgba(148,181,220,.12)}.rdns-carte h3{margin:0 0 8px;font-size:19px}.rdns-carte p{font-size:16px;margin:8px 0;font-weight:400}.rdns-etape{background:#edf4fc;color:#102d4a;border:1px solid #c7daef;border-radius:8px;padding:11px;overflow-wrap:anywhere;font-weight:400}.rdns-fleche{text-align:center;font-size:22px;color:#66a9f5;line-height:1.4}.rdns-note{font-size:16px;border-left:3px solid #66a9f5;padding-left:12px}.rdns-suite{display:grid;gap:4px;margin:14px 0}.rdns-suite .rdns-etape{text-align:center}.rdns-suite .rdns-etape span{display:block;font:400 15px/1.5 Arial,sans-serif;margin-bottom:4px}.rdns-suite .rdns-etape code{font-size:16px}.rdns-comparaison code{font-weight:400}@media(max-width:560px){.rdns-comparaison{grid-template-columns:1fr}}.presentation .rdns-carte p{font-size:inherit}.presentation .rdns-comparaison{gap:10px}
 .diagnostic-cas{margin:18px 0}.diagnostic-cas>.inside{padding:16px}.diagnostic-cas summary{font-size:19px}.diagnostic-question{margin:19px 0;padding:15px;border:1px solid var(--line);border-radius:10px}.diagnostic-question legend{padding:0}.diag-comparaison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}.diag-fiche{min-width:0;padding:13px;border:1px solid #92b2d7;border-radius:9px;background:#eaf2fc;color:#102d4a}.diag-fiche h3{margin:0 0 9px;text-align:center;font-size:18px}.diag-fiche dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);margin:0;font:400 14px/1.5 Arial,sans-serif}.diag-fiche dt{grid-column:1}.diag-fiche dd{grid-column:2}.diag-fiche dt,.diag-fiche dd{margin:0;padding:6px 3px;border-top:1px solid #cfdeed;overflow-wrap:anywhere}.diag-fiche dd{text-align:right}.diag-zone{overflow-wrap:anywhere;margin:14px 0;background:#eaf2fc;color:#102d4a;border-radius:9px;overflow:hidden;font:400 14px/1.4 Arial,sans-serif}.diag-zone>div{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(42px,.4fr) minmax(0,1.5fr);gap:8px;padding:11px 9px;border-bottom:1px solid #cbd9e9}.diag-zone .diag-zone-head{background:#c8dcf3;font-weight:600}.diag-zone span{min-width:0;overflow-wrap:anywhere}@media(max-width:540px){.diag-comparaison{grid-template-columns:1fr}.diag-zone{font-size:12px}.diag-zone>div{gap:4px;padding:9px 5px}.diagnostic-cas>.inside{padding:12px}.diagnostic-question{padding:10px}}
+
+/* Harmonisation typographique DNS V0.3.30 : lecture PC et smartphone */
+html:not(.presentation) body{font-family:Arial,sans-serif;font-size:17px;line-height:1.55}
+html:not(.presentation) details .inside,html:not(.presentation) .panel{font-size:17px}
+html:not(.presentation) .example,html:not(.presentation) .dns-lab,html:not(.presentation) .dns-extrait-note,html:not(.presentation) .rdns-carte p,html:not(.presentation) .rdns-note{font-size:17px}
+html:not(.presentation) .nested-exercise legend,html:not(.presentation) .nested-exercise label.choice,html:not(.presentation) .quiz-standard legend,html:not(.presentation) .quiz-standard label.choice,html:not(.presentation) .diagnostic-question legend{font-size:17px;line-height:1.55}
+html:not(.presentation) .dns-table{font-size:15px}
+html:not(.presentation) .dns-table .dns-row-value,html:not(.presentation) .dns-table .dns-test-btn{font-size:15px}
+html:not(.presentation) .dns-q4-row select,html:not(.presentation) .dns-ex3-rows select{font-size:16px}
+html:not(.presentation) .dns-q4-file pre{font-size:14px}
+html:not(.presentation) .dns-txt-extrait,html:not(.presentation) .dns-console{font-size:15px}
+html:not(.presentation) .diag-fiche dl,html:not(.presentation) .diag-zone{font-size:16px;line-height:1.5}
+html:not(.presentation) .rdns-suite .rdns-etape span{font-size:16px}
+html:not(.presentation) .dns-scene .dns-bubble{font-size:clamp(13px,2vw,16px);line-height:1.35}
+html:not(.presentation) .dns-name{font-size:clamp(17px,2.7vw,23px);white-space:normal;overflow-wrap:anywhere;letter-spacing:0}
+html:not(.presentation) .dns-structure-label{font-size:17px}
+@media(max-width:560px){
+html:not(.presentation) .dns-table-wrap{overflow-x:auto}
+html:not(.presentation) .dns-table{min-width:460px}
+html:not(.presentation) .dns-scene .dns-bubble{font-size:13px}
+html:not(.presentation) .diag-zone>div{gap:6px;padding:10px 7px}
+html:not(.presentation) .dns-q4-row{grid-template-columns:minmax(0,1fr) minmax(112px,auto)}
+html:not(.presentation) .dns-q4-row select{width:112px}
+}
+/* Contraste : les légendes et indications de parcours suivent le thème. */
+:root{--dns-annotation:#435a73;--dns-annotation-bg:#edf4fc}
+@media(prefers-color-scheme:dark){:root{--dns-annotation:#d7e7f7;--dns-annotation-bg:#263e56}}
+html:not(.presentation) .muted,html:not(.presentation) small,html:not(.presentation) .dns-extrait-note{color:var(--dns-annotation)}
+html:not(.presentation) .dns-parcours .muted,html:not(.presentation) .dns-scene .dns-bubble{color:var(--ink)}
+html:not(.presentation) .dns-scene .dns-bubble{background:var(--dns-annotation-bg);border-color:var(--line)}
+html:not(.presentation) .dns-structure-label{color:var(--ink)}
+@media(prefers-color-scheme:dark){
+html:not(.presentation) .dns-scene .dns-bubble{color:#f2f7ff;background:#263e56;border-color:#6687a9}
+html:not(.presentation) .dns-scene .dns-bubble strong{color:#a8d1ff}
+html:not(.presentation) .dns-scene .dns-bubble.answer strong{color:#9ff0d4}
+html:not(.presentation) .dns-scene .dns-bubble.web strong{color:#ffcf91}
+}
 </style>
 </head>
 <body>
@@ -471,4 +508,4 @@ installerQcm({"formId":"diag-1c","feedbackId":"feedback-diag-1c","nomChamp":"rep
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"a","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"b":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","c":"Ce n’est pas la bonne réponse. Les données présentées concernent les noms DNS, pas le DHCP. Réessaie.","d":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. PTR sert à retrouver un nom à partir d'une IP. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.29</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.30</div></body></html>
