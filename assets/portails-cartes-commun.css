@@ -90,3 +90,22 @@
     }
     @media(prefers-reduced-motion:reduce) { .commutateur .rail,.commutateur .curseur {transition:none;} }
     @media(prefers-reduced-motion:reduce){.ressource{transition:none}}
+
+    /* Adaptation des illustrations SVG intégrées : manuels IPv4, FLSM et IPCalc. */
+    @media (prefers-color-scheme: dark) {
+      .ressource.ipv4 .visuel svg > rect,
+      .ressource.flsm .visuel svg > rect,
+      .ressource.flsm .visuel svg > g > rect,
+      .ressource.ipcalc .visuel svg > rect:first-child {
+        fill:#23394f;stroke:#73abe3;
+      }
+      .ressource.ipv4 .visuel svg text[fill="#143f7d"],
+      .ressource.flsm .visuel svg text[fill="#005bff"],
+      .ressource.ipcalc .visuel svg text[fill="#143e5e"],
+      .ressource.ipcalc .visuel svg text[fill="#1c4678"] { fill:#e5f2ff; }
+      .ressource.ipv4 .visuel svg text[fill="#526d89"] { fill:#bad0e4; }
+      .ressource.flsm .visuel svg rect[stroke="#005bff"] { fill:#243c57;stroke:#83b7ff; }
+      .ressource.flsm .visuel svg path[stroke="#005bff"] { stroke:#83b7ff; }
+      .ressource.ipcalc .visuel svg rect[fill="#e8eff1"] { fill:#30495d;stroke:#85aabf; }
+      .ressource.ipcalc .visuel svg rect[fill="#e4ebf5"] { fill:#314a64;stroke:#648baa; }
+    }
