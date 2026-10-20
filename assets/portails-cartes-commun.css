@@ -157,3 +157,22 @@
  .ressource[data-rubrique="gestion-parc"] .inv-location {fill:#e0ebf8}
  .ressource.raid .visuel {background:#14304c}
 }
+
+/* Cadre commun des illustrations RAID et Messagerie, identique aux cours DNS et DHCP. */
+.ressource.raid .visuel svg,
+.ressource[href="/ressources/messagerie/"] .visuel svg {
+  box-sizing:border-box;
+  border:2px solid #5c9dd2;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 2px 5px rgba(15,35,70,.16);
+  overflow:hidden;
+}
+@media(prefers-color-scheme:dark) {
+ .ressource.raid .visuel svg,
+ .ressource[href="/ressources/messagerie/"] .visuel svg {
+   border-color:#79b4e7;
+   background:#193a58;
+   box-shadow:0 2px 7px rgba(0,0,0,.28);
+ }
+}
