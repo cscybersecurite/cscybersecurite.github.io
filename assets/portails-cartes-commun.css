@@ -127,3 +127,16 @@
  .ressource.messagerie .visuel, .ressource[href="/ressources/messagerie/"] .visuel {background:linear-gradient(130deg,#1b4064,#2a6393);}
 }
 @media (prefers-color-scheme: light) { .ressource.raid .visuel{background:#fff;} }
+
+/* Gestion de parc : tableau d'inventaire adapté aux deux thèmes. */
+.ressource[data-rubrique="gestion-parc"] .visuel{padding:7px 9px;background:#fff}
+.ressource[data-rubrique="gestion-parc"] .visuel svg{max-width:100%;filter:none}
+@media(prefers-color-scheme:dark){
+ .ressource[data-rubrique="gestion-parc"] .visuel{background:#1b4064}
+ .ressource[data-rubrique="gestion-parc"] .inv-panel{fill:#192f47;stroke:#558dc3}
+ .ressource[data-rubrique="gestion-parc"] .inv-head{fill:#294969}
+ .ressource[data-rubrique="gestion-parc"] .inv-label{fill:#e3f1ff}
+ .ressource[data-rubrique="gestion-parc"] .inv-lines{stroke:#46617b}
+ .ressource[data-rubrique="gestion-parc"] .inv-main{fill:#f0f6ff}
+ .ressource[data-rubrique="gestion-parc"] .inv-sub{fill:#bfd4e9}
+}
