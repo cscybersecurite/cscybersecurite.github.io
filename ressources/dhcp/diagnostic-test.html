@@ -9,7 +9,7 @@ h1{font-size:clamp(20px,4.5vw,28px);line-height:1.25;margin:9px 0 16px}.muted{co
 .timeline{position:relative}.step{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:12px;padding:16px;margin:0 0 14px;scroll-margin-top:12px;box-shadow:0 3px 12px #061b3020}.step.result{border-left-color:var(--amber);background:var(--soft)}.step.success{border-left-color:var(--ok)}.step h2{font-size:19px;margin:0 0 6px;line-height:1.35}.step p{margin:7px 0 12px}.eyebrow{font-weight:700;text-transform:uppercase;letter-spacing:.055em;color:var(--muted);font-size:12px;margin-bottom:7px}.actions{display:grid;gap:9px;margin-top:12px}button{min-height:47px;border:1px solid var(--blue2);border-radius:9px;background:var(--blue);color:white;padding:11px 13px;text-align:left;font:700 15px/1.35 Arial,sans-serif;cursor:pointer}button:hover{background:var(--blue2)}button:focus-visible,a:focus-visible{outline:3px solid #f1a92d;outline-offset:3px}button.secondary{background:var(--panel);color:var(--ink);border-color:var(--line)}button.secondary:hover{background:var(--soft)}button[disabled]{opacity:.55;cursor:default}.cmd{display:inline-block;max-width:100%;padding:3px 7px;border-radius:5px;background:#101e31;color:#eff7ff;font:15px/1.4 Consolas,monospace;overflow-wrap:anywhere}.output{border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:10px;background:var(--panel);white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.55 Consolas,monospace}.summary{margin-top:9px;font-size:14px;color:var(--muted)}.foot{margin:16px 0;display:flex;gap:9px;justify-content:space-between;align-items:center;flex-wrap:wrap}.foot button{width:auto;min-height:42px}.foot small{color:var(--muted)}.hidden{display:none!important}.choicegroup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.choicegroup button{text-align:center}.notice{font-size:14px;color:var(--muted)}@media(max-width:500px){.choicegroup{grid-template-columns:1fr 1fr}}@media(max-width:600px){main{padding:10px 11px 55px}.step{padding:14px}.mail-body{padding:13px}.step h2{font-size:18px}.output{font-size:13px}button{width:100%}.foot button{width:auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style><link rel="stylesheet" href="../diagcore/v1/diagcore.css"></head><body><main>
-<div class="top"><a href="./index.html">← Retour au cours DHCP</a><small>Essai indépendant · V0.0.7</small></div>
+<div class="top"><a href="./index.html">← Retour au cours DHCP</a><small>Essai indépendant · V0.0.8</small></div>
 <h1>Diagnostic DHCP - Essai du parcours vertical</h1>
 <section class="mail" aria-label="Message signalant l'incident">
 <div class="mail-head">✉ &nbsp;Outlook · Message reçu</div>
@@ -20,6 +20,7 @@ h1{font-size:clamp(20px,4.5vw,28px);line-height:1.25;margin:9px 0 16px}.muted{co
 <div class="foot"><button class="secondary" type="button" id="restart">↻ Recommencer l'essai</button><small>Prototype ergonomique, non évalué et non relié à C²</small></div>
 </main>
 <script src="../diagcore/v1/diagcore.js"></script>
+<script src="./scenario-diagnostic.js"></script>
 <script>
 (function(){
 'use strict';
@@ -27,48 +28,8 @@ const target=document.getElementById('timeline');
 if(!window.DiagCore || !window.DiagCore.version || !window.DiagCore.version.startsWith('1.2.')){
  target.textContent='Impossible de charger DiagCore 1.2. Vérifie que le fichier JavaScript commun est accessible.';return;
 }
-const scenario={
- title:'Où veux-tu intervenir ?',
- minimumChecks:1,
- hypothesisLabel:'Proposer mon diagnostic',
- hypothesisTitle:'Quelle est la cause de la panne ?',
- backLabel:'Continuer mes vérifications',
- groups:[
- {title:'PC',checks:[
- {id:'ip',label:'Exécuter ipconfig /all',action:'Sur un PC du VLAN 30 : ipconfig /all',observation:{type:'command',text:'Adresse IPv4 : 169.254.18.27\nMasque : 255.255.0.0\nPasserelle par défaut :'}},
- {id:'renew',label:'Exécuter ipconfig /renew',action:'Sur un PC du VLAN 30 : ipconfig /renew',observation:{type:'command',text:'Impossible de contacter le serveur DHCP.\nLe renouvellement du bail a échoué.'}}
- ]},
- {title:'Câblage',checks:[
- {id:'cable',label:'Regarder les voyants du PC',action:'Observer les voyants près de la prise Ethernet.',observation:'Voyant de liaison : allumé. Voyant d’activité : clignotant.'},
- {id:'switchport',label:'Regarder le port du switch',action:'Repérer le port sur lequel le PC est branché.',observation:'Voyant du port : allumé. Liaison établie.'}
- ]},
- {title:'Switch',checks:[
- {id:'relay',label:'Afficher le relais DHCP du VLAN 30',action:'Sur le switch L3 : examiner la configuration de l’interface VLAN 30.',observation:{type:'command',text:'Interface VLAN 30 : 10.30.0.1/24\nRelais DHCP / IP Helper : absent'}}
- ]},
- {title:'Serveur DHCP',checks:[
- {id:'serverpower',label:'Vérifier si le serveur est allumé',action:'Observer l’état physique du serveur.',observation:'Serveur allumé ; voyants système normaux.'},
- {id:'server',label:'Contrôler le service DHCP',action:'Sur le serveur DHCP : contrôler le service et les baux attribués.',observation:{type:'command',text:'Service DHCP : démarré\nBaux VLAN 10 : attribués normalement'}}
- ]}
- ],
- hypotheses:[
- {label:'Le relais DHCP du VLAN 30 est absent',correct:true,requiredChecks:['relay','server'],feedback:'Hypothèse confirmée par les contrôles.',prematureFeedback:'Cette piste est possible, mais il faut vérifier le relais du VLAN 30 et le service DHCP avant d’intervenir.'},
- {label:'Le serveur DNS est arrêté',correct:false,feedback:'Les éléments relevés ne confirment pas cette hypothèse.'},
- {label:'Tous les câbles des PC sont débranchés',correct:false,feedback:'Les éléments relevés ne confirment pas cette hypothèse.'}
- ],
- correction:{
- title:'Quelle correction proposes-tu ?',
- label:'Configurer le relais DHCP sur le VLAN 30',
- requiredChecks:['relay','server'],
- observation:{type:'command',text:'Interface VLAN 30\nRelais DHCP configuré vers 10.10.0.10'}
- },
- verification:{
- title:'Comment vérifies-tu la réparation ?',
- label:'Exécuter ipconfig /renew sur un PC du VLAN 30',
- check:()=>true,
- observation:{type:'command',text:'> ipconfig /renew\nAdresse IPv4 : 10.30.0.42\nMasque : 255.255.255.0\nPasserelle : 10.30.0.1'}
- },
- success:'Le PC a reçu un bail DHCP. Incident résolu.'
-};
+const scenario=window.DHCP_DIAGNOSTIC_SCENARIO;
+if(!scenario){target.textContent='Scénario DHCP indisponible.';return;}
 const app=window.DiagCore.mount(target,scenario,{mode:'vertical'});
 document.getElementById('restart').addEventListener('click',()=>{app.restart();window.scrollTo({top:0,behavior:'instant'});});
 })();
