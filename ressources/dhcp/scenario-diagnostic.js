@@ -6,7 +6,8 @@
 window.DHCP_DIAGNOSTIC_SCENARIO = {
  title:'Où veux-tu intervenir ?',
  minimumChecks:1,
- hypothesisLabel:'Proposer mon diagnostic',
+ groupPicker:true,
+ hypothesisLabel:'Mon diagnostic',
  hypothesisTitle:'Quelle est la cause de la panne ?',
  backLabel:'Continuer mes vérifications',
  groups:[
