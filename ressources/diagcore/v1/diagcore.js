@@ -79,7 +79,7 @@
     if(!Array.isArray(groups)||!groups.length)throw Error('DiagCore : groupes de contrôles manquants');
     const checks=groups.flatMap(group=>group.checks||[]);
     if(checks.some(c=>!c.id||!c.label)||new Set(checks.map(c=>c.id)).size!==checks.length)throw Error('DiagCore : identifiants de contrôles invalides');
-    const state={done:new Set(),history:[],phase:'checks',resolved:false};
+    const state={done:new Set(),history:[],phase:'checks',resolved:false,selectedGroup:null};
     root.classList.add('diagcore','diagcore--vertical');
     if(opts.theme==='light'||opts.theme==='dark')root.dataset.diagcoreTheme=opts.theme;
     root.replaceChildren();
@@ -114,7 +114,19 @@
         if(s.title)next.append(el('h2','diagcore__title',s.title));
         if(s.prompt)next.append(el('p','diagcore__prompt',s.prompt));
         const visible=checks.filter(c=>!state.done.has(c.id));
-        for(const group of groups){
+        if(s.groupPicker&&state.selectedGroup===null){
+          const grid=el('div','diagcore__equipment-grid');
+          for(const [index,group] of groups.entries()){
+            const pending=(group.checks||[]).filter(c=>visible.includes(c));
+            const b=btn(grid,group.title||('Équipement '+(index+1)),()=>{
+              state.selectedGroup=index;show();scroll();
+            },pending.length===0);
+            b.classList.add('diagcore__equipment');
+          }
+          next.append(grid);
+        }
+        for(const [groupIndex,group] of groups.entries()){
+          if(s.groupPicker&&state.selectedGroup!==groupIndex)continue;
           const pending=(group.checks||[]).filter(c=>visible.includes(c));
           if(!pending.length)continue;
           const sec=el('div','diagcore__group');
@@ -122,17 +134,25 @@
           for(const c of pending)btn(sec,c.label,()=>{
             if(typeof c.enabled==='function'&&!c.enabled({completed:new Set(state.done)}))return;
             state.done.add(c.id);
+            state.selectedGroup=null;
             const result=typeof c.observe==='function'?c.observe({completed:new Set(state.done)}):c.observation;
             addEntry('observation',c.label,[...(c.action?[{type:'text',text:c.action}]:[]),...(Array.isArray(result)?result:[result])]);
             show();scroll(true);
           });
           next.append(sec);
         }
+        if(s.groupPicker&&state.selectedGroup!==null){
+          const back=btn(next,'← Choisir un autre équipement',()=>{state.selectedGroup=null;show();scroll();});
+          back.classList.add('diagcore__equipment-back');
+        }
         const min=Math.max(0,s.minimumChecks||0);
         if(s.hypotheses?.length){
-          btn(next,s.hypothesisLabel||'Formuler une hypothèse',()=>{
-            state.phase='hypotheses';show();scroll();
+          const diagnosticArea=el('div','diagcore__diagnostic-area');
+          const diagnosticButton=btn(diagnosticArea,s.hypothesisLabel||'Formuler une hypothèse',()=>{
+            state.phase='hypotheses';state.selectedGroup=null;show();scroll();
           },state.done.size<min);
+          diagnosticButton.classList.add('diagcore__diagnostic-button');
+          next.append(diagnosticArea);
           if(state.done.size<min)next.append(el('p','diagcore__hint',(min-state.done.size)+' contrôle(s) supplémentaire(s) nécessaire(s).'));
         }
       }else if(state.phase==='hypotheses'){
@@ -166,7 +186,7 @@
         });
       }else next.append(el('p','diagcore__complete',s.success||'Diagnostic terminé : correction vérifiée.'));
     }
-    function reset(){state.done.clear();state.history=[];state.phase='checks';state.resolved=false;timeline.replaceChildren();show();}
+    function reset(){state.done.clear();state.history=[];state.phase='checks';state.selectedGroup=null;state.resolved=false;timeline.replaceChildren();show();}
     show();
     return {restart:reset,getHistory:()=>[...state.history],getCompleted:()=>[...state.done],destroy:()=>root.replaceChildren()};
   }
