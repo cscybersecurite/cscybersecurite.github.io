@@ -123,7 +123,7 @@ header{padding:9px 12px}
 .rdns-comparaison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0}.rdns-carte{border:1px solid var(--line);border-radius:10px;padding:15px;text-align:center;background:rgba(148,181,220,.12)}.rdns-carte h3{margin:0 0 8px;font-size:19px}.rdns-carte p{font-size:16px;margin:8px 0;font-weight:400}.rdns-etape{background:#edf4fc;color:#102d4a;border:1px solid #c7daef;border-radius:8px;padding:11px;overflow-wrap:anywhere;font-weight:400}.rdns-fleche{text-align:center;font-size:22px;color:#66a9f5;line-height:1.4}.rdns-note{font-size:16px;border-left:3px solid #66a9f5;padding-left:12px}.rdns-suite{display:grid;gap:4px;margin:14px 0}.rdns-suite .rdns-etape{text-align:center}.rdns-suite .rdns-etape span{display:block;font:400 15px/1.5 Arial,sans-serif;margin-bottom:4px}.rdns-suite .rdns-etape code{font-size:16px}.rdns-comparaison code{font-weight:400}@media(max-width:560px){.rdns-comparaison{grid-template-columns:1fr}}.presentation .rdns-carte p{font-size:inherit}.presentation .rdns-comparaison{gap:10px}
 .diagnostic-cas{margin:18px 0}.diagnostic-cas>.inside{padding:16px}.diagnostic-cas summary{font-size:19px}.diagnostic-question{margin:19px 0;padding:15px;border:1px solid var(--line);border-radius:10px}.diagnostic-question legend{padding:0}.diag-comparaison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}.diag-fiche{min-width:0;padding:13px;border:1px solid #92b2d7;border-radius:9px;background:#eaf2fc;color:#102d4a}.diag-fiche h3{margin:0 0 9px;text-align:center;font-size:18px}.diag-fiche dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);margin:0;font:400 14px/1.5 Arial,sans-serif}.diag-fiche dt{grid-column:1}.diag-fiche dd{grid-column:2}.diag-fiche dt,.diag-fiche dd{margin:0;padding:6px 3px;border-top:1px solid #cfdeed;overflow-wrap:anywhere}.diag-fiche dd{text-align:right}.diag-zone{overflow-wrap:anywhere;margin:14px 0;background:#eaf2fc;color:#102d4a;border-radius:9px;overflow:hidden;font:400 14px/1.4 Arial,sans-serif}.diag-zone>div{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(42px,.4fr) minmax(0,1.5fr);gap:8px;padding:11px 9px;border-bottom:1px solid #cbd9e9}.diag-zone .diag-zone-head{background:#c8dcf3;font-weight:600}.diag-zone span{min-width:0;overflow-wrap:anywhere}@media(max-width:540px){.diag-comparaison{grid-template-columns:1fr}.diag-zone{font-size:12px}.diag-zone>div{gap:4px;padding:9px 5px}.diagnostic-cas>.inside{padding:12px}.diagnostic-question{padding:10px}}
 
-/* Harmonisation typographique DNS V0.3.30 : lecture PC et smartphone */
+/* Harmonisation typographique DNS V0.3.31 : lecture PC et smartphone */
 html:not(.presentation) body{font-family:Arial,sans-serif;font-size:17px;line-height:1.55}
 html:not(.presentation) details .inside,html:not(.presentation) .panel{font-size:17px}
 html:not(.presentation) .example,html:not(.presentation) .dns-lab,html:not(.presentation) .dns-extrait-note,html:not(.presentation) .rdns-carte p,html:not(.presentation) .rdns-note{font-size:17px}
@@ -159,6 +159,22 @@ html:not(.presentation) .dns-scene .dns-bubble strong{color:#a8d1ff}
 html:not(.presentation) .dns-scene .dns-bubble.answer strong{color:#9ff0d4}
 html:not(.presentation) .dns-scene .dns-bubble.web strong{color:#ffcf91}
 }
+
+/* DNS V0.3.31 : tableau du simulateur accessible sans défilement horizontal sur téléphone. */
+@media(max-width:560px){
+html:not(.presentation) .dns-table-wrap{overflow-x:visible}
+html:not(.presentation) .dns-table{display:block;width:100%;min-width:0;font-size:16px}
+html:not(.presentation) .dns-table thead{display:none}
+html:not(.presentation) .dns-table tbody{display:block}
+html:not(.presentation) .dns-table tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;row-gap:6px;border-bottom:1px solid var(--line);padding:10px 0}
+html:not(.presentation) .dns-table tbody td{display:block;width:auto;min-width:0;padding:2px 0;border:0;text-align:left;white-space:normal;overflow-wrap:anywhere}
+html:not(.presentation) .dns-table tbody td:first-child{grid-column:1;font-weight:600}
+html:not(.presentation) .dns-table tbody td:nth-child(2){grid-column:2;text-align:right;font-weight:600}
+html:not(.presentation) .dns-table tbody td:nth-child(3){grid-column:1}
+html:not(.presentation) .dns-table tbody td:nth-child(4){grid-column:2;text-align:right}
+html:not(.presentation) .dns-table .dns-row-value{width:100%;max-width:none;min-width:0;font-size:15px;padding:9px 20px 9px 7px}
+html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-size:15px;padding:9px 10px}
+}
 </style>
 </head>
 <body>
@@ -167,7 +183,7 @@ html:not(.presentation) .dns-scene .dns-bubble.web strong{color:#ffcf91}
 <details id="cours"><summary>1. À quoi sert le DNS ?</summary><div class="inside">
 <p>Le DNS (Domain Name System) permet à un ordinateur de trouver l'adresse IP associée à un nom.</p>
 <p>Grâce au DNS, nous utilisons des noms faciles à retenir plutôt que des adresses IP.</p>
-<div class="example dns-examples"><div class="dns-example"><div class="dns-example-title">Exemple sur Internet :</div><p>Le serveur DNS associe le nom <strong>www.athenyx.net</strong> à l'adresse IPv4 <strong>192.0.2.10</strong>.</p></div><div class="dns-example"><div class="dns-example-title">Exemple dans une entreprise :</div><p>Le serveur DNS peut associer le nom <strong>srv-fichiers.entreprise.local</strong> à l'adresse IPv4 <strong>192.168.1.10</strong>.</p></div></div>
+<div class="example dns-examples"><div class="dns-example"><div class="dns-example-title">Exemple sur Internet :</div><p>Le serveur DNS associe le nom <strong>www.arte.net</strong> à l'adresse IPv4 <strong>192.0.2.10</strong>.</p></div><div class="dns-example"><div class="dns-example-title">Exemple dans une entreprise :</div><p>Le serveur DNS peut associer le nom <strong>srv-fichiers.entreprise.local</strong> à l'adresse IPv4 <strong>192.168.1.10</strong>.</p></div></div>
 <p>Quand ton ordinateur veut contacter un serveur, il peut demander son adresse IP au serveur DNS.</p>
 <p>Le serveur DNS lui répond. Ton ordinateur peut alors contacter le serveur recherché.</p>
 <details id="exercice" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><form id="quiz" autocomplete="off"><fieldset><legend>Lorsque tu ouvres un site web, quel rôle le DNS joue-t-il ?</legend>
@@ -178,7 +194,7 @@ html:not(.presentation) .dns-scene .dns-bubble.web strong{color:#ffcf91}
 </fieldset><button type="submit">Vérifier ma réponse</button><p class="feedback" id="feedback" role="status" aria-live="polite" hidden></p></form></div></details>
 </div></details>
 <details id="chapitre-2"><summary>2. Fonctionnement simplifié du DNS</summary><div class="inside">
-<p>Lorsque tu saisis <strong>www.athenyx.net</strong> dans ton navigateur, ton ordinateur doit connaître l'adresse IP du serveur web.</p>
+<p>Lorsque tu saisis <strong>www.arte.net</strong> dans ton navigateur, ton ordinateur doit connaître l'adresse IP du serveur web.</p>
 <p>Il interroge un serveur DNS pour obtenir cette adresse.</p>
 <p>Le serveur DNS lui répond : <strong>192.0.2.10</strong>.</p>
 <p>Ton ordinateur peut alors contacter le serveur web pour récupérer la page demandée.</p>
@@ -212,9 +228,9 @@ html:not(.presentation) .dns-scene .dns-bubble.web strong{color:#ffcf91}
 <p class="dns-structure-label">Règle :</p>
 <p class="dns-name"><span class="dns-host">hôte</span>.<span class="dns-sub">sous-domaine</span>.<span class="dns-domain">domaine</span>.<span class="dns-ext">extension</span></p>
 <p class="dns-structure-label">Exemple sur Internet (serveur de messagerie) :</p>
-<p class="dns-name"><span class="dns-host">mail</span>.<span class="dns-sub">paris</span>.<span class="dns-domain">athenyx</span>.<span class="dns-ext">net</span></p>
+<p class="dns-name"><span class="dns-host">mail</span>.<span class="dns-sub">paris</span>.<span class="dns-domain">arte</span>.<span class="dns-ext">net</span></p>
 <p class="dns-structure-label">Exemple sur Internet (serveur web) :</p>
-<p class="dns-name"><span class="dns-host">www</span>.<span class="dns-sub">paris</span>.<span class="dns-domain">athenyx</span>.<span class="dns-ext">net</span></p>
+<p class="dns-name"><span class="dns-host">www</span>.<span class="dns-sub">paris</span>.<span class="dns-domain">arte</span>.<span class="dns-ext">net</span></p>
 <p class="dns-structure-label">Exemple dans le réseau interne d’une entreprise (serveur de fichiers) :</p>
 <p class="dns-name"><span class="dns-host">srv-fichiers</span>.<span class="dns-sub">rennes</span>.<span class="dns-domain">cybernet</span>.<span class="dns-ext">fr</span></p>
 </div>
@@ -235,44 +251,44 @@ html:not(.presentation) .dns-scene .dns-bubble.web strong{color:#ffcf91}
 <p>Un enregistrement DNS contient un <strong>nom</strong>, un <strong>type</strong> et une <strong>valeur</strong>.</p>
 <h3>1. Enregistrement A (IPv4)</h3>
 <p>Il associe un nom DNS à une adresse IPv4.</p>
-<div class="dns-q4-ex"><p><strong>Internet :</strong> <code>mail.paris.athenyx.net</code> → <code>203.0.113.10</code></p><p><strong>Réseau local :</strong> <code>srv-fichiers.rennes.cybernet.fr</code> → <code>192.168.1.10</code></p></div>
+<div class="dns-q4-ex"><p><strong>Internet :</strong> <code>mail.paris.arte.net</code> → <code>203.0.113.10</code></p><p><strong>Réseau local :</strong> <code>srv-fichiers.rennes.cybernet.fr</code> → <code>192.168.1.10</code></p></div>
 <h3>2. Enregistrement AAAA (IPv6)</h3>
 <p>Il associe un nom DNS à une adresse IPv6.</p>
-<div class="dns-q4-ex"><p><strong>Internet :</strong> <code>mail.paris.athenyx.net</code> → <code>2001:db8:1::10</code></p><p><strong>Réseau local :</strong> <code>srv-fichiers.rennes.cybernet.fr</code> → <code>fd12:3456:789a::10</code></p></div>
+<div class="dns-q4-ex"><p><strong>Internet :</strong> <code>mail.paris.arte.net</code> → <code>2001:db8:1::10</code></p><p><strong>Réseau local :</strong> <code>srv-fichiers.rennes.cybernet.fr</code> → <code>fd12:3456:789a::10</code></p></div>
 <p><strong>À retenir :</strong> un même nom DNS peut posséder un enregistrement A et un enregistrement AAAA.</p>
-<div class="dns-q4-file"><div class="dns-q4-filetitle">Extrait du fichier de zone athenyx.net</div><pre><span class="dns-q4-comment">; Nom DNS complet                      Classe Type  Valeur</span>
-mail.paris.athenyx.net.                 IN     A     203.0.113.10
-mail.paris.athenyx.net.                 IN     AAAA  2001:db8:1::10</pre></div>
+<div class="dns-q4-file"><div class="dns-q4-filetitle">Extrait du fichier de zone arte.net</div><pre><span class="dns-q4-comment">; Nom DNS complet                      Classe Type  Valeur</span>
+mail.paris.arte.net.                 IN     A     203.0.113.10
+mail.paris.arte.net.                 IN     AAAA  2001:db8:1::10</pre></div>
 <h3>3. Enregistrement CNAME</h3>
 <p>Il permet d'utiliser un autre nom (un « surnom ») pour désigner le même serveur ou service.</p>
-<div class="dns-q4-ex"><p><strong>Seul l’hôte change :</strong><br><code>partage.rennes.cybernet.fr</code> → <code>srv-fichiers.rennes.cybernet.fr</code></p><p><strong>Deux noms complètement différents :</strong><br><code>boutique.athenyx.net</code> → <code>serveur1.hebergement.fr</code></p></div>
+<div class="dns-q4-ex"><p><strong>Seul l’hôte change :</strong><br><code>partage.rennes.cybernet.fr</code> → <code>srv-fichiers.rennes.cybernet.fr</code></p><p><strong>Deux noms complètement différents :</strong><br><code>boutique.arte.net</code> → <code>serveur1.hebergement.fr</code></p></div>
 <div class="dns-q4-file"><div class="dns-q4-filetitle">Extraits de fichiers de zones DNS</div><pre><span class="dns-q4-comment">; Zone cybernet.fr</span>
 partage.rennes.cybernet.fr.  IN  CNAME  srv-fichiers.rennes.cybernet.fr.
-<span class="dns-q4-comment">; Zone athenyx.net</span>
-boutique.athenyx.net.       IN  CNAME  serveur1.hebergement.fr.</pre></div>
+<span class="dns-q4-comment">; Zone arte.net</span>
+boutique.arte.net.       IN  CNAME  serveur1.hebergement.fr.</pre></div>
 <h3>4. Enregistrement MX</h3>
 <p>Il indique le serveur chargé de recevoir les courriels d'un domaine.</p>
-<div class="dns-q4-ex"><p><strong>Internet :</strong> <code>athenyx.net</code> → <code>mail.athenyx.net</code></p><p><strong>Entreprise :</strong> <code>cybernet.fr</code> → <code>mail.cybernet.fr</code></p></div>
-<div class="dns-q4-file"><div class="dns-q4-filetitle">Extraits simplifiés de fichiers de zones DNS</div><pre><span class="dns-q4-comment">; Zone athenyx.net</span>
-athenyx.net.  IN  MX  10 mail.athenyx.net.
+<div class="dns-q4-ex"><p><strong>Internet :</strong> <code>arte.net</code> → <code>mail.arte.net</code></p><p><strong>Entreprise :</strong> <code>cybernet.fr</code> → <code>mail.cybernet.fr</code></p></div>
+<div class="dns-q4-file"><div class="dns-q4-filetitle">Extraits simplifiés de fichiers de zones DNS</div><pre><span class="dns-q4-comment">; Zone arte.net</span>
+arte.net.  IN  MX  10 mail.arte.net.
 <span class="dns-q4-comment">; Zone cybernet.fr</span>
 cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <details id="exercice-4" class="nested-exercise"><summary>Je me teste</summary><div class="inside">
 <p>Pour chaque situation, choisis le type d'enregistrement DNS adapté.</p>
 <form id="quiz-4" autocomplete="off"><div class="dns-q4-rows"><div class="dns-q4-row"><label for="dns-q4-1"><span class="dns-q4-num">1.</span> CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.</label><select id="dns-q4-1" name="q1"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-2"><span class="dns-q4-num">2.</span> Athenyx souhaite que les courriels envoyés à contact@athenyx.net soient reçus par mail.athenyx.net.</label><select id="dns-q4-2" name="q2"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-2"><span class="dns-q4-num">2.</span> Arte souhaite que les courriels envoyés à contact@arte.net soient reçus par mail.arte.net.</label><select id="dns-q4-2" name="q2"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
 <div class="dns-q4-row"><label for="dns-q4-3"><span class="dns-q4-num">3.</span> CyberNet Rennes souhaite utiliser partage.rennes.cybernet.fr comme autre nom de srv-fichiers.rennes.cybernet.fr.</label><select id="dns-q4-3" name="q3"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
 <div class="dns-q4-row"><label for="dns-q4-4"><span class="dns-q4-num">4.</span> CyberNet Rennes souhaite associer le serveur srv-fichiers.rennes.cybernet.fr à l’adresse IPv6 2001:0db8:1234:5678:abcd:ef12:3456:789a.</label><select id="dns-q4-4" name="q4"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-5"><span class="dns-q4-num">5.</span> Athenyx souhaite que boutique.athenyx.net désigne le service hébergé sous le nom serveur1.hebergement.fr.</label><select id="dns-q4-5" name="q5"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
+<div class="dns-q4-row"><label for="dns-q4-5"><span class="dns-q4-num">5.</span> Arte souhaite que boutique.arte.net désigne le service hébergé sous le nom serveur1.hebergement.fr.</label><select id="dns-q4-5" name="q5"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
 <div class="dns-q4-row"><label for="dns-q4-6"><span class="dns-q4-num">6.</span> CyberNet souhaite que les courriels envoyés à support@cybernet.fr soient reçus par mail.cybernet.fr.</label><select id="dns-q4-6" name="q6"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-7"><span class="dns-q4-num">7.</span> Athenyx souhaite associer le serveur mail.paris.athenyx.net à l’adresse IPv4 203.0.113.25.</label><select id="dns-q4-7" name="q7"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div></div>
+<div class="dns-q4-row"><label for="dns-q4-7"><span class="dns-q4-num">7.</span> Arte souhaite associer le serveur mail.paris.arte.net à l’adresse IPv4 203.0.113.25.</label><select id="dns-q4-7" name="q7"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div></div>
 <button type="submit">Vérifier mes réponses</button><p id="feedback-4" class="feedback" role="status" aria-live="polite" hidden></p></form>
 </div></details>
 </div></details>
 <details id="chapitre-5"><summary>5. Lire une zone DNS</summary><div class="inside">
-<p>Une zone DNS regroupe des enregistrements administrés pour un domaine. Observe cette zone simplifiée de <strong>athenyx.net</strong>, puis lance des requêtes ou modifie un enregistrement.</p>
+<p>Une zone DNS regroupe des enregistrements administrés pour un domaine. Observe cette zone simplifiée de <strong>arte.net</strong>, puis lance des requêtes ou modifie un enregistrement.</p>
 <section class="dns-lab" aria-label="Simulateur de zone DNS">
-<h3>Serveur DNS virtuel : athenyx.net</h3>
+<h3>Serveur DNS virtuel : arte.net</h3>
 <p class="muted">Simulation pédagogique, sans modification d'un véritable serveur.</p>
 <div class="dns-table-wrap"><table class="dns-table"><thead><tr><th>Nom</th><th>Type</th><th>Valeur</th><th><span class="visually-hidden">Action</span></th></tr></thead><tbody id="dns-records"></tbody></table></div>
 <div id="dns-result" class="dns-console" role="status" aria-live="polite" hidden><div class="dns-console-title">Console DNS</div><pre id="dns-output"></pre></div>
@@ -283,11 +299,11 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <details id="chapitre-6"><summary>6. Enregistrements TXT et sécurité des courriels</summary><div class="inside">
 <p>Le DNS ne sert pas seulement à retrouver des adresses IP. Il peut aussi publier des informations sous forme de texte.</p>
 <div class="dns-attaques">
-<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📝</span><div><strong>TXT : publier du texte dans le DNS</strong><p>Un enregistrement TXT contient un texte associé à un nom de domaine. Ce texte peut donner des consignes aux serveurs qui le consultent.</p><p><em>À quoi ça ressemble ?</em> Voici un enregistrement TXT. Le texte entre guillemets est une information que les serveurs peuvent lire.</p><pre class="dns-txt-extrait">athenyx.net.  IN TXT "verification=exemple123"</pre><p class="dns-extrait-note">Ceci est un exemple fictif de texte. TXT n’est pas une protection à lui seul.</p></div></div>
-<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>SPF : qui a le droit d'envoyer ?</strong><p>Le propriétaire d'un domaine indique dans le DNS quels serveurs sont autorisés à envoyer des courriels pour son domaine.</p><p><em>À quoi ça ressemble ?</em> Cette règle SPF autorise le serveur <code>192.0.2.20</code> à envoyer des courriels pour <code>athenyx.net</code>.</p><pre class="dns-txt-extrait">athenyx.net.  IN TXT "v=spf1 ip4:192.0.2.20 -all"</pre><p class="dns-extrait-note"><code>-all</code> indique que les autres serveurs ne sont pas autorisés.</p></div></div>
-<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🔏</span><div><strong>DKIM : le courriel est-il bien signé ?</strong><p>Le serveur d'envoi ajoute une signature numérique au courriel. Le serveur de réception utilise une clé publiée dans le DNS pour vérifier cette signature.</p><p><em>À quoi ça ressemble ?</em> Une signature DKIM contient une longue suite de caractères. Le courriel transporte la signature et le DNS publie la clé publique utilisée pour la vérifier.</p><pre class="dns-txt-extrait">mail._domainkey.athenyx.net.  IN TXT
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📝</span><div><strong>TXT : publier du texte dans le DNS</strong><p>Un enregistrement TXT contient un texte associé à un nom de domaine. Ce texte peut donner des consignes aux serveurs qui le consultent.</p><p><em>À quoi ça ressemble ?</em> Voici un enregistrement TXT. Le texte entre guillemets est une information que les serveurs peuvent lire.</p><pre class="dns-txt-extrait">arte.net.  IN TXT "verification=exemple123"</pre><p class="dns-extrait-note">Ceci est un exemple fictif de texte. TXT n’est pas une protection à lui seul.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>SPF : qui a le droit d'envoyer ?</strong><p>Le propriétaire d'un domaine indique dans le DNS quels serveurs sont autorisés à envoyer des courriels pour son domaine.</p><p><em>À quoi ça ressemble ?</em> Cette règle SPF autorise le serveur <code>192.0.2.20</code> à envoyer des courriels pour <code>arte.net</code>.</p><pre class="dns-txt-extrait">arte.net.  IN TXT "v=spf1 ip4:192.0.2.20 -all"</pre><p class="dns-extrait-note"><code>-all</code> indique que les autres serveurs ne sont pas autorisés.</p></div></div>
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🔏</span><div><strong>DKIM : le courriel est-il bien signé ?</strong><p>Le serveur d'envoi ajoute une signature numérique au courriel. Le serveur de réception utilise une clé publiée dans le DNS pour vérifier cette signature.</p><p><em>À quoi ça ressemble ?</em> Une signature DKIM contient une longue suite de caractères. Le courriel transporte la signature et le DNS publie la clé publique utilisée pour la vérifier.</p><pre class="dns-txt-extrait">mail._domainkey.arte.net.  IN TXT
 "v=DKIM1; k=rsa; p=MIIBIjANBgkqh... "</pre><p class="dns-extrait-note">La clé est volontairement raccourcie ici : une vraie clé est beaucoup plus longue. Ce texte DNS est une clé publique, pas la signature du courriel.</p></div></div>
-<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🛡️</span><div><strong>DMARC : que faire d'un courriel suspect ?</strong><p>Le domaine publie une règle qui peut demander de laisser passer, de placer en courrier indésirable ou de refuser un courriel suspect. DMARC vérifie aussi que le domaine affiché de l'expéditeur correspond à celui vérifié par SPF ou DKIM.</p><p><em>À quoi ça ressemble ?</em> Cette règle demande au serveur destinataire de refuser les courriels qui échouent au contrôle DMARC.</p><pre class="dns-txt-extrait">_dmarc.athenyx.net.  IN TXT
+<div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">🛡️</span><div><strong>DMARC : que faire d'un courriel suspect ?</strong><p>Le domaine publie une règle qui peut demander de laisser passer, de placer en courrier indésirable ou de refuser un courriel suspect. DMARC vérifie aussi que le domaine affiché de l'expéditeur correspond à celui vérifié par SPF ou DKIM.</p><p><em>À quoi ça ressemble ?</em> Cette règle demande au serveur destinataire de refuser les courriels qui échouent au contrôle DMARC.</p><pre class="dns-txt-extrait">_dmarc.arte.net.  IN TXT
 "v=DMARC1; p=reject"</pre><p class="dns-extrait-note"><code>p=reject</code> signifie « refuser ». Le serveur destinataire applique sa propre politique de traitement.</p></div></div>
 </div>
 <div class="dns-a-retenir"><span class="dns-a-retenir-titre">À retenir :</span> TXT est un type d'enregistrement DNS. SPF, DKIM et DMARC utilisent des informations publiées dans le DNS, souvent dans des enregistrements TXT. Ils aident à vérifier les courriels, mais ne garantissent pas qu'un message est sans danger.</div>
@@ -321,19 +337,19 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <details id="chapitre-8"><summary>8. Reverse DNS et PTR</summary><div class="inside">
 <p>Le DNS classique permet de trouver une adresse IP à partir d'un nom. Le <strong>Reverse DNS</strong> fait l'inverse : il permet de rechercher un nom à partir d'une adresse IP.</p>
 <div class="rdns-comparaison">
-<div class="rdns-carte"><h3>DNS classique</h3><p>Je connais le nom.</p><div class="rdns-etape">serveur.athenyx.net</div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape">192.0.2.10</div><p>Enregistrement A</p></div>
-<div class="rdns-carte"><h3>Reverse DNS</h3><p>Je connais l'adresse IP.</p><div class="rdns-etape">192.0.2.10</div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape">serveur.athenyx.net</div><p>Enregistrement PTR</p></div>
+<div class="rdns-carte"><h3>DNS classique</h3><p>Je connais le nom.</p><div class="rdns-etape">serveur.arte.net</div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape">192.0.2.10</div><p>Enregistrement A</p></div>
+<div class="rdns-carte"><h3>Reverse DNS</h3><p>Je connais l'adresse IP.</p><div class="rdns-etape">192.0.2.10</div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape">serveur.arte.net</div><p>Enregistrement PTR</p></div>
 </div>
 <p><strong>Quelle différence ?</strong> Le Reverse DNS est une recherche. Le <strong>PTR</strong> est l'enregistrement DNS qui donne le nom trouvé.</p>
 <h3>À quoi sert le Reverse DNS ?</h3>
 <p>Un technicien consulte les journaux d'un pare-feu. Il remarque des connexions venant de l'adresse IP <code>192.0.2.10</code>, mais ne sait pas quelle machine utilise cette adresse.</p>
-<p>Il lance une recherche DNS inverse. Le DNS lui répond <code>serveur.athenyx.net</code>. Ce nom lui donne une piste pour identifier la machine et poursuivre son dépannage.</p>
+<p>Il lance une recherche DNS inverse. Le DNS lui répond <code>serveur.arte.net</code>. Ce nom lui donne une piste pour identifier la machine et poursuivre son dépannage.</p>
 <p class="rdns-note">Le PTR peut être absent ou incorrect. Le nom obtenu est une indication, pas une preuve de l'identité du serveur.</p>
 <h3>Comment fonctionne la recherche inverse ?</h3>
-<div class="rdns-suite"><div class="rdns-etape"><span>Adresse IP de départ</span><code>192.0.2.10</code></div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape"><span>Nom demandé au DNS</span><code>10.2.0.192.in-addr.arpa</code></div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape"><span>Nom renvoyé par le PTR</span><code>serveur.athenyx.net</code></div></div>
+<div class="rdns-suite"><div class="rdns-etape"><span>Adresse IP de départ</span><code>192.0.2.10</code></div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape"><span>Nom demandé au DNS</span><code>10.2.0.192.in-addr.arpa</code></div><div class="rdns-fleche" aria-hidden="true">↓</div><div class="rdns-etape"><span>Nom renvoyé par le PTR</span><code>serveur.arte.net</code></div></div>
 <p>En IPv4, les quatre nombres de l'adresse sont placés dans l'ordre inverse. On ajoute ensuite <code>in-addr.arpa</code> : c'est le domaine spécial utilisé pour le DNS inverse IPv4.</p>
 <p>Voici à quoi ressemble un enregistrement dans une zone DNS inverse :</p>
-<pre class="dns-txt-extrait">10.2.0.192.in-addr.arpa. IN PTR serveur.athenyx.net.</pre>
+<pre class="dns-txt-extrait">10.2.0.192.in-addr.arpa. IN PTR serveur.arte.net.</pre>
 <p>À gauche, on trouve le nom demandé. <code>PTR</code> est le type d'enregistrement. À droite, on trouve le nom de la machine renvoyé par le DNS.</p>
 <details class="quiz-standard"><summary>Je me teste</summary><div class="inside">
 <form id="quiz-ptr"><fieldset><legend>Un technicien voit l'adresse IP <code>192.0.2.25</code> dans les journaux de son pare-feu. Il veut connaître le nom de cette machine. Quel enregistrement doit-il rechercher ?</legend>
@@ -398,18 +414,18 @@ chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  requestAnimationFrame(()=>{if(chapter.open){const top=chapter.getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:Math.max(0,top),behavior:'instant'});}});
 }));
 
-const dnsInitial={site:"192.0.2.10",www:"athenyx.net",mail:"192.0.2.20",mx:"10 mail.athenyx.net"};
+const dnsInitial={site:"192.0.2.10",www:"arte.net",mail:"192.0.2.20",mx:"10 mail.arte.net"};
 let dnsZone={...dnsInitial};
-const dnsNames={site:"athenyx.net",www:"www",mail:"mail",mx:"athenyx.net"};
+const dnsNames={site:"arte.net",www:"www",mail:"mail",mx:"arte.net"};
 const dnsTypes={site:"A",www:"CNAME",mail:"A",mx:"MX"};
-const dnsChoices={site:["192.0.2.10","192.0.2.30","192.0.2.50"],www:["athenyx.net","mail.athenyx.net","serveur-inconnu.athenyx.net"],mail:["192.0.2.20","192.0.2.40","192.0.2.50"],mx:["10 mail.athenyx.net","10 www.athenyx.net","10 serveur-inconnu.athenyx.net"]};
+const dnsChoices={site:["192.0.2.10","192.0.2.30","192.0.2.50"],www:["arte.net","mail.arte.net","serveur-inconnu.arte.net"],mail:["192.0.2.20","192.0.2.40","192.0.2.50"],mx:["10 mail.arte.net","10 www.arte.net","10 serveur-inconnu.arte.net"]};
 let dnsActiveTest=null;
 const dnsRows=document.getElementById("dns-records"),dnsResult=document.getElementById("dns-result"),dnsOutput=document.getElementById("dns-output"),dnsStatus=document.getElementById("dns-status");
 function dnsRender(){dnsRows.replaceChildren(...["site","www","mail","mx"].map(k=>{const tr=document.createElement("tr");for(const v of [dnsNames[k],dnsTypes[k]]){const td=document.createElement("td");td.textContent=v;tr.appendChild(td)}
 const valueCell=document.createElement("td"),select=document.createElement("select");select.className="dns-row-value";select.setAttribute("aria-label","Valeur de "+dnsTypes[k]+" "+dnsNames[k]);for(const v of dnsChoices[k]){const option=document.createElement("option");option.value=v;option.textContent=v;select.appendChild(option)}select.value=dnsZone[k];select.addEventListener("change",()=>{dnsZone[k]=select.value;dnsResult.hidden=true;dnsActiveTest=null;dnsStatus.textContent="Valeur modifiée. Clique sur Test pour vérifier.";});valueCell.appendChild(select);tr.appendChild(valueCell);
-const cell=document.createElement("td"),btn=document.createElement("button");btn.type="button";btn.className="dns-test-btn";btn.textContent="Test";btn.setAttribute("aria-label","Tester "+dnsTypes[k]+" "+(k==="www"?"www.athenyx.net":k==="mail"?"mail.athenyx.net":"athenyx.net"));btn.addEventListener("click",()=>dnsTest(k));cell.appendChild(btn);tr.appendChild(cell);return tr}))}
-function dnsLookup(name,seen=[]){if(seen.includes(name))return null;if(name==="athenyx.net")return dnsZone.site;if(name==="mail.athenyx.net")return dnsZone.mail;if(name==="www.athenyx.net")return dnsLookup(dnsZone.www,[...seen,name]);return null}
-function dnsTest(k){if(!dnsResult.hidden&&dnsActiveTest===k){dnsResult.hidden=true;dnsActiveTest=null;return}dnsActiveTest=k;const name=k==="www"?"www.athenyx.net":k==="mail"?"mail.athenyx.net":"athenyx.net",type=dnsTypes[k];let lines=["C:\\> nslookup -type="+type+" "+name,""];if(k==="www"){lines.push(name+".  CNAME  "+dnsZone.www+".");}else if(k==="mx"){lines.push(name+".  MX  "+dnsZone.mx+".");}else{const ip=dnsLookup(name);lines.push(ip?name+".  A  "+ip:"*** Aucun enregistrement A trouvé");}dnsOutput.textContent=lines.join("\n");dnsResult.hidden=false;dnsStatus.textContent=""}
+const cell=document.createElement("td"),btn=document.createElement("button");btn.type="button";btn.className="dns-test-btn";btn.textContent="Test";btn.setAttribute("aria-label","Tester "+dnsTypes[k]+" "+(k==="www"?"www.arte.net":k==="mail"?"mail.arte.net":"arte.net"));btn.addEventListener("click",()=>dnsTest(k));cell.appendChild(btn);tr.appendChild(cell);return tr}))}
+function dnsLookup(name,seen=[]){if(seen.includes(name))return null;if(name==="arte.net")return dnsZone.site;if(name==="mail.arte.net")return dnsZone.mail;if(name==="www.arte.net")return dnsLookup(dnsZone.www,[...seen,name]);return null}
+function dnsTest(k){if(!dnsResult.hidden&&dnsActiveTest===k){dnsResult.hidden=true;dnsActiveTest=null;return}dnsActiveTest=k;const name=k==="www"?"www.arte.net":k==="mail"?"mail.arte.net":"arte.net",type=dnsTypes[k];let lines=["C:\\> nslookup -type="+type+" "+name,""];if(k==="www"){lines.push(name+".  CNAME  "+dnsZone.www+".");}else if(k==="mx"){lines.push(name+".  MX  "+dnsZone.mx+".");}else{const ip=dnsLookup(name);lines.push(ip?name+".  A  "+ip:"*** Aucun enregistrement A trouvé");}dnsOutput.textContent=lines.join("\n");dnsResult.hidden=false;dnsStatus.textContent=""}
 dnsRender();
 
 (function(){
@@ -439,7 +455,7 @@ travel(path,duration,next);
 }
 function start(){
 reset();button.disabled=true;button.setAttribute('aria-label','Animation en cours');button.title='Animation en cours';
-exchange('query','Ordinateur → DNS','Quelle est l’adresse IP de www.athenyx.net ?',1800,()=>{
+exchange('query','Ordinateur → DNS','Quelle est l’adresse IP de www.arte.net ?',1800,()=>{
 later(()=>exchange('answer','DNS → Ordinateur','L’adresse IP est 192.0.2.10.',1800,()=>{
 later(()=>{
 nodes.dns.classList.add('dim');nodes.web.classList.remove('dim');
