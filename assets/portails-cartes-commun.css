@@ -109,3 +109,21 @@
       .ressource.ipcalc .visuel svg rect[fill="#e8eff1"] { fill:#30495d;stroke:#85aabf; }
       .ressource.ipcalc .visuel svg rect[fill="#e4ebf5"] { fill:#314a64;stroke:#648baa; }
     }
+
+/* Cartes adaptatives : couleurs internes des SVG et fond de la Messagerie */
+@media (prefers-color-scheme: light) {
+ .ressource.messagerie .visuel, .ressource[href="/ressources/messagerie/"] .visuel { background:#fff; }
+}
+@media (prefers-color-scheme: dark) {
+ .ressource.ipv4 .visuel svg > rect, .ressource.flsm .visuel svg > rect,
+ .ressource.ipcalc .visuel svg > rect:first-child { fill:#21374f;stroke:#78b1eb; }
+ .ressource.flsm .visuel svg > g > rect { fill:#223b59;stroke:#80b8f3; }
+ .ressource.ipv4 .visuel svg text[fill], .ressource.flsm .visuel svg text[fill="#005bff"],
+ .ressource.ipcalc .visuel svg text[fill="#143e5e"],
+ .ressource.ipcalc .visuel svg text[fill="#1c4678"] { fill:#e8f3ff; }
+ .ressource.ipcalc .visuel svg rect[fill="#e8eff1"]{fill:#345068;stroke:#729cbc}
+ .ressource.ipcalc .visuel svg rect[fill="#e4ebf5"]{fill:#304964;stroke:#7495b7}
+ .ressource.raid .visuel {background:#112b49;}
+ .ressource.messagerie .visuel, .ressource[href="/ressources/messagerie/"] .visuel {background:linear-gradient(130deg,#1b4064,#2a6393);}
+}
+@media (prefers-color-scheme: light) { .ressource.raid .visuel{background:#fff;} }
