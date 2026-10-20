@@ -36,6 +36,12 @@
     .ressource.dns .visuel { background:#fff; }
     .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#ddf8ec,#8edab9); }
     .ressource[data-couleur="jaune"] .visuel { background:linear-gradient(130deg,#fff9d8,#ffe784); }
+    /* Trois cartes harmonisées avec DNS : fond blanc en thème clair. */
+    @media (prefers-color-scheme: light) {
+      .ressource.ipv4 .visuel,
+      .ressource.flsm .visuel,
+      .ressource.dhcp .visuel { background:#fff; }
+    }
     /* Essai IPCalc : marge autour du module plus fine, IPv4 inchangé */
     .ressource.ipcalc .visuel { padding:5px 6px; }
     .ressource.flsm .visuel { padding:5px 6px; }
