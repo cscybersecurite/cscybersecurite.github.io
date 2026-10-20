@@ -146,7 +146,7 @@
           back.classList.add('diagcore__equipment-back');
         }
         const min=Math.max(0,s.minimumChecks||0);
-        if(s.hypotheses?.length){
+        if(s.hypotheses?.length&&(!s.hideHypothesisUntilReady||state.done.size>=min)){
           const diagnosticArea=el('div','diagcore__diagnostic-area');
           const diagnosticButton=btn(diagnosticArea,s.hypothesisLabel||'Formuler une hypothèse',()=>{
             state.phase='hypotheses';state.selectedGroup=null;show();scroll();
