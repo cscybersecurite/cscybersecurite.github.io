@@ -40,7 +40,7 @@
     @media (prefers-color-scheme: light) {
       .ressource.ipv4 .visuel,
       .ressource.flsm .visuel,
-      .ressource.dhcp .visuel { background:#fff; }
+      .ressource[href="/ressources/dhcp/"] .visuel { background:#fff; }
     }
     /* Essai IPCalc : marge autour du module plus fine, IPv4 inchangé */
     .ressource.ipcalc .visuel { padding:5px 6px; }
