@@ -198,10 +198,16 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 .diag-fiche dt,.diag-fiche dd,.diag-zone>div{border-color:var(--dns-info-divider)}
 .diag-zone .diag-zone-head{background:var(--dns-info-panel-strong);color:var(--dns-info-text)}
 .rdns-etape code,.rdns-carte code,.diag-fiche code,.diag-zone code{color:inherit}
+.projection-float{position:fixed;left:clamp(10px,2vw,22px);bottom:clamp(14px,3vh,27px);z-index:1000;display:flex;align-items:center;gap:9px;padding:11px 15px;border:2px solid #8bb7e3;border-radius:30px;background:#155b99;color:#fff;font:700 15px Arial,sans-serif;box-shadow:0 4px 16px #0006;cursor:pointer;width:auto;text-align:left}
+.projection-float svg{width:22px;height:22px;flex-shrink:0}
+.projection-float:focus-visible{outline:3px solid #ffbc44;outline-offset:3px}
+.projection-float[aria-pressed="true"]{background:#96471e;border-color:#f2b27b}
+.presentation .projection-float{font:700 15px Arial,sans-serif}
+@media(max-width:550px){.projection-float{padding:10px 12px;font-size:13px;bottom:18px}.presentation .projection-float{font-size:13px}}
 </style>
 </head>
 <body>
-<header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><button type="button" id="mode" class="icon-control" aria-label="Mode présentation" title="Mode présentation" aria-pressed="false"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 17v4M8 21h8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
+<header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
 <main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DNS" loading="eager" decoding="async"></figure>
 <details id="cours"><summary>1. À quoi sert le DNS ?</summary><div class="inside">
 <p>Le DNS (Domain Name System) permet à un ordinateur de trouver l'adresse IP associée à un nom.</p>
@@ -402,10 +408,28 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <form id="diag-2c" class="diagnostic-question"><fieldset><legend>3. Quelle nouvelle valeur faut-il donner au CNAME de www.armortech.fr ?</legend><label class="choice"><input type="radio" name="rep" value="a"> 192.0.2.40</label><label class="choice"><input type="radio" name="rep" value="b"> ancien-web.armortech.fr</label><label class="choice"><input type="radio" name="rep" value="c"> armortech.fr</label><label class="choice"><input type="radio" name="rep" value="d"> 192.0.2.80</label></fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-diag-2c" class="feedback" role="status" aria-live="polite" hidden></p></form>
 </div></details>
 </div></details>
-</main>
+</main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button>
 <script>
-const mode=document.getElementById('mode'),cours=document.getElementById('cours'),exercice=document.getElementById('exercice'),form=document.getElementById('quiz'),feedback=document.getElementById('feedback');
-mode.addEventListener('click',()=>{const active=document.documentElement.classList.toggle('presentation');mode.setAttribute('aria-label',active?'Quitter la présentation':'Mode présentation');mode.title=active?'Quitter la présentation':'Mode présentation';mode.setAttribute('aria-pressed',String(active));});
+const cours=document.getElementById('cours'),exercice=document.getElementById('exercice'),form=document.getElementById('quiz'),feedback=document.getElementById('feedback');
+const present=document.getElementById('presentation');
+const chapters=[...document.querySelectorAll('main>details')];
+present.addEventListener('click',()=>{
+ const root=document.documentElement;
+ const nodes=[...document.querySelectorAll('main>details[open] .inside p,main>details[open] figure,main>details[open] table,main>details[open] .nested-exercise,main>details[open] li')];
+ const anchor=nodes.find(el=>{const box=el.getBoundingClientRect();return box.bottom>90&&box.top<innerHeight-90})||chapters.find(c=>c.open)||null;
+ const anchorTop=anchor?.getBoundingClientRect().top??0;
+ const activating=!root.classList.contains('presentation');
+ if(activating&&!chapters.some(c=>c.open)){
+   const visible=chapters.find(c=>c.getBoundingClientRect().bottom>90)||chapters[0];
+   if(visible)visible.open=true;
+ }
+ root.classList.toggle('presentation',activating);
+ present.setAttribute('aria-pressed',String(activating));
+ present.setAttribute('aria-label',activating?'Quitter la projection':'Activer la projection');
+ present.title=activating?'Quitter la projection':'Activer la projection';
+ present.querySelector('.projection-label').textContent=activating?'Affichage normal':'Projection';
+ if(anchor&&anchor.isConnected)window.scrollBy(0,anchor.getBoundingClientRect().top-anchorTop);
+});
 form.reset();
 window.addEventListener('pageshow',()=>{form.reset();feedback.hidden=true;feedback.textContent=''});
 form.addEventListener('submit',e=>{e.preventDefault();const value=new FormData(form).get('reponse');feedback.hidden=false;feedback.textContent=!value?'Choisis une réponse.':value==='b'?'Bonne réponse. Le DNS retrouve l’adresse IP associée au nom demandé.':'Ce n’est pas la bonne réponse. Le DNS fournit des informations sur les noms, sans vérifier le serveur ni transmettre la page.';});
@@ -547,4 +571,4 @@ installerQcm({"formId":"diag-1c","feedbackId":"feedback-diag-1c","nomChamp":"rep
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"a","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"b":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","c":"Ce n’est pas la bonne réponse. Les données présentées concernent les noms DNS, pas le DHCP. Réessaie.","d":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. PTR sert à retrouver un nom à partir d'une IP. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.32</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.33</div></body></html>
