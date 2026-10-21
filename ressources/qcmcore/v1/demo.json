@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "essai",
+      "title": "Entraînement réseau",
+      "questions": [
+        {
+          "id": "q-ip",
+          "text": "Quelle adresse indique généralement une autoconfiguration IPv4 après un échec DHCP ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "169.254.10.5"
+            },
+            {
+              "id": "b",
+              "text": "192.168.1.10"
+            },
+            {
+              "id": "c",
+              "text": "8.8.8.8"
+            }
+          ],
+          "correctAnswerId": "a",
+          "explanation": "Les adresses 169.254.0.0/16 sont utilisées en autoconfiguration IPv4.",
+          "hint": "Recherche le préfixe APIPA, utilisé sans bail DHCP."
+        },
+        {
+          "id": "q-dns",
+          "text": "Quel service traduit un nom de domaine en adresse IP ?",
+          "answers": [
+            {
+              "id": "x",
+              "text": "DHCP"
+            },
+            {
+              "id": "y",
+              "text": "DNS"
+            },
+            {
+              "id": "z",
+              "text": "SMTP"
+            }
+          ],
+          "correctAnswerId": "y",
+          "explanation": "DNS résout les noms en adresses IP.",
+          "hint": "Pense à la résolution de noms."
+        },
+        {
+          "id": "q-port",
+          "text": "Quel port UDP le serveur DHCP utilise-t-il ?",
+          "answers": [
+            {
+              "id": "p53",
+              "text": "53"
+            },
+            {
+              "id": "p67",
+              "text": "67"
+            },
+            {
+              "id": "p443",
+              "text": "443"
+            }
+          ],
+          "correctAnswerId": "p67",
+          "explanation": "Le serveur DHCP écoute sur UDP 67.",
+          "hint": "Le serveur et le client DHCP utilisent deux ports voisins."
+        }
+      ]
+    }
+  ]
+}
