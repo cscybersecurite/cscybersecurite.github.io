@@ -204,6 +204,13 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 .projection-float[aria-pressed="true"]{background:#96471e;border-color:#f2b27b}
 .presentation .projection-float{font:700 15px Arial,sans-serif}
 @media(max-width:550px){.projection-float{padding:10px 12px;font-size:13px;bottom:18px}.presentation .projection-float{font-size:13px}}
+.diagnostic-wrench{display:inline-block;width:24px;height:24px;vertical-align:-4px;margin-left:6px}
+.dns-incident-mail{border:1px solid var(--line);border-radius:10px;padding:15px;margin:12px 0 18px;background:var(--dns-info-panel);color:var(--dns-info-text)}
+.dns-incident-mail p{margin:8px 0}
+.dns-diagnostic-actions{display:flex;margin:16px 0}
+.dns-diagnostic-actions button{width:auto;min-height:43px;padding:10px 16px;border:1px solid var(--line);border-radius:9px;background:var(--dns-info-panel);color:var(--dns-info-text);font:700 15px Arial,sans-serif;cursor:pointer}
+#dns-diagnostic-vertical .diagcore__terminal{overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:clamp(12px,2.4vw,15px)}
+@media(max-width:550px){#dns-diagnostic-vertical.diagcore--vertical .diagcore__equipment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#dns-diagnostic-vertical.diagcore--vertical .diagcore__equipment{min-width:0;font-size:14px;padding:10px 6px}}
 </style>
 </head>
 <body>
@@ -398,16 +405,10 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-ptr" class="feedback" role="status" aria-live="polite" hidden></p></form>
 </div></details>
 </div></details>
-<details id="chapitre-9"><summary>9. Incidents DNS et diagnostic</summary><div class="inside">
-<p>Tu es technicien réseau. Observe les informations, trouve la cause de chaque panne et choisis une solution. Tu peux recommencer après une erreur.</p>
-<details class="quiz-standard diagnostic-cas"><summary>Diagnostic 1 : le serveur de fichiers inaccessible</summary><div class="inside">
-<p>Dans une entreprise, les PC 01 et PC 02 accèdent au serveur de fichiers par son adresse IP <code>192.168.10.10</code>. Mais seul le PC 01 y accède avec le nom <code>SRV-FICHIERS</code>.</p>
-<p>Le technicien exécute <code>ipconfig /all</code> sur les deux PC :</p>
-<div class="diag-comparaison"><div class="diag-fiche"><h3>PC 01</h3><dl><dt>IPv4</dt><dd>192.168.10.42</dd><dt>Masque</dt><dd>255.255.255.0</dd><dt>Passerelle</dt><dd>192.168.10.1</dd><dt>Serveur DHCP</dt><dd>192.168.10.2</dd><dt>Serveur DNS</dt><dd>192.168.10.5</dd></dl></div><div class="diag-fiche"><h3>PC 02</h3><dl><dt>IPv4</dt><dd>192.168.10.87</dd><dt>Masque</dt><dd>255.255.255.0</dd><dt>Passerelle</dt><dd>192.168.10.1</dd><dt>Serveur DHCP</dt><dd>192.168.10.254</dd><dt>Serveur DNS</dt><dd>8.8.8.8</dd></dl></div></div>
-<form id="diag-1a" class="diagnostic-question"><fieldset><legend>1. Observe les configurations. Quelles différences sont importantes ?</legend><label class="choice"><input type="radio" name="rep" value="a"> L'adresse IPv4 et le masque</label><label class="choice"><input type="radio" name="rep" value="b"> Le serveur DHCP et le serveur DNS</label><label class="choice"><input type="radio" name="rep" value="c"> Le masque et la passerelle</label><label class="choice"><input type="radio" name="rep" value="d"> Il n'y a aucune différence</label></fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-diag-1a" class="feedback" role="status" aria-live="polite" hidden></p></form>
-<form id="diag-1b" class="diagnostic-question"><fieldset><legend>2. Pourquoi le PC 02 accède-t-il au serveur par son IP, mais pas par son nom ?</legend><label class="choice"><input type="radio" name="rep" value="a"> Le serveur de fichiers est éteint</label><label class="choice"><input type="radio" name="rep" value="b"> Le masque empêche l'accès par nom</label><label class="choice"><input type="radio" name="rep" value="c"> Le DNS utilisé par le PC 02 ne connaît pas le nom interne</label><label class="choice"><input type="radio" name="rep" value="d"> Le câble réseau du PC 02 est débranché</label></fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-diag-1b" class="feedback" role="status" aria-live="polite" hidden></p></form>
-<form id="diag-1c" class="diagnostic-question"><fieldset><legend>3. Le PC 02 reçoit sa configuration d'un serveur DHCP non autorisé. Quelle intervention est adaptée ?</legend><label class="choice"><input type="radio" name="rep" value="a"> Modifier l'adresse IP du serveur de fichiers</label><label class="choice"><input type="radio" name="rep" value="b"> Redémarrer uniquement le serveur de fichiers</label><label class="choice"><input type="radio" name="rep" value="c"> Supprimer tous les enregistrements DNS</label><label class="choice"><input type="radio" name="rep" value="d"> Identifier puis désactiver le DHCP non autorisé et renouveler le bail du PC 02</label></fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-diag-1c" class="feedback" role="status" aria-live="polite" hidden></p></form>
-</div></details>
+<details id="chapitre-9"><summary>9. Diagnostic professionnel <svg class="diagnostic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 1.4 1.4l2.2-2.2a6 6 0 0 1-7.9 7.9l-6.6 6.6a2 2 0 0 1-2.8-2.8l6.6-6.6a6 6 0 0 1 7.9-7.9z"/></svg></summary><div class="inside">
+<div class="dns-incident-mail" aria-label="Signalement de l'incident"><strong>✉ Message reçu</strong><p>Bonjour,</p><p>Depuis l'intervention de notre nouveau technicien informatique, le PC-02 ne parvient plus à accéder au serveur de fichiers.</p><p>Le PC-01 fonctionne normalement.</p><p>Pouvez-vous rechercher la panne et rétablir le fonctionnement ?</p><p>Merci.</p></div>
+<div id="dns-diagnostic-vertical" aria-label="Parcours de diagnostic DNS">Chargement du diagnostic…</div>
+<div class="dns-diagnostic-actions"><button type="button" id="dns-diagnostic-restart">↻ Recommencer le diagnostic</button></div>
 </div></details>
 </main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button>
 <script>
@@ -572,4 +573,14 @@ installerQcm({"formId":"diag-1c","feedbackId":"feedback-diag-1c","nomChamp":"rep
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.38</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.39</div><script src="../diagcore/v1/diagcore.js?v=010"></script><script src="scenario-diagnostic.js?v=001"></script><script>
+(function(){
+'use strict';
+const target=document.getElementById('dns-diagnostic-vertical');
+if(!target)return;
+if(!window.DiagCore||!window.DiagCore.version||!window.DiagCore.version.startsWith('1.2.')){target.textContent='Impossible de charger DiagCore 1.2.';return;}
+if(!window.DNS_DIAGNOSTIC_SCENARIO){target.textContent='Scénario DNS indisponible.';return;}
+const app=window.DiagCore.mount(target,window.DNS_DIAGNOSTIC_SCENARIO,{mode:'vertical'});
+document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
+})();
+</script></body></html>
