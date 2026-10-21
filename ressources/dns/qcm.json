@@ -208,24 +208,8 @@
         },
         {
           "id": "dns-4-2",
-          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "text": "Arte souhaite que les courriels envoyés à contact@arte.net soient reçus par mail.arte.net.",
           "answers": [
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
             {
               "id": "A",
               "text": "A"
@@ -249,40 +233,8 @@
         },
         {
           "id": "dns-4-3",
-          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "text": "CyberNet Rennes souhaite utiliser partage.rennes.cybernet.fr comme autre nom de srv-fichiers.rennes.cybernet.fr.",
           "answers": [
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
             {
               "id": "A",
               "text": "A"
@@ -306,56 +258,8 @@
         },
         {
           "id": "dns-4-4",
-          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "text": "CyberNet Rennes souhaite associer le serveur srv-fichiers.rennes.cybernet.fr à l’adresse IPv6 2001:0db8:1234:5678:abcd:ef12:3456:789a.",
           "answers": [
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
             {
               "id": "A",
               "text": "A"
@@ -379,72 +283,8 @@
         },
         {
           "id": "dns-4-5",
-          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "text": "Arte souhaite que boutique.arte.net désigne le service hébergé sous le nom serveur1.hebergement.fr.",
           "answers": [
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
             {
               "id": "A",
               "text": "A"
@@ -468,88 +308,8 @@
         },
         {
           "id": "dns-4-6",
-          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "text": "Arte souhaite associer le serveur mail.paris.arte.net à l’adresse IPv4 203.0.113.25.",
           "answers": [
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
-            {
-              "id": "A",
-              "text": "A"
-            },
-            {
-              "id": "AAAA",
-              "text": "AAAA"
-            },
-            {
-              "id": "CNAME",
-              "text": "CNAME"
-            },
-            {
-              "id": "MX",
-              "text": "MX"
-            },
             {
               "id": "A",
               "text": "A"
