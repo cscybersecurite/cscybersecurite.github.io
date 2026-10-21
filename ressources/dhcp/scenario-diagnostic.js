@@ -13,7 +13,7 @@ window.DHCP_DIAGNOSTIC_SCENARIO = {
  backLabel:'Continuer mes vérifications',
  groups:[
  {title:'PC',checks:[
- {id:'ip',label:'Exécuter ipconfig /all',action:'Sur un PC du VLAN 30 : ipconfig /all',observation:{type:'command',text:'Adresse IPv4 : 169.254.18.27\nMasque : 255.255.0.0\nPasserelle par défaut :'}},
+ {id:'ip',label:'Exécuter ipconfig /all',action:'Sur un PC du VLAN 30 : ipconfig /all',observation:{type:'command',text:'Carte Ethernet :\nDHCP activé : Oui\nAdresse IPv4 d’autoconfiguration : 169.254.18.27\nMasque de sous-réseau : 255.255.0.0\nPasserelle par défaut : (aucune)\nServeur DHCP : (aucun)'}},
  {id:'renew',label:'Exécuter ipconfig /renew',action:'Sur un PC du VLAN 30 : ipconfig /renew',observation:{type:'command',text:'Impossible de contacter le serveur DHCP.\nLe renouvellement du bail a échoué.'}}
  ]},
  {title:'Câblage',checks:[
