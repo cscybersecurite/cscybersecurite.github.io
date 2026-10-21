@@ -214,7 +214,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .diagcore__terminal{overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:clamp(12px,2.4vw,15px)}
 @media(max-width:550px){#dns-diagnostic-vertical.diagcore--vertical .diagcore__equipment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#dns-diagnostic-vertical.diagcore--vertical .diagcore__equipment{min-width:0;font-size:14px;padding:10px 6px}}
 </style>
-<link rel="stylesheet" href="../diagcore/v1/diagcore.css?v=010"></head>
+<link rel="stylesheet" href="../diagcore/v1/diagcore.css?v=010"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
 <header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
 <main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DNS" loading="eager" decoding="async"></figure>
@@ -224,12 +224,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 <div class="example dns-examples"><div class="dns-example"><div class="dns-example-title">Exemple sur Internet :</div><p>Le serveur DNS associe le nom <strong>www.arte.net</strong> à l'adresse IPv4 <strong>192.0.2.10</strong>.</p></div><div class="dns-example"><div class="dns-example-title">Exemple dans une entreprise :</div><p>Le serveur DNS peut associer le nom <strong>srv-fichiers.entreprise.local</strong> à l'adresse IPv4 <strong>192.168.1.10</strong>.</p></div></div>
 <p>Quand ton ordinateur veut contacter un serveur, il peut demander son adresse IP au serveur DNS.</p>
 <p>Le serveur DNS lui répond. Ton ordinateur peut alors contacter le serveur recherché.</p>
-<details id="exercice" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><form id="quiz" autocomplete="off"><fieldset><legend>Lorsque tu ouvres un site web, quel rôle le DNS joue-t-il ?</legend>
-<label class="choice"><input type="radio" name="reponse" value="a">Il vérifie que le serveur web est disponible.</label>
-<label class="choice"><input type="radio" name="reponse" value="b">Il recherche l'adresse IP associée au nom du site web.</label>
-<label class="choice"><input type="radio" name="reponse" value="c">Il établit la connexion entre ton ordinateur et le serveur web.</label>
-<label class="choice"><input type="radio" name="reponse" value="d">Il transmet le contenu du site web à ton navigateur.</label>
-</fieldset><button type="submit">Vérifier ma réponse</button><p class="feedback" id="feedback" role="status" aria-live="polite" hidden></p></form></div></details>
+<details id="exercice" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><div class="qcmcore-host" data-quiz-id="chapitre-1">Chargement du questionnaire…</div></div></details>
 </div></details>
 <details id="chapitre-2"><summary>2. Fonctionnement simplifié du DNS</summary><div class="inside">
 <p>Lorsque tu saisis <strong>www.arte.net</strong> dans ton navigateur, ton ordinateur doit connaître l'adresse IP du serveur web.</p>
@@ -253,12 +248,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 
 </div>
 
-<details id="exercice-2" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><form id="quiz-2" autocomplete="off"><fieldset><legend>Le DNS a donné l'adresse IP du site web. Que fait le PC ensuite ?</legend>
-<label class="choice"><input type="radio" name="reponse-2" value="a">Il demande au serveur DNS de télécharger la page web.</label>
-<label class="choice"><input type="radio" name="reponse-2" value="b">Il contacte directement le serveur web.</label>
-<label class="choice"><input type="radio" name="reponse-2" value="c">Il envoie la page web au serveur DNS.</label>
-<label class="choice"><input type="radio" name="reponse-2" value="d">Il attend que le serveur DNS lui transmette le site web.</label>
-</fieldset><button type="submit">Vérifier ma réponse</button><p class="feedback" id="feedback-2" role="status" aria-live="polite" hidden></p></form></div></details>
+<details id="exercice-2" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><div class="qcmcore-host" data-quiz-id="chapitre-2">Chargement du questionnaire…</div></div></details>
 </div></details>
 <details id="chapitre-3"><summary>3. Structure d'un nom de domaine</summary><div class="inside">
 <p>Un nom DNS contient plusieurs parties séparées par des points.</p>
@@ -276,15 +266,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 <details id="exercice-3" class="nested-exercise"><summary>Je me teste</summary><div class="inside">
 <p>Identifie les parties de ce nom DNS :</p>
 <p class="dns-ex3-name"><strong>pc01.atelier.cybernet.fr</strong></p>
-<form id="quiz-3" autocomplete="off">
-<div class="dns-ex3-rows">
-<label for="dns-ex3-fr">fr</label><select id="dns-ex3-fr" name="fr" aria-label="Partie du nom fr"><option value="">Choisir…</option><option value="host">Hôte</option><option value="sub">Sous-domaine</option><option value="domain">Domaine</option><option value="ext">Extension</option></select>
-<label for="dns-ex3-pc">pc01</label><select id="dns-ex3-pc" name="pc01" aria-label="Partie du nom pc01"><option value="">Choisir…</option><option value="host">Hôte</option><option value="sub">Sous-domaine</option><option value="domain">Domaine</option><option value="ext">Extension</option></select>
-<label for="dns-ex3-cybernet">cybernet</label><select id="dns-ex3-cybernet" name="cybernet" aria-label="Partie du nom cybernet"><option value="">Choisir…</option><option value="host">Hôte</option><option value="sub">Sous-domaine</option><option value="domain">Domaine</option><option value="ext">Extension</option></select>
-<label for="dns-ex3-atelier">atelier</label><select id="dns-ex3-atelier" name="atelier" aria-label="Partie du nom atelier"><option value="">Choisir…</option><option value="host">Hôte</option><option value="sub">Sous-domaine</option><option value="domain">Domaine</option><option value="ext">Extension</option></select>
-</div>
-<button type="submit">Vérifier mes réponses</button><p id="feedback-3" class="feedback" role="status" aria-live="polite" hidden></p>
-</form></div></details>
+<div class="qcmcore-host" data-quiz-id="chapitre-3">Chargement du questionnaire…</div></div></details>
 </div></details>
 <details id="chapitre-4"><summary>4. Les enregistrements DNS</summary><div class="inside">
 <p>Un enregistrement DNS contient un <strong>nom</strong>, un <strong>type</strong> et une <strong>valeur</strong>.</p>
@@ -314,13 +296,7 @@ arte.net.  IN  MX  10 mail.arte.net.
 cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <details id="exercice-4" class="nested-exercise"><summary>Je me teste</summary><div class="inside">
 <p>Pour chaque situation, choisis le type d'enregistrement DNS adapté.</p>
-<form id="quiz-4" autocomplete="off"><div class="dns-q4-rows"><div class="dns-q4-row"><label for="dns-q4-1"><span class="dns-q4-num">1.</span> CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.</label><select id="dns-q4-1" name="q1"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-2"><span class="dns-q4-num">2.</span> Arte souhaite que les courriels envoyés à contact@arte.net soient reçus par mail.arte.net.</label><select id="dns-q4-2" name="q2"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-3"><span class="dns-q4-num">3.</span> CyberNet Rennes souhaite utiliser partage.rennes.cybernet.fr comme autre nom de srv-fichiers.rennes.cybernet.fr.</label><select id="dns-q4-3" name="q3"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-4"><span class="dns-q4-num">4.</span> CyberNet Rennes souhaite associer le serveur srv-fichiers.rennes.cybernet.fr à l’adresse IPv6 2001:0db8:1234:5678:abcd:ef12:3456:789a.</label><select id="dns-q4-4" name="q4"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-5"><span class="dns-q4-num">5.</span> Arte souhaite que boutique.arte.net désigne le service hébergé sous le nom serveur1.hebergement.fr.</label><select id="dns-q4-5" name="q5"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-6"><span class="dns-q4-num">6.</span> Arte souhaite associer le serveur mail.paris.arte.net à l’adresse IPv4 203.0.113.25.</label><select id="dns-q4-6" name="q6"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div></div>
-<button type="submit">Vérifier mes réponses</button><p id="feedback-4" class="feedback" role="status" aria-live="polite" hidden></p></form>
+<div class="qcmcore-host" data-quiz-id="chapitre-4">Chargement du questionnaire…</div>
 </div></details>
 </div></details>
 <details id="chapitre-5"><summary>5. Lire une zone DNS</summary><div class="inside">
@@ -355,12 +331,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </div>
 <div class="dns-a-retenir"><span class="dns-a-retenir-titre">À retenir :</span> TXT est un type d'enregistrement DNS. SPF, DKIM et DMARC utilisent des informations publiées dans le DNS, souvent dans des enregistrements TXT. Ils aident à vérifier les courriels, mais ne garantissent pas qu'un message est sans danger.</div>
 <details class="quiz-standard"><summary>Je me teste</summary><div class="inside">
-<form id="quiz-txt"><fieldset><legend>Une entreprise veut indiquer quels serveurs ont le droit d'envoyer des courriels avec son nom de domaine. Quel mécanisme doit-elle configurer ?</legend>
-<label class="choice"><input type="radio" name="mecanisme" value="a"> DKIM</label>
-<label class="choice"><input type="radio" name="mecanisme" value="b"> DMARC</label>
-<label class="choice"><input type="radio" name="mecanisme" value="c"> SPF</label>
-<label class="choice"><input type="radio" name="mecanisme" value="d"> TXT</label>
-</fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-txt" class="feedback" role="status" aria-live="polite" hidden></p></form>
+<div class="qcmcore-host" data-quiz-id="chapitre-6">Chargement du questionnaire…</div>
 </div></details>
 </div></details>
 <details id="chapitre-7"><summary>7. DNS et cybersécurité</summary><div class="inside">
@@ -373,12 +344,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>DNS tunneling (transport caché de données)</strong><p>Un logiciel malveillant cache des données dans des demandes DNS pour les envoyer vers un serveur extérieur.</p><p><em>Exemple :</em> un ordinateur infecté envoie discrètement des informations de l'entreprise dans ses requêtes DNS.</p></div></div>
 </div>
 <details class="dns-quiz-6 quiz-standard"><summary>Je me teste</summary><div class="inside">
-<form id="quiz-6"><fieldset><legend>Des clients tapent la bonne adresse d'un site, mais arrivent sur un faux site. Le serveur DNS a enregistré une fausse adresse IP. Quelle attaque est utilisée ?</legend>
-<label class="choice"><input type="radio" name="attaque" value="a"> DNS hijacking</label>
-<label class="choice"><input type="radio" name="attaque" value="b"> DNS cache poisoning</label>
-<label class="choice"><input type="radio" name="attaque" value="c"> Attaque DDoS contre le DNS</label>
-<label class="choice"><input type="radio" name="attaque" value="d"> DNS tunneling</label>
-</fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-6" class="feedback" role="status" aria-live="polite" hidden></p></form>
+<div class="qcmcore-host" data-quiz-id="chapitre-7">Chargement du questionnaire…</div>
 </div></details>
 </div></details>
 <details id="chapitre-8"><summary>8. Reverse DNS et PTR</summary><div class="inside">
@@ -399,12 +365,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <pre class="dns-txt-extrait">10.2.0.192.in-addr.arpa. IN PTR serveur.arte.net.</pre>
 <p>À gauche, on trouve le nom demandé. <code>PTR</code> est le type d'enregistrement. À droite, on trouve le nom de la machine renvoyé par le DNS.</p>
 <details class="quiz-standard"><summary>Je me teste</summary><div class="inside">
-<form id="quiz-ptr"><fieldset><legend>Un technicien voit l'adresse IP <code>192.0.2.25</code> dans les journaux de son pare-feu. Il veut connaître le nom de cette machine. Quel enregistrement doit-il rechercher ?</legend>
-<label class="choice"><input type="radio" name="type-ptr" value="a"> Un enregistrement A</label>
-<label class="choice"><input type="radio" name="type-ptr" value="b"> Un enregistrement MX</label>
-<label class="choice"><input type="radio" name="type-ptr" value="c"> Un enregistrement PTR</label>
-<label class="choice"><input type="radio" name="type-ptr" value="d"> Un enregistrement TXT</label>
-</fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-ptr" class="feedback" role="status" aria-live="polite" hidden></p></form>
+<div class="qcmcore-host" data-quiz-id="chapitre-8">Chargement du questionnaire…</div>
 </div></details>
 </div></details>
 <details id="chapitre-9"><summary>9. Diagnostic professionnel <svg class="diagnostic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 1.4 1.4l2.2-2.2a6 6 0 0 1-7.9 7.9l-6.6 6.6a2 2 0 0 1-2.8-2.8l6.6-6.6a6 6 0 0 1 7.9-7.9z"/></svg></summary><div class="inside">
@@ -414,7 +375,6 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </div></details>
 </main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button>
 <script>
-const cours=document.getElementById('cours'),exercice=document.getElementById('exercice'),form=document.getElementById('quiz'),feedback=document.getElementById('feedback');
 const present=document.getElementById('presentation');
 
 present.addEventListener('click',()=>{
@@ -434,30 +394,6 @@ present.addEventListener('click',()=>{
  present.querySelector('.projection-label').textContent=activating?'Affichage normal':'Projection';
  if(anchor&&anchor.isConnected)window.scrollBy(0,anchor.getBoundingClientRect().top-anchorTop);
 });
-form.reset();
-window.addEventListener('pageshow',()=>{form.reset();feedback.hidden=true;feedback.textContent=''});
-form.addEventListener('submit',e=>{e.preventDefault();const value=new FormData(form).get('reponse');feedback.hidden=false;feedback.textContent=!value?'Choisis une réponse.':value==='b'?'Bonne réponse. Le DNS retrouve l’adresse IP associée au nom demandé.':'Ce n’est pas la bonne réponse. Le DNS fournit des informations sur les noms, sans vérifier le serveur ni transmettre la page.';});
-form.addEventListener('change',()=>{feedback.hidden=true;feedback.textContent=''});
-const form2=document.getElementById('quiz-2'),feedback2=document.getElementById('feedback-2');
-form2.reset();
-window.addEventListener('pageshow',()=>{form2.reset();feedback2.hidden=true;feedback2.textContent='';});
-form2.addEventListener('submit',e=>{e.preventDefault();const value=new FormData(form2).get('reponse-2');feedback2.hidden=false;feedback2.textContent=!value?'Choisis une réponse.':value==='b'?'Bonne réponse. L’ordinateur contacte directement le serveur web avec l’adresse IP obtenue.':({a:'Ce n’est pas la bonne réponse. Le serveur DNS ne télécharge pas les pages web.',c:'Ce n’est pas la bonne réponse. L’ordinateur n’envoie pas de page web au serveur DNS.',d:'Ce n’est pas la bonne réponse. Le serveur DNS ne transmet pas les pages web.'}[value]||'Ce n’est pas la bonne réponse. Essaie encore.');});
-form2.addEventListener('change',()=>{feedback2.hidden=true;feedback2.textContent='';});
-
-const quiz3=document.getElementById('quiz-3'),feedback3=document.getElementById('feedback-3');
-quiz3.reset();
-window.addEventListener('pageshow',()=>{quiz3.reset();feedback3.hidden=true;feedback3.textContent='';});
-quiz3.addEventListener('change',()=>{feedback3.hidden=true;feedback3.textContent='';});
-quiz3.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(quiz3),expected={pc01:'host',atelier:'sub',cybernet:'domain',fr:'ext'};const values=Object.keys(expected).map(k=>data.get(k));feedback3.hidden=false;feedback3.textContent=values.some(v=>!v)?'Choisis une réponse pour chaque élément.':Object.keys(expected).every(k=>data.get(k)===expected[k])?'Bonne réponse ! Tu as identifié les quatre parties du nom DNS.':'Ce n’est pas tout à fait correct. Vérifie les quatre parties et essaie encore.';});
-
-const quiz4=document.getElementById('quiz-4'),feedback4=document.getElementById('feedback-4');
-const dns4Expected=['A','MX','CNAME','AAAA','CNAME','A'];
-quiz4.reset();
-window.addEventListener('pageshow',()=>{quiz4.reset();feedback4.hidden=true;feedback4.textContent='';});
-quiz4.addEventListener('change',()=>{feedback4.hidden=true;feedback4.textContent='';});
-quiz4.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(quiz4),answers=dns4Expected.map((_,i)=>data.get('q'+(i+1)));feedback4.hidden=false;
-if(answers.some(v=>!v)){feedback4.textContent='Choisis une réponse pour les six situations.';return;}
-const score=answers.filter((v,i)=>v===dns4Expected[i]).length;feedback4.textContent=score===6?'Bravo ! 6 bonnes réponses sur 6.':score+' bonnes réponses sur 6. Vérifie tes choix et essaie encore.';});
 const chapters=[...document.querySelectorAll('main > details')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -544,37 +480,21 @@ function installerQcm({formId,feedbackId,nomChamp,bonneReponse,felicitations,ind
   retour.textContent=reussi?felicitations:(indices[choix]||'Ce n’est pas la bonne réponse. Relis la situation et essaie encore.');
  });
 }
-installerQcm({
- formId:'quiz-6',feedbackId:'feedback-6',nomChamp:'attaque',bonneReponse:'b',
- felicitations:'Bravo ! Tu as reconnu le DNS cache poisoning. Le serveur DNS conserve une information falsifiée et peut tromper plusieurs utilisateurs.',
- indices:{
-  a:'Ce n’est pas la bonne réponse. Dans un détournement DNS, le pirate modifie les réglages DNS pour choisir le serveur interrogé. Relis la situation et réessaie.',
-  c:'Ce n’est pas la bonne réponse. Une attaque DDoS cherche à surcharger un service avec un grand nombre de requêtes. Relis la situation et réessaie.',
-  d:'Ce n’est pas la bonne réponse. Le DNS tunneling sert à faire passer des données dans des requêtes DNS. Relis la situation et réessaie.'
- }
-});
-installerQcm({
- formId:'quiz-txt',feedbackId:'feedback-txt',nomChamp:'mecanisme',bonneReponse:'c',
- felicitations:'Bravo ! SPF permet de publier dans le DNS quels serveurs sont autorisés à envoyer des courriels pour un domaine.',
- indices:{
-  a:'Ce n’est pas la bonne réponse. DKIM sert à vérifier une signature numérique ajoutée à un courriel. Essaie encore.',
-  b:'Ce n’est pas la bonne réponse. DMARC indique notamment comment traiter un courriel dont les contrôles d’identité ne correspondent pas au domaine affiché. Essaie encore.',
-  d:'Ce n’est pas la bonne réponse. TXT est le type d’enregistrement qui contient du texte, pas le mécanisme qui donne la liste des serveurs autorisés. Essaie encore.'
- }
-});
-installerQcm({
- formId:'quiz-ptr',feedbackId:'feedback-ptr',nomChamp:'type-ptr',bonneReponse:'c',
- felicitations:'Bravo ! Un enregistrement PTR permet de retrouver le nom associé à une adresse IP.',
- indices:{
-  a:'Ce n’est pas la bonne réponse. Un enregistrement A sert à trouver une adresse IPv4 quand on connaît déjà le nom. Réessaie.',
-  b:'Ce n’est pas la bonne réponse. Un enregistrement MX indique un serveur qui reçoit des courriels pour un domaine. Réessaie.',
-  d:'Ce n’est pas la bonne réponse. Un enregistrement TXT contient du texte publié dans le DNS. Réessaie.'
- }
-});
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.43</div><script src="../diagcore/v1/diagcore.js?v=010"></script><script src="scenario-diagnostic.js?v=001"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.44</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
+QCMCore.load('qcm.json').then(data=>{
+ document.querySelectorAll('.qcmcore-host').forEach(host=>{
+  const panel=host.closest('details');
+  if(!panel)throw new Error('Accordéon Je me teste introuvable');
+  QCMCore.bindDetails(panel,host,data,host.dataset.quizId);
+ });
+}).catch(error=>{
+ console.error('DNS QCMCore :',error);
+ document.querySelectorAll('.qcmcore-host').forEach(host=>{host.textContent='Impossible de charger le questionnaire. Actualise la page pour réessayer.';});
+});
+</script><script src="../diagcore/v1/diagcore.js?v=010"></script><script src="scenario-diagnostic.js?v=001"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dns-diagnostic-vertical');
