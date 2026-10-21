@@ -44,7 +44,7 @@ window.DHCP_DIAGNOSTIC_SCENARIO = {
  title:'Quelle correction proposes-tu ?',
  label:'Configurer le relais DHCP sur le VLAN 30',
  requiredChecks:['relay','server'],
- observation:{type:'command',text:'Interface VLAN 30\nRelais DHCP configuré vers 10.10.0.10'}
+ observation:{type:'command',text:'Interface VLAN 30\nRelais DHCP configuré vers 10.99.0.10'}
  },
  verification:{
  title:'Comment vérifies-tu la réparation ?',
