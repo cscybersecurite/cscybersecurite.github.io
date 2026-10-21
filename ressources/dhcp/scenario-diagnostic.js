@@ -13,7 +13,7 @@ window.DHCP_DIAGNOSTIC_SCENARIO = {
  backLabel:'Continuer mes vérifications',
  groups:[
  {title:'PC',checks:[
- {id:'ip',label:'Exécuter ipconfig /all',action:'Sur un PC du VLAN 30 : ipconfig /all',observation:{type:'command',text:'Carte Ethernet :\nDHCP activé : Oui\nAdresse IPv4 d’autoconfiguration : 169.254.18.27\nMasque de sous-réseau : 255.255.0.0\nPasserelle par défaut : (aucune)\nServeur DHCP : (aucun)'}},
+ {id:'ip',label:'Exécuter ipconfig /all',action:'Sur un PC du VLAN 30 : ipconfig /all',observation:{type:'command',text:'C:\\Users\\chaoli>ipconfig /all\n\nConfiguration IP de Windows\n\nNom de l’hôte . . . : REN-PC-01\n\nDescription . . . : Intel(R) Ethernet Controller (3) I225-V\nAdresse physique . . . : 48-21-0B-5E-8C-90\nDHCP activé . . . : Oui\nConfiguration automatique activée : Oui\nAdresse d’autoconfiguration IPv4 : 169.254.159.39 (préféré)\nMasque de sous-réseau . . . : 255.255.0.0\nPasserelle par défaut . . . :\nNetBIOS sur TCPip . . . : Activé'}},
  {id:'renew',label:'Exécuter ipconfig /renew',action:'Sur un PC du VLAN 30 : ipconfig /renew',observation:{type:'command',text:'Impossible de contacter le serveur DHCP.\nLe renouvellement du bail a échoué.'}}
  ]},
  {title:'Câblage',checks:[
