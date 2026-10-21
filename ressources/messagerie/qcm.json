@@ -1,0 +1,502 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mail-1-1",
+          "text": "Pour envoyer un courriel à une autre entreprise, que se passe-t-il généralement ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le courriel reste sur le PC jusqu'à ce que le destinataire l'ouvre"
+            },
+            {
+              "id": "r1",
+              "text": "Le message passe par des serveurs de messagerie"
+            },
+            {
+              "id": "r2",
+              "text": "Le courriel passe seulement par le serveur de l'expéditeur"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Le courriel passe par le serveur de l'expéditeur, puis par celui du destinataire.",
+          "hint": "Pense au trajet du message : que se passe-t-il après le clic sur « Envoyer » ?"
+        },
+        {
+          "id": "mail-1-2",
+          "text": "Quel enregistrement DNS aide à trouver le serveur recevant les courriels d’un domaine ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "MX"
+            },
+            {
+              "id": "r1",
+              "text": "A"
+            },
+            {
+              "id": "r2",
+              "text": "CNAME"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Un enregistrement MX indique le serveur chargé de recevoir les courriels d'un domaine.",
+          "hint": "Relis la différence entre les enregistrements DNS A, CNAME et celui consacré aux courriels."
+        },
+        {
+          "id": "mail-1-3",
+          "text": "Quel équipement peut héberger une boîte mail ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Un serveur de fichiers de l'entreprise"
+            },
+            {
+              "id": "r1",
+              "text": "Un serveur de messagerie chez un prestataire"
+            },
+            {
+              "id": "r2",
+              "text": "Un dossier du navigateur web"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Une boîte professionnelle peut être hébergée sur un serveur chez un prestataire.",
+          "hint": "Distingue le logiciel utilisé par la personne de l'équipement qui conserve sa boîte mail."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mail-2-1",
+          "text": "Un même compte peut-il être consulté sur un PC et un téléphone avec des réglages différents ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Oui, si les services autorisés le permettent"
+            },
+            {
+              "id": "r1",
+              "text": "Non, tous les appareils doivent utiliser le même protocole"
+            },
+            {
+              "id": "r2",
+              "text": "Oui, mais seulement si tous les appareils sont de la même marque"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Un même compte peut fonctionner sur plusieurs appareils, avec des réglages différents autorisés.",
+          "hint": "Une même adresse peut être utilisée sur plusieurs appareils. La méthode de connexion dépend-elle forcément de la marque ?"
+        },
+        {
+          "id": "mail-2-2",
+          "text": "Avant de remplacer un PC, que vérifie le technicien ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le logiciel de messagerie, sans vérifier où sont les anciens courriels"
+            },
+            {
+              "id": "r1",
+              "text": "Les protocoles et l’emplacement des courriels"
+            },
+            {
+              "id": "r2",
+              "text": "Les serveurs de messagerie, mais pas les données stockées sur le PC"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Avant une migration, il faut connaître les paramètres et vérifier où sont conservés les anciens messages.",
+          "hint": "Une migration réussie concerne aussi les anciens messages. Que faut-il vérifier avant d'effacer l'ancien PC ?"
+        },
+        {
+          "id": "mail-2-3",
+          "text": "Un webmail est généralement utilisé depuis…",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Un navigateur web"
+            },
+            {
+              "id": "r1",
+              "text": "Un logiciel installé sur le PC"
+            },
+            {
+              "id": "r2",
+              "text": "Une application de messagerie sur smartphone"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le webmail s'utilise dans un navigateur, sans installer de logiciel de messagerie.",
+          "hint": "Pense à la façon dont tu consultes Gmail depuis un ordinateur, sans installer de logiciel."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mail-3-1",
+          "text": "Pour transmettre un courriel d’un serveur à un autre, quel port est généralement utilisé ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "995"
+            },
+            {
+              "id": "r1",
+              "text": "25"
+            },
+            {
+              "id": "r2",
+              "text": "143"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Entre serveurs de messagerie, SMTP utilise généralement le port 25. Le port 587 sert souvent à l'envoi depuis un logiciel.",
+          "hint": "Ne confonds pas le port d'envoi utilisé sur un PC et celui des échanges entre deux serveurs SMTP."
+        },
+        {
+          "id": "mail-3-2",
+          "text": "Un message part par SMTP. Où sa copie « Envoyés » est-elle conservée ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Toujours sur le PC"
+            },
+            {
+              "id": "r1",
+              "text": "Toujours supprimée"
+            },
+            {
+              "id": "r2",
+              "text": "Cela dépend du service et du logiciel"
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "SMTP envoie le courriel, mais le logiciel ou le service décide où garder la copie envoyée.",
+          "hint": "SMTP sert à transporter le message. Quel réglage détermine où la copie « Envoyés » est conservée ?"
+        },
+        {
+          "id": "mail-3-3",
+          "text": "Un photocopieur doit envoyer un scan par courriel. Que faut-il vérifier ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "La méthode SMTP prise en charge et autorisée"
+            },
+            {
+              "id": "r1",
+              "text": "Le protocole POP3 uniquement"
+            },
+            {
+              "id": "r2",
+              "text": "Le protocole et le port d'envoi proposés par le fournisseur"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le technicien vérifie le serveur SMTP, le port, la sécurité et la méthode de connexion autorisée.",
+          "hint": "Un photocopieur doit envoyer, pas lire les messages. Cherche les paramètres du service d'envoi."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-4",
+      "title": "Je me teste : chapitre 4",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mail-4-1",
+          "text": "Avec POP3, deux PC synchronisent-ils automatiquement leurs dossiers de classement ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Oui"
+            },
+            {
+              "id": "r1",
+              "text": "Non"
+            },
+            {
+              "id": "r2",
+              "text": "Uniquement par SMTP"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "POP3 ne synchronise pas les dossiers entre deux ordinateurs.",
+          "hint": "Imagine que tu ranges un courriel dans un dossier sur le premier PC. POP3 transmet-il ce rangement à l'autre PC ?"
+        },
+        {
+          "id": "mail-4-2",
+          "text": "Un client POP3 peut-il conserver les messages sur le serveur après téléchargement ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Oui, selon les paramètres"
+            },
+            {
+              "id": "r1",
+              "text": "Jamais"
+            },
+            {
+              "id": "r2",
+              "text": "Seulement avec le port 25"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Un logiciel POP3 peut laisser une copie sur le serveur si cette option est activée.",
+          "hint": "Pense au réglage qui décide ce que devient le message sur le serveur après son téléchargement."
+        },
+        {
+          "id": "mail-4-3",
+          "text": "Avant de supprimer un ancien profil POP3, il faut surtout…",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Supprimer les dossiers locaux"
+            },
+            {
+              "id": "r1",
+              "text": "Sauvegarder les éventuelles données locales"
+            },
+            {
+              "id": "r2",
+              "text": "Réinstaller Outlook sans chercher les anciennes données"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Il faut sauvegarder les courriels enregistrés uniquement sur l'ancien ordinateur.",
+          "hint": "Avant de changer de PC, demande-toi quels anciens messages ne sont conservés que sur cet ordinateur."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-5",
+      "title": "Je me teste : chapitre 5",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mail-5-1",
+          "text": "Un dossier « Envoyés » hébergé sur le serveur IMAP peut-il être visible depuis plusieurs appareils ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Oui"
+            },
+            {
+              "id": "r1",
+              "text": "Non, jamais"
+            },
+            {
+              "id": "r2",
+              "text": "Seulement avec POP3"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le dossier « Envoyés » peut être synchronisé si les copies sont enregistrées sur le serveur IMAP.",
+          "hint": "La question porte sur un dossier conservé sur le serveur, pas seulement sur des courriels reçus."
+        },
+        {
+          "id": "mail-5-2",
+          "text": "Un message envoyé n’apparaît pas sur le smartphone. Première vérification ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Vérifier d'abord si la connexion Internet fonctionne"
+            },
+            {
+              "id": "r1",
+              "text": "Vérifier le dossier des envoyés utilisé par chaque client"
+            },
+            {
+              "id": "r2",
+              "text": "Vérifier seulement le nom du serveur SMTP"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Le premier contrôle consiste à comparer le dossier d'envoi utilisé sur chaque appareil.",
+          "hint": "Cherche où chaque appareil enregistre les copies des messages envoyés."
+        },
+        {
+          "id": "mail-5-3",
+          "text": "IMAP assure-t-il à lui seul la synchronisation des calendriers partagés ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Oui, toujours"
+            },
+            {
+              "id": "r1",
+              "text": "Non, cela nécessite d’autres services"
+            },
+            {
+              "id": "r2",
+              "text": "Oui, si le dossier Envoyés est sur le serveur"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "IMAP synchronise les courriels ; les calendriers nécessitent d'autres services.",
+          "hint": "IMAP gère les messages et les dossiers de messagerie. Un calendrier appartient-il à ces dossiers ?"
+        }
+      ]
+    },
+    {
+      "id": "chapitre-6",
+      "title": "Je me teste : chapitre 6",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mail-6-1",
+          "text": "Quel besoin distingue le mieux une plateforme collaborative d’un simple accès IMAP ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "La lecture des courriels"
+            },
+            {
+              "id": "r1",
+              "text": "Les calendriers partagés et la gestion des droits"
+            },
+            {
+              "id": "r2",
+              "text": "La possibilité de lire des courriels sur deux appareils"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Une plateforme collaborative peut ajouter des calendriers partagés et des droits d'accès.",
+          "hint": "Une simple boîte mail peut déjà envoyer et recevoir des courriels. Que propose en plus une plateforme collaborative ?"
+        },
+        {
+          "id": "mail-6-2",
+          "text": "Une boîte Exchange Online peut-elle parfois être consultée via IMAP ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Oui, si le service et ses paramètres l’autorisent"
+            },
+            {
+              "id": "r1",
+              "text": "Non, jamais"
+            },
+            {
+              "id": "r2",
+              "text": "Oui, mais uniquement si le compte est configuré en POP3"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Une boîte Exchange peut parfois accepter IMAP, si l'administrateur l'autorise.",
+          "hint": "La possibilité d'utiliser IMAP dépend des services et des autorisations du compte."
+        },
+        {
+          "id": "mail-6-3",
+          "text": "Pourquoi éviter d’utiliser le compte personnel d’une secrétaire pour tous les scans du photocopieur ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Parce qu'un compte personnel est réservé à l'envoi depuis un PC"
+            },
+            {
+              "id": "r1",
+              "text": "À cause des risques de confidentialité et de dépendance au compte"
+            },
+            {
+              "id": "r2",
+              "text": "Parce que les courriels ne peuvent être envoyés que depuis Outlook"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Utiliser un compte personnel sur un photocopieur peut exposer des messages confidentiels.",
+          "hint": "Pense aux personnes qui pourraient voir les scans envoyés avec le compte de la secrétaire."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-7",
+      "title": "Je me teste : chapitre 7",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mail-7-1",
+          "text": "Une TPE veut uniquement consulter ses courriels sur PC et smartphone. Quelle affirmation est correcte ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Seul Microsoft 365 peut synchroniser les envoyés"
+            },
+            {
+              "id": "r1",
+              "text": "Une offre IMAP peut convenir si elle répond aux besoins"
+            },
+            {
+              "id": "r2",
+              "text": "Une offre POP3 permet toujours de retrouver les mêmes dossiers sur chaque appareil"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "IMAP peut synchroniser les courriels sur PC et téléphone, y compris les envoyés si le dossier est sur le serveur.",
+          "hint": "Le besoin porte sur les courriels sur plusieurs appareils, sans calendrier partagé. Quelle fonction suffit ?"
+        },
+        {
+          "id": "mail-7-2",
+          "text": "Pourquoi une offre collaborative peut-elle coûter davantage ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Elle inclut parfois davantage d’outils, d’administration et de services"
+            },
+            {
+              "id": "r1",
+              "text": "Parce qu'elle utilise systématiquement des serveurs installés dans l'entreprise"
+            },
+            {
+              "id": "r2",
+              "text": "Parce qu'elle inclut obligatoirement un ordinateur par salarié"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Les offres collaboratives peuvent comprendre davantage de services, de droits et d'outils.",
+          "hint": "Compare une simple boîte mail avec un service incluant des outils de travail en équipe."
+        },
+        {
+          "id": "mail-7-3",
+          "text": "Le prix d’une offre est annoncé à 12 € par utilisateur et par mois. Pour 20 utilisateurs, quel est le coût mensuel ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "32 €"
+            },
+            {
+              "id": "r1",
+              "text": "120 €"
+            },
+            {
+              "id": "r2",
+              "text": "240 €"
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "Pour 20 utilisateurs : 12 € × 20 = 240 € chaque mois.",
+          "hint": "Calcule d'abord pour deux salariés, puis multiplie pour obtenir le coût de vingt."
+        }
+      ]
+    }
+  ]
+}
