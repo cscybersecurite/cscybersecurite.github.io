@@ -24,9 +24,10 @@ window.DHCP_DIAGNOSTIC_SCENARIO = {
  {id:'swappatch',label:'Remplacer le cordon RJ45 entre le panneau de brassage et le switch',action:'Dans la baie réseau, remplacer le cordon RJ45 reliant le panneau de brassage au switch par un cordon testé et fonctionnel.',observation:'Le cordon RJ45 entre le panneau de brassage et le switch a été remplacé. Le voyant du port Ethernet est allumé et la liaison fonctionne. Cependant, le PC ne reçoit toujours pas d’adresse IP du serveur DHCP.'}
  ]},
  {title:'Switch',checks:[
- {id:'switchpower',label:'Vérifier que le switch est allumé',action:'Observer l’alimentation et les voyants généraux du switch.',observation:'Le switch est sous tension. Le voyant d’alimentation est allumé et aucun voyant de défaut général n’est actif.'},
- {id:'switchport',label:'Observer les voyants du port Ethernet',action:'Observer les voyants du port du switch sur lequel le PC est connecté.',observation:'Voyant du port : allumé. Le voyant d’activité clignote. La liaison avec le PC est établie.'},
- {id:'relay',label:'Afficher le relais DHCP du VLAN 30',action:'Sur le switch de niveau 3 : consulter les paramètres du VLAN 30.',observation:{type:'command',text:'Interface VLAN 30 : 10.30.0.1/24\nRelais DHCP / IP Helper : absent'}}
+ {id:'switchpower',label:'Vérifier l’alimentation du switch',action:'Observer le voyant d’alimentation du switch.',observation:'Switch sous tension. Voyant d’alimentation allumé.'},
+ {id:'switchport',label:'Contrôler les voyants du port RJ45',action:'Observer les voyants du port RJ45 relié au PC.',observation:'Liaison établie. Activité réseau détectée.'},
+ {id:'switchvlan',label:'Vérifier l’affectation du port au VLAN 30',action:'Consulter le VLAN affecté au port du switch relié au PC.',observation:'Port Ethernet affecté au VLAN 30.'},
+ {id:'relay',label:'Vérifier le relais DHCP du VLAN 30',action:'Sur le switch de niveau 3 : consulter les paramètres du VLAN 30.',observation:{type:'command',text:'VLAN 30 : 10.30.0.1/24\nRelais DHCP (IP Helper) : non configuré'}}
  ]},
  {title:'Serveur DHCP',checks:[
  {id:'serverpower',label:'Vérifier si le serveur est allumé',action:'Observer l’état physique du serveur.',observation:'Serveur allumé ; voyants système normaux.'},
