@@ -18,9 +18,9 @@ window.DHCP_DIAGNOSTIC_SCENARIO = {
  {id:'cable',label:'Observer les voyants réseau du PC',action:'Observer les voyants de la prise Ethernet du PC.',observation:'Voyant de liaison : allumé. Voyant d’activité : clignotant. La liaison Ethernet est établie.'}
  ]},
  {title:'Câblage',checks:[
- {id:'replugpc',label:'Débrancher et rebrancher le câble côté PC',action:'Débrancher puis rebrancher le câble Ethernet à l’arrière du PC.',observation:'Le voyant Ethernet s’éteint au débranchement puis se rallume au rebranchement. Le PC ne récupère toujours pas d’adresse DHCP.'},
- {id:'replugswitch',label:'Débrancher et rebrancher le câble côté switch',action:'Débrancher puis rebrancher le câble Ethernet sur le port du switch.',observation:'Le voyant du port s’éteint, puis se rallume. La liaison Ethernet est rétablie, mais le PC conserve une adresse APIPA.'},
- {id:'swapcable',label:'Essayer un autre câble Ethernet',action:'Remplacer le câble Ethernet par un câble testé et fonctionnel.',observation:'La liaison Ethernet reste établie. Malgré ce changement, le PC ne reçoit toujours pas de configuration DHCP.'}
+ {id:'replugpc',label:'Débrancher et rebrancher le cordon côté PC',action:'Débrancher puis rebrancher le cordon RJ45 reliant le PC à la prise murale, côté PC puis côté prise.',observation:'À chaque débranchement, la liaison Ethernet est interrompue. Une fois le cordon rebranché aux deux extrémités, les voyants de liaison se rallument. Le PC ne reçoit toujours pas d’adresse DHCP.'},
+ {id:'replugswitch',label:'Débrancher et rebrancher le cordon de brassage',action:'Dans la baie réseau, débrancher puis rebrancher le cordon RJ45 reliant le panneau de brassage au switch, aux deux extrémités.',observation:'Le voyant du port du switch s’éteint pendant le débranchement, puis se rallume après le rebranchement. La liaison Ethernet est rétablie, mais le PC conserve son adresse APIPA.'},
+ {id:'swapcable',label:'Remplacer le cordon RJ45 côté PC',action:'Remplacer le cordon reliant le PC à la prise murale par un cordon RJ45 testé et fonctionnel.',observation:'Après remplacement, les voyants de liaison sont allumés. Le PC ne reçoit toujours pas de configuration DHCP.'}
  ]},
  {title:'Switch',checks:[
  {id:'switchpower',label:'Vérifier que le switch est allumé',action:'Observer l’alimentation et les voyants généraux du switch.',observation:'Le switch est sous tension. Le voyant d’alimentation est allumé et aucun voyant de défaut général n’est actif.'},
