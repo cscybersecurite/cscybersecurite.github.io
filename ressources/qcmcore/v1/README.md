@@ -1,4 +1,4 @@
-# QCMCore V1.0.0
+# QCMCore V1.0.1
 
 Moteur de questionnaires d'entraînement, sans note ni serveur. Compatible GitHub Pages, sans dépendances.
 
@@ -107,3 +107,7 @@ Les réponses correctes sont verrouillées après validation ; les réponses inc
 L'ordre du questionnaire est aléatoire. Deux ouvertures peuvent produire par hasard le même ordre. La liste utilise systématiquement une option vide « Choisir… ». Aucune donnée élève n'est envoyée à un serveur.
 
 La V1 ne prend en charge que les questions à **une seule bonne réponse**. Les fichiers sont servis par HTTP(S), pas par `file://` pour le chargement JSON via `fetch`.
+
+## V1.0.1 : propositions longues sur mobile
+
+Les listes déroulantes restent natives. Lorsqu'une réponse est sélectionnée, son libellé complet est également affiché en dessous, avec retour automatique à la ligne. Cette présentation permet de lire les choix longs sur les navigateurs qui tronquent le texte dans un `<select>`. Aucun changement du JSON, du mélange, de l'évaluation ni de l'API. Les cours chargeant ces fichiers communs bénéficieront de l'amélioration après actualisation du cache.

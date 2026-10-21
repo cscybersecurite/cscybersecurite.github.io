@@ -1,4 +1,4 @@
-/* QCMCore 1.0.0 - Styles isolés, compatibles clair/sombre/projection. */
+/* QCMCore 1.0.1 - Styles isolés, compatibles clair/sombre/projection. */
 .qcmcore{--qc-ink:var(--ink,#203044);--qc-panel:var(--panel,#fff);--qc-border:var(--line,#cbd9e6);--qc-soft:var(--soft,#f4f8fc);--qc-green:#00d958;--qc-orange:#ff9900;--qc-blue:#176fa9;--qc-blue-hover:#105985;color:var(--qc-ink);font:inherit;min-width:0}
 .qcmcore *{box-sizing:border-box}
 .qcmcore__form{display:grid;gap:14px;margin:0;padding:0}
@@ -24,3 +24,7 @@
 @media(prefers-color-scheme:dark){.qcmcore{--qc-ink:var(--ink,#edf5ff);--qc-panel:var(--panel,#1b2d41);--qc-border:var(--line,#526a85);--qc-soft:var(--soft,#263b51);--qc-blue:#257db9;--qc-blue-hover:#3292d1}}
 @media(max-width:600px){.qcmcore__card{padding:12px}.qcmcore__select{width:100%;font-size:16px}.qcmcore__verify{width:100%;justify-self:stretch}}
 @media(min-width:1200px){html.presentation .qcmcore,html.projection .qcmcore{font-size:1.1em}html.presentation .qcmcore__select,html.projection .qcmcore__select{font-size:1em}}
+
+/* Texte intégral du choix, lisible lorsque le select natif tronque son libellé. */
+.qcmcore__selected{margin:9px 0 0;padding:8px 10px;border-left:3px solid var(--qc-blue);border-radius:4px;background:var(--qc-soft);color:var(--qc-ink);font-size:.92em;line-height:1.5;overflow-wrap:anywhere;white-space:normal}
+.qcmcore__selected[hidden]{display:none!important}
