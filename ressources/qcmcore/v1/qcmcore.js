@@ -1,4 +1,4 @@
-/* QCMCore 1.0.0 - Entraînement pédagogique sans serveur. */
+/* QCMCore 1.0.1 - Entraînement pédagogique sans serveur. */
 (function(global){
 'use strict';
 const instances=new Set();
@@ -65,13 +65,20 @@ function mount(container,data,id,options={}){
    const answers=quiz.shuffleAnswers===false?q.answers.slice():shuffle(q.answers);
    answers.forEach(answer=>{const opt=element('option','',answer.text);opt.value=answer.id;select.append(opt);});
    select.selectedIndex=0;select.value='';
+   const chosen=element('p','qcmcore__selected');chosen.hidden=true;
+   function updateChosen(){
+    const selected=select.selectedOptions[0];
+    chosen.textContent=selected&&selected.value?'Réponse sélectionnée : '+selected.textContent:'';
+    chosen.hidden=!chosen.textContent;
+   }
    const feedback=element('div','qcmcore__feedback');feedback.hidden=true;feedback.setAttribute('aria-live','polite');
    select.addEventListener('change',()=>{
     if(select.disabled)return;
+    updateChosen();
     clearMark(row);
     summary.hidden=true;summary.textContent='';
    });
-   card.append(label,select,feedback);form.append(card);
+   card.append(label,select,chosen,feedback);form.append(card);
    const row={q,card,select,feedback};state.rows.push(row);
   });
   const button=element('button','qcmcore__verify','Vérifier mes réponses');button.type='submit';
@@ -102,7 +109,7 @@ function mount(container,data,id,options={}){
   // Déjouer la restauration différée des formulaires sur les navigateurs mobiles.
   resetSelections();
  }
- function resetSelections(){state.rows.forEach(row=>{row.select.disabled=false;row.select.selectedIndex=0;row.select.value='';clearMark(row);});}
+ function resetSelections(){state.rows.forEach(row=>{row.select.disabled=false;row.select.selectedIndex=0;row.select.value='';const preview=row.card.querySelector('.qcmcore__selected');if(preview){preview.textContent='';preview.hidden=true;}clearMark(row);});}
  const pageShow=event=>{if(event.persisted)start();};
  global.addEventListener('pageshow',pageShow);
  function dispose(){state.destroyed=true;global.removeEventListener('pageshow',pageShow);target.replaceChildren();instances.delete(api);}
@@ -117,5 +124,5 @@ function bindDetails(details,container,data,id,options={}){
  panel.addEventListener('toggle',onToggle);if(panel.open)onToggle();
  return {destroy(){alive=false;panel.removeEventListener('toggle',onToggle);if(instance)instance.destroy();}};
 }
-global.QCMCore=Object.freeze({version:'1.0.0',load,validate,mount,bindDetails});
+global.QCMCore=Object.freeze({version:'1.0.1',load,validate,mount,bindDetails});
 })(window);
