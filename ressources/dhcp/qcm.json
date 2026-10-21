@@ -1,0 +1,494 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dhcp-1-1",
+          "text": "Quelle ligne confirme que cette carte utilise DHCP ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Adresse IPv4 : 192.168.1.26"
+            },
+            {
+              "id": "r1",
+              "text": "DHCP activé : Oui"
+            },
+            {
+              "id": "r2",
+              "text": "Masque : 255.255.255.0"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "La ligne « DHCP activé : Oui » confirme que la carte est configurée pour utiliser DHCP.",
+          "hint": "Une adresse IPv4 ou un masque peuvent aussi être configurés manuellement. Cherche une indication explicite du mode de configuration."
+        },
+        {
+          "id": "dhcp-1-2",
+          "text": "Quelle est l’adresse IPv4 du serveur DHCP ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "192.168.1.26"
+            },
+            {
+              "id": "r1",
+              "text": "8.8.8.8"
+            },
+            {
+              "id": "r2",
+              "text": "192.168.1.1"
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "La ligne « Serveur DHCP » de la sortie ipconfig /all indique 192.168.1.1.",
+          "hint": "Une sortie ipconfig /all distingue l'adresse du PC et celle du serveur qui lui fournit son bail."
+        },
+        {
+          "id": "dhcp-1-3",
+          "text": "À quelle date le bail affiché arrive-t-il à expiration ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Lundi 19 octobre 2026"
+            },
+            {
+              "id": "r1",
+              "text": "Dimanche 18 octobre 2026"
+            },
+            {
+              "id": "r2",
+              "text": "Mardi 20 octobre 2026"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le bail de cet exemple expire le lundi 19 octobre 2026.",
+          "hint": "Repère la ligne « Bail expirant » : ce n'est pas forcément la date d'obtention du bail."
+        },
+        {
+          "id": "dhcp-1-4",
+          "text": "Combien de serveurs DNS sont indiqués pour cette carte ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Un"
+            },
+            {
+              "id": "r1",
+              "text": "Trois"
+            },
+            {
+              "id": "r2",
+              "text": "Deux"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "La sortie ipconfig /all mentionne trois serveurs DNS pour cette carte.",
+          "hint": "Compte les adresses IP indiquées sous la rubrique « Serveurs DNS », y compris celles sur les lignes suivantes."
+        },
+        {
+          "id": "dhcp-1-5",
+          "text": "Le PC communique dans son réseau local, mais ne peut pas joindre une adresse IP d’un autre réseau. Quel paramètre contrôler en priorité ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "La date du bail"
+            },
+            {
+              "id": "r1",
+              "text": "Le serveur DNS"
+            },
+            {
+              "id": "r2",
+              "text": "La passerelle par défaut"
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "Pour atteindre un autre réseau par son adresse IP, le PC utilise normalement sa passerelle par défaut.",
+          "hint": "La communication avec un autre réseau nécessite un équipement qui assure le routage. Le DNS sert surtout à résoudre les noms."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dhcp-2-1",
+          "text": "Le serveur propose une adresse. Quel message envoie-t-il ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Offer"
+            },
+            {
+              "id": "r1",
+              "text": "Discover"
+            },
+            {
+              "id": "r2",
+              "text": "Request"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Dans DORA, le serveur répond à Discover par un message Offer : il propose une configuration IP.",
+          "hint": "Reconstitue DORA : Discover, puis la proposition du serveur, puis la demande du client et enfin la confirmation."
+        },
+        {
+          "id": "dhcp-2-2",
+          "text": "Quel message confirme l'attribution ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Request"
+            },
+            {
+              "id": "r1",
+              "text": "Ack"
+            },
+            {
+              "id": "r2",
+              "text": "Discover"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Le message DHCP Ack confirme l'attribution de l'adresse IP et des paramètres réseau.",
+          "hint": "Le client a déjà demandé l'adresse. Quel est le dernier message de DORA envoyé par le serveur ?"
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dhcp-3-1",
+          "text": "La plage DHCP va de 192.168.20.50 à 192.168.20.200. Quelle adresse peut être attribuée automatiquement ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "192.168.20.12"
+            },
+            {
+              "id": "r1",
+              "text": "192.168.20.75"
+            },
+            {
+              "id": "r2",
+              "text": "192.168.20.220"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "192.168.20.75 est comprise entre les bornes 192.168.20.50 et 192.168.20.200.",
+          "hint": "Compare les trois adresses avec les deux limites de la plage."
+        },
+        {
+          "id": "dhcp-3-2",
+          "text": "On exclut les adresses de 192.168.20.180 à 192.168.20.189. Que fait le serveur DHCP ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Il les réserve aux visiteurs"
+            },
+            {
+              "id": "r1",
+              "text": "Il ne les distribue pas"
+            },
+            {
+              "id": "r2",
+              "text": "Il les distribue en dernier"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Une exclusion retire les adresses concernées des adresses que DHCP peut distribuer automatiquement.",
+          "hint": "Le mot « exclusion » indique que les adresses sont retirées des attributions automatiques."
+        },
+        {
+          "id": "dhcp-3-3",
+          "text": "Une valise de diagnostic nomade doit retrouver la même IP sur un site pour les règles du pare-feu. Quel réglage utiliser ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Une exclusion seule"
+            },
+            {
+              "id": "r1",
+              "text": "Un bail très court"
+            },
+            {
+              "id": "r2",
+              "text": "Une réservation par MAC"
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "Une réservation DHCP associe une adresse IP à l'adresse MAC d'un équipement, afin qu'il retrouve son adresse habituelle.",
+          "hint": "Il faut un lien stable entre la carte réseau de l'équipement et l'adresse à lui attribuer."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-4",
+      "title": "Je me teste : chapitre 4",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dhcp-4-1",
+          "text": "Pourquoi centraliser le DHCP de plusieurs VLAN ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Pour éviter de gérer un serveur DHCP dans chaque VLAN"
+            },
+            {
+              "id": "r1",
+              "text": "Pour utiliser une seule plage DHCP"
+            },
+            {
+              "id": "r2",
+              "text": "Pour éviter les relais DHCP"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Un DHCP central évite d'installer et de gérer un serveur DHCP distinct dans chaque VLAN.",
+          "hint": "La centralisation évite de multiplier les serveurs, mais pas de distinguer les réseaux IP."
+        },
+        {
+          "id": "dhcp-4-2",
+          "text": "Quel équipement relaie les demandes des VLAN dans notre architecture ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le serveur DHCP central"
+            },
+            {
+              "id": "r1",
+              "text": "Le switch de niveau 3 avec IP Helper"
+            },
+            {
+              "id": "r2",
+              "text": "Le switch sans relais DHCP"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Le switch de niveau 3 équipé d'un relais IP Helper transmet les demandes DHCP vers le serveur central.",
+          "hint": "Une requête DHCP est diffusée dans le VLAN local. Cherche l'équipement de niveau 3 qui peut l'acheminer."
+        },
+        {
+          "id": "dhcp-4-3",
+          "text": "Le serveur central doit-il prévoir une étendue adaptée à chaque VLAN ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Non, une même plage convient à tous"
+            },
+            {
+              "id": "r1",
+              "text": "Oui, chaque réseau possède sa propre étendue"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Chaque VLAN constitue un réseau IP distinct : il lui faut une étendue DHCP adaptée à ce réseau.",
+          "hint": "Deux VLAN distincts n'ont normalement pas la même plage d'adresses IP."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-5",
+      "title": "Je me teste : chapitre 5",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dhcp-5-1",
+          "text": "Quel équipement transmet la demande DHCP du PC de Brest vers Rennes ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le tunnel VPN, sans relais"
+            },
+            {
+              "id": "r1",
+              "text": "Le relais DHCP (IP Helper) de Brest"
+            },
+            {
+              "id": "r2",
+              "text": "Le switch local, sans configuration particulière"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Le relais DHCP configuré à Brest envoie la demande au serveur central de Rennes.",
+          "hint": "Une demande DHCP diffusée sur le réseau local ne traverse pas seule les routeurs. Quel équipement fait l'intermédiaire ?"
+        },
+        {
+          "id": "dhcp-5-2",
+          "text": "Pourquoi centraliser le DHCP au siège de Rennes ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Pour éviter de gérer un service DHCP sur chaque site distant"
+            },
+            {
+              "id": "r1",
+              "text": "Pour éviter les relais DHCP"
+            },
+            {
+              "id": "r2",
+              "text": "Pour attribuer le même réseau IP à tous les sites"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Centraliser le DHCP évite de maintenir un serveur DHCP sur chacun des sites distants.",
+          "hint": "Pense à la maintenance des services sur plusieurs sites : que gagne-t-on en les regroupant ?"
+        },
+        {
+          "id": "dhcp-5-3",
+          "text": "Comment le serveur de Rennes choisit-il l'étendue du réseau de Brest ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Grâce à l'adresse IP du PC"
+            },
+            {
+              "id": "r1",
+              "text": "Grâce aux informations fournies par le relais DHCP"
+            },
+            {
+              "id": "r2",
+              "text": "En utilisant le nom du PC"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Le relais transmet les informations permettant au serveur de sélectionner l'étendue correspondant au réseau de Brest.",
+          "hint": "Le serveur doit reconnaître le réseau d'origine de la demande. Qui lui transmet cette information ?"
+        }
+      ]
+    },
+    {
+      "id": "chapitre-6",
+      "title": "Je me teste : chapitre 6",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dhcp-6-1",
+          "text": "Une application doit être accessible depuis Internet sans exposer directement le réseau interne. Où l'héberger ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Sur un serveur du réseau interne"
+            },
+            {
+              "id": "r1",
+              "text": "Sur un serveur extranet dans la DMZ"
+            },
+            {
+              "id": "r2",
+              "text": "Sur un serveur du Wi-Fi invités"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Une DMZ permet d'héberger un service accessible depuis Internet dans une zone séparée du réseau interne.",
+          "hint": "Cherche une zone réseau isolée, prévue pour accueillir des services accessibles depuis l'extérieur."
+        },
+        {
+          "id": "dhcp-6-2",
+          "text": "Un visiteur rejoint le Wi-Fi invités. Quel service lui attribue automatiquement une adresse IP ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le DHCP"
+            },
+            {
+              "id": "r1",
+              "text": "Le DNS"
+            },
+            {
+              "id": "r2",
+              "text": "Le serveur extranet"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "DHCP attribue automatiquement les paramètres IP du visiteur connecté au réseau Wi-Fi invités.",
+          "hint": "Quel protocole permet au PC d'obtenir automatiquement une adresse IP et les autres paramètres réseau ?"
+        },
+        {
+          "id": "dhcp-6-3",
+          "text": "Un visiteur sur le Wi-Fi invités tente d'accéder à un serveur interne. Quel équipement doit bloquer cet accès ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le point d'accès Wi-Fi seul"
+            },
+            {
+              "id": "r1",
+              "text": "Le switch du réseau interne"
+            },
+            {
+              "id": "r2",
+              "text": "Le pare-feu"
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "Le pare-feu applique les règles qui interdisent au réseau invités d'accéder aux serveurs internes.",
+          "hint": "Quel équipement applique des règles de filtrage entre les réseaux ?"
+        }
+      ]
+    },
+    {
+      "id": "chapitre-7",
+      "title": "Je me teste : chapitre 7",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dhcp-7-1",
+          "text": "L’adresse 169.255.159.39 est-elle une adresse APIPA ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Non"
+            },
+            {
+              "id": "r1",
+              "text": "Oui"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Une adresse APIPA IPv4 appartient à la plage 169.254.0.0/16. L'adresse 169.255.159.39 n'en fait pas partie.",
+          "hint": "Vérifie attentivement les deux premiers octets du préfixe APIPA, pas uniquement le début « 169 »."
+        },
+        {
+          "id": "dhcp-7-2",
+          "text": "Que signifie une adresse APIPA sur un PC en DHCP ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Échec du DHCP"
+            },
+            {
+              "id": "r1",
+              "text": "Le serveur DHCP a répondu"
+            },
+            {
+              "id": "r2",
+              "text": "DNS indisponible"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Une adresse APIPA apparaît lorsqu'un client IPv4 configuré en DHCP ne parvient pas à obtenir de bail et s'attribue automatiquement une adresse locale.",
+          "hint": "APIPA est une solution locale de secours. Réfléchis à ce qui n'a pas fonctionné avant son attribution."
+        }
+      ]
+    }
+  ]
+}
