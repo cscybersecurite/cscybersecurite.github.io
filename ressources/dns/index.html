@@ -204,6 +204,8 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 .projection-float[aria-pressed="true"]{background:#96471e;border-color:#f2b27b}
 .presentation .projection-float{font:700 15px Arial,sans-serif}
 @media(max-width:550px){.projection-float{padding:10px 12px;font-size:13px;bottom:18px}.presentation .projection-float{font-size:13px}}
+#dns-diagnostic-vertical .diagcore__entry--observation>h3{display:none}
+#dns-diagnostic-vertical .diagcore__entry--observation .diagcore__terminal{margin-top:0}
 .diagnostic-wrench{display:inline-block;width:24px;height:24px;vertical-align:-4px;margin-left:6px}
 .dns-incident-mail{border:1px solid var(--line);border-radius:10px;padding:15px;margin:12px 0 18px;background:var(--dns-info-panel);color:var(--dns-info-text)}
 .dns-incident-mail p{margin:8px 0}
@@ -570,13 +572,22 @@ installerQcm({
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.39</div><script src="../diagcore/v1/diagcore.js?v=010"></script><script src="scenario-diagnostic.js?v=001"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.40</div><script src="../diagcore/v1/diagcore.js?v=010"></script><script src="scenario-diagnostic.js?v=001"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dns-diagnostic-vertical');
 if(!target)return;
 if(!window.DiagCore||!window.DiagCore.version||!window.DiagCore.version.startsWith('1.2.')){target.textContent='Impossible de charger DiagCore 1.2.';return;}
 if(!window.DNS_DIAGNOSTIC_SCENARIO){target.textContent='Scénario DNS indisponible.';return;}
+// La documentation ne nécessite pas un deuxième clic après le choix du groupe.
+target.addEventListener('click',event=>{
+ const group=event.target.closest('.diagcore__equipment');
+ if(!group||group.textContent.trim()!=='Documentation')return;
+ requestAnimationFrame(()=>{
+  const choice=[...target.querySelectorAll('.diagcore__group .diagcore__choice')].find(b=>b.textContent.trim()==='Documentation réseau');
+  if(choice&&!choice.disabled)choice.click();
+ });
+},true);
 const app=window.DiagCore.mount(target,window.DNS_DIAGNOSTIC_SCENARIO,{mode:'vertical'});
 document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
 })();
