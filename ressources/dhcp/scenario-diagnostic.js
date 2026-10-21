@@ -50,7 +50,7 @@ window.DHCP_DIAGNOSTIC_SCENARIO = {
  title:'Comment vérifies-tu la réparation ?',
  label:'Exécuter ipconfig /renew sur un PC du VLAN 30',
  check:()=>true,
- observation:{type:'command',text:'> ipconfig /renew\nAdresse IPv4 : 10.30.0.42\nMasque : 255.255.255.0\nPasserelle : 10.30.0.1'}
+ observation:{type:'command',text:'> ipconfig /renew\nAdresse IPv4 : 10.30.0.142\nMasque : 255.255.255.0\nPasserelle : 10.30.0.1'}
  },
  success:'Le PC a reçu un bail DHCP. Incident résolu.'
 };
