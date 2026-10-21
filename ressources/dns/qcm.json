@@ -1,0 +1,676 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dns-1-1",
+          "text": "Lorsque tu ouvres un site web, quel rôle le DNS joue-t-il ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Il vérifie que le serveur web est disponible."
+            },
+            {
+              "id": "b",
+              "text": "Il recherche l'adresse IP associée au nom du site web."
+            },
+            {
+              "id": "c",
+              "text": "Il établit la connexion entre ton ordinateur et le serveur web."
+            },
+            {
+              "id": "d",
+              "text": "Il transmet le contenu du site web à ton navigateur."
+            }
+          ],
+          "correctAnswerId": "b",
+          "explanation": "Le DNS trouve l'adresse IP associée au nom du site demandé.",
+          "hint": "Le DNS donne une information sur le nom du site ; il ne transmet pas la page web."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dns-2-1",
+          "text": "Le DNS a donné l'adresse IP du site web. Que fait le PC ensuite ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Il demande au serveur DNS de télécharger la page web."
+            },
+            {
+              "id": "b",
+              "text": "Il contacte directement le serveur web."
+            },
+            {
+              "id": "c",
+              "text": "Il envoie la page web au serveur DNS."
+            },
+            {
+              "id": "d",
+              "text": "Il attend que le serveur DNS lui transmette le site web."
+            }
+          ],
+          "correctAnswerId": "b",
+          "explanation": "Une fois l'adresse IP obtenue, le PC contacte directement le serveur web.",
+          "hint": "Le serveur DNS a déjà répondu. Quel serveur fournit réellement la page du site ?"
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dns-3-1",
+          "text": "Dans le nom pc01.atelier.cybernet.fr, que représente « fr » ?",
+          "answers": [
+            {
+              "id": "host",
+              "text": "Hôte"
+            },
+            {
+              "id": "sub",
+              "text": "Sous-domaine"
+            },
+            {
+              "id": "domain",
+              "text": "Domaine"
+            },
+            {
+              "id": "ext",
+              "text": "Extension"
+            }
+          ],
+          "correctAnswerId": "ext",
+          "explanation": "« fr » est l'extension du nom pc01.atelier.cybernet.fr.",
+          "hint": "Dans un nom DNS, la partie la plus à droite correspond à la terminaison du domaine."
+        },
+        {
+          "id": "dns-3-2",
+          "text": "Dans le nom pc01.atelier.cybernet.fr, que représente « pc01 » ?",
+          "answers": [
+            {
+              "id": "host",
+              "text": "Hôte"
+            },
+            {
+              "id": "sub",
+              "text": "Sous-domaine"
+            },
+            {
+              "id": "domain",
+              "text": "Domaine"
+            },
+            {
+              "id": "ext",
+              "text": "Extension"
+            }
+          ],
+          "correctAnswerId": "host",
+          "explanation": "« pc01 » désigne l'hôte dans ce nom DNS.",
+          "hint": "Cherche le nom de la machine dans pc01.atelier.cybernet.fr."
+        },
+        {
+          "id": "dns-3-3",
+          "text": "Dans le nom pc01.atelier.cybernet.fr, que représente « cybernet » ?",
+          "answers": [
+            {
+              "id": "host",
+              "text": "Hôte"
+            },
+            {
+              "id": "sub",
+              "text": "Sous-domaine"
+            },
+            {
+              "id": "domain",
+              "text": "Domaine"
+            },
+            {
+              "id": "ext",
+              "text": "Extension"
+            }
+          ],
+          "correctAnswerId": "domain",
+          "explanation": "« cybernet » représente le domaine.",
+          "hint": "Repère le nom principal du domaine, juste avant l'extension."
+        },
+        {
+          "id": "dns-3-4",
+          "text": "Dans le nom pc01.atelier.cybernet.fr, que représente « atelier » ?",
+          "answers": [
+            {
+              "id": "host",
+              "text": "Hôte"
+            },
+            {
+              "id": "sub",
+              "text": "Sous-domaine"
+            },
+            {
+              "id": "domain",
+              "text": "Domaine"
+            },
+            {
+              "id": "ext",
+              "text": "Extension"
+            }
+          ],
+          "correctAnswerId": "sub",
+          "explanation": "« atelier » est un sous-domaine de cybernet.fr.",
+          "hint": "Quel élément est placé entre le nom de l'hôte et le domaine principal ?"
+        }
+      ]
+    },
+    {
+      "id": "chapitre-4",
+      "title": "Je me teste : chapitre 4",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dns-4-1",
+          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            }
+          ],
+          "correctAnswerId": "A",
+          "explanation": "Un enregistrement A associe un nom à une adresse IPv4.",
+          "hint": "Cherche le type utilisé pour relier un nom DNS à une adresse IPv4."
+        },
+        {
+          "id": "dns-4-2",
+          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            }
+          ],
+          "correctAnswerId": "MX",
+          "explanation": "Un enregistrement MX désigne un serveur chargé de recevoir les courriels d'un domaine.",
+          "hint": "Les courriels ont un enregistrement DNS spécifique pour trouver leur serveur de réception."
+        },
+        {
+          "id": "dns-4-3",
+          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            }
+          ],
+          "correctAnswerId": "CNAME",
+          "explanation": "Un enregistrement CNAME crée un autre nom pour un nom DNS existant.",
+          "hint": "Il s'agit d'un alias : un nom pointe vers un autre nom."
+        },
+        {
+          "id": "dns-4-4",
+          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            }
+          ],
+          "correctAnswerId": "AAAA",
+          "explanation": "Un enregistrement AAAA associe un nom à une adresse IPv6.",
+          "hint": "L'adresse donnée contient des groupes hexadécimaux séparés par des deux-points."
+        },
+        {
+          "id": "dns-4-5",
+          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            }
+          ],
+          "correctAnswerId": "CNAME",
+          "explanation": "Un CNAME permet à boutique.arte.net de désigner un autre nom DNS.",
+          "hint": "La demande porte sur un deuxième nom, pas sur une adresse IP."
+        },
+        {
+          "id": "dns-4-6",
+          "text": "CyberNet Rennes souhaite associer l’imprimante imp-compta.rennes.cybernet.fr à l’adresse IPv4 192.168.1.50.",
+          "answers": [
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            },
+            {
+              "id": "A",
+              "text": "A"
+            },
+            {
+              "id": "AAAA",
+              "text": "AAAA"
+            },
+            {
+              "id": "CNAME",
+              "text": "CNAME"
+            },
+            {
+              "id": "MX",
+              "text": "MX"
+            }
+          ],
+          "correctAnswerId": "A",
+          "explanation": "Un enregistrement A associe ce nom de serveur à l'adresse IPv4 donnée.",
+          "hint": "Le serveur doit être associé à une adresse au format IPv4."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-6",
+      "title": "Je me teste : chapitre 6",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dns-6-1",
+          "text": "Une entreprise veut indiquer quels serveurs ont le droit d'envoyer des courriels avec son nom de domaine. Quel mécanisme doit-elle configurer ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "DKIM"
+            },
+            {
+              "id": "b",
+              "text": "DMARC"
+            },
+            {
+              "id": "c",
+              "text": "SPF"
+            },
+            {
+              "id": "d",
+              "text": "TXT"
+            }
+          ],
+          "correctAnswerId": "c",
+          "explanation": "SPF indique quels serveurs sont autorisés à envoyer des courriels pour le domaine.",
+          "hint": "Ne confonds pas le type d'enregistrement TXT avec le mécanisme qui autorise les serveurs expéditeurs."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-7",
+      "title": "Je me teste : chapitre 7",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dns-7-1",
+          "text": "Des clients tapent la bonne adresse d'un site, mais arrivent sur un faux site. Le serveur DNS a enregistré une fausse adresse IP. Quelle attaque est utilisée ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "DNS hijacking"
+            },
+            {
+              "id": "b",
+              "text": "DNS cache poisoning"
+            },
+            {
+              "id": "c",
+              "text": "Attaque DDoS contre le DNS"
+            },
+            {
+              "id": "d",
+              "text": "DNS tunneling"
+            }
+          ],
+          "correctAnswerId": "b",
+          "explanation": "Le DNS cache poisoning consiste à enregistrer une fausse information DNS dans un cache, afin de rediriger les utilisateurs.",
+          "hint": "Ici une mauvaise adresse est déjà conservée par le serveur DNS. Cherche une attaque visant le cache."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-8",
+      "title": "Je me teste : chapitre 8",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "dns-8-1",
+          "text": "Un technicien voit l'adresse IP 192.0.2.25 dans les journaux de son pare-feu. Il veut connaître le nom de cette machine. Quel enregistrement doit-il rechercher ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Un enregistrement A"
+            },
+            {
+              "id": "b",
+              "text": "Un enregistrement MX"
+            },
+            {
+              "id": "c",
+              "text": "Un enregistrement PTR"
+            },
+            {
+              "id": "d",
+              "text": "Un enregistrement TXT"
+            }
+          ],
+          "correctAnswerId": "c",
+          "explanation": "Un enregistrement PTR sert à retrouver un nom à partir d'une adresse IP.",
+          "hint": "Tu connais déjà l'adresse IP et tu recherches le nom : c'est une résolution DNS inverse."
+        }
+      ]
+    }
+  ]
+}
