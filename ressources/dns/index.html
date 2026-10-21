@@ -458,13 +458,15 @@ quiz4.addEventListener('change',()=>{feedback4.hidden=true;feedback4.textContent
 quiz4.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(quiz4),answers=dns4Expected.map((_,i)=>data.get('q'+(i+1)));feedback4.hidden=false;
 if(answers.some(v=>!v)){feedback4.textContent='Choisis une réponse pour les six situations.';return;}
 const score=answers.filter((v,i)=>v===dns4Expected[i]).length;feedback4.textContent=score===6?'Bravo ! 6 bonnes réponses sur 6.':score+' bonnes réponses sur 6. Vérifie tes choix et essaie encore.';});
-const chapters=[...document.querySelectorAll('main > details')];
+const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
  chapters.forEach(other=>{if(other!==chapter)other.open=false});
- requestAnimationFrame(()=>{if(chapter.open){const top=chapter.getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:Math.max(0,top),behavior:'instant'});}});
+ // Les accordéons précédents se referment : recaler le nouveau titre après mise en page.
+ const align=()=>{if(!chapter.open)return;const top=chapter.getBoundingClientRect().top+window.scrollY-8;window.scrollTo({top:Math.max(0,top),behavior:'instant'});};
+ requestAnimationFrame(()=>requestAnimationFrame(align));
+ setTimeout(align,120);
 }));
-
 const dnsInitial={site:"192.0.2.10",www:"arte.net",mail:"192.0.2.20",mx:"10 mail.arte.net"};
 let dnsZone={...dnsInitial};
 const dnsNames={site:"arte.net",www:"www",mail:"mail",mx:"arte.net"};
@@ -572,7 +574,7 @@ installerQcm({
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.41</div><script src="../diagcore/v1/diagcore.js?v=010"></script><script src="scenario-diagnostic.js?v=001"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.42</div><script src="../diagcore/v1/diagcore.js?v=010"></script><script src="scenario-diagnostic.js?v=001"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dns-diagnostic-vertical');
