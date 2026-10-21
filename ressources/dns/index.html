@@ -244,7 +244,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 
 </div>
 
-<details id="exercice-2" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><form id="quiz-2" autocomplete="off"><fieldset><legend>Après avoir reçu l'adresse IP du serveur DNS, que fait l'ordinateur ?</legend>
+<details id="exercice-2" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><form id="quiz-2" autocomplete="off"><fieldset><legend>Le DNS a donné l'adresse IP du site web. Que fait le PC ensuite ?</legend>
 <label class="choice"><input type="radio" name="reponse-2" value="a">Il demande au serveur DNS de télécharger la page web.</label>
 <label class="choice"><input type="radio" name="reponse-2" value="b">Il contacte directement le serveur web.</label>
 <label class="choice"><input type="radio" name="reponse-2" value="c">Il envoie la page web au serveur DNS.</label>
@@ -309,8 +309,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <div class="dns-q4-row"><label for="dns-q4-3"><span class="dns-q4-num">3.</span> CyberNet Rennes souhaite utiliser partage.rennes.cybernet.fr comme autre nom de srv-fichiers.rennes.cybernet.fr.</label><select id="dns-q4-3" name="q3"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
 <div class="dns-q4-row"><label for="dns-q4-4"><span class="dns-q4-num">4.</span> CyberNet Rennes souhaite associer le serveur srv-fichiers.rennes.cybernet.fr à l’adresse IPv6 2001:0db8:1234:5678:abcd:ef12:3456:789a.</label><select id="dns-q4-4" name="q4"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
 <div class="dns-q4-row"><label for="dns-q4-5"><span class="dns-q4-num">5.</span> Arte souhaite que boutique.arte.net désigne le service hébergé sous le nom serveur1.hebergement.fr.</label><select id="dns-q4-5" name="q5"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-6"><span class="dns-q4-num">6.</span> CyberNet souhaite que les courriels envoyés à support@cybernet.fr soient reçus par mail.cybernet.fr.</label><select id="dns-q4-6" name="q6"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div>
-<div class="dns-q4-row"><label for="dns-q4-7"><span class="dns-q4-num">7.</span> Arte souhaite associer le serveur mail.paris.arte.net à l’adresse IPv4 203.0.113.25.</label><select id="dns-q4-7" name="q7"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div></div>
+<div class="dns-q4-row"><label for="dns-q4-6"><span class="dns-q4-num">6.</span> Arte souhaite associer le serveur mail.paris.arte.net à l’adresse IPv4 203.0.113.25.</label><select id="dns-q4-6" name="q6"><option value="">Choisir…</option><option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option></select></div></div>
 <button type="submit">Vérifier mes réponses</button><p id="feedback-4" class="feedback" role="status" aria-live="polite" hidden></p></form>
 </div></details>
 </div></details>
@@ -355,7 +354,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <div class="dns-attaque"><span class="dns-attaque-icone" aria-hidden="true">📤</span><div><strong>DNS tunneling (transport caché de données)</strong><p>Un logiciel malveillant cache des données dans des demandes DNS pour les envoyer vers un serveur extérieur.</p><p><em>Exemple :</em> un ordinateur infecté envoie discrètement des informations de l'entreprise dans ses requêtes DNS.</p></div></div>
 </div>
 <details class="dns-quiz-6 quiz-standard"><summary>Je me teste</summary><div class="inside">
-<form id="quiz-6"><fieldset><legend>Des clients d'une boutique en ligne saisissent la bonne adresse du site. Pourtant, pendant plusieurs heures, ils arrivent sur une copie frauduleuse. L'enquête montre que le serveur DNS consulté par ces clients conserve une information falsifiée. Quel type d'attaque reconnais-tu ?</legend>
+<form id="quiz-6"><fieldset><legend>Des clients tapent la bonne adresse d'un site, mais arrivent sur un faux site. Le serveur DNS a enregistré une fausse adresse IP. Quelle attaque est utilisée ?</legend>
 <label class="choice"><input type="radio" name="attaque" value="a"> DNS hijacking</label>
 <label class="choice"><input type="radio" name="attaque" value="b"> DNS cache poisoning</label>
 <label class="choice"><input type="radio" name="attaque" value="c"> Attaque DDoS contre le DNS</label>
@@ -447,13 +446,13 @@ quiz3.addEventListener('change',()=>{feedback3.hidden=true;feedback3.textContent
 quiz3.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(quiz3),expected={pc01:'host',atelier:'sub',cybernet:'domain',fr:'ext'};const values=Object.keys(expected).map(k=>data.get(k));feedback3.hidden=false;feedback3.textContent=values.some(v=>!v)?'Choisis une réponse pour chaque élément.':Object.keys(expected).every(k=>data.get(k)===expected[k])?'Bonne réponse ! Tu as identifié les quatre parties du nom DNS.':'Ce n’est pas tout à fait correct. Vérifie les quatre parties et essaie encore.';});
 
 const quiz4=document.getElementById('quiz-4'),feedback4=document.getElementById('feedback-4');
-const dns4Expected=['A','MX','CNAME','AAAA','CNAME','MX','A'];
+const dns4Expected=['A','MX','CNAME','AAAA','CNAME','A'];
 quiz4.reset();
 window.addEventListener('pageshow',()=>{quiz4.reset();feedback4.hidden=true;feedback4.textContent='';});
 quiz4.addEventListener('change',()=>{feedback4.hidden=true;feedback4.textContent='';});
 quiz4.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(quiz4),answers=dns4Expected.map((_,i)=>data.get('q'+(i+1)));feedback4.hidden=false;
-if(answers.some(v=>!v)){feedback4.textContent='Choisis une réponse pour les sept situations.';return;}
-const score=answers.filter((v,i)=>v===dns4Expected[i]).length;feedback4.textContent=score===7?'Bravo ! 7 bonnes réponses sur 7.':score+' bonnes réponses sur 7. Vérifie tes choix et essaie encore.';});
+if(answers.some(v=>!v)){feedback4.textContent='Choisis une réponse pour les six situations.';return;}
+const score=answers.filter((v,i)=>v===dns4Expected[i]).length;feedback4.textContent=score===6?'Bravo ! 6 bonnes réponses sur 6.':score+' bonnes réponses sur 6. Vérifie tes choix et essaie encore.';});
 const chapters=[...document.querySelectorAll('main > details')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -571,4 +570,4 @@ installerQcm({"formId":"diag-1c","feedbackId":"feedback-diag-1c","nomChamp":"rep
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"a","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"b":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","c":"Ce n’est pas la bonne réponse. Les données présentées concernent les noms DNS, pas le DHCP. Réessaie.","d":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. PTR sert à retrouver un nom à partir d'une IP. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.33</div></body></html>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.34</div></body></html>
