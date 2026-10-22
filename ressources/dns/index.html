@@ -245,7 +245,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .diagcore__complete.dns-resolved{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;background:#202a35;color:#fff;font-weight:600}
 #dns-diagnostic-vertical .dns-resolved-icon{font-size:21px;color:#49df83;flex:none}
 </style>
-<link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=100">
+<link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200">
 <link rel="stylesheet" href="../diagcore/v1.2.2/diagcore.css?v=122"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
 <header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
@@ -334,7 +334,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <details id="chapitre-5"><summary>5. Lire une zone DNS</summary><div class="inside">
 <p>Une zone DNS regroupe des enregistrements administrés pour un domaine. Observe cette zone simplifiée de <strong>arte.net</strong>, puis lance des requêtes ou modifie un enregistrement.</p>
 <p><strong>Tester le DNS avec nslookup :</strong> la commande <code>nslookup</code> permet de demander à un serveur DNS l’adresse IP associée à un nom. Exemple : <code>nslookup www.arte.net</code>. Le résultat s’affiche dans la console.</p>
-<section class="dns-lab" aria-label="Simulateur de zone DNS">
+<section class="dns-lab" aria-label="Simulateur de zone DNS" data-coursprint-exclude>
 <h3>Serveur DNS virtuel : arte.net</h3>
 <p class="muted">Simulation pédagogique, sans modification d'un véritable serveur.</p>
 <div class="dns-table-wrap"><table class="dns-table"><thead><tr><th>Nom</th><th>Type</th><th>Valeur</th><th><span class="visually-hidden">Action</span></th></tr></thead><tbody id="dns-records"></tbody></table></div>
@@ -589,4 +589,4 @@ target.addEventListener('diagcore:complete',()=>{
 });
 document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
 })();
-</script><script src="../coursprint/v1/coursprint.js?v=100"></script><script>CoursPrint.init({toolbar:".header-bar .toolbar",content:"main",title:"DNS"});</script></body></html>
+</script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:".header-bar .toolbar",content:"main",title:"DNS"});</script></body></html>
