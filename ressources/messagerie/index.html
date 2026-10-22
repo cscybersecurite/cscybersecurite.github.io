@@ -29,7 +29,7 @@
 .mail-smtp-guard{position:absolute;inset:25px 0 0;display:block!important;width:100%;min-height:38px;z-index:2;background:transparent!important;border:0!important;padding:0!important;cursor:not-allowed}
 .mail-smtp-guard[hidden]{display:none!important}
 #mail-smtp-lock-message[hidden]{display:none}
-#mail-smtp-lock-message{margin:8px 0 12px;padding:9px 11px;border-radius:8px;background:var(--soft);border:1px solid var(--line);font-size:14px}
+#mail-smtp-lock-message{margin:0;padding:10px 12px;border-radius:8px;background:#fff0f0;color:#9b1c1c;border:2px solid #d32f2f;font-size:14px;font-weight:600;line-height:1.45}
 #mail-smtp-result{display:none;margin:15px 0 0;padding:13px 15px;border:3px solid transparent;border-radius:10px;background:#17212d;color:#fff;font:700 16px/1.45 Arial,sans-serif;overflow-wrap:anywhere}
 #mail-smtp-result.mail-result--success{display:block;border-color:#39dc70;box-shadow:0 0 0 2px #39dc7040}
 #mail-smtp-result.mail-result--error{display:block;border-color:#ffa92b;box-shadow:0 0 0 2px #ffa92b40}
@@ -50,9 +50,9 @@ IMAPS : TCP 993 (TLS implicite)</pre></div><h3>Et les messages envoyés ?</h3><p
 <section class="mail-smtp-settings" aria-label="Configuration Outlook" hidden style="display:none">
 <div class="mail-smtp-heading"><span aria-hidden="true">⚙</span><h3>Outlook - Configuration du serveur sortant</h3></div>
 <div class="mail-smtp-content"><p class="mail-smtp-account"><strong>Compte :</strong> contact@atelier-kerwen.fr</p>
-<p id="mail-smtp-lock-message" role="status" aria-live="polite" hidden></p>
 <form id="mail-smtp-form" class="mail-smtp-form">
 <button type="submit">✉ Tester l'envoi</button>
+<p id="mail-smtp-lock-message" role="status" aria-live="polite" hidden></p>
 <label class="mail-smtp-server">Serveur SMTP <select name="server" required><option value="smtp.novamail.fr" selected>smtp.novamail.fr (Nova Mail)</option><option value="smtp.orange.fr">smtp.orange.fr (Orange)</option></select></label>
 <div class="mail-smtp-small-fields">
 <label class="mail-smtp-port">Port SMTP <select name="port" required><option value="25">25</option><option value="465">465</option><option value="587" selected>587</option></select></label>
@@ -61,7 +61,7 @@ IMAPS : TCP 993 (TLS implicite)</pre></div><h3>Et les messages envoyés ?</h3><p
 </form><p id="mail-smtp-result" role="status" aria-live="polite"></p></div>
 </section>
 <div class="mail-diagnostic-actions"><button type="button" id="mail-restart">↻ Recommencer le diagnostic</button></div>
-</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.4.14</div><script>
+</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.4.15</div><script>
 const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
