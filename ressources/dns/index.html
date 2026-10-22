@@ -237,7 +237,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .dns-ipconfig-row span:last-child{color:#f0f8ff}
 @media(max-width:600px){#dns-diagnostic-vertical .dns-ipconfig{padding:9px 8px;font-size:12px}#dns-diagnostic-vertical .dns-ipconfig-row{grid-template-columns:minmax(0,1fr);gap:0;padding:5px 0}#dns-diagnostic-vertical .dns-ipconfig-row span:last-child{padding-left:9px}}
 </style>
-<link rel="stylesheet" href="../diagcore/v1.2.1/diagcore.css?v=121"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
+<link rel="stylesheet" href="../diagcore/v1.2.2/diagcore.css?v=122"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
 <header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
 <main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DNS" loading="eager" decoding="async"></figure>
@@ -506,7 +506,7 @@ function installerQcm({formId,feedbackId,nomChamp,bonneReponse,felicitations,ind
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.46</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.47</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
 QCMCore.load('qcm.json').then(data=>{
  document.querySelectorAll('.qcmcore-host').forEach(host=>{
   const panel=host.closest('details');
@@ -517,7 +517,7 @@ QCMCore.load('qcm.json').then(data=>{
  console.error('DNS QCMCore :',error);
  document.querySelectorAll('.qcmcore-host').forEach(host=>{host.textContent='Impossible de charger le questionnaire. Actualise la page pour réessayer.';});
 });
-</script><script src="../diagcore/v1.2.1/diagcore.js?v=121"></script><script src="scenario-diagnostic.js?v=002"></script><script>
+</script><script src="../diagcore/v1.2.2/diagcore.js?v=122"></script><script src="scenario-diagnostic.js?v=002"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dns-diagnostic-vertical');
