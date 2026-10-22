@@ -101,6 +101,10 @@ details>.inside,.example,.qrow label{font-size:17px;line-height:1.55}
 .dhcp-incident-mail-body{padding:16px 18px;border-left:4px solid #338ee3}
 .dhcp-incident-mail-body p{margin:7px 0 12px;line-height:1.55}
 .dhcp-incident-mail-meta{font-size:14px;color:var(--muted)}
+
+/* Le resultat ipconfig porte deja son invite de commande : eviter le titre en double. */
+#dhcp-diagnostic-vertical .diagcore__entry--observation:has(img[src*="ipconfig-all-mobile.svg"])>h3{display:none}
+#dhcp-diagnostic-vertical .diagcore__entry--observation:has(img[src*="ipconfig-all-mobile.svg"]) .diagcore__figure{margin-top:0}
 </style><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"><link rel="stylesheet" href="../diagcore/v1.2.1/diagcore.css?v=121"></head><body><header><div class="bar"><h1>DHCP</h1><nav class="actions" aria-label="Navigation"><a class="icon" href="/" aria-label="Retour au portail" title="Retour au portail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></svg></a></nav></div></header><main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DHCP" loading="eager" decoding="async"></figure><details class="chapter"><summary>1. À quoi sert le DHCP ?</summary><div class="inside">
 <p>Un serveur <strong>DHCP</strong> permet à un appareil d'obtenir automatiquement sa configuration réseau, notamment une <strong>adresse IPv4</strong>, un <strong>masque de sous-réseau</strong> et un <strong>bail</strong> (durée pendant laquelle l'adresse lui est attribuée).</p>
 <p>Il peut aussi fournir des <strong>options DHCP</strong>, comme l'adresse de la <strong>passerelle</strong> et celle des <strong>serveurs DNS</strong>. D'autres options existent selon les besoins du réseau.</p>
@@ -161,7 +165,7 @@ Carte Ethernet Ethernet :
 </div></div>
 <div id="dhcp-diagnostic-vertical" aria-label="Parcours de diagnostic DHCP">Chargement du diagnostic…</div>
 <div class="dhcp-diagnostic-actions"><button type="button" id="dhcp-diagnostic-restart">↻ Recommencer le diagnostic</button></div>
-</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.56</div><script>
+</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.57</div><script>
 const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -207,7 +211,7 @@ QCMCore.load('qcm.json').then(data=>{
  console.error('DHCP QCMCore :',error);
  document.querySelectorAll('.qcmcore-host').forEach(host=>{host.textContent='Impossible de charger le questionnaire. Actualise la page pour réessayer.';});
 });
-</script><script src="../diagcore/v1.2.1/diagcore.js?v=121"></script><script src="scenario-diagnostic.js?v=012"></script><script>
+</script><script src="../diagcore/v1.2.1/diagcore.js?v=121"></script><script src="scenario-diagnostic.js?v=013"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dhcp-diagnostic-vertical');
