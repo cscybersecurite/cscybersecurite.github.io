@@ -47,12 +47,10 @@ host.addEventListener('click',event=>{
 },true);
 const app=window.DiagCore.mount(host,scenario,{mode:'vertical'});
 const outlook=document.querySelector('.mail-smtp-settings');
-let canEdit=false;
-function setEditing(enabled){
- canEdit=enabled;
- for(const control of form.querySelectorAll('select'))control.disabled=!enabled;
+function setEditing(){
+ for(const control of form.querySelectorAll('select'))control.disabled=false;
  const intro=outlook.querySelector('.mail-smtp-content>p');
- if(intro)intro.textContent=enabled?'Corrige les paramètres SMTP du compte, puis teste l’envoi.':'Échec du test : examine les paramètres SMTP et les documentations avant de les corriger.';
+ if(intro)intro.textContent='Modifie les paramètres SMTP du compte, puis teste l’envoi.';
 }
 host.addEventListener('click',event=>{
  const button=event.target.closest('button.diagcore__choice');
@@ -64,11 +62,11 @@ host.addEventListener('click',event=>{
   entry.querySelector('p')?.remove();
   entry.append(outlook);
   outlook.hidden=false;outlook.style.display='';
-  setEditing(false);
+  setEditing();
   showResult('error','Échec de l’envoi : Outlook ne peut pas contacter le serveur SMTP configuré. Le message reste dans la boîte d’envoi.');
  }
  if(label==='Mettre à jour les paramètres SMTP du compte'){
-  setEditing(true);
+  setEditing();
   const entry=host.querySelector('.diagcore__timeline .diagcore__entry:last-child');
   if(entry){entry.append(outlook);outlook.hidden=false;outlook.style.display='';}
  }
@@ -77,7 +75,6 @@ const form=document.getElementById('mail-smtp-form'),out=document.getElementById
 function showResult(type,message){out.className='mail-result--'+type;out.textContent=message;}
 form.addEventListener('submit',function(e){
  e.preventDefault();
- if(!canEdit){showResult('error','Échec de l’envoi : serveur SMTP actuel non adapté. Termine ton diagnostic avant de modifier la configuration.');return;}
  const data=new FormData(form);
  const server=String(data.get('server')||'').trim().toLowerCase();
  const port=String(data.get('port')||'').trim();
@@ -90,6 +87,6 @@ form.addEventListener('submit',function(e){
  }
 });
 document.getElementById('mail-restart').addEventListener('click',()=>{
- app.restart();form.reset();out.textContent='';out.className='';setEditing(false);outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
+ app.restart();form.reset();out.textContent='';out.className='';setEditing();outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
 });
 })();
