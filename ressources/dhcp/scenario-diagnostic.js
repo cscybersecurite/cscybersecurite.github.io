@@ -5,7 +5,7 @@
 'use strict';
 window.DHCP_DIAGNOSTIC_SCENARIO = {
  title:'Où veux-tu intervenir ?',
- minimumChecks:1,
+ minimumChecks:2,
  groupPicker:true,
  hideHypothesisUntilReady:true,
  hypothesisLabel:'Mon diagnostic',
