@@ -11,8 +11,8 @@ window.DNS_DIAGNOSTIC_SCENARIO={
   {id:'dossier',label:'Documentation réseau',observation:{type:'command',text:'Réseau local         192.168.10.0/24\nPasserelle           192.168.10.1\nServeur DHCP         192.168.10.2\nPlage DHCP           192.168.10.100 à 192.168.10.200\nServeur DNS          192.168.10.5\nServeur de fichiers  192.168.10.10\nPC-01                DHCP\nPC-02                DHCP\nPC-03                DHCP\nPC-04                DHCP'}}
  ]},
  {title:'PC-01',checks:[
-  {id:'ipconfig1',label:'ipconfig /all',observation:{type:'command',text:'PC-01> ipconfig /all\\nNom de l’hôte          PC-01\\nDHCP activé            Oui\\nAdresse IPv4           192.168.10.142\\nMasque                 255.255.255.0\\nPasserelle par défaut  192.168.10.1\\nServeur DHCP           192.168.10.2\\nServeur DNS            192.168.10.5'}},
-  {id:'nslookup1',label:'nslookup SRV-FICHIERS',observation:{type:'command',text:'PC-01> nslookup SRV-FICHIERS\\nServeur : dns-interne\\nAddress: 192.168.10.5\\nNom : SRV-FICHIERS\\nAddress: 192.168.10.10'}}
+  {id:'ipconfig1',label:'ipconfig /all',observation:{type:'command',text:'PC-01> ipconfig /all\nNom de l’hôte          PC-01\nDHCP activé            Oui\nAdresse IPv4           192.168.10.142\nMasque                 255.255.255.0\nPasserelle par défaut  192.168.10.1\nServeur DHCP           192.168.10.2\nServeur DNS            192.168.10.5'}},
+  {id:'nslookup1',label:'nslookup SRV-FICHIERS',observation:{type:'command',text:'PC-01> nslookup SRV-FICHIERS\nServeur : dns-interne\nAddress: 192.168.10.5\nNom : SRV-FICHIERS\nAddress: 192.168.10.10'}}
  ]},
  {title:'PC-02',checks:[
   {id:'pingip',label:'ping 192.168.10.10',observation:{type:'command',text:'PC-02> ping 192.168.10.10\nRéponse de 192.168.10.10 : octets=32 temps<1 ms TTL=128'}},
