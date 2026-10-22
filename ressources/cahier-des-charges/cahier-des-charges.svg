@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1800" height="600" viewBox="0 0 1800 600" role="img" aria-label="Dix Post-it colorés avec mots liés au cahier des charges informatique">
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.22"/>
+    </filter>
+    <linearGradient id="paperSheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.05"/>
+    </linearGradient>
+    <style><![CDATA[
+      .note-base { stroke: rgba(0,0,0,0.08); stroke-width: 1.5; }
+      .ink1 { font-family: "Comic Sans MS", "Trebuchet MS", cursive; font-weight: 700; }
+      .ink2 { font-family: "Bradley Hand", "Segoe Print", cursive; font-weight: 700; }
+      .ink3 { font-family: "Verdana", "Arial", sans-serif; font-weight: 700; letter-spacing: 0.5px; }
+      .ink4 { font-family: "Lucida Handwriting", "Segoe Script", cursive; font-weight: 700; }
+      .word { fill: #171717; font-size: 48px; dominant-baseline: middle; text-anchor: middle; }
+      .small { font-size: 42px; }
+      .long { font-size: 39px; }
+      .uline { fill: none; stroke: #171717; stroke-width: 7; stroke-linecap: round; opacity: 0.92; }
+      .shine { fill: url(#paperSheen); pointer-events: none; }
+      .fold-shadow { fill: rgba(0,0,0,0.10); }
+    ]]></style>
+  </defs>
+
+  <!-- note 1 -->
+  <g transform="translate(55 58) rotate(-7 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#FFEB19"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M188 199 L240 188 L240 240 L196 240 Q188 239 188 230 Z" fill="#F3D910"/>
+    <path class="fold-shadow" d="M188 199 L215 213 L240 188 L208 195 Z"/>
+    <text x="120" y="98" class="word ink2">Besoins</text>
+    <path class="uline" d="M58 150 C100 141, 141 133, 181 138"/>
+  </g>
+
+  <!-- note 2 -->
+  <g transform="translate(410 38) rotate(5 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#FF2EA3"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M0 0 H240 V22 C192 25, 90 17, 0 26 Z" fill="rgba(255,255,255,0.08)"/>
+    <text x="120" y="103" class="word ink4">Budget</text>
+    <path class="uline" d="M65 160 C118 149, 146 148, 186 149"/>
+  </g>
+
+  <!-- note 3 -->
+  <g transform="translate(775 64) rotate(-4 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#21D4FF"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M223 74 L240 80 L240 0 L219 0 Q224 32 223 74 Z" fill="rgba(255,255,255,0.10)"/>
+    <text x="120" y="104" class="word ink1">Délais</text>
+    <path class="uline" d="M65 160 C102 150, 143 147, 181 151"/>
+  </g>
+
+  <!-- note 4 -->
+  <g transform="translate(1140 58) rotate(6 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#98F327"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M0 0 H52 C41 24, 31 48, 30 74 Q12 44 0 20 Z" fill="rgba(255,255,255,0.10)"/>
+    <text x="120" y="94" class="word ink4 small">Sécurité</text>
+    <path class="uline" d="M54 150 C95 144, 141 141, 184 144"/>
+  </g>
+
+  <!-- note 5 -->
+  <g transform="translate(1495 40) rotate(8 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#FF8F00"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M207 199 L240 205 L240 240 L213 240 Q208 231 207 199 Z" fill="rgba(0,0,0,0.06)"/>
+    <text x="120" y="100" class="word ink2">VPN</text>
+    <path class="uline" d="M67 152 C105 146, 138 145, 176 149"/>
+  </g>
+
+  <!-- note 6 -->
+  <g transform="translate(28 312) rotate(3 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#21D4FF"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M0 0 H240 V27 C175 21, 88 18, 0 22 Z" fill="rgba(255,255,255,0.08)"/>
+    <text x="120" y="108" class="word ink1">Wi-Fi</text>
+    <path class="uline" d="M67 165 C111 157, 142 155, 180 159"/>
+  </g>
+
+  <!-- note 7 -->
+  <g transform="translate(392 338) rotate(-6 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#98F327"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M192 204 L240 198 L240 240 L198 240 Q187 231 192 204 Z" fill="#8ADF1E"/>
+    <text x="120" y="104" class="word ink4">Serveurs</text>
+    <path class="uline" d="M61 161 C103 153, 142 152, 181 154"/>
+  </g>
+
+  <!-- note 8 -->
+  <g transform="translate(740 326) rotate(-8 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#FF8F00"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M174 0 H240 V65 C223 48, 202 29, 174 18 Z" fill="rgba(255,255,255,0.12)"/>
+    <text x="120" y="103" class="word ink1 long">Utilisateurs</text>
+    <path class="uline" d="M54 164 C95 158, 139 153, 188 153"/>
+  </g>
+
+  <!-- note 9 -->
+  <g transform="translate(1112 330) rotate(4 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#FF2EA3"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M0 210 C39 196, 82 201, 124 205 C165 209, 201 210, 240 199 V240 H0 Z" fill="rgba(0,0,0,0.05)"/>
+    <text x="120" y="102" class="word ink2 small">Sauvegarde</text>
+    <path class="uline" d="M48 161 C98 150, 147 148, 189 150"/>
+  </g>
+
+  <!-- note 10 -->
+  <g transform="translate(1490 320) rotate(-7 120 120)" filter="url(#shadow)">
+    <rect class="note-base" x="0" y="0" width="240" height="240" rx="3" fill="#FFEB19"/>
+    <path class="shine" d="M0,0 H240 V240 H0 Z"/>
+    <path d="M8 187 L54 198 L44 240 H0 V198 Q3 191 8 187 Z" fill="#F3D910"/>
+    <text x="120" y="105" class="word ink3 small">Validation</text>
+    <path class="uline" d="M62 164 C100 156, 138 154, 180 156"/>
+  </g>
+</svg>
