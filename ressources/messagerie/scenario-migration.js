@@ -51,7 +51,6 @@ const outlook=document.querySelector('.mail-smtp-settings');
 let sendRecorded=false;
 let allowEngineSendClick=false;
 let pendingSendButton=null;
-let testPerformed=false;
 // Ouvrir Outlook sans compter le controle : seul le clic reel sur Tester l'envoi le valide.
 host.addEventListener('click',event=>{
  const button=event.target.closest('button.diagcore__choice');
@@ -60,6 +59,9 @@ host.addEventListener('click',event=>{
  if(!group)return;
  event.stopImmediatePropagation();
  pendingSendButton=button;
+ latestSendSuccess=false;
+ out.textContent='';
+ out.className='';
  group.append(outlook);
  outlook.hidden=false;outlook.style.display='';
  setEditing();
@@ -101,7 +103,6 @@ form.addEventListener('submit',function(e){
   sendRecorded=true;
   pendingSendButton=null;
  }
- testPerformed=true;
  const data=new FormData(form);
  const server=String(data.get('server')||'').trim().toLowerCase();
  const port=String(data.get('port')||'').trim();
@@ -115,6 +116,6 @@ form.addEventListener('submit',function(e){
  }
 });
 document.getElementById('mail-restart').addEventListener('click',()=>{
- app.restart();form.reset();latestSendSuccess=false;sendRecorded=false;allowEngineSendClick=false;pendingSendButton=null;testPerformed=false;out.textContent='';out.className='';setEditing();outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
+ app.restart();form.reset();latestSendSuccess=false;sendRecorded=false;allowEngineSendClick=false;pendingSendButton=null;out.textContent='';out.className='';setEditing();outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
 });
 })();
