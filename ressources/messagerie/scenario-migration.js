@@ -71,8 +71,6 @@ host.addEventListener('click',event=>{
 },true);
 
 function setEditing(){
- const intro=outlook.querySelector('.mail-smtp-content>p');
- if(intro)intro.textContent='Teste l’envoi d’un message.';
  for(const control of form.querySelectorAll('select')){
   const wrapper=control.parentElement;
   wrapper.classList.toggle('mail-smtp-locked',!diagnosticValidated);
