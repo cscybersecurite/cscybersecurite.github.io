@@ -9,18 +9,18 @@ const scenario={
  hypothesisLabel:'Mon diagnostic',hypothesisTitle:'Quel est le problème rencontré ?',backLabel:'Continuer mes vérifications',
  groups:[
  {title:'Courriel',checks:[
-  {id:'envoi',label:'Tester l’envoi d’un message',observation:'Le logiciel de messagerie affiche une erreur de connexion au serveur sortant. Le message reste dans la boîte d’envoi.'},
-  {id:'reception',label:'Tester la réception',observation:'Les nouveaux courriels sont reçus normalement. La connexion Internet et la réception des messages fonctionnent.'}
+  {id:'envoi',label:'Tester l’envoi d’un message',observation:{type:'command',text:'Outlook - Envoyer/Recevoir\n\n✉ Message : essai d’envoi\nCompte : contact@atelier-kerwen.fr\nÉtat : Échec de l’envoi\n\nImpossible d’établir une connexion avec le serveur de courrier sortant.\nLe message reste dans la boîte d’envoi.'}},
+  {id:'reception',label:'Tester la réception',observation:'Les nouveaux courriels arrivent normalement dans la boîte de réception.'}
  ]},
  {title:'Paramètres',checks:[
   {id:'smtp',label:'Configuration du serveur sortant',observation:{type:'command',text:'Compte : contact@atelier-kerwen.fr\nProtocole d’envoi : SMTP\nServeur sortant : smtp.novamail.example\nPort : 587\nSécurité : STARTTLS\nAuthentification SMTP : activée'}},
-  {id:'pop',label:'Configuration du serveur entrant',observation:{type:'command',text:'Protocole de réception : POP3\nRéception des messages : fonctionnelle\nAucun changement nécessaire sur ce protocole.'}}
+  {id:'pop',label:'Configuration du serveur entrant',observation:{type:'command',text:'Compte : contact@atelier-kerwen.fr\nProtocole : POP3\nServeur entrant : pop.orange.fr\nPort : 995\nSécurité : SSL/TLS'}}
  ]},
  {title:'Ancien prestataire',checks:[
-  {id:'nova',label:'Documentation Nova Mail',observation:{type:'command',text:'Ancien prestataire : Nova Mail (fictif)\nServeur SMTP : smtp.novamail.example\nPort : 587\nSécurité : STARTTLS'}}
+  {id:'nova',label:'Documentation Nova Mail',observation:{type:'command',text:'Nova Mail - Documentation messagerie\n\nRÉCEPTION (POP3)\nServeur : pop.novamail.example\nPort : 995\nSécurité : SSL/TLS\n\nENVOI (SMTP)\nServeur : smtp.novamail.example\nPort : 587\nSécurité : STARTTLS'}}
  ]},
  {title:'Nouveau prestataire',checks:[
-  {id:'orange',label:'Paramètres SMTP Orange',observation:{type:'command',text:'Nouveau prestataire : Orange\nServeur SMTP : smtp.orange.fr\nPort : 465\nSécurité : SSL/TLS\nAuthentification SMTP : activée\nDonnées du scénario : offre et compte compatibles avec cette configuration.'}}
+  {id:'orange',label:'Documentation Orange',observation:{type:'command',text:'Orange - Paramètres messagerie\n\nRÉCEPTION (POP3)\nServeur : pop.orange.fr\nPort : 995\nSécurité : SSL/TLS\n\nENVOI (SMTP)\nServeur : smtp.orange.fr\nPort : 465\nSécurité : SSL/TLS\nAuthentification SMTP : activée'}}
  ]}
  ],
  hypotheses:[
@@ -32,6 +32,18 @@ const scenario={
  verification:{title:'Quel contrôle faut-il effectuer ?',label:'Envoyer un courriel de test',check:()=>true,observation:'Effectue le test réel de la configuration avec le bouton « Tester l’envoi » situé sous le diagnostic.'},
  success:'Le diagnostic est terminé. Applique et teste maintenant les trois paramètres SMTP.'
 };
+// Une seule fiche par prestataire : l'ouvrir sans second clic.
+host.addEventListener('click',event=>{
+ const group=event.target.closest('.diagcore__equipment');
+ if(!group)return;
+ const name=group.textContent.trim();
+ if(name!=='Ancien prestataire'&&name!=='Nouveau prestataire')return;
+ const label=name==='Ancien prestataire'?'Documentation Nova Mail':'Documentation Orange';
+ requestAnimationFrame(()=>{
+  const choice=[...host.querySelectorAll('.diagcore__group .diagcore__choice')].find(b=>b.textContent.trim()===label);
+  if(choice&&!choice.disabled)choice.click();
+ });
+},true);
 const app=window.DiagCore.mount(host,scenario,{mode:'vertical'});
 const form=document.getElementById('mail-smtp-form'),out=document.getElementById('mail-smtp-result');
 form.addEventListener('submit',function(e){
