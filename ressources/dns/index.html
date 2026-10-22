@@ -245,6 +245,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .diagcore__complete.dns-resolved{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;background:#202a35;color:#fff;font-weight:600}
 #dns-diagnostic-vertical .dns-resolved-icon{font-size:21px;color:#49df83;flex:none}
 </style>
+<link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=100">
 <link rel="stylesheet" href="../diagcore/v1.2.2/diagcore.css?v=122"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
 <header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
@@ -588,4 +589,4 @@ target.addEventListener('diagcore:complete',()=>{
 });
 document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
 })();
-</script></body></html>
+</script><script src="../coursprint/v1/coursprint.js?v=100"></script><script>CoursPrint.init({toolbar:".header-bar .toolbar",content:"main",title:"DNS"});</script></body></html>
