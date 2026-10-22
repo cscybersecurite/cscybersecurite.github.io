@@ -11,6 +11,7 @@
 #mail-search.diagcore--vertical .diagcore__next{background:#17212d;border-radius:12px;padding:16px}
 #mail-search.diagcore--vertical .diagcore__equipment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 #mail-search.diagcore--vertical .diagcore__equipment{display:flex;align-items:center;justify-content:center;min-width:0;width:100%;min-height:68px;padding:13px 7px;background:#237eaf;color:#fff;font-weight:700;text-align:center;border-radius:12px}
+#mail-search.diagcore--vertical .diagcore__group-title{display:none}
 .mail-smtp-settings{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:18px;background:var(--panel)}
 .mail-smtp-heading{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#176bb1;color:#fff}
 .mail-smtp-heading span{font-size:25px;line-height:1}.mail-smtp-heading h3{font-size:clamp(17px,2.5vw,21px);line-height:1.3;margin:0;color:#fff}
@@ -59,7 +60,7 @@ IMAPS : TCP 993 (TLS implicite)</pre></div><h3>Et les messages envoyés ?</h3><p
 </form><p id="mail-smtp-result" role="status" aria-live="polite"></p></div>
 </section>
 <div class="mail-diagnostic-actions"><button type="button" id="mail-restart">↻ Recommencer le diagnostic</button></div>
-</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.4.11</div><script>
+</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.4.12</div><script>
 const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -98,4 +99,4 @@ QCMCore.load('qcm.json').then(data=>{
  console.error('Messagerie QCMCore :',error);
  document.querySelectorAll('.qcmcore-host').forEach(host=>{host.textContent='Impossible de charger le questionnaire. Réessaie en actualisant la page.';});
 });
-</script><script src="../diagcore/v1.2.2/diagcore.js?v=122"></script><script src="scenario-migration.js?v=011"></script></body></html>
+</script><script src="../diagcore/v1.2.2/diagcore.js?v=122"></script><script src="scenario-migration.js?v=012"></script></body></html>
