@@ -161,7 +161,7 @@ Carte Ethernet Ethernet :
 </div></div>
 <div id="dhcp-diagnostic-vertical" aria-label="Parcours de diagnostic DHCP">Chargement du diagnostic…</div>
 <div class="dhcp-diagnostic-actions"><button type="button" id="dhcp-diagnostic-restart">↻ Recommencer le diagnostic</button></div>
-</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.55</div><script>
+</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.56</div><script>
 const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -207,7 +207,7 @@ QCMCore.load('qcm.json').then(data=>{
  console.error('DHCP QCMCore :',error);
  document.querySelectorAll('.qcmcore-host').forEach(host=>{host.textContent='Impossible de charger le questionnaire. Actualise la page pour réessayer.';});
 });
-</script><script src="../diagcore/v1.2.1/diagcore.js?v=121"></script><script src="scenario-diagnostic.js?v=011"></script><script>
+</script><script src="../diagcore/v1.2.1/diagcore.js?v=121"></script><script src="scenario-diagnostic.js?v=012"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dhcp-diagnostic-vertical');
