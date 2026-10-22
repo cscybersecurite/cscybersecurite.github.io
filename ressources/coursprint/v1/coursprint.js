@@ -1,4 +1,4 @@
-/* CoursPrint v1.0 - Impression native du navigateur, sans PDF autonome. */
+/* CoursPrint v2.0 - Impression native du navigateur, sans PDF autonome. */
 (function (global) {
   'use strict';
   function init(options) {
@@ -47,11 +47,16 @@
       'details{display:block!important;overflow:visible!important;background:#fff!important;color:#172b44!important;break-inside:auto!important;margin:0 0 12px!important;border:0!important}',
       'details > summary{display:list-item!important;color:#172b44!important;background:#fff!important;font-size:19px!important;padding:9px 0!important;break-after:avoid!important;cursor:default!important}',
       'details > .inside{display:block!important;border:0!important;padding:0 0 8px!important}',
-      '.panel,.example,.dns-structure,.dns-parcours,.technical{break-inside:avoid-page}',
+      '.panel,.example,.technical,.dns-structure,.dns-parcours,.rdns-comparaison,.rdns-suite,figure,table,.network-figure,[data-coursprint-keep]{break-inside:avoid!important;page-break-inside:avoid!important}',
+      'figure img,.bandeau-cours img{display:block!important;width:100%!important;height:auto!important;object-fit:contain!important}',
+      '.bandeau-cours{display:block!important;max-width:100%!important;width:100%!important;margin:0 0 14px!important;break-inside:avoid!important;page-break-inside:avoid!important}',
+      'table{border-collapse:collapse}',
+      'thead{display:table-header-group}',
+      'tr{break-inside:avoid;page-break-inside:avoid}',
       'button,input,select,textarea,[role="button"],.qcmcore-host,.diagcore-host,.diagcore,.dns-parcours-controls,[data-coursprint-exclude]{display:none!important}',
       'img,svg,table,pre,figure{max-width:100%!important;break-inside:avoid-page}',
       'pre{white-space:pre-wrap!important;overflow-wrap:anywhere!important}',
-      '.bandeau-cours{display:none!important}',
+      '.dns-scene .dns-bubble[hidden]{display:none!important}',
       '*{box-shadow:none!important;animation:none!important;transition:none!important}',
       '@page{size:A4;margin:14mm}',
       '@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}a{color:#172b44!important}}'
@@ -97,5 +102,5 @@
     frame.contentDocument.write('<!doctype html>\n' + doc.documentElement.outerHTML);
     frame.contentDocument.close();
   }
-  global.CoursPrint = Object.freeze({ init: init, print: printCourse, version: '1.0.0' });
+  global.CoursPrint = Object.freeze({ init: init, print: printCourse, version: '2.0.0' });
 })(window);
