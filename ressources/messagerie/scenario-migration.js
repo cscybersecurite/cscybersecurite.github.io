@@ -72,7 +72,7 @@ host.addEventListener('click',event=>{
 
 function setEditing(){
  const intro=outlook.querySelector('.mail-smtp-content>p');
- if(intro)intro.textContent=diagnosticValidated?'Diagnostic validé : tu peux corriger les paramètres SMTP et tester l’envoi.':'Teste l’envoi avant de formuler ton diagnostic. La modification des paramètres sera disponible après validation.';
+ if(intro)intro.textContent='Teste l’envoi d’un message.';
  for(const control of form.querySelectorAll('select')){
   const wrapper=control.parentElement;
   wrapper.classList.toggle('mail-smtp-locked',!diagnosticValidated);
@@ -81,7 +81,7 @@ function setEditing(){
   control.tabIndex=diagnosticValidated?0:-1;
  }
  const hint=document.getElementById('mail-smtp-lock-message');
- if(hint){hint.hidden=diagnosticValidated;hint.textContent=diagnosticValidated?'':'Paramètres verrouillés : valide d’abord « Mon diagnostic » pour pouvoir les modifier.';}
+ if(hint){hint.hidden=true;hint.textContent='';}
 }
 for(const select of form.querySelectorAll('select')){
  const guard=document.createElement('button');
