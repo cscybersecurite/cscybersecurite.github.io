@@ -65,6 +65,7 @@ host.addEventListener('click',event=>{
  group.append(outlook);
  outlook.hidden=false;outlook.style.display='';
  setEditing();
+ requestAnimationFrame(()=>outlook.scrollIntoView({block:'start',behavior:'smooth'}));
 },true);
 
 function setEditing(){
