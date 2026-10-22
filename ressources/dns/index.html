@@ -220,6 +220,13 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical.diagcore--vertical .diagcore__equipment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 #dns-diagnostic-vertical.diagcore--vertical .diagcore__equipment{width:100%;min-width:0;min-height:68px;text-align:center;display:flex;align-items:center;justify-content:center;padding:13px 9px;border-radius:12px;background:#237eaf;color:#fff;font-weight:700}
 @media(max-width:550px){#dns-diagnostic-vertical.diagcore--vertical .diagcore__equipment{font-size:14px;min-height:58px;padding:10px 6px}}
+
+/* Courriel Outlook : identité visuelle commune aux diagnostics. */
+.dns-incident-mail{padding:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;margin:14px 0 18px;background:var(--panel);color:var(--ink)}
+.dns-incident-mail-head{background:#176bb1;color:#fff;padding:13px 17px;font-weight:700;font-size:17px}
+.dns-incident-mail-body{padding:16px 18px;border-left:4px solid #338ee3}
+.dns-incident-mail-body p{margin:7px 0 12px;line-height:1.55}
+.dns-incident-mail-meta{font-size:14px;color:var(--muted)}
 </style>
 <link rel="stylesheet" href="../diagcore/v1/diagcore.css?v=010"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
@@ -376,7 +383,7 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </div></details>
 </div></details>
 <details id="chapitre-9"><summary>9. Diagnostic professionnel <svg class="diagnostic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 1.4 1.4l2.2-2.2a6 6 0 0 1-7.9 7.9l-6.6 6.6a2 2 0 0 1-2.8-2.8l6.6-6.6a6 6 0 0 1 7.9-7.9z"/></svg></summary><div class="inside">
-<div class="dns-incident-mail" aria-label="Signalement de l'incident"><strong>✉ Message reçu</strong><p>Bonjour,</p><p>Depuis l'intervention de notre nouveau technicien informatique, le PC-02 ne parvient plus à accéder au serveur de fichiers.</p><p>Le PC-01 fonctionne normalement.</p><p>Pouvez-vous rechercher la panne et rétablir le fonctionnement ?</p><p>Merci.</p></div>
+<div class="dns-incident-mail" aria-label="Message signalant l'incident"><div class="dns-incident-mail-head">✉ &nbsp;Outlook · Message reçu</div><div class="dns-incident-mail-body"><p class="dns-incident-mail-meta"><strong>Objet :</strong> PC-02 sans accès au serveur de fichiers</p><p>Bonjour,</p><p>Depuis l'intervention de notre nouveau technicien informatique, le PC-02 ne parvient plus à accéder au serveur de fichiers.</p><p>Le PC-01 fonctionne normalement.</p><p>Pouvez-vous rechercher la panne et rétablir le fonctionnement ?</p><p>Merci.</p></div></div>
 <div id="dns-diagnostic-vertical" aria-label="Parcours de diagnostic DNS">Chargement du diagnostic…</div>
 <div class="dns-diagnostic-actions"><button type="button" id="dns-diagnostic-restart">↻ Recommencer le diagnostic</button></div>
 </div></details>
