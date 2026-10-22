@@ -227,6 +227,15 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 .dns-incident-mail-body{padding:16px 18px;border-left:4px solid #338ee3}
 .dns-incident-mail-body p{margin:7px 0 12px;line-height:1.55}
 .dns-incident-mail-meta{font-size:14px;color:var(--muted)}
+
+/* Diagnostic PC-01 : sortie ipconfig en colonnes responsives comme DHCP. */
+#dns-diagnostic-vertical .dns-ipconfig{background:#0e1b2b;color:#e5f1ff;border-radius:9px;padding:11px 12px;font:13px/1.45 Consolas,monospace}
+#dns-diagnostic-vertical .dns-ipconfig-command{margin-bottom:9px;overflow-wrap:anywhere}
+#dns-diagnostic-vertical .dns-ipconfig-row{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:8px;padding:3px 0}
+#dns-diagnostic-vertical .dns-ipconfig-row span{min-width:0;overflow-wrap:anywhere}
+#dns-diagnostic-vertical .dns-ipconfig-row span:first-child::after{content:' :';color:#9db8d1}
+#dns-diagnostic-vertical .dns-ipconfig-row span:last-child{color:#f0f8ff}
+@media(max-width:600px){#dns-diagnostic-vertical .dns-ipconfig{padding:9px 8px;font-size:12px}#dns-diagnostic-vertical .dns-ipconfig-row{grid-template-columns:minmax(0,1fr);gap:0;padding:5px 0}#dns-diagnostic-vertical .dns-ipconfig-row span:last-child{padding-left:9px}}
 </style>
 <link rel="stylesheet" href="../diagcore/v1.2.1/diagcore.css?v=121"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
@@ -497,7 +506,7 @@ function installerQcm({formId,feedbackId,nomChamp,bonneReponse,felicitations,ind
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.45</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.46</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
 QCMCore.load('qcm.json').then(data=>{
  document.querySelectorAll('.qcmcore-host').forEach(host=>{
   const panel=host.closest('details');
@@ -508,7 +517,7 @@ QCMCore.load('qcm.json').then(data=>{
  console.error('DNS QCMCore :',error);
  document.querySelectorAll('.qcmcore-host').forEach(host=>{host.textContent='Impossible de charger le questionnaire. Actualise la page pour réessayer.';});
 });
-</script><script src="../diagcore/v1.2.1/diagcore.js?v=121"></script><script src="scenario-diagnostic.js?v=001"></script><script>
+</script><script src="../diagcore/v1.2.1/diagcore.js?v=121"></script><script src="scenario-diagnostic.js?v=002"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dns-diagnostic-vertical');
@@ -525,6 +534,22 @@ target.addEventListener('click',event=>{
  });
 },true);
 const app=window.DiagCore.mount(target,window.DNS_DIAGNOSTIC_SCENARIO,{mode:'vertical'});
+// Affichage HTML de ipconfig /all sur PC-01, sans modifier le moteur partagé.
+target.addEventListener('click',event=>{
+ const b=event.target.closest('button.diagcore__choice');
+ if(!b||b.textContent.trim()!=='ipconfig /all')return;
+ const group=b.closest('.diagcore__group');
+ if(group?.querySelector('.diagcore__group-title')?.textContent.trim()!=='PC-01')return;
+ const entry=target.querySelector('.diagcore__timeline .diagcore__entry:last-child');
+ const terminal=entry?.querySelector('.diagcore__terminal');
+ if(!terminal)return;
+ const rows=[['Nom de l’hôte','PC-01'],['DHCP activé','Oui'],['Adresse IPv4','192.168.10.142'],['Masque','255.255.255.0'],['Passerelle par défaut','192.168.10.1'],['Serveur DHCP','192.168.10.2'],['Serveur DNS','192.168.10.5']];
+ const panel=document.createElement('div');panel.className='dns-ipconfig';
+ const command=document.createElement('div');command.className='dns-ipconfig-command';command.textContent='PC-01> ipconfig /all';panel.append(command);
+ for(const [label,value] of rows){const line=document.createElement('div');line.className='dns-ipconfig-row';const l=document.createElement('span');l.textContent=label;const v=document.createElement('span');v.textContent=value;line.append(l,v);panel.append(line);}
+ terminal.replaceWith(panel);
+},false);
+
 document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
 })();
 </script></body></html>
