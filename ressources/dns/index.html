@@ -236,6 +236,14 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .dns-ipconfig-row span:first-child::after{content:' :';color:#9db8d1}
 #dns-diagnostic-vertical .dns-ipconfig-row span:last-child{color:#f0f8ff}
 @media(max-width:600px){#dns-diagnostic-vertical .dns-ipconfig{padding:9px 8px;font-size:12px}#dns-diagnostic-vertical .dns-ipconfig-row{grid-template-columns:minmax(0,1fr);gap:0;padding:5px 0}#dns-diagnostic-vertical .dns-ipconfig-row span:last-child{padding-left:9px}}
+
+/* DNS : identifier les trois etapes suivant le diagnostic, sans toucher DiagCore. */
+#dns-diagnostic-vertical .dns-phase-entry{border-left:4px solid #5f91bb}
+#dns-diagnostic-vertical .dns-phase-entry>h3{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+#dns-diagnostic-vertical .dns-phase-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:20px}
+#dns-diagnostic-vertical .dns-phase-detail{margin:0 0 10px;font-size:14px;line-height:1.4;opacity:.9}
+#dns-diagnostic-vertical .diagcore__complete.dns-resolved{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;background:#202a35;color:#fff;font-weight:600}
+#dns-diagnostic-vertical .dns-resolved-icon{font-size:21px;color:#49df83;flex:none}
 </style>
 <link rel="stylesheet" href="../diagcore/v1.2.2/diagcore.css?v=122"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
@@ -506,7 +514,7 @@ function installerQcm({formId,feedbackId,nomChamp,bonneReponse,felicitations,ind
 installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
 installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
 installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.47</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.48</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
 QCMCore.load('qcm.json').then(data=>{
  document.querySelectorAll('.qcmcore-host').forEach(host=>{
   const panel=host.closest('details');
@@ -550,6 +558,34 @@ target.addEventListener('click',event=>{
  terminal.replaceWith(panel);
 },false);
 
+// Présentation locale des etapes post-diagnostic : moteur DiagCore inchangé.
+function decorateLastPhase(label,title,icon){
+ const entry=target.querySelector('.diagcore__timeline .diagcore__entry:last-child');
+ if(!entry||entry.classList.contains('dns-phase-entry'))return;
+ const heading=entry.querySelector('h3');
+ if(!heading)return;
+ entry.classList.add('dns-phase-entry');
+ const original=heading.textContent;
+ heading.textContent='';
+ const symbol=document.createElement('span');symbol.className='dns-phase-icon';symbol.textContent=icon;symbol.setAttribute('aria-hidden','true');
+ heading.append(symbol,document.createTextNode(title));
+ const detail=document.createElement('p');detail.className='dns-phase-detail';detail.textContent=original;
+ heading.after(detail);
+}
+target.addEventListener('click',event=>{
+ const button=event.target.closest('button.diagcore__choice');
+ if(!button)return;
+ const name=button.textContent.trim();
+ if(name==='Remettre le DNS de PC-02 en attribution automatique (DHCP)')decorateLastPhase(name,'Correction','🔧');
+ if(name==='Tester la résolution DNS sur PC-02')decorateLastPhase(name,'Vérification','⌨');
+});
+target.addEventListener('diagcore:complete',()=>{
+ const final=target.querySelector('.diagcore__complete');
+ if(!final||final.classList.contains('dns-resolved'))return;
+ final.classList.add('dns-resolved');
+ const symbol=document.createElement('span');symbol.className='dns-resolved-icon';symbol.textContent='✓';symbol.setAttribute('aria-hidden','true');
+ final.prepend(symbol);
+});
 document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
 })();
 </script></body></html>
