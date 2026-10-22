@@ -4,6 +4,7 @@
 const host=document.getElementById('mail-search');
 if(!host)return;
 if(!window.DiagCore||!window.DiagCore.version?.startsWith('1.2.')){host.textContent='DiagCore 1.2 indisponible.';return;}
+let latestSendSuccess=false;
 const scenario={
  title:'Où veux-tu intervenir ?',groupPicker:true,minimumChecks:2,hideHypothesisUntilReady:true,
  hypothesisLabel:'Mon diagnostic',hypothesisTitle:'Quel est le problème rencontré ?',backLabel:'Continuer mes vérifications',
@@ -30,7 +31,7 @@ const scenario={
   {label:'Le nom de domaine de l’entreprise doit être changé',correct:false,feedback:'L’entreprise conserve son domaine. Recherche plutôt les paramètres du serveur sortant.'}
  ],
  correction:{title:'Quelle intervention proposes-tu ?',label:'Mettre à jour les paramètres SMTP du compte',requiredChecks:['envoi','smtp','orange'],prematureFeedback:'Poursuis les vérifications du serveur sortant.',observation:'La correction doit porter sur le serveur, le port et la sécurité. Modifie les paramètres SMTP dans Outlook, puis teste l’envoi.'},
- verification:{title:'Quel contrôle faut-il effectuer ?',label:'Envoyer un courriel de test',check:()=>true,observation:'Effectue le test réel de la configuration avec le bouton « Tester l’envoi » dans Outlook.'},
+ verification:{title:'Quel contrôle faut-il effectuer ?',label:'Vérifier le dernier test d’envoi',check:()=>latestSendSuccess,observation:'Le dernier test Outlook confirme que l’envoi fonctionne.',failure:'Le dernier test Outlook ne confirme pas l’envoi. Vérifie les paramètres et effectue un nouveau test.'},
  success:'Le diagnostic est terminé. Vérifie maintenant l’envoi avec les paramètres SMTP corrigés.'
 };
 // Une seule fiche par prestataire : l'ouvrir sans second clic.
@@ -73,6 +74,7 @@ host.addEventListener('click',event=>{
 });
 const form=document.getElementById('mail-smtp-form'),out=document.getElementById('mail-smtp-result');
 function showResult(type,message){out.className='mail-result--'+type;out.textContent=message;}
+form.addEventListener('change',event=>{if(!event.target.matches('select'))return;latestSendSuccess=false;out.className='';out.textContent='Paramètres modifiés. Effectue un nouveau test d’envoi.';});
 form.addEventListener('submit',function(e){
  e.preventDefault();
  const data=new FormData(form);
@@ -80,6 +82,7 @@ form.addEventListener('submit',function(e){
  const port=String(data.get('port')||'').trim();
  const security=String(data.get('security')||'');
  const ok=server==='smtp.orange.fr'&&port==='465'&&security==='ssl';
+ latestSendSuccess=ok;
  if(ok){
   showResult('success','E-mail envoyé.');
  }else{
@@ -87,6 +90,6 @@ form.addEventListener('submit',function(e){
  }
 });
 document.getElementById('mail-restart').addEventListener('click',()=>{
- app.restart();form.reset();out.textContent='';out.className='';setEditing();outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
+ app.restart();form.reset();latestSendSuccess=false;out.textContent='';out.className='';setEditing();outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
 });
 })();
