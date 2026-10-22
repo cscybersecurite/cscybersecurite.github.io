@@ -65,7 +65,7 @@ host.addEventListener('click',event=>{
   entry.append(outlook);
   outlook.hidden=false;outlook.style.display='';
   setEditing(false);
-  out.textContent='Échec de l’envoi : Outlook ne peut pas contacter le serveur SMTP configuré. Le message reste dans la boîte d’envoi.';
+  showResult('error','Échec de l’envoi : Outlook ne peut pas contacter le serveur SMTP configuré. Le message reste dans la boîte d’envoi.');
  }
  if(label==='Mettre à jour les paramètres SMTP du compte'){
   setEditing(true);
@@ -74,23 +74,22 @@ host.addEventListener('click',event=>{
  }
 });
 const form=document.getElementById('mail-smtp-form'),out=document.getElementById('mail-smtp-result');
+function showResult(type,message){out.className='mail-result--'+type;out.textContent=message;}
 form.addEventListener('submit',function(e){
  e.preventDefault();
- if(!canEdit){out.textContent='Échec de l’envoi : serveur SMTP actuel non adapté. Termine ton diagnostic avant de modifier la configuration.';return;}
+ if(!canEdit){showResult('error','Échec de l’envoi : serveur SMTP actuel non adapté. Termine ton diagnostic avant de modifier la configuration.');return;}
  const data=new FormData(form);
  const server=String(data.get('server')||'').trim().toLowerCase();
  const port=String(data.get('port')||'').trim();
  const security=String(data.get('security')||'');
  const ok=server==='smtp.orange.fr'&&port==='465'&&security==='ssl';
  if(ok){
-  out.textContent='Envoi réussi : les trois paramètres du serveur SMTP sont corrects. Incident résolu.';
-  out.style.color='inherit';
+  showResult('success','E-mail envoyé.');
  }else{
-  out.textContent='Échec de connexion au serveur sortant. Vérifie le serveur SMTP, le port et la sécurité.';
-  out.style.color='inherit';
+  showResult('error','Échec de connexion au serveur sortant. Vérifie le serveur SMTP, le port et la sécurité.');
  }
 });
 document.getElementById('mail-restart').addEventListener('click',()=>{
- app.restart();form.reset();out.textContent='';setEditing(false);outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
+ app.restart();form.reset();out.textContent='';out.className='';setEditing(false);outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
 });
 })();
