@@ -15,9 +15,9 @@ window.DNS_DIAGNOSTIC_SCENARIO={
   {id:'nslookup1',label:'nslookup SRV-FICHIERS',observation:{type:'command',text:'PC-01> nslookup SRV-FICHIERS\nServeur : dns-interne\nAddress: 192.168.10.5\nNom : SRV-FICHIERS\nAddress: 192.168.10.10'}}
  ]},
  {title:'PC-02',checks:[
+  {id:'ipconfig2',label:'ipconfig /all',observation:{type:'command',text:'PC-02> ipconfig /all\nNom de l’hôte          PC-02\nDHCP activé            Oui\nAdresse IPv4           192.168.10.187\nMasque                 255.255.255.0\nPasserelle par défaut  192.168.10.1\nServeur DHCP           192.168.10.2\nServeur DNS            8.8.8.8'}},
   {id:'pingip',label:'ping 192.168.10.10',observation:{type:'command',text:'PC-02> ping 192.168.10.10\nRéponse de 192.168.10.10 : octets=32 temps<1 ms TTL=128'}},
   {id:'pingname',label:'ping SRV-FICHIERS',observation:{type:'command',text:'PC-02> ping SRV-FICHIERS\nLa requête Ping n’a pas pu trouver l’hôte SRV-FICHIERS.'}},
-  {id:'ipconfig2',label:'ipconfig /all',observation:{type:'command',text:'PC-02> ipconfig /all\nNom de l’hôte          PC-02\nDHCP activé            Oui\nAdresse IPv4           192.168.10.187\nMasque                 255.255.255.0\nPasserelle par défaut  192.168.10.1\nServeur DHCP           192.168.10.2\nServeur DNS            8.8.8.8'}},
   {id:'nslookup2',label:'nslookup SRV-FICHIERS',observation:{type:'command',text:'PC-02> nslookup SRV-FICHIERS\nServeur : dns.google\nAddress: 8.8.8.8\n*** dns.google ne parvient pas à trouver SRV-FICHIERS : domaine inexistant'}},
  ]},
  {title:'Infrastructure',checks:[
