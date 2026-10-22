@@ -48,6 +48,7 @@ host.addEventListener('click',event=>{
 },true);
 const app=window.DiagCore.mount(host,scenario,{mode:'vertical'});
 const outlook=document.querySelector('.mail-smtp-settings');
+const form=document.getElementById('mail-smtp-form'),out=document.getElementById('mail-smtp-result');
 let sendRecorded=false;
 let allowEngineSendClick=false;
 let pendingSendButton=null;
@@ -117,7 +118,6 @@ host.addEventListener('click',event=>{
   if(entry){entry.append(outlook);outlook.hidden=false;outlook.style.display='';}
  }
 });
-const form=document.getElementById('mail-smtp-form'),out=document.getElementById('mail-smtp-result');
 function showResult(type,message){out.className='mail-result--'+type;out.textContent=message;}
 form.addEventListener('change',event=>{if(!event.target.matches('select'))return;latestSendSuccess=false;out.className='';out.textContent='Paramètres modifiés. Effectue un nouveau test d’envoi.';});
 form.addEventListener('submit',function(e){
