@@ -13,7 +13,7 @@ window.DHCP_DIAGNOSTIC_SCENARIO = {
  backLabel:'Continuer mes vérifications',
  groups:[
  {title:'PC',checks:[
- {id:'ip',label:'Exécuter ipconfig /all',action:'Sur un PC du VLAN 30 : ipconfig /all',observation:[{type:'command',text:'C:\\Users\\chaoli>ipconfig /all'},{type:'image',src:'./ipconfig-all-mobile.svg?v=001',alt:'Configuration IP de Windows en deux colonnes : nom REN-PC-01, DHCP activé, adresse d’autoconfiguration 169.254.159.39, masque 255.255.0.0, pas de passerelle.',caption:'Configuration IP de Windows : paramètres de la carte Ethernet.'}]},
+ {id:'ip',label:'Exécuter ipconfig /all',action:'Sur un PC du VLAN 30 : ipconfig /all',observation:[{type:'command',text:'C:\\Users\\chaoli>ipconfig /all'},{type:'image',src:'./ipconfig-all-mobile.svg?v=002',alt:'Configuration IP de Windows en deux colonnes : nom REN-PC-01, DHCP activé, adresse d’autoconfiguration 169.254.159.39, masque 255.255.0.0, pas de passerelle.',caption:'Configuration IP de Windows : paramètres de la carte Ethernet.'}]},
  {id:'renew',label:'Exécuter ipconfig /renew',action:'Sur un PC du VLAN 30 : ipconfig /renew',observation:{type:'command',text:'Impossible de contacter le serveur DHCP.\nLe renouvellement du bail a échoué.'}},
  {id:'cable',label:'Observer les voyants réseau du PC',action:'Je regarde les voyants de la prise RJ45 du PC.',observation:'Je vois un voyant allumé et un autre qui clignote.'}
  ]},
