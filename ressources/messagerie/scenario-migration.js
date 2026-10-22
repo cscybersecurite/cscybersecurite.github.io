@@ -51,6 +51,7 @@ const outlook=document.querySelector('.mail-smtp-settings');
 let sendRecorded=false;
 let allowEngineSendClick=false;
 let pendingSendButton=null;
+let diagnosticValidated=false;
 // Ouvrir Outlook sans compter le controle : seul le clic reel sur Tester l'envoi le valide.
 host.addEventListener('click',event=>{
  const button=event.target.closest('button.diagcore__choice');
@@ -69,10 +70,35 @@ host.addEventListener('click',event=>{
 },true);
 
 function setEditing(){
- for(const control of form.querySelectorAll('select'))control.disabled=false;
  const intro=outlook.querySelector('.mail-smtp-content>p');
- if(intro)intro.textContent='Modifie les paramètres SMTP du compte, puis teste l’envoi.';
+ if(intro)intro.textContent=diagnosticValidated?'Diagnostic validé : tu peux corriger les paramètres SMTP et tester l’envoi.':'Teste l’envoi avant de formuler ton diagnostic. La modification des paramètres sera disponible après validation.';
+ for(const control of form.querySelectorAll('select')){
+  const wrapper=control.parentElement;
+  wrapper.classList.toggle('mail-smtp-locked',!diagnosticValidated);
+  const guard=wrapper.querySelector('.mail-smtp-guard');
+  if(guard)guard.hidden=diagnosticValidated;
+  control.tabIndex=diagnosticValidated?0:-1;
+ }
+ const hint=document.getElementById('mail-smtp-lock-message');
+ if(hint){hint.hidden=diagnosticValidated;hint.textContent=diagnosticValidated?'':'Paramètres verrouillés : valide d’abord « Mon diagnostic » pour pouvoir les modifier.';}
 }
+for(const select of form.querySelectorAll('select')){
+ const guard=document.createElement('button');
+ guard.type='button';guard.className='mail-smtp-guard';
+ guard.setAttribute('aria-label','Paramètre verrouillé. Valide d’abord Mon diagnostic pour le modifier.');
+ guard.addEventListener('click',()=>{
+  const hint=document.getElementById('mail-smtp-lock-message');
+  if(hint){hint.hidden=false;hint.textContent='Tu dois d’abord valider « Mon diagnostic » avant de modifier les paramètres de messagerie.';}
+ });
+ select.parentElement.append(guard);
+}
+host.addEventListener('click',event=>{
+ const button=event.target.closest('button.diagcore__choice');
+ if(!button||button.textContent.trim()!=='Les paramètres SMTP correspondent encore à l’ancien prestataire')return;
+ if(host.querySelector('.diagcore__timeline .diagcore__entry:last-child.diagcore__entry--hypothesis-correct')){
+  diagnosticValidated=true;setEditing();
+ }
+});
 host.addEventListener('click',event=>{
  const button=event.target.closest('button.diagcore__choice');
  if(!button)return;
@@ -117,6 +143,6 @@ form.addEventListener('submit',function(e){
  }
 });
 document.getElementById('mail-restart').addEventListener('click',()=>{
- app.restart();form.reset();latestSendSuccess=false;sendRecorded=false;allowEngineSendClick=false;pendingSendButton=null;out.textContent='';out.className='';setEditing();outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
+ app.restart();form.reset();latestSendSuccess=false;sendRecorded=false;allowEngineSendClick=false;pendingSendButton=null;diagnosticValidated=false;out.textContent='';out.className='';setEditing();outlook.hidden=true;outlook.style.display='none';document.getElementById('mail-search').after(outlook);host.scrollIntoView({block:'start',behavior:'instant'});
 });
 })();
