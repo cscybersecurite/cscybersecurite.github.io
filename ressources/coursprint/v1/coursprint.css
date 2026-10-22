@@ -1,0 +1,13 @@
+/* CoursPrint v1.0 : bouton commun, indépendant de la charte du cours. */
+.coursprint-button{
+  box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;
+  justify-content:center!important;flex:0 0 auto!important;width:auto!important;min-width:44px!important;
+  height:42px!important;padding:0 10px!important;margin:0!important;
+  border:1px solid #a51d2b!important;border-radius:8px!important;
+  background:#c62837!important;color:#fff!important;
+  font:700 13px/1 Arial,sans-serif!important;text-decoration:none!important;cursor:pointer!important;
+}
+.coursprint-button:hover{background:#a91e2c!important}
+.coursprint-button:focus-visible{outline:3px solid #ffc857!important;outline-offset:2px!important}
+@media(max-width:480px){.coursprint-button{height:36px!important;min-width:40px!important;padding:0 7px!important;font-size:12px!important}}
+@media print{.coursprint-button,.coursprint-frame{display:none!important}}
