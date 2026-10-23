@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-1",
+          "text": "Accompagner un client suppose de...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "comprendre son besoin et l'aider"
+            },
+            {
+              "id": "r1",
+              "text": "installer sans parler"
+            },
+            {
+              "id": "r2",
+              "text": "partir sans tester"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : comprendre son besoin et l'aider.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-2",
+          "text": "Avant de conseiller une solution, il faut...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "identifier les besoins"
+            },
+            {
+              "id": "r1",
+              "text": "choisir la plus chère"
+            },
+            {
+              "id": "r2",
+              "text": "ignorer le client"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : identifier les besoins.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-3",
+          "text": "Un devis présente notamment...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "la prestation et son prix"
+            },
+            {
+              "id": "r1",
+              "text": "les mots de passe"
+            },
+            {
+              "id": "r2",
+              "text": "le schéma IP uniquement"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : la prestation et son prix.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-4",
+      "title": "Je me teste : chapitre 4",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-4",
+          "text": "Face à une incompréhension, le technicien doit...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "reformuler simplement"
+            },
+            {
+              "id": "r1",
+              "text": "parler plus vite"
+            },
+            {
+              "id": "r2",
+              "text": "ignorer la question"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : reformuler simplement.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-5",
+      "title": "Je me teste : chapitre 5",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-5",
+          "text": "Si une réponse technique est incertaine, il faut...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "vérifier avant de répondre"
+            },
+            {
+              "id": "r1",
+              "text": "inventer"
+            },
+            {
+              "id": "r2",
+              "text": "changer de sujet"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : vérifier avant de répondre.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-6",
+      "title": "Je me teste : chapitre 6",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-6",
+          "text": "En fin d'intervention, on doit...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "tester et informer le client"
+            },
+            {
+              "id": "r1",
+              "text": "partir sans prévenir"
+            },
+            {
+              "id": "r2",
+              "text": "effacer la documentation"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : tester et informer le client.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    }
+  ]
+}
