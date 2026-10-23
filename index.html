@@ -36,6 +36,24 @@ header{background:#071632;color:#fff;text-align:center}
 .portail-bandeau-titre{position:absolute;z-index:1;left:clamp(24px,4.5vw,72px);top:50%;transform:translateY(-50%);max-width:65%;margin:0;padding:0;color:#fff;font:700 clamp(24px,2.7vw,44px)/1.12 "Segoe UI",Arial,sans-serif;letter-spacing:.15px;text-align:left;text-shadow:0 2px 9px rgba(0,0,0,.6)}
 @media(max-width:767px) and (orientation:portrait){.portail-bandeau img{height:clamp(220px,78vw,400px);object-fit:cover}.portail-bandeau-titre{left:5%;top:50%;bottom:auto;transform:translateY(-50%);max-width:90%;font-size:clamp(20px,5.2vw,28px)}}
 @media(max-width:1100px) and (orientation:landscape){.portail-bandeau img{height:auto;object-fit:contain}.portail-bandeau-titre{top:50%;bottom:auto;transform:translateY(-50%);font-size:clamp(20px,2.7vw,36px)}}
+
+/* Identité des trois portails V1.0.33 : composition responsive,
+   texte accessible dans le HTML, illustration originale préservée. */
+.bandeau-identite{position:absolute;z-index:2;top:50%;left:clamp(24px,7.5vw,160px);transform:translateY(-50%);display:flex;align-items:center;gap:clamp(14px,2vw,30px);max-width:76%;filter:drop-shadow(0 3px 7px rgba(0,0,0,.55))}
+.bandeau-identite .portail-bandeau-titre{position:static;transform:none;max-width:none;margin:0;color:#fff;font:900 clamp(30px,5.3vw,94px)/.96 "Arial Black","Segoe UI",Arial,sans-serif;letter-spacing:-.035em;white-space:nowrap;text-shadow:0 0 5px #fff,0 0 13px #8a60ff,0 0 23px #3b72ff}
+.bandeau-separateur{align-self:stretch;width:3px;min-height:55px;flex:0 0 3px;border-radius:3px;background:#ff44c9;box-shadow:0 0 7px #ff3abe,0 0 16px #f400bc}
+.bandeau-description{margin:0;max-width:26ch;color:#fff;font:750 clamp(11px,1.65vw,26px)/1.15 "Segoe UI",Arial,sans-serif;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,.85),0 0 5px rgba(255,255,255,.3)}
+@media(max-width:767px) and (orientation:portrait){
+ .bandeau-identite{left:5%;max-width:90%;gap:12px}
+ .bandeau-identite .portail-bandeau-titre{font-size:clamp(25px,7vw,45px)}
+ .bandeau-separateur{min-height:43px;width:2px;flex-basis:2px}
+ .bandeau-description{font-size:clamp(10px,2.6vw,15px);max-width:18ch}
+}
+@media(max-width:1100px) and (orientation:landscape){
+ .bandeau-identite{left:5%;max-width:85%;gap:clamp(10px,1.8vw,22px)}
+ .bandeau-identite .portail-bandeau-titre{font-size:clamp(24px,5.8vw,58px)}
+ .bandeau-description{font-size:clamp(10px,1.55vw,18px)}
+}
 </style>
 <link rel="stylesheet" href="/assets/portails-cartes-commun.css?v=1.0.31">
 </head>
@@ -47,7 +65,7 @@ header{background:#071632;color:#fff;text-align:center}
       <source media="(max-width: 1100px) and (orientation: landscape)" srcset="/assets/tciel/bandeau-t-ciel-paysage.webp">
       <img src="/assets/tciel/bandeau-t-ciel-pc.webp" alt="Univers technologique CIEL, mannequin et viseur lumineux" width="1920" height="320">
     </picture>
-    <h1 class="portail-bandeau-titre">CS Cybersécurité</h1>
+    <div class="bandeau-identite"><h1 class="portail-bandeau-titre">CS</h1><span class="bandeau-separateur" aria-hidden="true"></span><p class="bandeau-description">CYBERSÉCURITÉ<br>INFORMATIQUE<br>ET RÉSEAUX</p></div>
   </header>
   <nav class="raccourcis" aria-label="Accès rapides aux applications">
     <a href="https://0351878b.index-education.net/pronote" target="_blank" rel="noopener noreferrer"><img class="favicon" src="/assets/raccourcis/pronote.png" alt="" width="20" height="20" loading="lazy">Pronote <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6m0-6-9 9M20 14v6H4V4h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -71,7 +89,7 @@ header{background:#071632;color:#fff;text-align:center}
 <a class="ressource" href="/ressources/messagerie/" data-type="cours" data-couleur="bleu" aria-label="Messagerie d’entreprise"><div class="contenu"><div class="entete-carte"><h3>Messagerie d’entreprise</h3><svg class="picto-type" viewBox="0 0 24 24" role="img" aria-label="Ressource pédagogique : livre ouvert avec coche"><path d="M12 7v14"/><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v5"/><path d="M3 18h5a4 4 0 0 1 4 3 4 4 0 0 1 4-3h1"/><path d="m17 16 2 2 4-4"/></svg></div><p>SMTP, POP3, IMAP et solutions collaboratives</p></div><div class="visuel"><svg viewBox="0 0 1080 360" role="img" aria-label="Messagerie au centre, reliée aux protocoles SMTP, POP3, IMAP et aux solutions Microsoft 365 et Google Workspace" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="msgCenter" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e6f3ff"/></linearGradient><linearGradient id="msgBlue" x2="0" y2="1"><stop stop-color="#dceeff"/><stop offset="1" stop-color="#88c5fa"/></linearGradient><linearGradient id="msgGreen" x2="0" y2="1"><stop stop-color="#dcffe3"/><stop offset="1" stop-color="#8ceca1"/></linearGradient><linearGradient id="msgAmber" x2="0" y2="1"><stop stop-color="#fff4c1"/><stop offset="1" stop-color="#ffd36a"/></linearGradient><linearGradient id="msgPurple" x2="0" y2="1"><stop stop-color="#efe3ff"/><stop offset="1" stop-color="#c49aff"/></linearGradient></defs><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M404 110 C330 110 335 61 262 61" stroke="#3f9bee"/><path d="M404 180 H257" stroke="#ad73f5"/><path d="M404 251 C330 251 335 301 262 301" stroke="#edac2e"/><path d="M677 131 C753 131 751 100 820 100" stroke="#31c76b"/><path d="M677 228 C752 228 752 274 820 274" stroke="#4d99e8"/></g><rect x="397" y="105" width="289" height="153" rx="29" fill="url(#msgCenter)" stroke="#7bb8f6" stroke-width="7"/><g font-family="Arial,sans-serif" font-weight="bold" text-anchor="middle"><text x="541" y="198" font-size="56" fill="#153e7b">MAIL</text><rect x="23" y="20" width="239" height="81" rx="35" fill="url(#msgBlue)" stroke="#1688f3" stroke-width="6"/><text x="143" y="75" font-size="45" fill="#104b95">SMTP</text><rect x="23" y="141" width="239" height="79" rx="35" fill="url(#msgPurple)" stroke="#9356dd" stroke-width="6"/><text x="143" y="195" font-size="44" fill="#4e247b">IMAP</text><rect x="23" y="260" width="239" height="80" rx="35" fill="url(#msgAmber)" stroke="#ffad1f" stroke-width="6"/><text x="143" y="315" font-size="44" fill="#724609">POP3</text><rect x="816" y="58" width="248" height="84" rx="34" fill="url(#msgGreen)" stroke="#29bd61" stroke-width="6"/><text x="940" y="93" font-size="34" fill="#145d33">Microsoft</text><text x="940" y="125" font-size="35" fill="#145d33">365</text><rect x="816" y="232" width="248" height="84" rx="34" fill="url(#msgBlue)" stroke="#248de0" stroke-width="6"/><text x="940" y="268" font-size="33" fill="#134d86">Google</text><text x="940" y="299" font-size="32" fill="#134d86">Workspace</text></g></svg></div></a>
 </div></main>
 
-  <div class="version" aria-label="Version du portail">CS V1.0.32</div>
+  <div class="version" aria-label="Version du portail">CS V1.0.33</div>
 
 </body>
 </html>
