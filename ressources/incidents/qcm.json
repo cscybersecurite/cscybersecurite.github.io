@@ -217,92 +217,92 @@
     {
       "id": "chapitre-4",
       "title": "Je me teste",
-      "shuffleQuestions": true,
-      "shuffleAnswers": true,
+      "shuffleQuestions": false,
+      "shuffleAnswers": false,
       "questions": [
         {
           "id": "d3-4-1",
-          "text": "Tu n'as pas les droits nécessaires pour modifier un pare-feu. Que fais-tu ?",
+          "text": "Tu sais qu'un pare-feu bloque une application, mais tu n'as pas le droit de modifier ses règles. Que fais-tu ?",
           "answers": [
             {
-              "id": "r0",
-              "text": "Utiliser le compte d'un collègue"
+              "id": "a",
+              "text": "Je demande l'intervention de l'équipe habilitée et je transmets mes tests."
             },
             {
-              "id": "r1",
-              "text": "Transmettre au groupe habilité avec les tests réalisés"
+              "id": "b",
+              "text": "J'utilise le compte administrateur d'un collègue."
             },
             {
-              "id": "r2",
-              "text": "Modifier quand même"
+              "id": "c",
+              "text": "Je désactive le pare-feu pour essayer."
             }
           ],
-          "correctAnswerId": "r1",
-          "explanation": "Respecter les habilitations est une obligation professionnelle.",
-          "hint": "Repère les faits et la décision justifiée."
+          "correctAnswerId": "a",
+          "explanation": "Même avec un diagnostic correct, tu dois respecter les droits d'intervention.",
+          "hint": "Savoir ce qu'il faut faire ne signifie pas avoir l'autorisation de le faire."
         },
         {
           "id": "d3-4-2",
-          "text": "Word ne s'ouvre pas. Tu sais résoudre le problème et tu es habilité. Que fais-tu ?",
+          "text": "Une imprimante ne fonctionne plus. Tu connais la solution et tu as les droits nécessaires. Que fais-tu ?",
           "answers": [
             {
-              "id": "r0",
-              "text": "Traiter et vérifier"
+              "id": "a",
+              "text": "Je transmets immédiatement à un spécialiste."
             },
             {
-              "id": "r1",
-              "text": "Escalader systématiquement"
+              "id": "b",
+              "text": "Je réalise l'intervention, je vérifie et je complète le ticket."
             },
             {
-              "id": "r2",
-              "text": "Fermer le ticket"
+              "id": "c",
+              "text": "Je ferme le ticket sans tester."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Traite les incidents dans ton périmètre de compétences.",
-          "hint": "Repère les faits et la décision justifiée."
+          "correctAnswerId": "b",
+          "explanation": "Escalader n'est pas automatique : tu peux résoudre un incident dans ton périmètre.",
+          "hint": "As-tu les compétences et l'autorisation pour intervenir ?"
         },
         {
           "id": "d3-4-3",
-          "text": "Un logiciel métier inconnu ne fonctionne plus. Que transmets-tu au spécialiste ?",
+          "text": "Le serveur de fichiers est indisponible. Un spécialiste intervient, mais plusieurs services risquent de manquer une échéance. Qui faut-il prévenir ?",
           "answers": [
             {
-              "id": "r0",
-              "text": "Un simple message « ça ne marche pas »"
+              "id": "a",
+              "text": "Personne : le spécialiste s'occupe déjà du problème."
             },
             {
-              "id": "r1",
-              "text": "Le mot de passe de l'utilisateur"
+              "id": "b",
+              "text": "Uniquement les utilisateurs après la réparation."
             },
             {
-              "id": "r2",
-              "text": "Symptômes, impact, tests et résultats"
+              "id": "c",
+              "text": "Le responsable, pour évaluer les conséquences et décider des priorités."
             }
           ],
-          "correctAnswerId": "r2",
-          "explanation": "Une escalade utile contient les faits et le travail déjà accompli.",
-          "hint": "Repère les faits et la décision justifiée."
+          "correctAnswerId": "c",
+          "explanation": "L'escalade technique peut être accompagnée d'une escalade hiérarchique.",
+          "hint": "Une réparation technique ne règle pas à elle seule le problème du délai."
         },
         {
           "id": "d3-4-4",
-          "text": "Un NAS indispensable est arrêté et le délai annoncé risque d'être dépassé. Que proposes-tu ?",
+          "text": "Tu transmets un incident à une autre équipe. Quel contenu est le plus utile dans le ticket GLPI ?",
           "answers": [
             {
-              "id": "r0",
-              "text": "Une escalade technique et, si nécessaire, un arbitrage"
+              "id": "a",
+              "text": "« Ça ne marche pas, merci de voir. »"
             },
             {
-              "id": "r1",
-              "text": "Une réinitialisation sans sauvegarde"
+              "id": "b",
+              "text": "Les symptômes, les personnes touchées, les tests, leurs résultats et la raison de l'escalade."
             },
             {
-              "id": "r2",
-              "text": "L'abandon du ticket"
+              "id": "c",
+              "text": "Le mot de passe de l'utilisateur pour gagner du temps."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "L'escalade technique et la sollicitation hiérarchique peuvent être complémentaires.",
-          "hint": "Repère les faits et la décision justifiée."
+          "correctAnswerId": "b",
+          "explanation": "Un ticket précis évite de refaire les mêmes vérifications et facilite la prise en charge.",
+          "hint": "Que doit savoir le collègue pour continuer le diagnostic sans repartir de zéro ?"
         }
       ]
     },
