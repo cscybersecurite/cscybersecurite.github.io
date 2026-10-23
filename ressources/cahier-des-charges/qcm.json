@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-1",
+          "text": "Le cahier des charges décrit...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "les besoins et contraintes"
+            },
+            {
+              "id": "r1",
+              "text": "uniquement les pannes"
+            },
+            {
+              "id": "r2",
+              "text": "les absences"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : les besoins et contraintes.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-2",
+          "text": "Les critères de réussite permettent de...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "vérifier que le résultat répond au besoin"
+            },
+            {
+              "id": "r1",
+              "text": "éviter tout contrôle"
+            },
+            {
+              "id": "r2",
+              "text": "supprimer le planning"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : vérifier que le résultat répond au besoin.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-3",
+          "text": "Un besoin fonctionnel précise...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "ce que la solution doit permettre"
+            },
+            {
+              "id": "r1",
+              "text": "la marque du bureau"
+            },
+            {
+              "id": "r2",
+              "text": "le prénom du client"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : ce que la solution doit permettre.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    }
+  ]
+}

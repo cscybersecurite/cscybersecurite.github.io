@@ -1,0 +1,701 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-1",
+          "text": "Avant d'auditer Lynxo, il faut...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "comprendre le contexte et le périmètre"
+            },
+            {
+              "id": "r1",
+              "text": "supprimer les comptes"
+            },
+            {
+              "id": "r2",
+              "text": "changer tout le matériel"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : comprendre le contexte et le périmètre.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-2",
+          "text": "L'audit sert à...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "évaluer et documenter les risques"
+            },
+            {
+              "id": "r1",
+              "text": "installer un antivirus seulement"
+            },
+            {
+              "id": "r2",
+              "text": "effacer les preuves"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : évaluer et documenter les risques.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-3",
+          "text": "Recenser les biens consiste à identifier...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "matériels, logiciels et informations"
+            },
+            {
+              "id": "r1",
+              "text": "seulement les claviers"
+            },
+            {
+              "id": "r2",
+              "text": "seulement les locaux"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : matériels, logiciels et informations.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-4",
+      "title": "Je me teste : chapitre 4",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-4",
+          "text": "On classe les risques selon...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "leur probabilité et leurs conséquences"
+            },
+            {
+              "id": "r1",
+              "text": "les couleurs des appareils"
+            },
+            {
+              "id": "r2",
+              "text": "les préférences de l'auditeur"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : leur probabilité et leurs conséquences.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-5",
+      "title": "Je me teste : chapitre 5",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-5",
+          "text": "Le mot vulnerability signifie...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "vulnérabilité"
+            },
+            {
+              "id": "r1",
+              "text": "sauvegarde"
+            },
+            {
+              "id": "r2",
+              "text": "mise à jour"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : vulnérabilité.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-6",
+      "title": "Je me teste : chapitre 6",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-6",
+          "text": "Une synthèse d'audit présente...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "les constats et recommandations"
+            },
+            {
+              "id": "r1",
+              "text": "uniquement les succès"
+            },
+            {
+              "id": "r2",
+              "text": "les mots de passe"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : les constats et recommandations.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-7",
+      "title": "Je me teste : chapitre 7",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-7",
+          "text": "Avant l'audit de configuration, il faut connaître...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "les exigences de configuration"
+            },
+            {
+              "id": "r1",
+              "text": "les vacances"
+            },
+            {
+              "id": "r2",
+              "text": "le prix de l'électricité"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : les exigences de configuration.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-8",
+      "title": "Je me teste : chapitre 8",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-8",
+          "text": "Une configuration conforme est...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "conforme aux règles définies"
+            },
+            {
+              "id": "r1",
+              "text": "toujours celle d'usine"
+            },
+            {
+              "id": "r2",
+              "text": "sans aucun compte"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : conforme aux règles définies.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-9",
+      "title": "Je me teste : chapitre 9",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-9",
+          "text": "Devant un réglage douteux, il faut...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "le confronter aux exigences"
+            },
+            {
+              "id": "r1",
+              "text": "conclure sans vérification"
+            },
+            {
+              "id": "r2",
+              "text": "supprimer le système"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : le confronter aux exigences.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-10",
+      "title": "Je me teste : chapitre 10",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-10",
+          "text": "Une bonne pratique de configuration est de...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "désactiver les services inutiles"
+            },
+            {
+              "id": "r1",
+              "text": "ouvrir tous les ports"
+            },
+            {
+              "id": "r2",
+              "text": "partager le compte admin"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : désactiver les services inutiles.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-11",
+      "title": "Je me teste : chapitre 11",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-11",
+          "text": "Misconfiguration signifie...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "mauvaise configuration"
+            },
+            {
+              "id": "r1",
+              "text": "bonne sauvegarde"
+            },
+            {
+              "id": "r2",
+              "text": "test de charge"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : mauvaise configuration.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-12",
+      "title": "Je me teste : chapitre 12",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-12",
+          "text": "La synthèse technique doit indiquer...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "les écarts constatés"
+            },
+            {
+              "id": "r1",
+              "text": "des suppositions seules"
+            },
+            {
+              "id": "r2",
+              "text": "le nom des voisins"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : les écarts constatés.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-13",
+      "title": "Je me teste : chapitre 13",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-13",
+          "text": "Avant le contrôle des accès, on identifie...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "les utilisateurs et leurs autorisations"
+            },
+            {
+              "id": "r1",
+              "text": "les écrans"
+            },
+            {
+              "id": "r2",
+              "text": "les horaires de pause"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : les utilisateurs et leurs autorisations.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-14",
+      "title": "Je me teste : chapitre 14",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-14",
+          "text": "Le moindre privilège consiste à...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "attribuer les droits nécessaires seulement"
+            },
+            {
+              "id": "r1",
+              "text": "donner les droits admin à tous"
+            },
+            {
+              "id": "r2",
+              "text": "supprimer les identifiants"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : attribuer les droits nécessaires seulement.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-15",
+      "title": "Je me teste : chapitre 15",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-15",
+          "text": "Un compte d'ancien salarié actif présente...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "un risque d'accès non autorisé"
+            },
+            {
+              "id": "r1",
+              "text": "une protection supplémentaire"
+            },
+            {
+              "id": "r2",
+              "text": "aucun intérêt"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : un risque d'accès non autorisé.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-16",
+      "title": "Je me teste : chapitre 16",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-16",
+          "text": "Une alerte professionnelle doit être...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "factuelle et précise"
+            },
+            {
+              "id": "r1",
+              "text": "agressive et floue"
+            },
+            {
+              "id": "r2",
+              "text": "sans information vérifiable"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : factuelle et précise.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-17",
+      "title": "Je me teste : chapitre 17",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-17",
+          "text": "Access control veut dire...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "contrôle d'accès"
+            },
+            {
+              "id": "r1",
+              "text": "contrôle de température"
+            },
+            {
+              "id": "r2",
+              "text": "commande vocale"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : contrôle d'accès.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-18",
+      "title": "Je me teste : chapitre 18",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-18",
+          "text": "La synthèse sur les accès doit...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "présenter les écarts et actions proposées"
+            },
+            {
+              "id": "r1",
+              "text": "publier les mots de passe"
+            },
+            {
+              "id": "r2",
+              "text": "ignorer les comptes inutiles"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : présenter les écarts et actions proposées.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-19",
+      "title": "Je me teste : chapitre 19",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-19",
+          "text": "Avant un audit global, il faut...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "définir les contrôles à effectuer"
+            },
+            {
+              "id": "r1",
+              "text": "effacer les preuves"
+            },
+            {
+              "id": "r2",
+              "text": "modifier toute l'architecture"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : définir les contrôles à effectuer.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-20",
+      "title": "Je me teste : chapitre 20",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-20",
+          "text": "La sécurité physique vise notamment à...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "protéger les zones sensibles"
+            },
+            {
+              "id": "r1",
+              "text": "augmenter le débit réseau"
+            },
+            {
+              "id": "r2",
+              "text": "remplacer les sauvegardes"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : protéger les zones sensibles.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-21",
+      "title": "Je me teste : chapitre 21",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-21",
+          "text": "Une sauvegarde doit être contrôlée par...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "un test de restauration"
+            },
+            {
+              "id": "r1",
+              "text": "un simple voyant"
+            },
+            {
+              "id": "r2",
+              "text": "l'absence de message"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : un test de restauration.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-22",
+      "title": "Je me teste : chapitre 22",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-22",
+          "text": "Un rapport d'audit distingue...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "constats, risques et préconisations"
+            },
+            {
+              "id": "r1",
+              "text": "les opinions et rumeurs"
+            },
+            {
+              "id": "r2",
+              "text": "uniquement les achats"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : constats, risques et préconisations.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-23",
+      "title": "Je me teste : chapitre 23",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-23",
+          "text": "Backup signifie...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "sauvegarde"
+            },
+            {
+              "id": "r1",
+              "text": "pare-feu"
+            },
+            {
+              "id": "r2",
+              "text": "câble"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : sauvegarde.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-24",
+      "title": "Je me teste : chapitre 24",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-24",
+          "text": "Une conclusion d'audit doit...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "résumer les risques et priorités"
+            },
+            {
+              "id": "r1",
+              "text": "nier tous les problèmes"
+            },
+            {
+              "id": "r2",
+              "text": "supprimer les constats"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : résumer les risques et priorités.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    }
+  ]
+}
