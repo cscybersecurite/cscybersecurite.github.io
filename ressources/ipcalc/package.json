@@ -1,0 +1,20 @@
+{
+  "name": "ipcalc",
+  "version": "2.0.0-step3.32",
+  "private": true,
+  "type": "module",
+  "description": "Calculatrice IPv4 et sous-réseaux FLSM, autonome et hors connexion.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.js",
+    "test:e2e": "playwright test",
+    "build": "node scripts/build.mjs",
+    "check": "node --check js/ipv4.js && node --check js/vlsm.js && node --check js/exports.js && node --check js/app.js && node --check js/pwa.js && node --check sw.js && npm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0"
+  }
+}
