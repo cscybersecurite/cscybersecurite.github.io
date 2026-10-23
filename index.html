@@ -166,6 +166,9 @@
     @media(prefers-reduced-motion:reduce){.ressource{transition:none}}
 
 
+    /* Cahier des charges : neutraliser le fond vert du visuel, sans toucher à la bordure. */
+    .ressource[data-rubrique="cahier-des-charges"] .visuel{background:#fff !important}
+    @media(prefers-color-scheme:dark){.ressource[data-rubrique="cahier-des-charges"] .visuel{background:#1b2533 !important}}
     .version-portail{position:fixed;right:12px;bottom:8px;z-index:10;font:11px Arial,sans-serif;color:#718096;opacity:.85;pointer-events:none}
   
 .raccourcis{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;min-height:35px;padding:5px 12px;background:#e9eff6;border-bottom:1px solid #cbd7e5;font:13px/1.3 Arial,sans-serif}
@@ -202,6 +205,6 @@
 
 
   
-  <div class="version-portail" aria-label="Version du portail">CS V1.0.4</div>
+  <div class="version-portail" aria-label="Version du portail">CS V1.0.5</div>
 </body>
 </html>
