@@ -249,3 +249,16 @@
 @media (prefers-color-scheme: dark) {
   .ressource[data-couleur] .visuel { background:#1b2533; }
 }
+
+/* V1.0.31 : correction ciblée des deux derniers fonds en mode sombre.
+   Sélecteurs spécifiques pour surpasser les anciens styles de rubrique. */
+@media (prefers-color-scheme: dark) {
+  .ressource[data-rubrique="accompagnement-client"] .visuel,
+  .ressource[data-rubrique="gestion-parc"] .visuel {
+    background:#1b2533;
+  }
+  /* Le tableau d'inventaire est un SVG avec son propre panneau de fond. */
+  .ressource[data-rubrique="gestion-parc"] .visuel .inv-panel {
+    fill:#1b2533;
+  }
+}
