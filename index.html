@@ -33,9 +33,9 @@ header{background:#071632;color:#fff;text-align:center}
 .portail-bandeau{position:relative;isolation:isolate;overflow:hidden;background:#071632}
 .portail-bandeau picture,.portail-bandeau img{display:block;width:100%}
 .portail-bandeau img{height:clamp(120px,9.5vw,195px);object-fit:cover;object-position:center}
-.portail-bandeau-titre{position:absolute;z-index:1;left:4%;bottom:13%;max-width:75%;margin:0;padding:0;color:#fff;font:700 clamp(20px,2.45vw,34px)/1.17 Arial,sans-serif;text-align:left;text-shadow:0 2px 7px #061222,0 1px 2px #061222}
-@media(max-width:767px) and (orientation:portrait){.portail-bandeau img{height:clamp(220px,78vw,400px);object-fit:cover}.portail-bandeau-titre{left:5%;bottom:7%;max-width:90%;font-size:clamp(16px,4.4vw,24px)}}
-@media(max-width:1100px) and (orientation:landscape){.portail-bandeau img{height:auto;object-fit:contain}.portail-bandeau-titre{bottom:9%;font-size:clamp(16px,2.6vw,27px)}}
+.portail-bandeau-titre{position:absolute;z-index:1;left:clamp(24px,4.5vw,72px);top:50%;transform:translateY(-50%);max-width:65%;margin:0;padding:0;color:#fff;font:700 clamp(24px,2.7vw,44px)/1.12 "Segoe UI",Arial,sans-serif;letter-spacing:.15px;text-align:left;text-shadow:0 2px 9px rgba(0,0,0,.6)}
+@media(max-width:767px) and (orientation:portrait){.portail-bandeau img{height:clamp(220px,78vw,400px);object-fit:cover}.portail-bandeau-titre{left:5%;top:50%;bottom:auto;transform:translateY(-50%);max-width:90%;font-size:clamp(20px,5.2vw,28px)}}
+@media(max-width:1100px) and (orientation:landscape){.portail-bandeau img{height:auto;object-fit:contain}.portail-bandeau-titre{top:50%;bottom:auto;transform:translateY(-50%);font-size:clamp(20px,2.7vw,36px)}}
 </style>
 <link rel="stylesheet" href="/assets/portails-cartes-commun.css?v=1.0.31">
 </head>
