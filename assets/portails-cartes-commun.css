@@ -176,3 +176,9 @@
    box-shadow:0 2px 7px rgba(0,0,0,.28);
  }
 }
+
+/* Cahier des charges : fond adapté au thème, bordure verte conservée. */
+.ressource[data-rubrique="cahier-des-charges"] .visuel { background:#fff; }
+@media (prefers-color-scheme: dark) {
+  .ressource[data-rubrique="cahier-des-charges"] .visuel { background:#1b2533; }
+}
