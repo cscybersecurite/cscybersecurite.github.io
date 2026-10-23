@@ -3,176 +3,155 @@
   "quizzes": [
     {
       "id": "chapitre-1",
-      "title": "Je me teste : chapitre 1",
+      "title": "Je me teste",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "incident-1-1",
-          "text": "Un utilisateur demande un nouveau vidéoprojecteur. Quel type de ticket ?",
+          "id": "d3-1-1",
+          "text": "Les PDF s'ouvraient hier, mais plus aujourd'hui. Quel ticket ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Une demande"
+              "text": "Incident"
             },
             {
               "id": "r1",
-              "text": "Un incident"
+              "text": "Demande"
             },
             {
               "id": "r2",
-              "text": "Une panne critique"
+              "text": "Demande de matériel"
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Il demande un équipement : aucun service existant n'est en panne.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "explanation": "Une fonction précédemment disponible ne fonctionne plus.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-1-2",
-          "text": "Quel titre est le plus utile pour un ticket ?",
+          "id": "d3-1-2",
+          "text": "Quel titre décrit correctement le signalement ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Problème"
+              "text": "Le logiciel est corrompu"
             },
             {
               "id": "r1",
-              "text": "Impossible d'ouvrir les fichiers PDF sur PC-12"
+              "text": "PC-12 : les PDF ne s'ouvrent plus"
             },
             {
               "id": "r2",
-              "text": "Urgent !!!"
+              "text": "Panne urgente !!!"
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Un titre précis décrit le symptôme et l'équipement.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "explanation": "Le titre contient un symptôme et un équipement, sans cause inventée.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-1-3",
-          "text": "La description du ticket doit d'abord contenir…",
+          "id": "d3-1-3",
+          "text": "Le salarié dit « Internet est cassé ». Que dois-tu demander ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Les faits observés et le contexte"
+              "text": "Le modèle de son bureau"
             },
             {
               "id": "r1",
-              "text": "Une cause inventée"
+              "text": "Le site concerné et le message affiché"
             },
             {
               "id": "r2",
-              "text": "Une solution déjà supposée"
+              "text": "Le prix de son abonnement"
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Distingue ce que l'utilisateur constate de ce que tu supposes.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "correctAnswerId": "r1",
+          "explanation": "Des faits précis aident à comprendre le signalement.",
+          "hint": "Repère les faits et la décision justifiée."
         }
       ]
     },
     {
       "id": "chapitre-2",
-      "title": "Je me teste : chapitre 2",
+      "title": "Je me teste",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "incident-2-1",
-          "text": "Trente salariés sont bloqués. Quel critère augmente ?",
+          "id": "d3-2-1",
+          "text": "Vingt salariés sont bloqués. Quelle information mesure l'impact ?",
           "answers": [
             {
               "id": "r0",
-              "text": "L'impact"
+              "text": "Le nombre de personnes touchées"
             },
             {
               "id": "r1",
-              "text": "Le nombre de techniciens"
+              "text": "L'ancienneté des ordinateurs"
             },
             {
               "id": "r2",
-              "text": "La durée du mot de passe"
+              "text": "Le nom du responsable"
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "L'impact mesure l'étendue des conséquences.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "explanation": "L'impact mesure les conséquences sur les personnes et les activités.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-2-2",
-          "text": "Un dirigeant doit présenter dans 5 minutes. Quel critère augmente ?",
+          "id": "d3-2-2",
+          "text": "Une panne doit être contournée avant une réunion dans dix minutes. Quel facteur est important ?",
           "answers": [
             {
               "id": "r0",
-              "text": "L'urgence"
+              "text": "L'urgence liée au délai"
             },
             {
               "id": "r1",
-              "text": "Le nombre de salariés touchés"
+              "text": "La couleur du matériel"
             },
             {
               "id": "r2",
-              "text": "Le type de câble"
+              "text": "La date d'achat"
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "L'urgence dépend du délai acceptable avant intervention.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "explanation": "Le délai acceptable contribue à l'urgence.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-2-3",
-          "text": "Comment déterminer la priorité ?",
+          "id": "d3-2-3",
+          "text": "Même impact, mais urgence différente : les priorités sont-elles forcément les mêmes ?",
           "answers": [
             {
               "id": "r0",
-              "text": "En combinant urgence et impact selon les règles du service"
+              "text": "Oui, toujours"
             },
             {
               "id": "r1",
-              "text": "Selon l'humeur du technicien"
+              "text": "Non, la priorité tient compte des deux critères"
             },
             {
               "id": "r2",
-              "text": "Toujours en priorité maximale"
+              "text": "Oui, si les postes sont identiques"
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Urgence et impact contribuent à la priorité, selon la matrice du service.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "correctAnswerId": "r1",
+          "explanation": "La matrice de priorité combine impact et urgence selon les règles du service.",
+          "hint": "Repère les faits et la décision justifiée."
         }
       ]
     },
     {
       "id": "chapitre-3",
-      "title": "Je me teste : chapitre 3",
+      "title": "Je me teste",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "incident-3-1",
-          "text": "Avant de modifier les réglages d'un PC, tu dois…",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "Poser des questions et observer le problème"
-            },
-            {
-              "id": "r1",
-              "text": "Réinstaller Windows"
-            },
-            {
-              "id": "r2",
-              "text": "Fermer le ticket"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Un diagnostic commence par des faits et des tests adaptés.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
-        },
-        {
-          "id": "incident-3-2",
-          "text": "Un PDF s'affiche bien mais s'imprime mal. Quel premier test ?",
+          "id": "d3-3-1",
+          "text": "Un PDF est lisible à l'écran mais s'imprime mal. Quel contrôle est pertinent ?",
           "answers": [
             {
               "id": "r0",
@@ -180,145 +159,95 @@
             },
             {
               "id": "r1",
-              "text": "Changer le routeur"
+              "text": "Remplacer le routeur"
             },
             {
               "id": "r2",
-              "text": "Supprimer tous les PDF"
+              "text": "Réinstaller le serveur"
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Le test doit aider à situer où apparaît le défaut.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "explanation": "L'aperçu aide à situer le moment où apparaît le défaut.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-3-3",
-          "text": "Un premier test n'explique pas la panne. Que fais-tu ?",
+          "id": "d3-3-2",
+          "text": "Un second PDF s'imprime normalement. Que peux-tu conclure ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Je formule une autre hypothèse et choisis un autre test"
+              "text": "L'imprimante est forcément en panne"
             },
             {
               "id": "r1",
-              "text": "Je déclare la panne résolue"
+              "text": "Le premier document ou sa préparation mérite une vérification"
             },
             {
               "id": "r2",
-              "text": "J'invente un résultat"
+              "text": "Le réseau est nécessairement coupé"
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Le diagnostic progresse par hypothèses vérifiées.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "correctAnswerId": "r1",
+          "explanation": "Les résultats orientent le diagnostic sans démontrer immédiatement une cause unique.",
+          "hint": "Repère les faits et la décision justifiée."
+        },
+        {
+          "id": "d3-3-3",
+          "text": "Après avoir modifié un réglage, que faut-il faire ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Clôturer sans attendre"
+            },
+            {
+              "id": "r1",
+              "text": "Refaire un test pour confirmer le fonctionnement"
+            },
+            {
+              "id": "r2",
+              "text": "Effacer le diagnostic"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "La résolution se vérifie par un test.",
+          "hint": "Repère les faits et la décision justifiée."
         }
       ]
     },
     {
       "id": "chapitre-4",
-      "title": "Je me teste : chapitre 4",
+      "title": "Je me teste",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "incident-4-1",
-          "text": "Tu as changé un réglage. Quand est-ce résolu ?",
+          "id": "d3-4-1",
+          "text": "Tu n'as pas les droits nécessaires pour modifier un pare-feu. Que fais-tu ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Quand un nouveau test confirme le retour du service"
+              "text": "Utiliser le compte d'un collègue"
             },
             {
               "id": "r1",
-              "text": "Dès que le réglage a été enregistré"
+              "text": "Transmettre au groupe habilité avec les tests réalisés"
             },
             {
               "id": "r2",
-              "text": "Dès que l'utilisateur part"
+              "text": "Modifier quand même"
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Toute intervention doit être vérifiée.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "correctAnswerId": "r1",
+          "explanation": "Respecter les habilitations est une obligation professionnelle.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-4-2",
-          "text": "Que faut-il noter dans la tâche du ticket ?",
+          "id": "d3-4-2",
+          "text": "Word ne s'ouvre pas. Tu sais résoudre le problème et tu es habilité. Que fais-tu ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le contrôle effectué et son résultat"
-            },
-            {
-              "id": "r1",
-              "text": "Seulement « OK »"
-            },
-            {
-              "id": "r2",
-              "text": "Le mot de passe de l'utilisateur"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Une trace factuelle permet de comprendre le travail réalisé.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
-        },
-        {
-          "id": "incident-4-3",
-          "text": "Une solution provisoire permet de continuer à travailler. Tu notes…",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "Un contournement et ses limites"
-            },
-            {
-              "id": "r1",
-              "text": "Une résolution définitive sans vérification"
-            },
-            {
-              "id": "r2",
-              "text": "Rien du tout"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Distinguer contournement et correction durable.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
-        }
-      ]
-    },
-    {
-      "id": "chapitre-5",
-      "title": "Je me teste : chapitre 5",
-      "shuffleQuestions": true,
-      "shuffleAnswers": true,
-      "questions": [
-        {
-          "id": "incident-5-1",
-          "text": "Tu n'as pas les droits pour modifier le pare-feu. Que faire ?",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "Transmettre à une personne habilitée"
-            },
-            {
-              "id": "r1",
-              "text": "Contourner les droits"
-            },
-            {
-              "id": "r2",
-              "text": "Ignorer la demande"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "L'habilitation est une limite à respecter : escalade technique.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
-        },
-        {
-          "id": "incident-5-2",
-          "text": "Tu sais réparer Word sur un poste isolé. Que faire ?",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "Traiter dans ton périmètre"
+              "text": "Traiter et vérifier"
             },
             {
               "id": "r1",
@@ -326,104 +255,125 @@
             },
             {
               "id": "r2",
-              "text": "Faire intervenir un prestataire extérieur"
+              "text": "Fermer le ticket"
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "On résout soi-même lorsqu'on est compétent et habilité.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "explanation": "Traite les incidents dans ton périmètre de compétences.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-5-3",
-          "text": "Un incident grave dépasse tes compétences. Pour escalader, tu transmets…",
+          "id": "d3-4-3",
+          "text": "Un logiciel métier inconnu ne fonctionne plus. Que transmets-tu au spécialiste ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Symptômes, impact, tests et résultats"
+              "text": "Un simple message « ça ne marche pas »"
             },
             {
               "id": "r1",
-              "text": "Seulement « ça ne marche pas »"
+              "text": "Le mot de passe de l'utilisateur"
             },
             {
               "id": "r2",
-              "text": "Les identifiants personnels"
+              "text": "Symptômes, impact, tests et résultats"
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "Une escalade utile contient les faits et le travail déjà accompli.",
+          "hint": "Repère les faits et la décision justifiée."
+        },
+        {
+          "id": "d3-4-4",
+          "text": "Un NAS indispensable est arrêté et le délai annoncé risque d'être dépassé. Que proposes-tu ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Une escalade technique et, si nécessaire, un arbitrage"
+            },
+            {
+              "id": "r1",
+              "text": "Une réinitialisation sans sauvegarde"
+            },
+            {
+              "id": "r2",
+              "text": "L'abandon du ticket"
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Un transfert utile évite de recommencer l'investigation.",
-          "hint": "Relis la situation et réfléchis à l'action professionnelle la plus utile."
+          "explanation": "L'escalade technique et la sollicitation hiérarchique peuvent être complémentaires.",
+          "hint": "Repère les faits et la décision justifiée."
         }
       ]
     },
     {
-      "id": "chapitre-6",
-      "title": "Je me teste : communication",
+      "id": "chapitre-5",
+      "title": "Je me teste",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "incident-6-1",
-          "text": "Après réparation, le rapport doit indiquer…",
+          "id": "d3-5-1",
+          "text": "Quelle trace est adaptée à une tâche de ticket ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Cause retenue, actions et résultat des tests"
+              "text": "« OK »"
             },
             {
               "id": "r1",
-              "text": "Uniquement le prénom du technicien"
+              "text": "« Test de connexion effectué : message MFA affiché »"
             },
             {
               "id": "r2",
-              "text": "Une promesse sans test"
+              "text": "« Utilisateur peu sérieux »"
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Le rapport doit être traçable et vérifiable.",
-          "hint": "Pense à l'information de l'utilisateur et à la traçabilité."
+          "correctAnswerId": "r1",
+          "explanation": "Une tâche mentionne l'action et son résultat.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-6-2",
-          "text": "Quand informer l'utilisateur ?",
+          "id": "d3-5-2",
+          "text": "Une méthode provisoire rétablit l'activité, mais la panne demeure. Tu notes :",
           "answers": [
             {
               "id": "r0",
-              "text": "Pendant les étapes importantes et à la résolution"
+              "text": "Une solution définitive"
             },
             {
               "id": "r1",
-              "text": "Jamais"
+              "text": "Un contournement et ses limites"
             },
             {
               "id": "r2",
-              "text": "Seulement s'il proteste"
+              "text": "Une réparation non vérifiée"
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "L'utilisateur doit connaître l'avancement et le résultat.",
-          "hint": "Pense à l'information de l'utilisateur et à la traçabilité."
+          "correctAnswerId": "r1",
+          "explanation": "Un contournement n'est pas une résolution définitive.",
+          "hint": "Repère les faits et la décision justifiée."
         },
         {
-          "id": "incident-6-3",
-          "text": "L'accès fonctionne à nouveau, que reste-t-il à faire ?",
+          "id": "d3-5-3",
+          "text": "Après l'intervention, que faut-il faire ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Documenter, informer et suivre la procédure de clôture"
+              "text": "Informer et vérifier avec l'utilisateur, puis documenter"
             },
             {
               "id": "r1",
-              "text": "Supprimer toute trace"
+              "text": "Supprimer le ticket"
             },
             {
               "id": "r2",
-              "text": "Fermer sans prévenir"
+              "text": "Ne rien communiquer"
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Le traitement comprend la communication et la traçabilité.",
-          "hint": "Pense à l'information de l'utilisateur et à la traçabilité."
+          "explanation": "Le rapport, la vérification et l'information sont essentiels.",
+          "hint": "Repère les faits et la décision justifiée."
         }
       ]
     }
