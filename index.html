@@ -6,185 +6,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CS Cybersécurité</title>
   <style>
-    * { box-sizing: border-box; }
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#1e293b}
+header{background:#071632;color:#fff;text-align:center}
+.hero{position:relative;width:100%;overflow:hidden;background:#071632}
+.hero picture,.hero img{display:block;width:100%}
+.hero img{height:clamp(120px,9.5vw,195px);object-fit:cover;object-position:center}
+@media(max-width:767px) and (orientation:portrait){.hero img{height:clamp(220px,78vw,400px);object-fit:cover}}
+@media(max-width:1100px) and (orientation:landscape){.hero img{height:auto;object-fit:initial}}
+.version{position:fixed;right:12px;bottom:8px;font-size:11px;color:#718096;opacity:.8;pointer-events:none}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6fa;
-      color: #1e293b;
-    }
+.portal-profile{padding:16px 20px;text-align:center;background:#e8f1fc;border-bottom:1px solid #b9d3f0}
+.portal-profile h1{font-size:clamp(24px,4vw,34px);margin:0 0 5px;color:#103e75}
+.portal-profile p{margin:0;color:#355779}
+.portal-test-note{max-width:1100px;margin:18px auto 0;padding:12px 18px;border:1px solid #b7c9dc;border-radius:9px;background:#fff;color:#24425e}
 
-    header { position: relative; background: #001006; }
-    header h1 {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translateY(calc(-22% + 10px));
-      margin: 0;
-      padding: 0 10px;
-      color: #258b44;
-      font-size: clamp(18.9px, 4.59vw, 68.4px);
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -.035em;
-      white-space: nowrap;
-      text-shadow: 0 1px 2px rgba(0, 20, 5, .8), 0 0 2px rgba(84, 225, 107, .3);
-    }
-    header img {
-      display: block;
-      width: 100%;
-      height: clamp(120px, 9.5vw, 195px);
-      object-fit: fill;
-    }
-    @media (max-width: 850px) {
-      header img { height: auto; }
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 45px auto;
-      padding: 0 20px;
-    }
-
-    h2 { font-size: 1.4rem; }
-
-    .ressource {
-      display: block;
-      max-width: 450px;
-      margin-top: 25px;
-      padding: 25px;
-      background: white;
-      border: 1px solid #dbe2ea;
-      border-radius: 12px;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .ressource:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.10);
-    }
-
-    .ressource h3 {
-      margin: 0 0 12px;
-      color: #17365d;
-    }
-
-    .ressource p {
-      margin: 0 0 20px;
-      line-height: 1.5;
-    }
-
-    .acces {
-      color: #1558a6;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
-      font-size: 0.85rem;
-    }
-  
-    /* Plan B : cartes avec illustration panoramique, responsive */
-    main { max-width: 1240px; margin: 24px auto; padding: 0 16px; }
-    .ressources { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; align-items: stretch; }
-    .ressource { display:flex; flex-direction:column; min-width:0; min-height:0; margin:0; padding:0; overflow:hidden; border:1px solid #dbe4f0; border-radius:14px; background:#fff; color:#12274b; text-decoration:none; box-shadow:0 5px 16px rgba(20,41,78,.08); transition:transform .2s,box-shadow .2s; }
-    .ressource:hover,.ressource:focus-visible { transform:translateY(-3px); box-shadow:0 10px 24px rgba(20,41,78,.15); }
-    .ressource:focus-visible { outline:3px solid #2563eb; outline-offset:3px; }
-    .ressource:active { transform:scale(.99); }
-    .ressource .contenu { display:flex; flex-direction:column; align-items:flex-start; gap:5px; min-width:0; padding:12px 15px 11px; }
-    .ressource .entete-carte { display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-width:0; }
-    .ressource .picto-type { width:25px; height:25px; flex:0 0 25px; fill:none; stroke:#2563eb; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; filter:none; }
-    .ressource[data-couleur="bleu"] .picto-type { stroke:#005bff; }
-    .ressource[data-couleur="vert"] .picto-type { stroke:#168651; }
-    .ressource[data-couleur="jaune"] .picto-type { stroke:#e5bd00; }
-    .ressource h3 { margin:0; font-size:20px; line-height:1.2; color:#102751; }
-    .ressource p { margin:0; font-size:14px; line-height:1.4; }
-    .ressource .visuel { display:flex; align-items:center; justify-content:center; width:100%; height:130px; padding:10px 15px; min-width:0; overflow:hidden; }
-    .ressource svg { display:block; height:100%; width:100%; max-width:360px; filter:drop-shadow(0 2px 4px rgba(15,35,70,.12)); }
-    /* Bordures intérieures des six visuels de cours, assorties à leur catégorie */
-    .ressource[data-type="cours"] .visuel img {
-      display:block;
-      width:100%;
-      height:100%;
-      max-width:360px;
-      object-fit:cover;
-      border-radius:13px;
-      border:2px solid;
-      box-shadow:0 2px 5px rgba(15,35,70,.16);
-      box-sizing:border-box;
-    }
-    .ressource[data-type="cours"][data-couleur="vert"] .visuel img { border-color:#49ad83; }
-    .ressource[data-type="cours"][data-couleur="jaune"] .visuel img { border-color:#e1b63d; }
-    .ressource[data-type="cours"][data-couleur="bleu"] .visuel img { border-color:#569cdb; }
-    .ressource.ipv4 .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
-    .ressource[data-couleur="bleu"] .visuel { background:linear-gradient(130deg,#e8f4ff,#9ed2fa); }
-    .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#ddf8ec,#8edab9); }
-    .ressource[data-couleur="jaune"] .visuel { background:linear-gradient(130deg,#fff9d8,#ffe784); }
-    /* Essai IPCalc : marge autour du module plus fine, IPv4 inchangé */
-    .ressource.ipcalc .visuel { padding:5px 6px; }
-    .ressource.flsm .visuel { padding:5px 6px; }
-    @media (max-width:1199px) { main { max-width:830px; } .ressources { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-    @media (max-width:719px) { main { max-width:480px; margin:16px auto; padding:0 12px; } .ressources { grid-template-columns:1fr; gap:12px; } .ressource .contenu { padding:11px 14px 10px; } .ressource h3 { font-size:19px; } .ressource .visuel { height:112px; padding:8px 12px; } }
-    @media (max-width:360px) { .ressource .visuel { height:100px; } }
-    @media (max-width:719px) { .ressource.ipcalc .visuel, .ressource.flsm .visuel { padding:4px 5px; } }
-    @media (max-width:719px) { .outils-grille { right:12px; } }
-    /* Adaptation automatique au thème clair ou sombre du navigateur */
-    :root { color-scheme: light dark; }
-    @media (prefers-color-scheme: dark) {
-      body { background:#10151e; color:#e5edf7; }
-      .ressource { background:#1b2533; color:#e2ebf7; border-color:#344459; box-shadow:0 5px 16px rgba(0,0,0,.25); }
-      .ressource:hover,.ressource:focus-visible { box-shadow:0 10px 24px rgba(0,0,0,.4); }
-      .ressource h3 { color:#f0f5fc; }
-      .ressource p { color:#c4d2e3; }
-      .ressource:focus-visible { outline-color:#80b6ff; }
-      .ressource .picto-type { stroke:#80b6ff; }
-      .ressource[data-couleur="bleu"] .picto-type { stroke:#168bff; }
-      .ressource[data-couleur="vert"] .picto-type { stroke:#53d8a7; }
-      .ressource[data-couleur="jaune"] .picto-type { stroke:#faff20; }
-      .ressource[data-couleur="bleu"] .visuel { background:linear-gradient(130deg,#1b4064,#2a6393); }
-      .ressource[data-couleur="vert"] .visuel { background:linear-gradient(130deg,#174c3a,#26795d); }
-      .ressource[data-couleur="jaune"] .visuel { background:linear-gradient(130deg,#594919,#9b7a24); }
-    }
-    
-    main { position:relative; }
-    .ressource.en-preparation { cursor:default; }
-    .ressource.en-preparation:hover { transform:none; box-shadow:0 5px 16px rgba(20,41,78,.08); }
-    .ressource.en-preparation .visuel .visuel-attente { width:54px; height:54px; color:#7793bd; opacity:.7; }
-    .ressource.en-preparation[hidden] { display:none; }
-    @media(prefers-color-scheme:dark) {
-      .ressource.en-preparation:hover { box-shadow:0 5px 16px rgba(0,0,0,.25); }
-      .ressource.en-preparation .visuel .visuel-attente { color:#b0c9ed; }
-    }
-    @media(prefers-reduced-motion:reduce){.ressource{transition:none}}
-
-
-    /* Cahier des charges : neutraliser le fond vert du visuel, sans toucher à la bordure. */
-    .ressource[data-rubrique="cahier-des-charges"] .visuel{background:#fff !important}
-    @media(prefers-color-scheme:dark){.ressource[data-rubrique="cahier-des-charges"] .visuel{background:#1b2533 !important}}
-    .version-portail{position:fixed;right:12px;bottom:8px;z-index:10;font:11px Arial,sans-serif;color:#718096;opacity:.85;pointer-events:none}
-  
 .raccourcis{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;min-height:35px;padding:5px 12px;background:#e9eff6;border-bottom:1px solid #cbd7e5;font:13px/1.3 Arial,sans-serif}
 .raccourcis a{display:inline-flex;align-items:center;gap:5px;color:#173b65;text-decoration:none;font-weight:700;padding:3px 8px;border-radius:5px}
 .raccourcis a:hover,.raccourcis a:focus-visible{background:#d1e2f5;text-decoration:underline}
 .raccourcis a:focus-visible{outline:2px solid #215fa6;outline-offset:2px}
 .raccourcis svg{width:12px;height:12px;flex:none}
 @media(prefers-color-scheme:dark){.raccourcis{background:#1c293a;border-bottom-color:#3b506b}.raccourcis a{color:#d2e7ff}.raccourcis a:hover,.raccourcis a:focus-visible{background:#2e4663}}
+
+.portail-bandeau{position:relative;isolation:isolate;overflow:hidden;background:#071632}
+.portail-bandeau picture,.portail-bandeau img{display:block;width:100%}
+.portail-bandeau img{height:clamp(120px,9.5vw,195px);object-fit:cover;object-position:center}
+.portail-bandeau-titre{position:absolute;z-index:1;left:50%;bottom:9%;transform:translateX(-50%);max-width:92%;margin:0;padding:5px 18px;border-radius:9px;background:rgba(3,16,35,.68);color:#fff;font:700 clamp(17px,2.8vw,37px)/1.15 Arial,sans-serif;text-align:center;text-shadow:0 1px 3px #000;white-space:nowrap}
+@media(max-width:767px) and (orientation:portrait){.portail-bandeau img{height:clamp(220px,78vw,400px);object-fit:cover}.portail-bandeau-titre{bottom:6%;font-size:clamp(15px,4.2vw,26px);white-space:normal;width:max-content}}
+@media(max-width:1100px) and (orientation:landscape){.portail-bandeau img{height:auto;object-fit:contain}.portail-bandeau-titre{bottom:6%}}
 </style>
-<link rel="stylesheet" href="/assets/portails-cartes-commun.css?v=20261023a">
+<link rel="stylesheet" href="/assets/portails-cartes-commun.css?v=20261023b">
 </head>
 <body>
 
-  <header>
-    <img src="assets/images/bandeau-cs-matrix-pc-v2.webp" alt="Fond Matrix de chiffres binaires verts en perspective" width="1920" height="320">
-    <h1>CS Cybersécurité</h1>
+  <header class="portail-bandeau">
+    <picture>
+      <source media="(max-width: 767px) and (orientation: portrait)" srcset="/assets/tciel/bandeau-t-ciel-portrait.webp">
+      <source media="(max-width: 1100px) and (orientation: landscape)" srcset="/assets/tciel/bandeau-t-ciel-paysage.webp">
+      <img src="/assets/tciel/bandeau-t-ciel-pc.webp" alt="Univers technologique CIEL, mannequin et viseur lumineux" width="1920" height="320">
+    </picture>
+    <h1 class="portail-bandeau-titre">CS Cybersécurité</h1>
   </header>
   <nav class="raccourcis" aria-label="Accès rapides aux applications">
     <a href="https://0351878b.index-education.net/pronote" target="_blank" rel="noopener noreferrer">Pronote <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6m0-6-9 9M20 14v6H4V4h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -192,9 +53,7 @@
   </nav>
 
 
-  <main>
-    
-    <div class="ressources">
+  <main><div class="ressources">
 <a class="ressource" href="/ressources/incidents/" data-type="cours" data-rubrique="gestion-incidents" data-couleur="vert" aria-label="Gestion d’incidents, ouvrir le cours"><div class="contenu"><div class="entete-carte"><h3>Gestion d’incidents</h3><svg class="picto-type" viewBox="0 0 24 24" role="img" aria-label="Ressource pédagogique : livre ouvert avec coche"><path d="M12 7v14"/><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v5"/><path d="M3 18h5a4 4 0 0 1 4 3 4 4 0 0 1 4-3h1"/><path d="m17 16 2 2 4-4"/></svg></div><p>Déclarer, suivre et résoudre vos incidents IT</p></div><div class="visuel"><img src="/ressources/incidents/gestion-incidents-1800x600.webp?v=20261022" alt="Illustration du traitement des tickets d’incident" loading="lazy" width="1800" height="600" style="display:block;width:100%;height:100%;object-fit:cover"></div></a>
 <a class="ressource" href="/ressources/projet/" data-type="cours" data-rubrique="projet" data-couleur="jaune" aria-label="Gestion de projet et d’équipe, ouvrir le cours"><div class="contenu"><div class="entete-carte"><h3>Gestion de projet et d'équipe</h3><svg class="picto-type" viewBox="0 0 24 24" role="img" aria-label="Ressource pédagogique : livre ouvert avec coche"><path d="M12 7v14"/><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v5"/><path d="M3 18h5a4 4 0 0 1 4 3 4 4 0 0 1 4-3h1"/><path d="m17 16 2 2 4-4"/></svg></div><p>Gestion de projet et d'équipe</p></div><div class="visuel"><img src="/ressources/projet/gestion-projet-equipe.webp?v=20261022b" alt="Équipe travaillant ensemble à la gestion d’un projet informatique" loading="lazy" width="1800" height="600" style="display:block;width:100%;height:100%;object-fit:cover"></div></a>
 <a class="ressource" href="/ressources/audit/" data-type="cours" data-rubrique="audit" data-couleur="jaune" aria-label="Audit, ouvrir le cours"><div class="contenu"><div class="entete-carte"><h3>Audit</h3><svg class="picto-type" viewBox="0 0 24 24" role="img" aria-label="Ressource pédagogique : livre ouvert avec coche"><path d="M12 7v14"/><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v5"/><path d="M3 18h5a4 4 0 0 1 4 3 4 4 0 0 1 4-3h1"/><path d="m17 16 2 2 4-4"/></svg></div><p>Audit de l'installation ou du système</p></div><div class="visuel"><img src="/ressources/audit/audit-installation-systeme.webp?v=20261022b" alt="Audit technique d’une installation informatique" loading="lazy" width="1800" height="600" style="display:block;width:100%;height:100%;object-fit:cover"></div></a>
@@ -203,8 +62,7 @@
 <a class="ressource" href="/ressources/parc/" data-type="cours" data-rubrique="gestion-parc" data-couleur="bleu" aria-label="Inventaire et gestion de parc, ouvrir le cours"><div class="contenu"><div class="entete-carte"><h3>Inventaire et gestion de parc</h3><svg class="picto-type" viewBox="0 0 24 24" role="img" aria-label="Ressource pédagogique : livre ouvert avec coche"><path d="M12 7v14"/><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v5"/><path d="M3 18h5a4 4 0 0 1 4 3 4 4 0 0 1 4-3h1"/><path d="m17 16 2 2 4-4"/></svg></div><p>Consulter et gérer vos équipements IT</p></div><div class="visuel"><svg viewBox="0 0 360 112" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Inventaire de quatre équipements avec type, localisation, QR codes et statuts"><defs><linearGradient id="ihead" x2="0" y2="1"><stop stop-color="#e9f4ff"/><stop offset="1" stop-color="#d3e8ff"/></linearGradient></defs><rect class="inv-panel" x="2" y="2" width="356" height="108" rx="9" fill="#fff" stroke="#9dc5f1" stroke-width="1.6"/><path class="inv-head" d="M11 2H349Q358 2 358 11V26H2V11Q2 2 11 2Z" fill="url(#ihead)"/><g class="inv-lines" stroke="#d8e7f7" stroke-width=".8"><path d="M58 3V109M135 3V109M166 3V109M245 3V109M303 3V109M3 47H357M3 68H357M3 89H357"/></g><g class="inv-label" font-family="Arial,sans-serif" font-size="7.9" font-weight="700" fill="#143a70"><text x="8" y="17">Équipement</text><text x="64" y="17">Nom / Description</text><text x="141" y="17">QR</text><text x="192" y="17">Type</text><text x="255" y="17">Lieu</text><text x="319" y="17">État</text></g><g font-family="Arial,sans-serif"><text class="inv-main" x="64" y="36" font-size="8.7" font-weight="700" fill="#173a67">PC-001</text><text class="inv-sub" x="64" y="44" font-size="6.7" fill="#56718e">Poste de travail</text><g transform="translate(0 27)"><rect x="11" y="1" width="24" height="14" rx="1.5" fill="#243e60"/><rect x="13" y="3" width="20" height="10" fill="#2996f2"/><path d="M23 15v3M17 19h13M37 3h11v17H37z" stroke="#203852" stroke-width="2" fill="#45657f"/></g><g transform="translate(140 28)"><rect x="0" y="0" width="19" height="18" fill="#fff"/><path d="M2 2h5v5H2zM12 2h5v5h-5zM2 11h5v5H2z" fill="none" stroke="#122644" stroke-width="1.5"/><path d="M9 5h2v4h3v2h-4v3h2m3-1h2v3h-4" fill="none" stroke="#122644" stroke-width="1.4"/></g><rect x="170" y="29" width="72" height="16" rx="8" fill="#deebfd"/><text x="206" y="40" text-anchor="middle" font-size="7.7" font-weight="700" fill="#15477d">Poste</text><path d="M253 34a4.5 4.5 0 0 1 9 0c0 3-4.5 8-4.5 8s-4.5-5-4.5-8z" fill="#1464c0"/><circle cx="257.5" cy="34" r="1.5" fill="#fff"/><text class="inv-location" x="266" y="40" font-size="7.6" fill="#3d5e80">Salle 101</text><rect x="307" y="29" width="47" height="16" rx="8" fill="#d7f3e3"/><circle cx="317" cy="37" r="5.8" fill="#18984a"/><path d="m314 37 2 2 4-4" stroke="#fff" stroke-width="1.5" fill="none"/><text x="337" y="40" text-anchor="middle" font-weight="700" font-size="7.5" fill="#126c38">Actif</text></g><g font-family="Arial,sans-serif"><text class="inv-main" x="64" y="57" font-size="8.7" font-weight="700" fill="#173a67">LT-023</text><text class="inv-sub" x="64" y="65" font-size="6.7" fill="#56718e">Portable enseignant</text><g transform="translate(0 48)"><path d="M13 3h29l3 15H10z" fill="#234267"/><path d="M15 5h25l2 10H13z" fill="#309bf4"/><path d="M9 19h38l-3 3H12z" fill="#789cbe"/></g><g transform="translate(140 49)"><rect x="0" y="0" width="19" height="18" fill="#fff"/><path d="M2 2h5v5H2zM12 2h5v5h-5zM2 11h5v5H2z" fill="none" stroke="#122644" stroke-width="1.5"/><path d="M9 5h2v4h3v2h-4v3h2m3-1h2v3h-4" fill="none" stroke="#122644" stroke-width="1.4"/></g><rect x="170" y="50" width="72" height="16" rx="8" fill="#deebfd"/><text x="206" y="61" text-anchor="middle" font-size="7.7" font-weight="700" fill="#15477d">Portable</text><path d="M253 55a4.5 4.5 0 0 1 9 0c0 3-4.5 8-4.5 8s-4.5-5-4.5-8z" fill="#1464c0"/><circle cx="257.5" cy="55" r="1.5" fill="#fff"/><text class="inv-location" x="266" y="61" font-size="7.6" fill="#3d5e80">Salle 205</text><rect x="307" y="50" width="47" height="16" rx="8" fill="#d7f3e3"/><circle cx="317" cy="58" r="5.8" fill="#18984a"/><path d="m314 58 2 2 4-4" stroke="#fff" stroke-width="1.5" fill="none"/><text x="337" y="61" text-anchor="middle" font-weight="700" font-size="7.5" fill="#126c38">Actif</text></g><g font-family="Arial,sans-serif"><text class="inv-main" x="64" y="78" font-size="8.7" font-weight="700" fill="#173a67">IMP-004</text><text class="inv-sub" x="64" y="86" font-size="6.7" fill="#56718e">Imprimante réseau</text><g transform="translate(0 69)"><rect x="12" y="8" width="34" height="13" rx="2" fill="#334d68"/><path d="M19 2h20v9H19z" fill="#e8f1fb"/><path d="M19 18h20v7H19z" fill="#d5e5f3"/></g><g transform="translate(140 70)"><rect x="0" y="0" width="19" height="18" fill="#fff"/><path d="M2 2h5v5H2zM12 2h5v5h-5zM2 11h5v5H2z" fill="none" stroke="#122644" stroke-width="1.5"/><path d="M9 5h2v4h3v2h-4v3h2m3-1h2v3h-4" fill="none" stroke="#122644" stroke-width="1.4"/></g><rect x="170" y="71" width="72" height="16" rx="8" fill="#fff0dd"/><text x="206" y="82" text-anchor="middle" font-size="7.7" font-weight="700" fill="#15477d">Imprimante</text><path d="M253 76a4.5 4.5 0 0 1 9 0c0 3-4.5 8-4.5 8s-4.5-5-4.5-8z" fill="#1464c0"/><circle cx="257.5" cy="76" r="1.5" fill="#fff"/><text class="inv-location" x="266" y="82" font-size="7.6" fill="#3d5e80">Bât. A</text><rect x="307" y="71" width="47" height="16" rx="8" fill="#d7f3e3"/><circle cx="317" cy="79" r="5.8" fill="#18984a"/><path d="m314 79 2 2 4-4" stroke="#fff" stroke-width="1.5" fill="none"/><text x="337" y="82" text-anchor="middle" font-weight="700" font-size="7.5" fill="#126c38">Actif</text></g><g font-family="Arial,sans-serif"><text class="inv-main" x="64" y="99" font-size="8.7" font-weight="700" fill="#173a67">SW-01</text><text class="inv-sub" x="64" y="107" font-size="6.7" fill="#56718e">Switch d’étage</text><g transform="translate(0 90)"><rect x="7" y="7" width="43" height="13" rx="2" fill="#253d57"/><path d="M12 11h28" stroke="#cde2f5" stroke-width="5" stroke-dasharray="4 2"/><circle cx="45" cy="12" r="1.5" fill="#30e171"/><circle cx="45" cy="17" r="1.5" fill="#30e171"/></g><g transform="translate(140 91)"><rect x="0" y="0" width="19" height="18" fill="#fff"/><path d="M2 2h5v5H2zM12 2h5v5h-5zM2 11h5v5H2z" fill="none" stroke="#122644" stroke-width="1.5"/><path d="M9 5h2v4h3v2h-4v3h2m3-1h2v3h-4" fill="none" stroke="#122644" stroke-width="1.4"/></g><rect x="170" y="92" width="72" height="16" rx="8" fill="#eadcfb"/><text x="206" y="103" text-anchor="middle" font-size="7.7" font-weight="700" fill="#602c9c">Réseau</text><path d="M253 97a4.5 4.5 0 0 1 9 0c0 3-4.5 8-4.5 8s-4.5-5-4.5-8z" fill="#1464c0"/><circle cx="257.5" cy="97" r="1.5" fill="#fff"/><text class="inv-location" x="266" y="103" font-size="7.6" fill="#3d5e80">Local IT</text><rect x="307" y="92" width="47" height="16" rx="8" fill="#ffe0e0"/><circle cx="317" cy="100" r="5.8" fill="#c72828"/><path d="m314 97 6 6m0-6-6 6" stroke="#fff" stroke-width="1.5"/><text x="337" y="103" text-anchor="middle" font-weight="700" font-size="7.5" fill="#a62020">HS</text></g></svg></div></a>
 </div></main>
 
+  <div class="version" aria-label="Version du portail">CS V1.0.6</div>
 
-  
-  <div class="version-portail" aria-label="Version du portail">CS V1.0.5</div>
 </body>
 </html>
