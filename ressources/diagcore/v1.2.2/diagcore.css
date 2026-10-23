@@ -53,7 +53,7 @@
 .diagcore--vertical .diagcore__next{margin-top:14px;padding:16px;background:var(--dc-bg);border:1px solid var(--dc-border);border-radius:10px;display:grid;gap:10px}
 .diagcore--vertical .diagcore__title{font-size:1.12rem;margin:0;color:var(--dc-text)}
 .diagcore--vertical .diagcore__prompt,.diagcore--vertical .diagcore__hint{margin:0;color:var(--dc-muted)}
-.diagcore--vertical .diagcore__group{display:grid;gap:8px}
+.diagcore--vertical .diagcore__equipment-grid{display:flex;flex-wrap:wrap;gap:8px}.diagcore--vertical .diagcore__group{display:grid;gap:8px}
 .diagcore--vertical .diagcore__group-title{font-size:.9rem;margin:8px 0 0;color:var(--dc-muted)}
 .diagcore--vertical .diagcore__choice{font:inherit;font-weight:650;text-align:left;color:var(--dc-button-text);background:var(--dc-button);border:1px solid var(--dc-button);border-radius:9px;min-height:44px;padding:10px 13px;cursor:pointer}
 .diagcore--vertical .diagcore__choice:hover:not(:disabled){background:var(--dc-button-hover)}
@@ -70,10 +70,10 @@
 /* 1.2.1 : contrôles et catégories déjà consultés, toujours actifs. */
 .diagcore--vertical .diagcore__choice--visited{background:#7eb9dd;border-color:#5c9ac3;color:#102c40}
 .diagcore--vertical .diagcore__choice--visited:hover:not(:disabled){background:#96cae6;border-color:#5c9ac3}
-.diagcore--vertical[data-diagcore-theme="dark"] .diagcore__choice--visited{background:#578bab;border-color:#7ab2d1;color:#fff}
+.diagcore--vertical[data-diagcore-theme="dark"] .diagcore__choice--visited{background:#578bab;border-color:#7ab2d1;color:var(--dc-text)}
 @media(prefers-color-scheme:dark){.diagcore--vertical:not([data-diagcore-theme="light"]) .diagcore__choice--visited{background:#578bab;border-color:#7ab2d1;color:#fff}}
 
 /* 1.2.2 : couleurs QCMCore réservées aux résultats des hypothèses de Mon diagnostic. */
-.diagcore--vertical .diagcore__entry--hypothesis-correct{border:2px solid #00d958;border-left-width:5px;background:#202a35;color:#fff}
-.diagcore--vertical .diagcore__entry--hypothesis-wrong{border:2px solid #ff9900;border-left-width:5px;background:#202a35;color:#fff}
+.diagcore--vertical .diagcore__entry--hypothesis-correct{border:2px solid #00d958;border-left-width:5px;background:var(--dc-surface);color:var(--dc-text)}
+.diagcore--vertical .diagcore__entry--hypothesis-wrong{border:2px solid #ff9900;border-left-width:5px;background:var(--dc-surface);color:var(--dc-text)}
 .diagcore--vertical .diagcore__entry--hypothesis-correct h3,.diagcore--vertical .diagcore__entry--hypothesis-correct p,.diagcore--vertical .diagcore__entry--hypothesis-wrong h3,.diagcore--vertical .diagcore__entry--hypothesis-wrong p{color:#fff}
