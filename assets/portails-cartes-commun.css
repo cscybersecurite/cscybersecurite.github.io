@@ -216,3 +216,29 @@
     box-shadow:0 2px 7px rgba(0,0,0,.28);
   }
 }
+
+/* V1.0.29 : un fond sobre pour les cartes, adapté au thème.
+   Les aplats de catégorie sont réservés aux icônes et bordures, pas aux fonds. */
+@media (prefers-color-scheme: light) {
+  .ressource[data-rubrique="accompagnement-client"] .visuel { background:#fff; }
+}
+@media (prefers-color-scheme: dark) {
+  .ressource.ipv4 .visuel,
+  .ressource.flsm .visuel,
+  .ressource.raid .visuel,
+  .ressource.dns .visuel,
+  .ressource[href="/ressources/dhcp/"] .visuel,
+  .ressource.messagerie .visuel,
+  .ressource[href="/ressources/messagerie/"] .visuel {
+    background:#1b2533;
+  }
+}
+/* Inventaire : un seul contour visible, celui du SVG extérieur. */
+.ressource[data-rubrique="gestion-parc"] .visuel .inv-panel {
+  stroke:transparent;
+}
+@media (prefers-color-scheme: dark) {
+  .ressource[data-rubrique="gestion-parc"] .visuel .inv-panel {
+    stroke:transparent;
+  }
+}
