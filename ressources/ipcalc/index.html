@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#17685c">
+    <meta name="description" content="Analysez vos adresses IPv4 et IPv6 et calculez les sous-réseaux FLSM IPv4, hors connexion.">
+    <meta name="color-scheme" content="light dark">
+    <title>IPCalc - Adressage IPv4 et IPv6</title>
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./styles.css?v=2.0.0-step3.32">
+    <link rel="stylesheet" href="./print.css?v=2.0.0-step3.32" media="print">
+    <link rel="stylesheet" href="./professional-report.css?v=2.0.0-step3.32">
+    <script type="module" src="./js/app.js?v=2.0.0-step3.32"></script>
+    <script type="module" src="./js/pwa.js?v=2.0.0-step3.32"></script>
+  <style>
+#pdf-a4-dialog{border:1px solid #8b9995;border-radius:14px;max-width:min(95vw,470px);width:420px;padding:0;color:CanvasText;background:Canvas;box-shadow:0 18px 50px #0008}
+#pdf-a4-dialog::backdrop{background:#0009}
+.pdf-a4-dialog-content{padding:22px;display:grid;gap:16px}
+.pdf-a4-dialog-content p{margin:0}
+.pdf-a4-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pdf-a4-dialog-head h2{font-size:1.15rem;margin:0}
+.pdf-a4-close{border:0;background:transparent;color:inherit;font-size:24px;cursor:pointer}
+.pdf-a4-options{display:grid;gap:10px}
+#pdf-a4-error{color:#c44}
+</style>
+</head>
+  <body>
+    <a class="skip-link" href="#calculator">Aller au calculateur</a>
+    <header class="site-header">
+      <img class="ipcalc-logo" src="./icons/ipcalc-subnets.svg" width="46" height="46" alt="Logo IPcalc">
+      <a class="brand" href="./" aria-label="IPcalc, accueil">
+        <span>IP<span class="brand-light">calc</span></span>
+      </a>
+      <div class="header-actions">
+        <span class="version" title="Version 2.3.12">V2.3.12</span>
+        <span id="connection-status" class="connection-status" aria-hidden="true" hidden><span class="status-dot"></span><span id="connection-label">Calcul local</span></span>
+        <button id="install-app" class="button button-small button-outline" hidden>Installer l’application</button>
+      </div>
+    </header>
+
+    <main>
+      <h1 class="sr-only">IPcalc - Calcul réseau</h1>
+
+      <div id="update-banner" class="notice update-banner" hidden>
+        <span>Une nouvelle version d’IPcalc est disponible.</span>
+        <button id="apply-update" class="button button-small">Mettre à jour</button>
+      </div>
+      <p id="pwa-message" class="notice" role="status" hidden></p>
+
+      <div id="calculator" class="workspace">
+        <section class="input-panel panel" aria-labelledby="input-title">
+          <form id="calculator-form" novalidate>
+            <div class="panel-heading"><span class="step-number">01</span><h2 id="input-title">Votre réseau</h2></div>
+            <div class="form-actions">
+              <button type="submit" class="button calculate-button"><span id="calculate-label">Calculer le réseau</span><span aria-hidden="true">→</span></button>
+              <button id="print-results" type="button" class="button button-outline print-button" disabled aria-label="Impression disponible après calcul" title="Effectuez un calcul pour activer l’impression" aria-describedby="print-help">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M7 8V3h10v5M7 17H4V8h16v9h-3M7 14h10v7H7z"/><path d="M16 11h1"/></svg>
+              </button>
+              <span id="print-help" class="field-help print-status">PDF A4 Pro</span>
+            </div>
+            <div class="network-fields">
+              <div class="field">
+                <label for="protocol">Protocole</label>
+                <select id="protocol" name="protocol" aria-describedby="protocol-help">
+                  <option value="ipv4">IPv4</option>
+                  <option value="ipv6">IPv6</option>
+                </select>
+                <p id="protocol-help" class="field-help">Le protocole s’adapte automatiquement à l’adresse saisie.</p>
+              </div>
+              <div class="field address-field">
+                <label for="address">Adresse IP</label>
+                <div class="address-with-diagnostic">
+                  <input id="address" name="address" type="text" value="192.168.10.75/26" placeholder="192.168.10.75/26" spellcheck="false" autocomplete="off" autocapitalize="off" enterkeyhint="go" aria-describedby="address-help">
+                  <span class="address-diagnostic-anchor" id="address-diagnostic-anchor" hidden>
+                    <button id="address-diagnostic" type="button" class="address-diagnostic" aria-expanded="false" aria-controls="address-diagnostic-detail"></button>
+                    <span id="address-diagnostic-detail" class="address-diagnostic-detail" role="status" hidden></span>
+                  </span>
+                </div>
+                <p id="address-help" class="field-help">IPv4 avec ou sans CIDR. Une adresse d’hôte est ramenée à son réseau.</p>
+              </div>
+              <div class="field">
+                <label for="mask">Masque ou préfixe <span class="field-optional">si besoin</span></label>
+                <input id="mask" name="mask" type="text" placeholder="255.255.255.192 ou /26" inputmode="decimal" spellcheck="false" autocomplete="off" aria-describedby="mask-help">
+                <p id="mask-help" class="field-help">Laissez vide si l’adresse contient déjà un préfixe.</p>
+              </div>
+            </div>
+            <fieldset id="mode-fieldset" class="mode-fieldset">
+              <legend>Mode de découpage</legend>
+              <div class="mode-switch">
+                <label><input type="radio" name="mode" value="simple" checked><span>Aucun découpage<svg class="mode-diagram" viewBox="0 0 132 12" aria-hidden="true" focusable="false"><rect x="1" y="2" width="130" height="8" rx="2"/></svg></span></label>
+                <label><input type="radio" name="mode" value="subnets"><span>FLSM<svg class="mode-diagram" viewBox="0 0 132 12" aria-hidden="true" focusable="false"><rect x="1" y="2" width="24" height="8" rx="1"/><rect x="27" y="2" width="24" height="8" rx="1"/><rect x="53" y="2" width="24" height="8" rx="1"/><rect x="79" y="2" width="24" height="8" rx="1"/><rect x="105" y="2" width="26" height="8" rx="1"/></svg></span></label>
+                <label><input type="radio" name="mode" value="vlsm"><span>VLSM<svg class="mode-diagram" viewBox="0 0 132 12" aria-hidden="true" focusable="false"><rect x="1" y="2" width="49" height="8" rx="1"/><rect x="52" y="2" width="32" height="8" rx="1"/><rect x="86" y="2" width="21" height="8" rx="1"/><rect x="109" y="2" width="10" height="8" rx="1"/><rect x="121" y="2" width="10" height="8" rx="1"/></svg></span></label>
+              </div>
+            </fieldset>
+
+            <div id="ipv6-subnet-settings" class="subnet-settings" hidden>
+              <div class="field">
+                <label for="ipv6-target">Découpage IPv6 : préfixe cible</label>
+                <select id="ipv6-target" name="ipv6-target">
+                  <option value="">Aucun découpage</option>
+                  <option value="48">/48</option>
+                  <option value="52">/52</option>
+                  <option value="56">/56</option>
+                  <option value="60">/60</option>
+                  <option value="64">/64 (réseau local habituel)</option>
+                </select>
+                <p id="ipv6-target-help" class="field-help">Le préfixe cible doit être au moins aussi long que le préfixe initial. Aucun calcul d’hôtes ou de broadcast en IPv6.</p>
+              </div>
+            </div>
+            <div id="subnet-settings" class="subnet-settings" hidden>
+              <div class="field">
+                <label for="method">Méthode de découpage FLSM</label>
+                <select id="method" name="method">
+                  <option value="count">A - Nombre de sous-réseaux</option>
+                  <option value="hosts">B - Nombre minimal d’hôtes</option>
+                  <option value="combined">C - Les deux contraintes</option>
+                </select>
+              </div>
+              <div id="count-field" class="field">
+                <label for="count">Sous-réseaux demandés</label>
+                <input id="count" name="count" type="text" inputmode="numeric" value="4" autocomplete="off" aria-describedby="count-help">
+                <p id="count-help" class="field-help">La capacité totale peut être supérieure à votre demande.</p>
+              </div>
+              <div id="hosts-field" class="field" hidden>
+                <label for="hosts">Hôtes utilisables minimum</label>
+                <input id="hosts" name="hosts" type="text" inputmode="numeric" value="14" autocomplete="off" aria-describedby="hosts-help">
+                <p id="hosts-help" class="field-help">Un besoin de 1 ou 2 hôtes utilise des liaisons /31.</p>
+              </div>
+              <p id="method-help" class="field-help">Tous les sous-réseaux ont la même taille.</p>
+            </div>
+
+            <section id="vlsm-settings" class="vlsm-settings" aria-labelledby="vlsm-input-title" hidden>
+              <div class="vlsm-input-layout">
+                <div class="vlsm-request-panel">
+                  <h3 id="vlsm-input-title">Demandes VLSM</h3>
+                  <p class="field-help">Indiquez la quantité et le nombre d’hôtes utilisables par sous-réseau.</p>
+                  <div class="vlsm-request-columns" aria-hidden="true"><span>Nº</span><span>Quantité</span><span>Hôtes par réseau</span><span></span></div>
+                  <div id="vlsm-request-list"></div>
+                  <button id="vlsm-add" type="button" class="button button-outline button-small">+ Ajouter une demande</button>
+                  <p id="vlsm-count" class="field-help" role="status"></p>
+                </div>
+                <aside class="vlsm-base-panel" aria-labelledby="vlsm-base-title">
+                  <h3 id="vlsm-base-title">Réseau initial</h3>
+                  <div id="vlsm-base-content" class="vlsm-base-content" aria-live="polite"></div>
+                </aside>
+              </div>
+            </section>
+
+            <p id="calculation-error" class="form-error" role="alert" hidden></p>
+          </form>
+        </section>
+
+        <section id="print-summary" class="print-summary" hidden>
+          <h2 id="print-summary-title">IPcalc</h2>
+          <div id="print-summary-content"></div>
+        </section>
+
+        <section id="results" class="results" aria-labelledby="result-title">
+          <div class="panel results-primary">
+          <div class="results-heading">
+            <div class="heading-with-step"><span class="step-number">02</span><h2 id="result-title" tabindex="-1">Résultat du calcul</h2></div>
+          </div>
+          <p id="stale-notice" class="notice" role="status" hidden>Paramètres modifiés. Relancez le calcul pour actualiser les résultats.</p>
+          <div id="network-result" class="network-panel"></div>
+          </div>
+          <div id="subnet-result" class="panel subnet-panel" hidden></div>
+
+          <p id="result-announcement" class="sr-only" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+
+    </main>
+
+    <dialog id="pdf-a4-dialog" aria-labelledby="pdf-a4-title">
+      <form method="dialog" class="pdf-a4-dialog-content">
+        <div class="pdf-a4-dialog-head"><h2 id="pdf-a4-title">Fiche d'adressage IPv4</h2><button value="cancel" class="pdf-a4-close" aria-label="Fermer">×</button></div>
+        <p id="pdf-a4-description" hidden>Choisir le document A4 portrait à télécharger :</p>
+        <div class="pdf-a4-options">
+          <button type="button" id="pdf-a4-professional" class="button">Fiche professionnelle A4</button>
+          <button type="button" id="pdf-a4-student" class="button button-outline">Exercice A3 · Énoncé</button>
+          <button type="button" id="pdf-a4-corrected" class="button button-outline">Exercice A3 · Corrigé</button>
+        </div>
+        <p id="pdf-a4-error" role="alert" hidden></p>
+      </form>
+    </dialog>
+    <noscript><p class="notice">Activez JavaScript pour utiliser les calculs et le fonctionnement hors connexion d’IPcalc.</p></noscript>
+  </body>
+</html>
