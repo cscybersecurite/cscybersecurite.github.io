@@ -242,3 +242,10 @@
     stroke:transparent;
   }
 }
+
+/* V1.0.30 : fond de la zone visuelle indépendant de la catégorie.
+   Règle commune placée en dernier pour remplacer les anciens dégradés. */
+.ressource[data-couleur] .visuel { background:#fff; }
+@media (prefers-color-scheme: dark) {
+  .ressource[data-couleur] .visuel { background:#1b2533; }
+}
