@@ -70,10 +70,10 @@
 /* 1.2.1 : contrôles et catégories déjà consultés, toujours actifs. */
 .diagcore--vertical .diagcore__choice--visited{background:#7eb9dd;border-color:#5c9ac3;color:#102c40}
 .diagcore--vertical .diagcore__choice--visited:hover:not(:disabled){background:#96cae6;border-color:#5c9ac3}
-.diagcore--vertical[data-diagcore-theme="dark"] .diagcore__choice--visited{background:#578bab;border-color:#7ab2d1;color:var(--dc-text)}
+.diagcore--vertical[data-diagcore-theme="dark"] .diagcore__choice--visited{background:#578bab;border-color:#7ab2d1;color:#fff}
 @media(prefers-color-scheme:dark){.diagcore--vertical:not([data-diagcore-theme="light"]) .diagcore__choice--visited{background:#578bab;border-color:#7ab2d1;color:#fff}}
 
 /* 1.2.2 : couleurs QCMCore réservées aux résultats des hypothèses de Mon diagnostic. */
 .diagcore--vertical .diagcore__entry--hypothesis-correct{border:2px solid #00d958;border-left-width:5px;background:var(--dc-surface);color:var(--dc-text)}
 .diagcore--vertical .diagcore__entry--hypothesis-wrong{border:2px solid #ff9900;border-left-width:5px;background:var(--dc-surface);color:var(--dc-text)}
-.diagcore--vertical .diagcore__entry--hypothesis-correct h3,.diagcore--vertical .diagcore__entry--hypothesis-correct p,.diagcore--vertical .diagcore__entry--hypothesis-wrong h3,.diagcore--vertical .diagcore__entry--hypothesis-wrong p{color:#fff}
+.diagcore--vertical .diagcore__entry--hypothesis-correct h3,.diagcore--vertical .diagcore__entry--hypothesis-correct p,.diagcore--vertical .diagcore__entry--hypothesis-wrong h3,.diagcore--vertical .diagcore__entry--hypothesis-wrong p{color:var(--dc-text)}
