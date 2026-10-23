@@ -182,3 +182,37 @@
 @media (prefers-color-scheme: dark) {
   .ressource[data-rubrique="cahier-des-charges"] .visuel { background:#1b2533; }
 }
+
+/* V1.0.28 : fond neutre pour quatre cartes, sans modifier les illustrations.
+   Les couleurs des catégories restent présentes sur les pictogrammes et cadres. */
+@media (prefers-color-scheme: light) {
+  .ressource.ipcalc .visuel,
+  .ressource[data-rubrique="gestion-incidents"] .visuel,
+  .ressource[data-rubrique="projet"] .visuel,
+  .ressource[data-rubrique="audit"] .visuel { background:#fff; }
+}
+@media (prefers-color-scheme: dark) {
+  .ressource.ipcalc .visuel,
+  .ressource[data-rubrique="gestion-incidents"] .visuel,
+  .ressource[data-rubrique="projet"] .visuel,
+  .ressource[data-rubrique="audit"] .visuel { background:#1b2533; }
+}
+/* Bordure vive pour les photographies des cours, sans changer leur taille. */
+.ressource[data-type="cours"][data-couleur="bleu"] .visuel img { border-color:#168bff; }
+.ressource[data-type="cours"][data-couleur="vert"] .visuel img { border-color:#00c987; }
+.ressource[data-type="cours"][data-couleur="jaune"] .visuel img { border-color:#f5c400; }
+/* Inventaire : son visuel SVG était dépourvu de cadre extérieur marqué.
+   box-sizing préserve les dimensions de la carte et de l'illustration. */
+.ressource[data-rubrique="gestion-parc"] .visuel svg {
+  box-sizing:border-box;
+  border:2px solid #168bff;
+  border-radius:13px;
+  overflow:hidden;
+  box-shadow:0 2px 5px rgba(15,35,70,.16);
+}
+@media (prefers-color-scheme: dark) {
+  .ressource[data-rubrique="gestion-parc"] .visuel svg {
+    border-color:#42a5ff;
+    box-shadow:0 2px 7px rgba(0,0,0,.28);
+  }
+}
