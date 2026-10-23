@@ -1,0 +1,324 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-1",
+          "text": "Un projet possède généralement...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "un objectif et une durée définis"
+            },
+            {
+              "id": "r1",
+              "text": "aucun délai"
+            },
+            {
+              "id": "r2",
+              "text": "toujours les mêmes tâches"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : un objectif et une durée définis.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-2",
+          "text": "Quelle méthode travaille par itérations ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Agile"
+            },
+            {
+              "id": "r1",
+              "text": "Cycle en V uniquement"
+            },
+            {
+              "id": "r2",
+              "text": "Aucune"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : Agile.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-3",
+          "text": "Avant d'agir, on organise...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "les étapes du projet"
+            },
+            {
+              "id": "r1",
+              "text": "les vacances"
+            },
+            {
+              "id": "r2",
+              "text": "la décoration"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : les étapes du projet.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-4",
+      "title": "Je me teste : chapitre 4",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-4",
+          "text": "Qui suit les tâches du projet ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le chef de projet"
+            },
+            {
+              "id": "r1",
+              "text": "Le hasard"
+            },
+            {
+              "id": "r2",
+              "text": "Un client extérieur"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : Le chef de projet.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-5",
+      "title": "Je me teste : chapitre 5",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-5",
+          "text": "Un jalon représente...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "une étape importante"
+            },
+            {
+              "id": "r1",
+              "text": "un outil réseau"
+            },
+            {
+              "id": "r2",
+              "text": "un coût caché"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : une étape importante.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-6",
+      "title": "Je me teste : chapitre 6",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-6",
+          "text": "Les ressources d'un projet sont...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "humaines, matérielles et financières"
+            },
+            {
+              "id": "r1",
+              "text": "uniquement des écrans"
+            },
+            {
+              "id": "r2",
+              "text": "toujours gratuites"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : humaines, matérielles et financières.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-7",
+      "title": "Je me teste : chapitre 7",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-7",
+          "text": "Face à un retard, on doit...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "analyser son impact et ajuster le plan"
+            },
+            {
+              "id": "r1",
+              "text": "le cacher"
+            },
+            {
+              "id": "r2",
+              "text": "supprimer les tests"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : analyser son impact et ajuster le plan.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-8",
+      "title": "Je me teste : chapitre 8",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-8",
+          "text": "Une réunion de suivi sert à...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "échanger sur l'avancement et les difficultés"
+            },
+            {
+              "id": "r1",
+              "text": "éviter les décisions"
+            },
+            {
+              "id": "r2",
+              "text": "remplacer les livrables"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : échanger sur l'avancement et les difficultés.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-9",
+      "title": "Je me teste : chapitre 9",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-9",
+          "text": "Le reporting sert à...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "rendre compte de l'avancement"
+            },
+            {
+              "id": "r1",
+              "text": "cacher les retards"
+            },
+            {
+              "id": "r2",
+              "text": "supprimer les rôles"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : rendre compte de l'avancement.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-10",
+      "title": "Je me teste : chapitre 10",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-10",
+          "text": "À la clôture, on vérifie...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "les livrables et leur validation"
+            },
+            {
+              "id": "r1",
+              "text": "uniquement le budget initial"
+            },
+            {
+              "id": "r2",
+              "text": "la couleur des équipements"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : les livrables et leur validation.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-11",
+      "title": "Je me teste : chapitre 11",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "q-11",
+          "text": "Un retour d'expérience sert à...",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "tirer des enseignements du projet"
+            },
+            {
+              "id": "r1",
+              "text": "recommencer sans changement"
+            },
+            {
+              "id": "r2",
+              "text": "désigner un coupable"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Réponse : tirer des enseignements du projet.",
+          "hint": "Relis la notion dans le chapitre."
+        }
+      ]
+    }
+  ]
+}
