@@ -20,3 +20,11 @@ header.cours-topbar .cours-topbar-nav{gap:5px}
 header.cours-topbar .cours-icon{width:36px;height:36px;min-width:36px;padding:5px}
 header.cours-topbar .cours-icon svg{width:20px;height:20px}
 }
+
+/* Bouton flottant Projection (meme utilisation que DHCP). */
+.cours-projection-float{position:fixed;left:clamp(10px,2vw,22px);bottom:clamp(14px,3vh,27px);z-index:1000;display:flex;align-items:center;gap:9px;padding:11px 15px;border:2px solid #8bb7e3;border-radius:30px;background:#155b99;color:#fff;font:700 15px Arial,sans-serif;box-shadow:0 4px 16px #0006;cursor:pointer}
+.cours-projection-float svg{width:22px;height:22px;flex-shrink:0}
+.cours-projection-float[aria-pressed="true"]{background:#96471e;border-color:#f2b27b}
+.cours-projection-float:focus-visible{outline:3px solid #ffbc44;outline-offset:3px}
+@media(max-width:650px){.cours-projection-float{padding:10px 12px;font-size:13px;bottom:18px}}
+@media print{.cours-projection-float{display:none!important}}
