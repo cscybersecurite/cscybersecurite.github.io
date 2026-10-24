@@ -62,15 +62,16 @@ header{background:#071632;color:#fff;text-align:center}
  .portail-bandeau .bandeau-illustre{width:auto;height:100%;max-width:none;min-width:100%;object-fit:cover;object-position:left center;}
 }
 
-.raccourcis{gap:8px}
-.raccourcis a{min-height:36px;padding:8px 11px}
-.raccourcis #raccourcis-toggle{border:1px solid #91acce;border-radius:7px;min-height:36px;min-width:42px;background:#fff;color:#173b65;font-size:18px;cursor:pointer}
+.raccourcis{gap:7px;min-height:0;padding:2px 10px}
+.raccourcis>a{min-height:26px;padding:3px 8px;line-height:20px}
+.raccourcis #raccourcis-toggle{display:inline-flex;align-items:center;justify-content:center;border:1px solid #91acce;border-radius:6px;width:34px;min-width:34px;height:27px;min-height:27px;padding:2px 5px;background:#fff;color:#173b65;cursor:pointer}
+.raccourcis #raccourcis-toggle svg{width:17px;height:17px}
 .raccourcis #raccourcis-toggle:focus-visible{outline:2px solid #215fa6;outline-offset:2px}
 .raccourcis-menu{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:center;gap:7px;padding:5px}
 .raccourcis-menu[hidden]{display:none}
 .raccourcis-menu a{background:#fff;border:1px solid #cbd7e5;border-radius:7px;display:flex;flex-direction:column;align-items:start}
 .raccourcis-menu .description{display:none}
-@media(max-width:767px){.raccourcis-menu{flex-direction:column;max-height:65vh;overflow-y:auto;width:100%}.raccourcis-menu a{padding:12px;min-height:46px}.raccourcis-menu .description:not(:empty){display:block;font-size:12px;font-weight:400;color:#526578}}
+@media(max-width:767px){.raccourcis{padding:3px 8px}.raccourcis>a{min-height:32px;padding:5px 8px}.raccourcis #raccourcis-toggle{height:32px;min-height:32px}.raccourcis-menu{flex-direction:column;max-height:65vh;overflow-y:auto;width:100%}.raccourcis-menu a{padding:12px;min-height:46px}.raccourcis-menu .description:not(:empty){display:block;font-size:12px;font-weight:400;color:#526578}}
 @media(prefers-color-scheme:dark){.raccourcis #raccourcis-toggle,.raccourcis-menu a{background:#283c54;color:#d2e7ff;border-color:#58728e}.raccourcis-menu .description:not(:empty){color:#bbd0e6}}
 </style>
 <link rel="stylesheet" href="/assets/portails-cartes-commun.css?v=1.0.31">
