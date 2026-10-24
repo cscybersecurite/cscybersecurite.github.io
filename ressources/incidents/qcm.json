@@ -230,11 +230,11 @@
             },
             {
               "id": "b",
-              "text": "J'utilise le compte administrateur d'un collègue."
+              "text": "Je modifie les règles sans autorisation."
             },
             {
               "id": "c",
-              "text": "Je désactive le pare-feu pour essayer."
+              "text": "Je ferme le ticket sans rien transmettre."
             }
           ],
           "correctAnswerId": "a",
@@ -243,7 +243,7 @@
         },
         {
           "id": "d3-4-2",
-          "text": "Une imprimante ne fonctionne plus. Tu connais la solution et tu as les droits nécessaires. Que fais-tu ?",
+          "text": "Une imprimante est en panne. Tu connais la solution et tu as l'autorisation d'intervenir. Que fais-tu ?",
           "answers": [
             {
               "id": "a",
@@ -264,7 +264,7 @@
         },
         {
           "id": "d3-4-3",
-          "text": "Le serveur de fichiers est indisponible. Un spécialiste intervient, mais plusieurs services risquent de manquer une échéance. Qui faut-il prévenir ?",
+          "text": "Un serveur est en panne. Un spécialiste intervient, mais plusieurs services risquent de dépasser une échéance. Qui faut-il aussi prévenir ?",
           "answers": [
             {
               "id": "a",
@@ -280,12 +280,12 @@
             }
           ],
           "correctAnswerId": "c",
-          "explanation": "L'escalade technique peut être accompagnée d'une escalade hiérarchique.",
+          "explanation": "Une escalade technique et une information au responsable peuvent être nécessaires en même temps.",
           "hint": "Une réparation technique ne règle pas à elle seule le problème du délai."
         },
         {
           "id": "d3-4-4",
-          "text": "Tu transmets un incident à une autre équipe. Quel contenu est le plus utile dans le ticket GLPI ?",
+          "text": "Tu transmets un incident à une autre équipe. Quelles informations sont les plus utiles ?",
           "answers": [
             {
               "id": "a",
@@ -297,12 +297,12 @@
             },
             {
               "id": "c",
-              "text": "Le mot de passe de l'utilisateur pour gagner du temps."
+              "text": "Uniquement le numéro du ticket, sans préciser les tests."
             }
           ],
           "correctAnswerId": "b",
-          "explanation": "Un ticket précis évite de refaire les mêmes vérifications et facilite la prise en charge.",
-          "hint": "Que doit savoir le collègue pour continuer le diagnostic sans repartir de zéro ?"
+          "explanation": "Décrire les symptômes, les vérifications et leurs résultats évite de recommencer le diagnostic.",
+          "hint": "De quelles informations le collègue a-t-il besoin pour poursuivre le travail ?"
         }
       ]
     },
