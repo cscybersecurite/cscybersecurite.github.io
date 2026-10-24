@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Éditeur du catalogue pédagogique</title>
+<style>
+:root{font-family:Arial,sans-serif;color-scheme:light dark;--bg:#f4f7fb;--panel:#fff;--ink:#152d47;--line:#cad6e5;--accent:#145a98;--soft:#eaf2fa}
+@media(prefers-color-scheme:dark){:root{--bg:#111c2b;--panel:#1c2b3c;--ink:#eff6ff;--line:#4b6076;--accent:#8ebdf4;--soft:#283c52}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.45}
+header{background:#102b51;color:#fff;padding:22px max(16px,calc((100vw - 1000px)/2))}h1{font-size:clamp(22px,3vw,30px);margin:0}header p{margin:5px 0 0}
+main{max-width:1040px;margin:20px auto;padding:0 16px 50px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:16px;margin:14px 0}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+button,.button{border:1px solid #24639d;background:#185d97;color:#fff;padding:9px 13px;border-radius:8px;font:inherit;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:var(--panel);color:var(--ink);border-color:var(--line)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #e4a02d;outline-offset:2px}
+select,input[type=file]{font:inherit;max-width:100%}
+table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid var(--line);padding:9px 6px}th{text-align:left}td.chk{text-align:center;width:85px}td.chk input{width:19px;height:19px;accent-color:#185d97}
+td.actions{width:95px;white-space:nowrap;text-align:right}td.actions button{padding:6px 9px;min-width:35px}
+th small{font-weight:normal}tbody tr:hover{background:var(--soft)}
+.status{min-height:24px;font-weight:bold}.error{color:#bf3939}.ok{color:#24754f}
+.help{font-size:14px;opacity:.85}.steps{padding-left:22px}.steps li{margin:8px 0}
+textarea{width:100%;min-height:160px;font:12px/1.5 Consolas,monospace;resize:vertical;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:10px}
+#result{display:none}.muted{opacity:.75}
+@media(max-width:620px){th,td{padding:8px 3px;font-size:12px}td.chk{width:48px}td.chk input{width:20px;height:20px}td.actions{width:78px}td.actions button{padding:6px;min-width:29px}.panel{padding:10px}}
+</style>
+</head>
+<body>
+<header><h1>Éditeur du catalogue pédagogique</h1><p>Première CIEL • Terminale CIEL • CS Cybersécurité</p></header>
+<main>
+<section class="panel">
+  <div class="toolbar">
+    <button id="load">Charger le catalogue GitHub</button>
+    <label class="secondary button" for="import">Ou choisir un fichier JSON</label>
+    <input id="import" type="file" accept=".json,application/json" hidden>
+    <button id="reset" class="secondary" disabled>Annuler les modifications</button>
+  </div>
+  <p id="status" class="status" role="status">Aucune modification n'est enregistrée automatiquement.</p>
+  <p class="help">Cet éditeur ne modifie jamais directement GitHub. Le commit reste manuel. Les champs techniques du catalogue sont conservés.</p>
+</section>
+<section class="panel" id="editor" hidden>
+  <div class="toolbar"><label for="profile"><strong>Ordre des cartes à afficher pour :</strong></label><select id="profile">
+    <option value="pciel">Première CIEL</option><option value="tciel">Terminale CIEL</option><option value="cs">CS Cybersécurité</option>
+  </select></div>
+  <p class="help">Les cases déterminent la visibilité sur chaque portail. Les flèches modifient l'ordre uniquement pour le portail sélectionné. Une carte masquée reste présente dans le catalogue.</p>
+  <div style="overflow-x:auto"><table>
+    <thead><tr><th>Ressource</th><th class="chk">Première</th><th class="chk">Terminale</th><th class="chk">CS</th><th>Ordre</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <div class="toolbar" style="margin-top:18px"><button id="prepare">Préparer le JSON pour GitHub</button><span id="dirty" class="muted"></span></div>
+</section>
+<section class="panel" id="result">
+  <h2>Enregistrement manuel sur GitHub</h2>
+  <ol class="steps">
+    <li>Clique sur <strong>Copier le JSON</strong>.</li>
+    <li>Ouvre le fichier dans GitHub et clique sur le crayon <strong>Edit this file</strong>.</li>
+    <li>Sélectionne tout le contenu du fichier (<strong>Ctrl+A</strong>), puis colle le JSON préparé (<strong>Ctrl+V</strong>).</li>
+    <li>Clique sur <strong>Commit changes</strong>. GitHub Actions publiera ensuite les trois portails.</li>
+  </ol>
+  <div class="toolbar"><button id="copy">Copier le JSON</button>
+  <a class="button secondary" href="https://github.com/chaoli22000bzh/portails-pedagogiques/edit/main/catalogue.json" target="_blank" rel="noopener noreferrer">Ouvrir catalogue.json sur GitHub ↗</a>
+  <button id="download" class="secondary">Télécharger une sauvegarde</button></div>
+  <p id="copy-status" class="status" role="status"></p>
+  <details><summary>Afficher le JSON préparé</summary><textarea id="output" readonly spellcheck="false"></textarea></details>
+</section>
+</main>
+<script>
+(function(){
+'use strict';
+const URL='https://raw.githubusercontent.com/chaoli22000bzh/portails-pedagogiques/main/catalogue.json';
+const $=id=>document.getElementById(id);
+const profiles=['pciel','tciel','cs'];let original=null;let data=null;let ready='';
+function report(message,bad){$('status').textContent=message;$('status').className='status '+(bad?'error':'ok');}
+function validate(d){
+ if(!d||!Array.isArray(d.ressources)||!d.ordre||!d.portails)throw Error('Structure de catalogue.json non reconnue.');
+ const ids=d.ressources.map(r=>r.id);
+ if(new Set(ids).size!==ids.length||ids.some(id=>typeof id!=='string'))throw Error('Identifiants de ressources invalides.');
+ for(const p of profiles){
+  if(!Array.isArray(d.ordre[p]))throw Error('Ordre manquant : '+p);
+  if(new Set(d.ordre[p]).size!==d.ordre[p].length||d.ordre[p].some(id=>!ids.includes(id)))throw Error('Ordre incorrect : '+p);
+  if(d.ressources.some(r=>typeof r.visible?.[p]!=='boolean'))throw Error('Visibilité manquante : '+p);
+ }
+}
+function load(text){
+ const parsed=JSON.parse(text);validate(parsed);
+ original=JSON.stringify(parsed);data=parsed;$('editor').hidden=false;$('reset').disabled=false;
+ $('result').style.display='none';ready='';$('profile').value='pciel';render();report('Catalogue chargé. Tu peux modifier les cases et l’ordre.',false);
+}
+function changed(){const dirty=JSON.stringify(data)!==original;$('dirty').textContent=dirty?'Modifications non enregistrées':'Aucune modification';$('result').style.display='none';ready='';}
+function render(){
+ if(!data)return;const p=$('profile').value;
+ const order=data.ordre[p];const index=new Map(data.ressources.map((r,i)=>[r.id,i]));
+ const sorted=[...data.ressources].sort((a,b)=>{
+   const ia=order.indexOf(a.id),ib=order.indexOf(b.id);
+   return (ia<0?10000+index.get(a.id):ia)-(ib<0?10000+index.get(b.id):ib);
+ });
+ const tbody=$('rows');tbody.replaceChildren();
+ sorted.forEach(r=>{
+  const tr=document.createElement('tr');const title=document.createElement('td');title.textContent=r.titre||r.id;tr.append(title);
+  for(const profile of profiles){
+   const cell=document.createElement('td');cell.className='chk';const box=document.createElement('input');
+   box.type='checkbox';box.checked=r.visible[profile];box.setAttribute('aria-label',r.id+' visible sur '+profile);
+   box.addEventListener('change',()=>{r.visible[profile]=box.checked;changed();});cell.append(box);tr.append(cell);
+  }
+  const tools=document.createElement('td');tools.className='actions';
+  const current=order.indexOf(r.id);
+  for(const [step,icon,description] of [[-1,'↑','Monter'],[1,'↓','Descendre']]){
+   const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=icon;b.title=description+' '+r.id;
+   b.disabled=current<0||(step<0&&current===0)||(step>0&&current===order.length-1);
+   b.addEventListener('click',()=>{const pos=order.indexOf(r.id);if(pos<0)return;const other=pos+step;[order[pos],order[other]]=[order[other],order[pos]];render();changed();});
+   tools.append(b);
+  }
+  tr.append(tools);tbody.append(tr);
+ });
+ changed();
+}
+$('profile').addEventListener('change',render);
+$('load').addEventListener('click',async()=>{
+ $('load').disabled=true;report('Chargement depuis GitHub...',false);
+ try{const response=await fetch(URL+'?t='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Erreur HTTP '+response.status);load(await response.text());}
+ catch(e){report('Chargement impossible : '+e.message+'. Utilise « choisir un fichier JSON ».',true);}
+ finally{$('load').disabled=false;}
+});
+$('import').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{load(await file.text())}catch(err){report(err.message,true)}e.target.value='';});
+$('reset').addEventListener('click',()=>{if(original)load(original);});
+$('prepare').addEventListener('click',()=>{try{validate(data);ready=JSON.stringify(data,null,2)+'\n';$('output').value=ready;$('result').style.display='block';$('copy-status').textContent='JSON prêt. Aucun commit n’a encore été effectué.';$('result').scrollIntoView({behavior:'smooth',block:'start'});}catch(e){report(e.message,true)}});
+$('copy').addEventListener('click',async()=>{if(!ready)return;try{await navigator.clipboard.writeText(ready);$('copy-status').textContent='JSON copié. Tu peux maintenant le coller dans GitHub.';}catch(e){$('output').closest('details').open=true;$('output').focus();$('output').select();$('copy-status').textContent='Copie automatique indisponible : copie le texte sélectionné avec Ctrl+C.';}});
+$('download').addEventListener('click',()=>{if(!ready)return;const blob=new Blob([ready],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='catalogue.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+$('load').click();
+})();
+</script>
+</body></html>
