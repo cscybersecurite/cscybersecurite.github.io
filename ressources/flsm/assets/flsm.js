@@ -149,9 +149,10 @@ function calculate(){
 }
 $('subnet-count').value='4';
 $('subnet-count').addEventListener('change',calculate);
-const themeButton=$('theme');
-try{const savedTheme=localStorage.getItem('ipv4-theme');if(savedTheme==='dark'||(!savedTheme&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark')}catch{if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)document.body.classList.add('dark')}
-themeButton.addEventListener('click',()=>{document.body.classList.toggle('dark');try{localStorage.setItem('ipv4-theme',document.body.classList.contains('dark')?'dark':'light')}catch{}});
+const themePreference=window.matchMedia('(prefers-color-scheme: dark)');
+const syncBrowserTheme=()=>document.body.classList.toggle('dark',themePreference.matches);
+syncBrowserTheme();
+themePreference.addEventListener('change',syncBrowserTheme);
 calculate();
 
 // Sélection de la difficulté : structure et classes reprises du manuel IPv4.
