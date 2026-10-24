@@ -68,7 +68,7 @@ textarea{width:100%;min-height:160px;font:12px/1.5 Consolas,monospace;resize:ver
 <script>
 (function(){
 'use strict';
-const CATALOGUE_URL='https://raw.githubusercontent.com/chaoli22000bzh/portails-pedagogiques/main/catalogue.json';
+const CATALOGUE_URL='./catalogue.json';
 const $=id=>document.getElementById(id);
 const profiles=['pciel','tciel','cs'];let original=null;let data=null;let ready='';
 function report(message,bad){$('status').textContent=message;$('status').className='status '+(bad?'error':'ok');}
