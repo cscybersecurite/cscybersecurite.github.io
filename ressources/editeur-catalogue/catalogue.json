@@ -135,15 +135,6 @@
         "pciel": false,
         "tciel": true
       }
-    },
-    {
-      "id": "editeur-catalogue",
-      "titre": "Editeur Catalogue",
-      "visible": {
-        "cs": false,
-        "pciel": false,
-        "tciel": false
-      }
     }
   ],
   "note": "Chaque carte est masquée par défaut si sa ressource est absente du catalogue. Les ressources sont publiées automatiquement vers Première CIEL, Terminale CIEL et CS Cybersécurité.",
@@ -161,8 +152,7 @@
       "raid",
       "dns",
       "dhcp",
-      "messagerie",
-      "editeur-catalogue"
+      "messagerie"
     ],
     "pciel": [
       "ipv4",
@@ -175,8 +165,7 @@
       "dns",
       "dhcp",
       "messagerie",
-      "raid",
-      "editeur-catalogue"
+      "raid"
     ],
     "tciel": [
       "ipv4",
@@ -189,8 +178,7 @@
       "dns",
       "dhcp",
       "messagerie",
-      "raid",
-      "editeur-catalogue"
+      "raid"
     ]
   }
 }
