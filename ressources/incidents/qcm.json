@@ -309,71 +309,50 @@
     {
       "id": "chapitre-5",
       "title": "Je me teste",
-      "shuffleQuestions": true,
-      "shuffleAnswers": true,
+      "shuffleQuestions": false,
+      "shuffleAnswers": false,
       "questions": [
         {
           "id": "d3-5-1",
-          "text": "Quelle trace est adaptée à une tâche de ticket ?",
+          "text": "Une solution provisoire permet à l'utilisateur de travailler, mais la panne existe toujours. Que faut-il noter ?",
           "answers": [
             {
-              "id": "r0",
-              "text": "« OK »"
+              "id": "a",
+              "text": "« Incident définitivement résolu. »"
             },
             {
-              "id": "r1",
-              "text": "« Test de connexion effectué : message MFA affiché »"
+              "id": "b",
+              "text": "« Contournement mis en place », avec ce qui reste à réparer."
             },
             {
-              "id": "r2",
-              "text": "« Utilisateur peu sérieux »"
+              "id": "c",
+              "text": "« Aucun problème détecté. »"
             }
           ],
-          "correctAnswerId": "r1",
-          "explanation": "Une tâche mentionne l'action et son résultat.",
-          "hint": "Repère les faits et la décision justifiée."
+          "correctAnswerId": "b",
+          "explanation": "Un contournement rétablit temporairement le travail, mais il ne signifie pas que la panne est réparée.",
+          "hint": "Une solution provisoire et une réparation définitive ne sont pas la même chose."
         },
         {
           "id": "d3-5-2",
-          "text": "Une méthode provisoire rétablit l'activité, mais la panne demeure. Tu notes :",
+          "text": "L'utilisateur confirme que le problème a disparu. Que doit faire le technicien ?",
           "answers": [
             {
-              "id": "r0",
-              "text": "Une solution définitive"
+              "id": "a",
+              "text": "Mettre à jour le ticket avec la solution et les vérifications, puis suivre la procédure de clôture."
             },
             {
-              "id": "r1",
-              "text": "Un contournement et ses limites"
+              "id": "b",
+              "text": "Supprimer le ticket : il ne sert plus à rien."
             },
             {
-              "id": "r2",
-              "text": "Une réparation non vérifiée"
+              "id": "c",
+              "text": "Ne rien noter puisque l'utilisateur est satisfait."
             }
           ],
-          "correctAnswerId": "r1",
-          "explanation": "Un contournement n'est pas une résolution définitive.",
-          "hint": "Repère les faits et la décision justifiée."
-        },
-        {
-          "id": "d3-5-3",
-          "text": "Après l'intervention, que faut-il faire ?",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "Informer et vérifier avec l'utilisateur, puis documenter"
-            },
-            {
-              "id": "r1",
-              "text": "Supprimer le ticket"
-            },
-            {
-              "id": "r2",
-              "text": "Ne rien communiquer"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Le rapport, la vérification et l'information sont essentiels.",
-          "hint": "Repère les faits et la décision justifiée."
+          "correctAnswerId": "a",
+          "explanation": "La trace écrite permet de comprendre la résolution et de retrouver les informations plus tard.",
+          "hint": "Même résolu, un incident doit garder une trace du travail effectué."
         }
       ]
     }
