@@ -250,13 +250,19 @@ body.dark .flsm-paper-address .flsm-paper-subnet-bar{box-shadow:inset -3px 0 #ff
 .top .manuel-home{display:inline-flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;padding:6px;border:1px solid rgba(255,255,255,.35);border-radius:9px;color:white;text-decoration:none}
 .top .manuel-home svg{width:23px;height:23px}
 .top .manuel-home:hover{background:rgba(255,255,255,.15)}
-.manuel-projection{position:fixed;left:14px;bottom:16px;z-index:1000;display:none;gap:8px;align-items:center;padding:11px 14px;border:2px solid #85b9eb;border-radius:25px;background:#155b99;color:white;font:700 14px Arial,sans-serif;box-shadow:0 4px 16px #0005;cursor:pointer}
+.manuel-projection{position:fixed;left:14px;bottom:16px;z-index:1000;display:inline-flex;gap:8px;align-items:center;padding:11px 14px;border:2px solid #85b9eb;border-radius:25px;background:#155b99;color:white;font:700 14px Arial,sans-serif;box-shadow:0 4px 16px #0005;cursor:pointer}
 .manuel-projection svg{width:22px;height:22px}
 .manuel-projection[aria-pressed="true"]{background:#965022;border-color:#f4ba78}
 .manuel-projection:focus-visible,.top .manuel-home:focus-visible{outline:3px solid #f9bd56;outline-offset:3px}
-body.manuel-mode-projection main{font-size:1.15em;line-height:1.6}
-body.manuel-mode-projection main .card{font-size:1.06em}
-@media(max-width:767px){.manuel-projection{display:inline-flex}.top .actions{display:flex;align-items:center;gap:7px}}
+html.presentation main{max-width:1400px;width:calc(100% - 24px)}
+html.presentation main details.projection-other{display:none!important}
+html.presentation main details.projection-target{width:100%;max-width:none}
+html.presentation main details.projection-target>.fold-body,html.presentation main details.projection-target>.inside{font-size:clamp(22px,2.4vw,31px);line-height:1.5}
+html.presentation main details.projection-target>.fold-body p,html.presentation main details.projection-target>.inside p{font-size:inherit}
+html.presentation main details.projection-target table{font-size:clamp(16px,1.5vw,23px)}
+html.presentation main details.projection-target img,html.presentation main details.projection-target svg{max-width:100%}
+html.presentation main{padding-bottom:90px}
+@media(max-width:767px){.top .actions{display:flex;align-items:center;gap:7px}html.presentation main details.projection-target>.fold-body,html.presentation main details.projection-target>.inside{font-size:clamp(19px,4vw,23px)}}
 @media print{.manuel-projection{display:none!important}}
 </style>
 </head>
@@ -346,13 +352,35 @@ body.manuel-mode-projection main .card{font-size:1.06em}
 <details class="chapter training-highlight" id="training-fold"><summary><span class="learn-icon icon-finish" aria-hidden="true">🏁</span> Je teste mes connaissances</summary><div class="chapter-body"><div class="training-setup"><h3 class="flsm-difficulty-title">Quelle difficulté je choisis ?</h3><div class="training-difficulties" role="group" aria-label="Choix de la difficulté"><button type="button" class="training-difficulty" data-training-difficulty="1" aria-pressed="false"><span class="difficulty-bars" aria-hidden="true"><span></span></span><span class="difficulty-description"><strong>Avec Pépette</strong><small>Exercice simple et guidé</small></span></button><button type="button" class="training-difficulty" data-training-difficulty="2" aria-pressed="false"><span class="difficulty-bars" aria-hidden="true"><span></span><span></span></span><span class="difficulty-description"><strong>Je me débrouille</strong><small>Difficulté intermédiaire</small></span></button><button type="button" class="training-difficulty" data-training-difficulty="3" aria-pressed="false"><span class="difficulty-bars" aria-hidden="true"><span></span><span></span><span></span></span><span class="difficulty-description"><strong>Je relève le défi</strong><small>Réseau et découpage plus complexes</small></span></button></div><div class="training-launch"><button type="button" id="launch-training" disabled>Je choisis ma difficulté</button><p id="training-launch-info" class="training-launch-info" aria-live="polite"></p></div></div><div id="pepette-training" class="pepette-training" hidden><h3 id="flsm-exercise-title">Avec Pépette : mon exercice FLSM</h3><div class="pepette-intro"><div id="pepette-statement" class="pepette-statement"></div><div class="pepette-help"><img src="assets/pepette.webp" alt="Pépette" loading="lazy"><button type="button" id="pepette-binary-toggle" aria-expanded="false" aria-controls="pepette-binary-panel">Voir le coup de patte</button><span>Aide pour convertir en binaire</span></div></div><div id="pepette-binary-panel" class="pepette-binary-panel" hidden><h4>Je découvre le binaire</h4><p>Pour convertir un nombre en binaire, je cherche quelles valeurs je dois additionner parmi les poids des huit bits.</p><p><strong>Exemple : 10 = 8 + 2 = 00001010</strong></p><table><thead><tr><th>128</th><th>64</th><th>32</th><th>16</th><th>8</th><th>4</th><th>2</th><th>1</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr></tbody></table><details><summary>Consulter le tableau de conversion de 0 à 255</summary><div class="pepette-binary-scroll"><table><thead><tr><th>Décimal</th><th>Binaire (8 bits)</th></tr></thead><tbody id="pepette-binary-rows"></tbody></table></div></details></div><p id="pepette-progress" class="hint"></p><div id="pepette-exercise"></div><p id="pepette-feedback" role="status" aria-live="polite"></p><div id="pepette-finish" hidden><strong>Bravo, j'ai terminé mon exercice !</strong><div class="pepette-actions"><button type="button" id="pepette-again">Nouvelle adresse</button><button type="button" id="pepette-menu">Retour à « Je teste mes connaissances »</button></div></div></div></div></details>
 </main></div><footer class="flsm-version-footer" aria-label="Version du guide">V0.1.90</footer><script type="module" src="assets/flsm.js?v=0.1.91"></script><button class="manuel-projection" id="manuel-projection" type="button" aria-pressed="false" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span>Projection</span></button><script id="manuel-navigation-script">
 (function(){
- const projection=document.getElementById('manuel-projection');
- if(!projection)return;
- projection.addEventListener('click',function(){
-   const active=document.body.classList.toggle('manuel-mode-projection');
-   projection.setAttribute('aria-pressed',String(active));
-   projection.setAttribute('aria-label',active?'Quitter la projection':'Activer la projection');
-   projection.querySelector('span').textContent=active?'Affichage normal':'Projection';
+ const button=document.getElementById('manuel-projection');
+ if(!button)return;
+ const sections=[...document.querySelectorAll('main > details.chapter')];
+ let activeSection=null;
+ button.addEventListener('click',function(){
+   const activating=!document.documentElement.classList.contains('presentation');
+   const visibleNodes=[...document.querySelectorAll('main p, main table, main figure, main h3')];
+   const anchor=visibleNodes.find(el=>{const r=el.getBoundingClientRect();return r.bottom>90&&r.top<innerHeight-90})||null;
+   const previousTop=anchor?.getBoundingClientRect().top??0;
+   if(activating){
+     activeSection=sections.find(el=>el.open&&el.getBoundingClientRect().bottom>0&&el.getBoundingClientRect().top<innerHeight)
+       ||sections.find(el=>el.open)||sections[0]||null;
+     if(activeSection)activeSection.open=true;
+     sections.forEach(el=>el.classList.toggle('projection-other',el!==activeSection));
+     if(activeSection)activeSection.classList.add('projection-target');
+     document.documentElement.classList.add('presentation');
+   }else{
+     document.documentElement.classList.remove('presentation');
+     sections.forEach(el=>el.classList.remove('projection-other','projection-target'));
+     activeSection=null;
+   }
+   button.setAttribute('aria-pressed',String(activating));
+   button.setAttribute('aria-label',activating?'Quitter la projection':'Activer la projection');
+   button.querySelector('span').textContent=activating?'Affichage normal':'Projection';
+   requestAnimationFrame(()=>{
+     if(anchor&&anchor.isConnected&&anchor.getClientRects().length){
+       window.scrollBy(0,anchor.getBoundingClientRect().top-previousTop);
+     }else if(activeSection){activeSection.scrollIntoView({block:'start'});}
+   });
  });
 })();
 </script></body></html>
