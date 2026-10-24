@@ -318,41 +318,41 @@
           "answers": [
             {
               "id": "a",
-              "text": "Câble de l'écran rebranché. Image vérifiée : OK."
+              "text": "Câble de l'écran rebranché. Test d'affichage réussi."
             },
             {
               "id": "b",
-              "text": "C'est réparé."
+              "text": "Écran à nouveau fonctionnel après intervention."
             },
             {
               "id": "c",
-              "text": "Inès ne sait pas utiliser son écran."
+              "text": "Câble de l'écran rebranché. Test à faire avec Inès."
             }
           ],
           "correctAnswerId": "a",
-          "explanation": "On note ce qu'on a fait et le résultat du test.",
-          "hint": "Un collègue doit comprendre l'action et le résultat."
+          "explanation": "Cette trace indique l'action réalisée et le résultat du test. Un collègue pourra comprendre ce qui a été fait.",
+          "hint": "Cherche la réponse qui précise à la fois l'action et le résultat déjà vérifié."
         },
         {
           "id": "d3-5-message",
-          "text": "L'écran d'Inès fonctionne à nouveau. Que lui dis-tu ?",
+          "text": "L'écran d'Inès fonctionne à nouveau. Quel message lui envoies-tu ?",
           "answers": [
             {
               "id": "a",
-              "text": "L'image est revenue. Peux-tu vérifier que ton écran fonctionne bien ?"
+              "text": "J'ai rebranché le câble. Peux-tu vérifier que l'écran fonctionne bien ?"
             },
             {
               "id": "b",
-              "text": "C'est fini. Je ferme ton ticket."
+              "text": "J'ai rebranché le câble. L'écran fonctionne maintenant."
             },
             {
               "id": "c",
-              "text": "Tu aurais dû vérifier le câble toi-même."
+              "text": "L'écran fonctionne. Je vais clôturer le ticket."
             }
           ],
           "correctAnswerId": "a",
-          "explanation": "On informe Inès et on lui demande de vérifier.",
-          "hint": "L'utilisateur doit savoir que l'intervention est terminée et pouvoir tester."
+          "explanation": "Le message explique l'intervention et demande à Inès de vérifier elle-même le résultat.",
+          "hint": "Informer ne suffit pas : Inès doit aussi pouvoir confirmer que tout fonctionne."
         },
         {
           "id": "d3-5-1",
@@ -360,20 +360,20 @@
           "answers": [
             {
               "id": "a",
-              "text": "L'imprimante est réparée."
+              "text": "Une autre imprimante fonctionne. Incident résolu."
             },
             {
               "id": "b",
-              "text": "Autre imprimante utilisée. La première est toujours en panne."
+              "text": "Une autre imprimante est utilisée. La première reste en panne."
             },
             {
               "id": "c",
-              "text": "Aucune panne."
+              "text": "La première imprimante est indisponible. Intervention terminée."
             }
           ],
           "correctAnswerId": "b",
-          "explanation": "C'est une solution provisoire, appelée contournement. La panne existe toujours.",
-          "hint": "La première imprimante fonctionne-t-elle de nouveau ?"
+          "explanation": "L'autre imprimante permet de travailler, mais la panne initiale existe toujours. C'est un contournement, pas une réparation.",
+          "hint": "Le travail peut reprendre, mais l'imprimante en panne a-t-elle été réparée ?"
         },
         {
           "id": "d3-5-2",
@@ -381,20 +381,20 @@
           "answers": [
             {
               "id": "a",
-              "text": "J'envoie une demande de validation. Il pourra tester plus tard."
+              "text": "J'envoie une demande de validation. Il pourra tester à son retour."
             },
             {
               "id": "b",
-              "text": "Je ferme le ticket sans le prévenir."
+              "text": "J'indique que la réparation est faite et je clôture le ticket."
             },
             {
               "id": "c",
-              "text": "J'attends son retour avant de lui envoyer un message."
+              "text": "J'attends qu'il soit disponible pour lui demander de tester en direct."
             }
           ],
           "correctAnswerId": "a",
-          "explanation": "L'utilisateur pourra tester et valider plus tard. Le ticket sera ensuite clôturé selon les règles du service.",
-          "hint": "Il peut vérifier le résultat sans être présent en même temps que toi."
+          "explanation": "Une demande de validation permet à l'utilisateur de tester plus tard. La clôture suit ensuite les règles du service.",
+          "hint": "Il peut tester plus tard sans que le technicien soit présent au même moment."
         }
       ]
     }
