@@ -314,11 +314,11 @@
       "questions": [
         {
           "id": "d3-5-trace",
-          "text": "Après avoir aidé Inès à activer la MFA, que faut-il écrire dans le ticket ?",
+          "text": "Tu as rebranché le câble de l'écran d'Inès. L'image est revenue. Que notes-tu dans le ticket ?",
           "answers": [
             {
               "id": "a",
-              "text": "MFA activée avec Inès ; nouveau test de connexion réussi."
+              "text": "Câble de l'écran rebranché. Image vérifiée : OK."
             },
             {
               "id": "b",
@@ -326,75 +326,75 @@
             },
             {
               "id": "c",
-              "text": "MFA désactivée pour éviter le problème."
+              "text": "Inès ne sait pas utiliser son écran."
             }
           ],
           "correctAnswerId": "a",
-          "explanation": "Une trace utile indique l'intervention réalisée et le résultat du test.",
-          "hint": "Précise ce qui a été fait et vérifié, sans affaiblir la sécurité."
+          "explanation": "On note ce qu'on a fait et le résultat du test.",
+          "hint": "Un collègue doit comprendre l'action et le résultat."
         },
         {
           "id": "d3-5-message",
-          "text": "Quel message envoyer à Inès après l'intervention ?",
+          "text": "L'écran d'Inès fonctionne à nouveau. Que lui dis-tu ?",
           "answers": [
             {
               "id": "a",
-              "text": "Vous pouvez de nouveau vous connecter. Pouvez-vous me confirmer que votre accès fonctionne ?"
+              "text": "L'image est revenue. Peux-tu vérifier que ton écran fonctionne bien ?"
             },
             {
               "id": "b",
-              "text": "Votre problème est réglé, le ticket est fermé."
+              "text": "C'est fini. Je ferme ton ticket."
             },
             {
               "id": "c",
-              "text": "Vous auriez dû configurer cela avant de nous appeler."
+              "text": "Tu aurais dû vérifier le câble toi-même."
             }
           ],
           "correctAnswerId": "a",
-          "explanation": "Il faut informer l'utilisatrice et lui demander de confirmer que son accès fonctionne.",
-          "hint": "Informe Inès sans la juger et laisse-lui la possibilité de vérifier."
+          "explanation": "On informe Inès et on lui demande de vérifier.",
+          "hint": "L'utilisateur doit savoir que l'intervention est terminée et pouvoir tester."
         },
         {
           "id": "d3-5-1",
-          "text": "Une solution provisoire permet à l'utilisateur de travailler, mais la panne existe toujours. Que faut-il noter ?",
+          "text": "L'imprimante est en panne. Tu proposes une autre imprimante pour travailler. Que notes-tu ?",
           "answers": [
             {
               "id": "a",
-              "text": "Incident définitivement résolu."
+              "text": "L'imprimante est réparée."
             },
             {
               "id": "b",
-              "text": "Contournement mis en place, en précisant ce qui reste à réparer."
+              "text": "Autre imprimante utilisée. La première est toujours en panne."
             },
             {
               "id": "c",
-              "text": "Aucun problème détecté."
+              "text": "Aucune panne."
             }
           ],
           "correctAnswerId": "b",
-          "explanation": "Un contournement rétablit temporairement le travail, mais il ne signifie pas que la panne est réparée.",
-          "hint": "Une solution provisoire et une réparation définitive ne sont pas la même chose."
+          "explanation": "C'est une solution provisoire, appelée contournement. La panne existe toujours.",
+          "hint": "La première imprimante fonctionne-t-elle de nouveau ?"
         },
         {
           "id": "d3-5-2",
-          "text": "Ton intervention est terminée, mais l'utilisateur travaille de nuit et ne peut pas vérifier tout de suite. Que fais-tu ?",
+          "text": "Tu as terminé la réparation. L'utilisateur travaille de nuit. Il ne peut pas tester maintenant. Que fais-tu ?",
           "answers": [
             {
               "id": "a",
-              "text": "Je lui envoie une demande de validation et je laisse le ticket suivre la procédure prévue."
+              "text": "J'envoie une demande de validation. Il pourra tester plus tard."
             },
             {
               "id": "b",
-              "text": "Je clôture immédiatement le ticket sans l'informer."
+              "text": "Je ferme le ticket sans le prévenir."
             },
             {
               "id": "c",
-              "text": "J'attends qu'il soit présent pour seulement lui annoncer l'intervention."
+              "text": "J'attends son retour avant de lui envoyer un message."
             }
           ],
           "correctAnswerId": "a",
-          "explanation": "La validation différée permet à l'utilisateur de tester plus tard. Selon les règles du service, sa réponse ou un délai sans réponse peut ensuite entraîner la clôture.",
-          "hint": "Le technicien et l'utilisateur ne sont pas obligés d'être disponibles au même moment."
+          "explanation": "L'utilisateur pourra tester et valider plus tard. Le ticket sera ensuite clôturé selon les règles du service.",
+          "hint": "Il peut vérifier le résultat sans être présent en même temps que toi."
         }
       ]
     }
