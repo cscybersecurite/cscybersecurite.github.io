@@ -61,6 +61,17 @@ header{background:#071632;color:#fff;text-align:center}
  .portail-bandeau{height:clamp(120px,30vw,220px);}
  .portail-bandeau .bandeau-illustre{width:auto;height:100%;max-width:none;min-width:100%;object-fit:cover;object-position:left center;}
 }
+
+.raccourcis{gap:8px}
+.raccourcis a{min-height:36px;padding:8px 11px}
+.raccourcis #raccourcis-toggle{border:1px solid #91acce;border-radius:7px;min-height:36px;min-width:42px;background:#fff;color:#173b65;font-size:18px;cursor:pointer}
+.raccourcis #raccourcis-toggle:focus-visible{outline:2px solid #215fa6;outline-offset:2px}
+.raccourcis-menu{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:center;gap:7px;padding:5px}
+.raccourcis-menu[hidden]{display:none}
+.raccourcis-menu a{background:#fff;border:1px solid #cbd7e5;border-radius:7px;display:flex;flex-direction:column;align-items:start}
+.raccourcis-menu .description{display:none}
+@media(max-width:767px){.raccourcis-menu{flex-direction:column;max-height:65vh;overflow-y:auto;width:100%}.raccourcis-menu a{padding:12px;min-height:46px}.raccourcis-menu .description:not(:empty){display:block;font-size:12px;font-weight:400;color:#526578}}
+@media(prefers-color-scheme:dark){.raccourcis #raccourcis-toggle,.raccourcis-menu a{background:#283c54;color:#d2e7ff;border-color:#58728e}.raccourcis-menu .description:not(:empty){color:#bbd0e6}}
 </style>
 <link rel="stylesheet" href="/assets/portails-cartes-commun.css?v=1.0.31">
 </head>
@@ -70,9 +81,21 @@ header{background:#071632;color:#fff;text-align:center}
     <img class="bandeau-illustre" src="/assets/tciel/bandeau-cs-cybersecurite-valide.webp" alt="Bandeau CS : cybersécurité, informatique et réseaux" width="2172" height="240">
   </header>
   <nav class="raccourcis" aria-label="Accès rapides aux applications">
-    <a href="https://0351878b.index-education.net/pronote" target="_blank" rel="noopener noreferrer"><img class="favicon" src="/assets/raccourcis/pronote.png" alt="" width="20" height="20" loading="lazy">Pronote</a>
-    <a href="https://www.cpro-education.fr/0351878B/" target="_blank" rel="noopener noreferrer"><img class="favicon" src="/assets/raccourcis/cpro.png" alt="" width="20" height="20" loading="lazy">CPro</a>
-  </nav>
+<a href="https://0351878b.index-education.net/pronote" target="_blank" rel="noopener noreferrer"><span>Pronote</span></a>
+<a href="https://www.cpro-education.fr/0351878B/" target="_blank" rel="noopener noreferrer"><span>CPro</span></a>
+<button id="raccourcis-toggle" type="button" title="Autres raccourcis" aria-label="Afficher les raccourcis" aria-expanded="false" aria-controls="raccourcis-supplementaires">🔗</button>
+<div id="raccourcis-supplementaires" class="raccourcis-menu" hidden><a href="https://ent.toutatice.fr" target="_blank" rel="noopener noreferrer" title="Environnement numérique de travail de l&#x27;académie."><span>Toutatice</span><span class="description">Environnement numérique de travail de l&#x27;académie.</span></a>
+<a href="https://pix.fr" target="_blank" rel="noopener noreferrer" title="Développer et évaluer ses compétences numériques."><span>Pix</span><span class="description">Développer et évaluer ses compétences numériques.</span></a>
+<a href="https://cyber.gouv.fr/" target="_blank" rel="noopener noreferrer" title="Conseils, recommandations et ressources officielles en cybersécurité."><span>ANSSI</span><span class="description">Conseils, recommandations et ressources officielles en cybersécurité.</span></a>
+<a href="https://www.netacad.com/" target="_blank" rel="noopener noreferrer" title="Apprendre les réseaux et la cybersécurité."><span>Cisco NetAcad</span><span class="description">Apprendre les réseaux et la cybersécurité.</span></a>
+<a href="https://www.stormshield.com/fr/besoin-accompagnement/services/stormshield-academy/" target="_blank" rel="noopener noreferrer" title="Formation à la sécurité des réseaux et aux pare-feu."><span>Stormshield Academy</span><span class="description">Formation à la sécurité des réseaux et aux pare-feu.</span></a>
+<a href="https://learn.microsoft.com/fr-fr/training/" target="_blank" rel="noopener noreferrer" title="Modules gratuits sur les systèmes, réseaux et le cloud."><span>Microsoft Learn</span><span class="description">Modules gratuits sur les systèmes, réseaux et le cloud.</span></a>
+<a href="https://www.fun-mooc.fr/fr/cours/" target="_blank" rel="noopener noreferrer" title="Cours en ligne de l&#x27;enseignement supérieur."><span>FUN MOOC</span><span class="description">Cours en ligne de l&#x27;enseignement supérieur.</span></a>
+<a href="https://www.cybermalveillance.gouv.fr/sens-cyber/apprendre" target="_blank" rel="noopener noreferrer" title="Se former aux bons réflexes de cybersécurité."><span>SensCyber</span><span class="description">Se former aux bons réflexes de cybersécurité.</span></a>
+<a href="https://www.root-me.org/" target="_blank" rel="noopener noreferrer" title="Défis pratiques de cybersécurité."><span>Root-Me</span><span class="description">Défis pratiques de cybersécurité.</span></a>
+<a href="https://it-tools.tech/" target="_blank" rel="noopener noreferrer" title="Outils techniques, conversions et développement."><span>IT Tools</span><span class="description">Outils techniques, conversions et développement.</span></a>
+<a href="https://bentopdf.com/fr/" target="_blank" rel="noopener noreferrer" title="Outils PDF gratuits utilisables dans le navigateur."><span>BentoPDF</span><span class="description">Outils PDF gratuits utilisables dans le navigateur.</span></a></div>
+</nav>
 
 
   <main><div class="ressources">
@@ -91,7 +114,9 @@ header{background:#071632;color:#fff;text-align:center}
 <a class="ressource" href="/ressources/messagerie/" data-type="cours" data-couleur="bleu" aria-label="Messagerie d’entreprise"><div class="contenu"><div class="entete-carte"><h3>Messagerie d’entreprise</h3><svg class="picto-type" viewBox="0 0 24 24" role="img" aria-label="Ressource pédagogique : livre ouvert avec coche"><path d="M12 7v14"/><path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v5"/><path d="M3 18h5a4 4 0 0 1 4 3 4 4 0 0 1 4-3h1"/><path d="m17 16 2 2 4-4"/></svg></div><p>SMTP, POP3, IMAP et solutions collaboratives</p></div><div class="visuel"><svg viewBox="0 0 1080 360" role="img" aria-label="Messagerie au centre, reliée aux protocoles SMTP, POP3, IMAP et aux solutions Microsoft 365 et Google Workspace" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="msgCenter" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e6f3ff"/></linearGradient><linearGradient id="msgBlue" x2="0" y2="1"><stop stop-color="#dceeff"/><stop offset="1" stop-color="#88c5fa"/></linearGradient><linearGradient id="msgGreen" x2="0" y2="1"><stop stop-color="#dcffe3"/><stop offset="1" stop-color="#8ceca1"/></linearGradient><linearGradient id="msgAmber" x2="0" y2="1"><stop stop-color="#fff4c1"/><stop offset="1" stop-color="#ffd36a"/></linearGradient><linearGradient id="msgPurple" x2="0" y2="1"><stop stop-color="#efe3ff"/><stop offset="1" stop-color="#c49aff"/></linearGradient></defs><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M404 110 C330 110 335 61 262 61" stroke="#3f9bee"/><path d="M404 180 H257" stroke="#ad73f5"/><path d="M404 251 C330 251 335 301 262 301" stroke="#edac2e"/><path d="M677 131 C753 131 751 100 820 100" stroke="#31c76b"/><path d="M677 228 C752 228 752 274 820 274" stroke="#4d99e8"/></g><rect x="397" y="105" width="289" height="153" rx="29" fill="url(#msgCenter)" stroke="#7bb8f6" stroke-width="7"/><g font-family="Arial,sans-serif" font-weight="bold" text-anchor="middle"><text x="541" y="198" font-size="56" fill="#153e7b">MAIL</text><rect x="23" y="20" width="239" height="81" rx="35" fill="url(#msgBlue)" stroke="#1688f3" stroke-width="6"/><text x="143" y="75" font-size="45" fill="#104b95">SMTP</text><rect x="23" y="141" width="239" height="79" rx="35" fill="url(#msgPurple)" stroke="#9356dd" stroke-width="6"/><text x="143" y="195" font-size="44" fill="#4e247b">IMAP</text><rect x="23" y="260" width="239" height="80" rx="35" fill="url(#msgAmber)" stroke="#ffad1f" stroke-width="6"/><text x="143" y="315" font-size="44" fill="#724609">POP3</text><rect x="816" y="58" width="248" height="84" rx="34" fill="url(#msgGreen)" stroke="#29bd61" stroke-width="6"/><text x="940" y="93" font-size="34" fill="#145d33">Microsoft</text><text x="940" y="125" font-size="35" fill="#145d33">365</text><rect x="816" y="232" width="248" height="84" rx="34" fill="url(#msgBlue)" stroke="#248de0" stroke-width="6"/><text x="940" y="268" font-size="33" fill="#134d86">Google</text><text x="940" y="299" font-size="32" fill="#134d86">Workspace</text></g></svg></div></a>
 </div></main>
 
-  <div class="version" aria-label="Version du portail">CS V1.0.39</div>
+  <div class="version" aria-label="Version du portail">CS V1.0.40</div>
 
-</body>
+<script>
+(function(){const b=document.getElementById('raccourcis-toggle'),p=document.getElementById('raccourcis-supplementaires');if(!b||!p)return;b.addEventListener('click',function(){const show=p.hidden;p.hidden=!show;b.setAttribute('aria-expanded',String(show));b.setAttribute('aria-label',show?'Masquer les raccourcis':'Afficher les raccourcis');});})();
+</script></body>
 </html>
