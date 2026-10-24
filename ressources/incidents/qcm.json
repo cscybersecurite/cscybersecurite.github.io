@@ -335,24 +335,24 @@
         },
         {
           "id": "d3-5-2",
-          "text": "L'utilisateur confirme que le problème a disparu. Que doit faire le technicien ?",
+          "text": "Ton intervention est terminée, mais l'utilisateur travaille de nuit et ne peut pas vérifier tout de suite. Que fais-tu ?",
           "answers": [
             {
               "id": "a",
-              "text": "Mettre à jour le ticket avec la solution et les vérifications, puis suivre la procédure de clôture."
+              "text": "Je lui envoie une demande de validation et je laisse le ticket suivre la procédure prévue."
             },
             {
               "id": "b",
-              "text": "Supprimer le ticket : il ne sert plus à rien."
+              "text": "Je clôture immédiatement le ticket sans l'informer."
             },
             {
               "id": "c",
-              "text": "Ne rien noter puisque l'utilisateur est satisfait."
+              "text": "J'attends qu'il soit présent pour seulement lui annoncer l'intervention."
             }
           ],
           "correctAnswerId": "a",
-          "explanation": "La trace écrite permet de comprendre la résolution et de retrouver les informations plus tard.",
-          "hint": "Même résolu, un incident doit garder une trace du travail effectué."
+          "explanation": "La validation différée permet à l'utilisateur de tester plus tard. Selon les règles du service, sa réponse ou un délai sans réponse peut ensuite entraîner la clôture.",
+          "hint": "Le technicien et l'utilisateur ne sont pas obligés d'être disponibles au même moment."
         }
       ]
     }
