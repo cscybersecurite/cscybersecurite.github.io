@@ -313,20 +313,62 @@
       "shuffleAnswers": false,
       "questions": [
         {
+          "id": "d3-5-trace",
+          "text": "Après avoir aidé Inès à activer la MFA, que faut-il écrire dans le ticket ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "MFA activée avec Inès ; nouveau test de connexion réussi."
+            },
+            {
+              "id": "b",
+              "text": "C'est réparé."
+            },
+            {
+              "id": "c",
+              "text": "MFA désactivée pour éviter le problème."
+            }
+          ],
+          "correctAnswerId": "a",
+          "explanation": "Une trace utile indique l'intervention réalisée et le résultat du test.",
+          "hint": "Précise ce qui a été fait et vérifié, sans affaiblir la sécurité."
+        },
+        {
+          "id": "d3-5-message",
+          "text": "Quel message envoyer à Inès après l'intervention ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Vous pouvez de nouveau vous connecter. Pouvez-vous me confirmer que votre accès fonctionne ?"
+            },
+            {
+              "id": "b",
+              "text": "Votre problème est réglé, le ticket est fermé."
+            },
+            {
+              "id": "c",
+              "text": "Vous auriez dû configurer cela avant de nous appeler."
+            }
+          ],
+          "correctAnswerId": "a",
+          "explanation": "Il faut informer l'utilisatrice et lui demander de confirmer que son accès fonctionne.",
+          "hint": "Informe Inès sans la juger et laisse-lui la possibilité de vérifier."
+        },
+        {
           "id": "d3-5-1",
           "text": "Une solution provisoire permet à l'utilisateur de travailler, mais la panne existe toujours. Que faut-il noter ?",
           "answers": [
             {
               "id": "a",
-              "text": "« Incident définitivement résolu. »"
+              "text": "Incident définitivement résolu."
             },
             {
               "id": "b",
-              "text": "« Contournement mis en place », avec ce qui reste à réparer."
+              "text": "Contournement mis en place, en précisant ce qui reste à réparer."
             },
             {
               "id": "c",
-              "text": "« Aucun problème détecté. »"
+              "text": "Aucun problème détecté."
             }
           ],
           "correctAnswerId": "b",
