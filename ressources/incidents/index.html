@@ -270,7 +270,7 @@ html.cours-presentation .cours-illustration{display:none}
 <div id="inc-final-return" hidden><h3>5. Intervention et solution</h3><p><strong>Alex Riedones :</strong> « J’ai rétabli les droits du groupe Accueil sur le dossier partagé. Le test avec un compte du service fonctionne. »</p><p>Alex a terminé son travail. Quelle action doit-il choisir pour indiquer comment la panne a été réparée ?</p><div class="ticket-short"><label>Action dans GLPI<select id="inc-final-solution-type"><option value="" selected disabled hidden>Choisir une action</option><option value="task">Créer une nouvelle tâche</option><option value="solution">Ajouter une solution</option><option value="document">Ajouter un document</option><option value="followup">Ajouter seulement un suivi</option></select></label><button class="restart" type="button" id="inc-final-return-check">Enregistrer la solution et rendre le ticket à Amine</button><div id="inc-final-solution-feedback" class="qcmcore qcmcore__card" hidden aria-live="polite"></div></div></div>
 <div id="inc-final-validation-stage" hidden><h3>6. Informer et faire valider</h3><p>Léa n'est pas disponible pour tester maintenant.</p><div class="ticket-short"><label>Que fais-tu pour terminer le suivi ?<select id="inc-final-validation"><option value="" selected disabled hidden>Choisir</option><option value="early">Je passe le ticket en « Résolu » et je le clôture : le test du spécialiste est réussi.</option><option value="nothing">J’informe Léa que l’accès est rétabli et je laisse le ticket en cours jusqu’à ce qu’elle me contacte.</option><option value="right">J’informe Léa et je lui envoie une demande de validation pour qu’elle teste à son retour.</option></select></label>
 <button type="button" class="restart" id="inc-final-validation-check">Vérifier ma décision</button><div id="inc-final-validation-feedback" class="qcmcore qcmcore__card" hidden aria-live="polite"></div>
-<div id="inc-final-confirm" hidden><h3>7. Renseigner et clôturer</h3><p><strong>Léa confirme :</strong> « Je peux à nouveau ouvrir le dossier Accueil. Merci ! »</p><p>Note la confirmation de Léa dans le ticket, puis clôture-le.</p><button class="restart" type="button" id="inc-final-finish">Clôturer le ticket</button><div id="inc-final-end" hidden><p><strong>Ticket clôturé.</strong> L’historique est conservé.</p><button type="button" class="restart" id="inc-final-restart-all">Recommencer l’exercice complet</button></div></div></div></section></div></details><footer class="foot">Version 1.5.6</footer></main>
+<div id="inc-final-confirm" hidden><h3>7. Renseigner et clôturer</h3><p><strong>Léa confirme :</strong> « Je peux à nouveau ouvrir le dossier Accueil. Merci ! »</p><p>Note la confirmation de Léa dans le ticket, puis clôture-le.</p><button class="restart" type="button" id="inc-final-finish">Clôturer le ticket</button><div id="inc-final-end" hidden><p><strong>Ticket clôturé.</strong> L’historique est conservé.</p><button type="button" class="restart" id="inc-final-restart-all">Recommencer l’exercice complet</button></div></div></div></section></div></details><footer class="foot">Version 1.5.7</footer></main>
 <link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101">
 <link rel="stylesheet" href="../diagcore/v1.2.2/diagcore.css?v=123">
 <script src="../qcmcore/v1/qcmcore.js?v=101"></script>
@@ -376,20 +376,21 @@ const map=document.getElementById('cycle-demo-map'),count=document.getElementByI
 const steps=[
 {title:'Signalement reçu',text:'Une imprimante réseau ne fonctionne plus.',kind:'start'},
 {title:'Ticket créé',text:'Le technicien enregistre le problème.',kind:'created'},
+{title:'Prise en charge',text:'Samir EL AMRANI prend en charge le ticket.',kind:'assignment'},
 {title:'Suivi 1',text:'Appel au service administratif : imprimante visible sur les postes, mais aucun document ne sort.',kind:'follow'},
 {title:'Suivi 2',text:'Il vérifie la connexion réseau de l’imprimante.',kind:'follow'},
-{title:'Tâche 1',text:'Un spécialiste intervient sur la connexion réseau.',kind:'task'},
+{title:'Tâche 1',text:'Samir demande à Alex RIEDONES de vérifier la connexion réseau de l’imprimante.',kind:'task'},
 {title:'Suivi 3',text:'L’imprimante ne fonctionne toujours pas. Le diagnostic reprend.',kind:'follow',loop:true},
-{title:'Tâche 2',text:'Une intervention est organisée sur le service d’impression.',kind:'task'},
+{title:'Tâche 2',text:'Alex intervient sur le service d’impression et termine son intervention.',kind:'task'},
 {title:'Suivi 4',text:'Une page de test s’imprime correctement.',kind:'follow'},
 {title:'Solution',text:'Réparation expliquée et fonctionnement vérifié.',kind:'solution'},
 {title:'Solution approuvée',text:'Le client accepte la solution.',kind:'approval'},
 {title:'Ticket fermé',text:'Le traitement de l’incident est terminé.',kind:'end'}];
 const choices={
-2:{q:'Le technicien vient de contacter le service pour préciser les symptômes. Quelle action permet de garder une trace de cet échange ?',answers:['Il ajoute un suivi.','Il ajoute une solution.'],ok:0,why:'Le résultat de cet échange est inscrit dans un suivi.'},
-4:{q:'Le problème demande une intervention spécialisée. Que fait-il ?',answers:['Il ferme le ticket.','Il crée une tâche.'],ok:1,why:'Une tâche sert à organiser un travail à réaliser.'},
-6:{q:'La première intervention est terminée, mais la panne persiste. Que faire ?',answers:['Proposer immédiatement une solution.','Poursuivre le traitement avec une nouvelle intervention.'],ok:1,why:'Une tâche terminée ne signifie pas que l’incident est résolu.'},
-8:{q:'La nouvelle intervention a réussi et le test est concluant. Que fait le technicien ?',answers:['Il ajoute une solution.','Il crée un autre ticket.'],ok:0,why:'La solution décrit la réparation et les vérifications.'}
+3:{q:'Le technicien vient de contacter le service pour préciser les symptômes. Quelle action permet de garder une trace de cet échange ?',answers:['Il ajoute un suivi.','Il ajoute une solution.'],ok:0,why:'Le résultat de cet échange est inscrit dans un suivi.'},
+5:{q:'Le problème demande une intervention spécialisée. Que fait-il ?',answers:['Il ferme le ticket.','Il crée une tâche.'],ok:1,why:'Une tâche sert à organiser un travail à réaliser.'},
+7:{q:'La première intervention est terminée, mais la panne persiste. Que faire ?',answers:['Proposer immédiatement une solution.','Poursuivre le traitement avec une nouvelle intervention.'],ok:1,why:'Une tâche terminée ne signifie pas que l’incident est résolu.'},
+9:{q:'La nouvelle intervention a réussi et le test est concluant. Que fait le technicien ?',answers:['Il ajoute une solution.','Il crée un autre ticket.'],ok:0,why:'La solution décrit la réparation et les vérifications.'}
 };
 let index=0,answered=false;
 function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n;}
@@ -406,21 +407,25 @@ const body=el('div','cycle-outlook-body');body.append(el('p','', 'Bonjour,'),el(
 if(index===0){count.textContent='Étape 1 / '+steps.length;decision.hidden=true;next.hidden=false;next.textContent='Créer le ticket';return;}
 next.textContent='Continuer';
 const ticket=el('article','cycle-ticket cycle-glpi');
-const head=el('div','cycle-ticket-head');head.append(el('strong','', 'GLPI · Ticket #1542'));
-const stateName=index>=10?'Clos':index>=8?'Résolu':index===1?'Nouveau':'En cours (Attribué)';const state=el('span','cycle-ticket-status');const statusIcon=el('span','cycle-status-symbol '+(index>=10?'cycle-status-closed':index>=8?'cycle-status-resolved':index===1?'cycle-status-new':'cycle-status-active'));statusIcon.setAttribute('aria-hidden','true');state.append(statusIcon,document.createTextNode('Statut : '+stateName));head.append(state);ticket.append(head);
+const head=el('div','cycle-ticket-head');head.append(el('strong','', 'GLPI · Ticket #1542 · Créé par Samir EL AMRANI'));
+const stateName=index>=11?'Clos':index>=9?'Résolu':index===1?'Nouveau':'En cours (Attribué)';const state=el('span','cycle-ticket-status');const statusIcon=el('span','cycle-status-symbol '+(index>=11?'cycle-status-closed':index>=9?'cycle-status-resolved':index===1?'cycle-status-new':'cycle-status-active'));statusIcon.setAttribute('aria-hidden','true');state.append(statusIcon,document.createTextNode('Statut : '+stateName));head.append(state);ticket.append(head);
 const layout=el('div','cycle-glpi-layout');
 const main=el('section','cycle-glpi-main');
-const notice=el('div','cycle-glpi-notice','Ticket ajouté à l’entité : Entité racine');main.append(notice);
+
 function field(where,label,value,large){const row=el('div','cycle-glpi-field'+(large?' cycle-glpi-large':''));row.append(el('strong','',label));row.append(el('div','cycle-glpi-value',value));where.append(row);}
 field(main,'Titre','Imprimante réseau indisponible');
 field(main,'Description','L’imprimante réseau du service administratif ne fonctionne plus depuis ce matin. Les utilisateurs n’arrivent plus à imprimer.',true);
 const sidebar=el('aside','cycle-glpi-sidebar');
-[['Type','Incident'],['Catégorie','Non renseignée'],['Statut',stateName],['Source de la demande','E-Mail'],['Urgence','Moyenne'],['Impact','Moyen'],['Priorité','Moyenne'],['Durée totale','Non renseignée'],['ID externe','Non renseigné'],['Demandeur','Service administratif'],['Observateur','Non renseigné'],['Attribué à','glpi']].forEach(pair=>field(sidebar,pair[0],pair[1]));
+[['Type','Incident'],['Statut',stateName],['Source de la demande','E-Mail'],['Urgence','Moyenne'],['Impact','Moyen'],['Priorité','Moyenne'],['Demandeur','Service administratif']].forEach(pair=>{
+const value=pair[0]==='Statut'?((index===1?'🟢 ':'◯ ')+pair[1]):pair[0]==='Priorité'?'● '+pair[1]:pair[1];
+field(sidebar,pair[0],value);
+});
+field(sidebar,'Attribué à',index>=2?'Samir EL AMRANI · Technicien support':'');
 layout.append(main,sidebar);ticket.append(layout);
 const history=el('div','cycle-ticket-history');
 steps.slice(0,index+1).forEach((step,i)=>{
 if(choices[i]&&!answered&&i===index)return;
-if(i===0||i===1)return;
+if(i<=2)return;
 if(step.loop){history.append(el('div','cycle-ticket-reprise','↶ Le premier dépannage n’a pas fonctionné : le traitement continue.'));}
 const item=el('div','cycle-entry cycle-'+step.kind);
 const label=el('strong','',step.title);const txt=el('span','',step.text);
@@ -428,7 +433,7 @@ item.append(label,txt);history.append(item);
 });
 if(index===1){history.append(el('div','cycle-ticket-placeholder','Ticket créé. Le traitement peut commencer.'));}
 ticket.append(history);
-if(index===10)ticket.append(el('div','cycle-ticket-done','✓ Incident terminé · Ticket fermé'));
+if(index===11)ticket.append(el('div','cycle-ticket-done','✓ Incident terminé · Ticket fermé'));
 map.append(ticket);
 count.textContent='Étape '+(index+1)+' / '+steps.length;
 const choice=choices[index];decision.hidden=!choice||answered;feedback.textContent='';options.replaceChildren();
