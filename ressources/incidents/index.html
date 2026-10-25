@@ -259,7 +259,7 @@ html.cours-presentation .cours-illustration{display:none}
 <div id="inc-final-return" hidden><h3>5. Intervention et solution</h3><p><strong>Alex Riedones :</strong> « J’ai rétabli les droits du groupe Accueil sur le dossier partagé. Le test avec un compte du service fonctionne. »</p><p>Alex a terminé son travail. Quelle action doit-il choisir pour indiquer comment la panne a été réparée ?</p><div class="ticket-short"><label>Action dans GLPI<select id="inc-final-solution-type"><option value="" selected disabled hidden>Choisir une action</option><option value="task">Créer une nouvelle tâche</option><option value="solution">Ajouter une solution</option><option value="document">Ajouter un document</option><option value="followup">Ajouter seulement un suivi</option></select></label><button class="restart" type="button" id="inc-final-return-check">Enregistrer la solution et rendre le ticket à Amine</button><div id="inc-final-solution-feedback" class="qcmcore qcmcore__card" hidden aria-live="polite"></div></div></div>
 <div id="inc-final-validation-stage" hidden><h3>6. Informer et faire valider</h3><p>Léa n'est pas disponible pour tester maintenant.</p><div class="ticket-short"><label>Que fais-tu pour terminer le suivi ?<select id="inc-final-validation"><option value="" selected disabled hidden>Choisir</option><option value="early">Je passe le ticket en « Résolu » et je le clôture : le test du spécialiste est réussi.</option><option value="nothing">J’informe Léa que l’accès est rétabli et je laisse le ticket en cours jusqu’à ce qu’elle me contacte.</option><option value="right">J’informe Léa et je lui envoie une demande de validation pour qu’elle teste à son retour.</option></select></label>
 <button type="button" class="restart" id="inc-final-validation-check">Vérifier ma décision</button><div id="inc-final-validation-feedback" class="qcmcore qcmcore__card" hidden aria-live="polite"></div>
-<div id="inc-final-confirm" hidden><h3>7. Renseigner et clôturer</h3><p><strong>Léa confirme :</strong> « Je peux à nouveau ouvrir le dossier Accueil. Merci ! »</p><p>Note la confirmation de Léa dans le ticket, puis clôture-le.</p><button class="restart" type="button" id="inc-final-finish">Clôturer le ticket</button><div id="inc-final-end" hidden><p><strong>Ticket clôturé.</strong> L’historique est conservé.</p><button type="button" class="restart" id="inc-final-restart-all">Recommencer l’exercice complet</button></div></div></div></section></div></details><footer class="foot">Version 1.5.4</footer></main>
+<div id="inc-final-confirm" hidden><h3>7. Renseigner et clôturer</h3><p><strong>Léa confirme :</strong> « Je peux à nouveau ouvrir le dossier Accueil. Merci ! »</p><p>Note la confirmation de Léa dans le ticket, puis clôture-le.</p><button class="restart" type="button" id="inc-final-finish">Clôturer le ticket</button><div id="inc-final-end" hidden><p><strong>Ticket clôturé.</strong> L’historique est conservé.</p><button type="button" class="restart" id="inc-final-restart-all">Recommencer l’exercice complet</button></div></div></div></section></div></details><footer class="foot">Version 1.5.5</footer></main>
 <link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101">
 <link rel="stylesheet" href="../diagcore/v1.2.2/diagcore.css?v=123">
 <script src="../qcmcore/v1/qcmcore.js?v=101"></script>
@@ -384,16 +384,15 @@ let index=0,answered=false;
 function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n;}
 function render(){
 map.replaceChildren();
-if(index===0){
+{
 const outlook=el('article','cycle-outlook');
 const bar=el('div','cycle-outlook-bar','Outlook  ·  Boîte de réception');outlook.append(bar);
 const fields=el('div','cycle-outlook-fields');
 [['De','Accueil · Service administratif'],['À','Support informatique'],['Objet','Imprimante réseau indisponible']].forEach(pair=>{const line=el('div','cycle-outlook-field');line.append(el('strong','',pair[0]+' : '),document.createTextNode(pair[1]));fields.append(line);});
 outlook.append(fields);
 const body=el('div','cycle-outlook-body');body.append(el('p','', 'Bonjour,'),el('p','', 'Notre imprimante réseau ne fonctionne plus depuis ce matin. Nous ne parvenons plus à imprimer les documents du service.'),el('p','', 'Pouvez-vous intervenir ? Merci.'));outlook.append(body);map.append(outlook);
-count.textContent='Étape 1 / '+steps.length;
-decision.hidden=true;next.hidden=false;next.textContent='Créer le ticket';return;
 }
+if(index===0){count.textContent='Étape 1 / '+steps.length;decision.hidden=true;next.hidden=false;next.textContent='Créer le ticket';return;}
 next.textContent='Continuer';
 const ticket=el('article','cycle-ticket');
 const head=el('div','cycle-ticket-head');head.append(el('strong','', 'Ticket #1542 · Imprimante réseau indisponible'));
