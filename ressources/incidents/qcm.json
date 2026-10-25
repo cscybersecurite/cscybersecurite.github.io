@@ -406,7 +406,7 @@
       "questions": [
         {
           "id": "suivi-1",
-          "text": "Amine a testé un autre dossier partagé. Il veut noter le résultat dans le ticket. Que choisit-il ?",
+          "text": "Après un redémarrage, le logiciel de facturation ne s'ouvre toujours pas. Le technicien veut noter ce résultat. Que choisit-il ?",
           "answers": [
             {
               "id": "a",
@@ -427,49 +427,49 @@
         },
         {
           "id": "suivi-2",
-          "text": "Vendredi soir, Amine veut confier à Alex une intervention pour lundi matin. Que choisit-il ?",
+          "text": "Une intervention sur un serveur doit avoir lieu après le départ des salariés, à 19 h. Comment l'organiser ?",
           "answers": [
             {
               "id": "a",
-              "text": "Ajouter un document"
+              "text": "Ajouter un suivi sans horaire"
             },
             {
               "id": "b",
-              "text": "Ajouter une solution"
+              "text": "Créer une tâche planifiée à 19 h"
             },
             {
               "id": "c",
-              "text": "Créer une tâche planifiée"
+              "text": "Ajouter une solution avant l'intervention"
             }
           ],
-          "correctAnswerId": "c",
+          "correctAnswerId": "b",
           "explanation": "La tâche précise le travail, le technicien chargé de l'effectuer et éventuellement la date prévue.",
           "hint": "Il faut organiser une action à réaliser plus tard."
         },
         {
           "id": "suivi-3",
-          "text": "Alex a rétabli les autorisations et vérifié que le dossier s'ouvre. Que doit-il ajouter ?",
+          "text": "Le service d'impression a été redémarré. Une page de test s'imprime correctement. Quelle action décrit la réparation ?",
           "answers": [
             {
               "id": "a",
-              "text": "Une solution expliquant la réparation"
+              "text": "Créer une autre tâche pour redémarrer le service"
             },
             {
               "id": "b",
-              "text": "Une demande de matériel"
+              "text": "Ajouter seulement le résultat du premier appel"
             },
             {
               "id": "c",
-              "text": "Un nouveau signalement"
+              "text": "Ajouter une solution avec la réparation et le test réussi"
             }
           ],
-          "correctAnswerId": "a",
+          "correctAnswerId": "c",
           "explanation": "La solution décrit ce qui a permis de résoudre la panne. Elle est différente de la tâche ou d'un simple suivi.",
           "hint": "La panne a été réparée."
         },
         {
           "id": "suivi-4",
-          "text": "Léa rappelle : la panne est revenue, mais l'ancien ticket est déjà fermé. Que fait Amine ?",
+          "text": "Une panne d'impression revient, mais le ticket précédent est fermé. Que fait le technicien ?",
           "answers": [
             {
               "id": "a",
@@ -490,19 +490,19 @@
         },
         {
           "id": "suivi-5",
-          "text": "Après l'intervention d'Alex, Léa confirme que le dossier fonctionne. Amine ajoute une solution. Que se passe-t-il ensuite ?",
+          "text": "Après réparation et vérification, le technicien ajoute une solution dans GLPI. Que se passe-t-il normalement ?",
           "answers": [
             {
               "id": "a",
-              "text": "La tâche d'Alex est automatiquement recréée."
+              "text": "Le ticket est immédiatement et définitivement fermé."
             },
             {
               "id": "b",
-              "text": "Le ticket devient résolu. Léa peut approuver ou refuser la solution."
+              "text": "Le ticket devient résolu ; l'utilisateur peut approuver ou refuser la solution."
             },
             {
               "id": "c",
-              "text": "Une demande de validation doit obligatoirement être adressée à Camille."
+              "text": "Une demande de validation doit obligatoirement être envoyée au responsable."
             }
           ],
           "correctAnswerId": "b",
