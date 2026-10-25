@@ -397,6 +397,98 @@
           "hint": "Il peut tester plus tard sans que le technicien soit présent au même moment."
         }
       ]
+    },
+    {
+      "id": "chapitre-suivi",
+      "title": "Je me teste",
+      "shuffleQuestions": false,
+      "shuffleAnswers": false,
+      "questions": [
+        {
+          "id": "suivi-1",
+          "text": "Amine a testé un autre dossier partagé. Il veut noter le résultat dans le ticket. Que choisit-il ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Créer une tâche"
+            },
+            {
+              "id": "b",
+              "text": "Ajouter un suivi"
+            },
+            {
+              "id": "c",
+              "text": "Ajouter une solution"
+            }
+          ],
+          "correctAnswerId": "b",
+          "explanation": "Un suivi permet de garder les résultats des vérifications, sans organiser une nouvelle intervention.",
+          "hint": "Il veut conserver une observation, pas planifier un travail."
+        },
+        {
+          "id": "suivi-2",
+          "text": "Vendredi soir, Amine veut confier à Alex une intervention pour lundi matin. Que choisit-il ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Ajouter un document"
+            },
+            {
+              "id": "b",
+              "text": "Ajouter une solution"
+            },
+            {
+              "id": "c",
+              "text": "Créer une tâche planifiée"
+            }
+          ],
+          "correctAnswerId": "c",
+          "explanation": "La tâche précise le travail, le technicien chargé de l'effectuer et éventuellement la date prévue.",
+          "hint": "Il faut organiser une action à réaliser plus tard."
+        },
+        {
+          "id": "suivi-3",
+          "text": "Alex a rétabli les autorisations et vérifié que le dossier s'ouvre. Que doit-il ajouter ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Une solution expliquant la réparation"
+            },
+            {
+              "id": "b",
+              "text": "Une demande de matériel"
+            },
+            {
+              "id": "c",
+              "text": "Un nouveau signalement"
+            }
+          ],
+          "correctAnswerId": "a",
+          "explanation": "La solution décrit ce qui a permis de résoudre la panne. Elle est différente de la tâche ou d'un simple suivi.",
+          "hint": "La panne a été réparée."
+        },
+        {
+          "id": "suivi-4",
+          "text": "Léa rappelle : la panne est revenue, mais l'ancien ticket est déjà fermé. Que fait Amine ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "Il modifie la solution de l'ancien ticket"
+            },
+            {
+              "id": "b",
+              "text": "Il crée un nouveau ticket en rappelant le numéro de l'ancien"
+            },
+            {
+              "id": "c",
+              "text": "Il marque l'ancienne tâche « à faire »"
+            }
+          ],
+          "correctAnswerId": "b",
+          "explanation": "Dans notre procédure de support, un ticket fermé n'est pas rouvert. Le nouveau ticket peut faire référence à l'ancien.",
+          "hint": "Le ticket précédent est terminé."
+        }
+      ]
     }
   ]
 }
