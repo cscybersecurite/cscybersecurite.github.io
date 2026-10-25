@@ -487,6 +487,27 @@
           "correctAnswerId": "b",
           "explanation": "Dans notre procédure de support, un ticket fermé n'est pas rouvert. Le nouveau ticket peut faire référence à l'ancien.",
           "hint": "Le ticket précédent est terminé."
+        },
+        {
+          "id": "suivi-5",
+          "text": "Après l'intervention d'Alex, Léa confirme que le dossier fonctionne. Amine ajoute une solution. Que se passe-t-il ensuite ?",
+          "answers": [
+            {
+              "id": "a",
+              "text": "La tâche d'Alex est automatiquement recréée."
+            },
+            {
+              "id": "b",
+              "text": "Le ticket devient résolu. Léa peut approuver ou refuser la solution."
+            },
+            {
+              "id": "c",
+              "text": "Une demande de validation doit obligatoirement être adressée à Camille."
+            }
+          ],
+          "correctAnswerId": "b",
+          "explanation": "Ajouter une solution fait passer le ticket à Résolu. Son approbation par le demandeur permet ensuite sa fermeture, selon le fonctionnement configuré.",
+          "hint": "Résolu et Fermé ne sont pas le même état."
         }
       ]
     }
