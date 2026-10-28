@@ -3,262 +3,175 @@
   "quizzes": [
     {
       "id": "chapitre-1",
-      "title": "Je me teste : chapitre 1",
+      "title": "Je me teste : mission 1",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "q-1",
-          "text": "La gestion d'un parc commence par...",
+          "id": "m1-1",
+          "text": "Avant d’accuser quelqu’un ou d’acheter un nouvel appareil, de quelles informations as-tu besoin ?",
           "answers": [
             {
               "id": "r0",
-              "text": "identifier les équipements"
+              "text": "Le numéro d’identification, le nom de l’emprunteur et la date de prêt."
             },
             {
               "id": "r1",
-              "text": "acheter sans inventaire"
+              "text": "La couleur du fond d’écran."
             },
             {
               "id": "r2",
-              "text": "supprimer les fiches"
+              "text": "Le nombre de jeux installés."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Réponse : identifier les équipements.",
-          "hint": "Relis la notion dans le chapitre."
+          "explanation": "Identifier précisément l’appareil et sa dernière affectation permet de chercher de façon fiable.",
+          "hint": "Recherche l’information qui permet de prendre une décision professionnelle fiable."
         }
       ]
     },
     {
       "id": "chapitre-2",
-      "title": "Je me teste : chapitre 2",
+      "title": "Je me teste : mission 2",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "q-2",
-          "text": "Le parc informatique comprend...",
+          "id": "m2-1",
+          "text": "Quel renseignement distingue le mieux deux machines du même modèle ?",
           "answers": [
             {
               "id": "r0",
-              "text": "des matériels et logiciels"
+              "text": "Leur numéro de série ou leur identifiant d’inventaire."
             },
             {
               "id": "r1",
-              "text": "les seuls smartphones"
+              "text": "Leur marque uniquement."
             },
             {
               "id": "r2",
-              "text": "les bureaux uniquement"
+              "text": "La taille de leur écran uniquement."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Réponse : des matériels et logiciels.",
-          "hint": "Relis la notion dans le chapitre."
+          "explanation": "Le modèle peut être commun à plusieurs appareils ; l’identifiant permet de reconnaître un exemplaire.",
+          "hint": "Recherche l’information qui permet de prendre une décision professionnelle fiable."
         }
       ]
     },
     {
       "id": "chapitre-3",
-      "title": "Je me teste : chapitre 3",
+      "title": "Je me teste : mission 3",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "q-3",
-          "text": "Gérer un parc aide à...",
+          "id": "m3-1",
+          "text": "Quel outil de travail est le plus pertinent pour répondre ?",
           "answers": [
             {
               "id": "r0",
-              "text": "prévoir les maintenances"
+              "text": "Une liste de matériel structurée et tenue à jour."
             },
             {
               "id": "r1",
-              "text": "éviter tout suivi"
+              "text": "La mémoire du technicien."
             },
             {
               "id": "r2",
-              "text": "effacer les garanties"
+              "text": "Une photo de tous les bureaux."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Réponse : prévoir les maintenances.",
-          "hint": "Relis la notion dans le chapitre."
+          "explanation": "Une base d’inventaire fiable permet de rechercher un équipement et de consulter les données associées.",
+          "hint": "Recherche l’information qui permet de prendre une décision professionnelle fiable."
         }
       ]
     },
     {
       "id": "chapitre-4",
-      "title": "Je me teste : chapitre 4",
+      "title": "Je me teste : mission 4",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "q-4",
-          "text": "Un inventaire sert à...",
+          "id": "m4-1",
+          "text": "Quelle action permet de garder un inventaire utilisable ?",
           "answers": [
             {
               "id": "r0",
-              "text": "identifier et retrouver les matériels"
+              "text": "Créer une fiche exacte et renseigner son lieu et son utilisateur."
             },
             {
               "id": "r1",
-              "text": "remplacer les tests"
+              "text": "Attendre que l’ordinateur tombe en panne."
             },
             {
               "id": "r2",
-              "text": "augmenter le Wi-Fi"
+              "text": "Écrire seulement « nouveau PC » dans un cahier."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Réponse : identifier et retrouver les matériels.",
-          "hint": "Relis la notion dans le chapitre."
+          "explanation": "Une fiche exploitable relie une machine identifiable à son emplacement et à sa situation.",
+          "hint": "Recherche l’information qui permet de prendre une décision professionnelle fiable."
         }
       ]
     },
     {
       "id": "chapitre-5",
-      "title": "Je me teste : chapitre 5",
+      "title": "Je me teste : mission 5",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "q-5",
-          "text": "GLPI permet notamment...",
+          "id": "m5-1",
+          "text": "Quelle méthode peut accélérer la collecte des informations techniques ?",
           "answers": [
             {
               "id": "r0",
-              "text": "de suivre les équipements"
+              "text": "Utiliser un agent d’inventaire comme GLPI Agent."
             },
             {
               "id": "r1",
-              "text": "de réparer physiquement un écran"
+              "text": "Deviner les caractéristiques à partir du prix."
             },
             {
               "id": "r2",
-              "text": "de remplacer les câbles"
+              "text": "Recopier la fiche d’un seul PC sur les 25."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Réponse : de suivre les équipements.",
-          "hint": "Relis la notion dans le chapitre."
+          "explanation": "L’agent peut remonter automatiquement de nombreuses informations de la machine, qu’il faut ensuite vérifier.",
+          "hint": "Recherche l’information qui permet de prendre une décision professionnelle fiable."
         }
       ]
     },
     {
       "id": "chapitre-6",
-      "title": "Je me teste : chapitre 6",
+      "title": "Je me teste : mission 6",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "q-6",
-          "text": "Une fiche matériel contient...",
+          "id": "m6-1",
+          "text": "Après le changement d’utilisateur, que doit faire le technicien ?",
           "answers": [
             {
               "id": "r0",
-              "text": "des références et informations de suivi"
+              "text": "Actualiser la fiche et conserver les informations utiles au suivi."
             },
             {
               "id": "r1",
-              "text": "uniquement une couleur"
+              "text": "Laisser l’ancienne affectation pour éviter de perdre du temps."
             },
             {
               "id": "r2",
-              "text": "aucune identification"
+              "text": "Créer un second ordinateur fictif."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Réponse : des références et informations de suivi.",
-          "hint": "Relis la notion dans le chapitre."
-        }
-      ]
-    },
-    {
-      "id": "chapitre-7",
-      "title": "Je me teste : chapitre 7",
-      "shuffleQuestions": true,
-      "shuffleAnswers": true,
-      "questions": [
-        {
-          "id": "q-7",
-          "text": "Lier des matériels sert à...",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "retrouver leurs relations"
-            },
-            {
-              "id": "r1",
-              "text": "effacer les séries"
-            },
-            {
-              "id": "r2",
-              "text": "désactiver les postes"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Réponse : retrouver leurs relations.",
-          "hint": "Relis la notion dans le chapitre."
-        }
-      ]
-    },
-    {
-      "id": "chapitre-8",
-      "title": "Je me teste : chapitre 8",
-      "shuffleQuestions": true,
-      "shuffleAnswers": true,
-      "questions": [
-        {
-          "id": "q-8",
-          "text": "Les contrats de maintenance permettent de suivre...",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "les garanties et échéances"
-            },
-            {
-              "id": "r1",
-              "text": "la météo"
-            },
-            {
-              "id": "r2",
-              "text": "les vacances"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Réponse : les garanties et échéances.",
-          "hint": "Relis la notion dans le chapitre."
-        }
-      ]
-    },
-    {
-      "id": "chapitre-9",
-      "title": "Je me teste : chapitre 9",
-      "shuffleQuestions": true,
-      "shuffleAnswers": true,
-      "questions": [
-        {
-          "id": "q-9",
-          "text": "Une synthèse du parc exige...",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "des données fiables et actualisées"
-            },
-            {
-              "id": "r1",
-              "text": "des suppositions"
-            },
-            {
-              "id": "r2",
-              "text": "des informations non vérifiées"
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Réponse : des données fiables et actualisées.",
-          "hint": "Relis la notion dans le chapitre."
+          "explanation": "Sans mise à jour, les recherches et les décisions futures reposent sur de fausses informations.",
+          "hint": "Recherche l’information qui permet de prendre une décision professionnelle fiable."
         }
       ]
     }
