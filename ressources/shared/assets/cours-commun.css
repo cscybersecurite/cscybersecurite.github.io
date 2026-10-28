@@ -1,4 +1,4 @@
-/* Cours communs V1.0.2
+/* Cours communs V1.0.3
    Source unique pour les nouveaux cours et les cours migrant volontairement.
    Référence : Gestion d'incidents ; compléments : DHCP, Messagerie et DNS.
    Ne surcharge pas les classes .qcmcore*, .diagcore* ni .coursprint*.
@@ -156,4 +156,35 @@ html.cours-presentation body.cours-commun main .course-version{display:none}
 @media print{
   body.cours-commun main .course-version{position:static;text-align:right}
   body.cours-commun main img{max-width:100%;height:auto}
+}
+
+/* Grands cours structurés en parties (Audit) : même vocabulaire d'accordéons. */
+body.cours-commun main details.part,
+body.cours-commun main details.exercise,
+body.cours-commun main details.correction{
+  background:var(--cc-panel);border:1px solid var(--cc-border);
+  border-radius:12px;margin:12px 0;overflow:hidden;
+}
+body.cours-commun main details.part>summary,
+body.cours-commun main details.exercise>summary,
+body.cours-commun main details.correction>summary{
+  display:flex;align-items:center;gap:12px;list-style:none;
+  background:var(--cc-soft);padding:14px 18px;font-weight:700;cursor:pointer;
+}
+body.cours-commun main details.part>summary::-webkit-details-marker,
+body.cours-commun main details.exercise>summary::-webkit-details-marker,
+body.cours-commun main details.correction>summary::-webkit-details-marker{display:none}
+body.cours-commun main details.part>summary::after,
+body.cours-commun main details.exercise>summary::after,
+body.cours-commun main details.correction>summary::after{content:"⌄";margin-left:auto;font-size:1.3rem}
+body.cours-commun main details.part[open]>summary::after,
+body.cours-commun main details.exercise[open]>summary::after,
+body.cours-commun main details.correction[open]>summary::after{transform:rotate(180deg)}
+body.cours-commun main details.part>.body,
+body.cours-commun main details.exercise>.body,
+body.cours-commun main details.correction>.body{padding:17px 20px;border-top:1px solid var(--cc-border)}
+@media(max-width:600px){
+  body.cours-commun main details.part>.body,
+  body.cours-commun main details.exercise>.body,
+  body.cours-commun main details.correction>.body{padding:14px}
 }
