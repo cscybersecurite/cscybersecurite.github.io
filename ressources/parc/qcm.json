@@ -8,25 +8,25 @@
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "situation-1",
-          "text": "Deux tablettes sont identiques. Quel élément permet de retrouver celle prêtée à Léa ?",
+          "id": "mission-1-q1",
+          "text": "Pourquoi une fiche d'actif doit-elle être partagée dans une application ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le numéro de série associé au prêt"
+              "text": "Pour permettre à plusieurs techniciens de travailler à partir des mêmes données."
             },
             {
               "id": "r1",
-              "text": "La marque des deux tablettes"
+              "text": "Pour empêcher les collègues de voir le parc."
             },
             {
               "id": "r2",
-              "text": "Le système d'exploitation installé"
+              "text": "Pour remplacer les interventions techniques."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Le numéro de série identifie précisément l'appareil ; la fiche de prêt permet de connaître son emprunteur.",
-          "hint": "Quelle information permettrait à un autre technicien de vérifier la situation ?"
+          "explanation": "Une fiche commune facilite la coordination et évite les informations dispersées.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
         }
       ]
     },
@@ -37,25 +37,25 @@
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "situation-2",
-          "text": "Un technicien relève « Dell Latitude » sur trois PC. Pourquoi n'est-ce pas suffisant ?",
+          "id": "mission-2-q1",
+          "text": "Deux PC ont le même modèle. Quel champ permet normalement de les distinguer ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Parce que tous les PC Dell ont la même garantie"
+              "text": "Le type de processeur."
             },
             {
               "id": "r1",
-              "text": "Parce que le modèle n'identifie pas chaque ordinateur séparément"
+              "text": "Le numéro de série."
             },
             {
               "id": "r2",
-              "text": "Parce qu'il faut d'abord connaître le mot de passe Windows"
+              "text": "Le fabricant."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Plusieurs appareils peuvent partager un modèle. Il faut un identifiant unique, tel que le numéro de série ou un numéro d'inventaire.",
-          "hint": "Quelle information permettrait à un autre technicien de vérifier la situation ?"
+          "explanation": "Le numéro de série distingue deux machines même lorsqu'elles sont identiques en apparence.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
         }
       ]
     },
@@ -66,25 +66,25 @@
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "situation-3",
-          "text": "Une fiche indique que le PC 024 est au bureau 12, mais il est désormais au bureau 18. Que vaut la recherche dans l'inventaire ?",
+          "id": "mission-3-q1",
+          "text": "Une stagiaire doit seulement saisir des équipements réseau. Quel profil convient ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Elle reste fiable car le numéro ne change pas"
+              "text": "Un profil limité à l'inventaire nécessaire."
             },
             {
               "id": "r1",
-              "text": "Elle est fausse pour la localisation tant que la fiche n'est pas actualisée"
+              "text": "Un compte administrateur complet."
             },
             {
               "id": "r2",
-              "text": "Elle doit être supprimée et recréée sans vérification"
+              "text": "Le compte personnel de Camille."
             }
           ],
-          "correctAnswerId": "r1",
-          "explanation": "La fiabilité dépend autant de l'identification que de la mise à jour des informations.",
-          "hint": "Quelle information permettrait à un autre technicien de vérifier la situation ?"
+          "correctAnswerId": "r0",
+          "explanation": "Les autorisations doivent suivre la mission, selon le principe du moindre privilège.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
         }
       ]
     },
@@ -95,25 +95,25 @@
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "situation-4",
-          "text": "Un PC rejoint un autre service. Quelle combinaison d'informations doit être contrôlée dans sa fiche GLPI ?",
+          "id": "mission-4-q1",
+          "text": "Un salarié ne possède aucun rendez-vous dans le planning, mais il est en congé. Est-il disponible ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Son lieu et son affectation"
+              "text": "Oui, son agenda est vide."
             },
             {
               "id": "r1",
-              "text": "La couleur de son fond d'écran et son thème"
+              "text": "Oui, si l'intervention est courte."
             },
             {
               "id": "r2",
-              "text": "Le nombre d'onglets du navigateur"
+              "text": "Non, le congé doit être pris en compte."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Le lieu et l'affectation sont des données de suivi essentielles lors d'un transfert.",
-          "hint": "Quelle information permettrait à un autre technicien de vérifier la situation ?"
+          "correctAnswerId": "r2",
+          "explanation": "Le planning doit tenir compte des indisponibilités et des règles de travail.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
         }
       ]
     },
@@ -124,25 +124,25 @@
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "situation-5",
-          "text": "GLPI Agent indique 8 Go de RAM sur un PC et l'étiquette indique qu'il est en salle B. Quelle information devra probablement rester saisie ou vérifiée manuellement ?",
+          "id": "mission-5-q1",
+          "text": "Un testeur de fibre est réservé jusqu'à 16 h. Une équipe en a besoin à 15 h. Quelle action est cohérente ?",
           "answers": [
             {
               "id": "r0",
-              "text": "La quantité de mémoire vive détectée"
+              "text": "Faire apparaître le conflit et réorganiser la réservation."
             },
             {
               "id": "r1",
-              "text": "Le modèle de processeur détecté"
+              "text": "Supprimer la réservation existante sans prévenir."
             },
             {
               "id": "r2",
-              "text": "L'affectation à la salle B et à son utilisateur"
+              "text": "Prendre le testeur sans enregistrer la sortie."
             }
           ],
-          "correctAnswerId": "r2",
-          "explanation": "Un agent collecte des données techniques ; le lieu et l'affectation demandent une vérification ou une gestion dans GLPI.",
-          "hint": "Quelle information permettrait à un autre technicien de vérifier la situation ?"
+          "correctAnswerId": "r0",
+          "explanation": "La disponibilité réelle du matériel doit être vérifiée et les conflits doivent être résolus.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
         }
       ]
     },
@@ -153,25 +153,83 @@
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "situation-6",
-          "text": "Un ordinateur est réattribué et sa garantie se termine dans deux mois. Quelle action permet un suivi professionnel ?",
+          "id": "mission-6-q1",
+          "text": "Un PC acheté 900 € tombe en panne après quatre ans. Que faut-il examiner avant de décider ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Mettre la fiche à jour et conserver la date de garantie"
+              "text": "Sa couleur et sa taille uniquement."
             },
             {
               "id": "r1",
-              "text": "Effacer sa fiche pour repartir de zéro"
+              "text": "Son état, les frais de réparation, sa garantie et le programme de renouvellement."
             },
             {
               "id": "r2",
-              "text": "Attendre la première panne pour chercher le numéro de série"
+              "text": "Le nom de son dernier utilisateur uniquement."
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Une bonne décision compare le coût et l'intérêt de réparer ou remplacer.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-7",
+      "title": "Je me teste : mission 7",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mission-7-q1",
+          "text": "Avant de débrancher un switch, quel document aide le plus ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le trombinoscope de l'entreprise."
+            },
+            {
+              "id": "r1",
+              "text": "La liste des congés."
+            },
+            {
+              "id": "r2",
+              "text": "Une carte des ports, liaisons et équipements raccordés."
+            }
+          ],
+          "correctAnswerId": "r2",
+          "explanation": "La documentation du réseau limite les erreurs lors des changements.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-8",
+      "title": "Je me teste : mission 8",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "mission-8-q1",
+          "text": "Une licence expire bientôt. Pourquoi créer une alerte ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Pour anticiper son renouvellement avant une interruption."
+            },
+            {
+              "id": "r1",
+              "text": "Pour supprimer le logiciel dès aujourd'hui."
+            },
+            {
+              "id": "r2",
+              "text": "Pour acheter des licences supplémentaires sans vérifier les besoins."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Le suivi repose sur une fiche actualisée et sur les informations utiles aux décisions de maintenance.",
-          "hint": "Quelle information permettrait à un autre technicien de vérifier la situation ?"
+          "explanation": "L'anticipation évite les ruptures de service et les achats inutiles.",
+          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
         }
       ]
     }
