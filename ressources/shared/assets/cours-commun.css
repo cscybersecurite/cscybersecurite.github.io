@@ -1,4 +1,4 @@
-/* Cours communs V1.0.1
+/* Cours communs V1.0.2
    Source unique pour les nouveaux cours et les cours migrant volontairement.
    Référence : Gestion d'incidents ; compléments : DHCP, Messagerie et DNS.
    Ne surcharge pas les classes .qcmcore*, .diagcore* ni .coursprint*.
@@ -78,18 +78,25 @@ body.cours-commun main details.subfold>.inside{
   border-top:1px solid var(--cc-border);padding:14px 18px;
 }
 
+/* Compatibilité avec les cours utilisant .body pour leur contenu de chapitre. */
+body.cours-commun main details.chapter>.body{
+  border-top:1px solid var(--cc-border);padding:17px 20px;
+}
+body.cours-commun main details.subfold>.body{
+  border-top:1px solid var(--cc-border);padding:14px 18px;
+}
 /* Sous-accordéon pour exercices, conteneur uniquement : QCMCore garde ses styles. */
-body.cours-commun main details.nested{
+body.cours-commun main details.nested,body.cours-commun main details.qcm-chapitre{
   background:var(--cc-soft);border:1px solid var(--cc-border);
   border-radius:10px;margin:17px 0;overflow:hidden;
 }
-body.cours-commun main details.nested>summary{
+body.cours-commun main details.nested>summary,body.cours-commun main details.qcm-chapitre>summary{
   list-style:none;display:flex;align-items:center;gap:8px;
   cursor:pointer;font-size:19px;font-weight:700;padding:12px 16px;
 }
-body.cours-commun main details.nested>summary::-webkit-details-marker{display:none}
-body.cours-commun main details.nested>summary::after{content:none;display:none}
-body.cours-commun main details.nested>.inside{
+body.cours-commun main details.nested>summary::-webkit-details-marker,body.cours-commun main details.qcm-chapitre>summary::-webkit-details-marker{display:none}
+body.cours-commun main details.nested>summary::after,body.cours-commun main details.qcm-chapitre>summary::after{content:none;display:none}
+body.cours-commun main details.nested>.inside,body.cours-commun main details.qcm-chapitre>.inside{
   padding:15px 18px;background:var(--cc-panel);border-top:1px solid var(--cc-border);
   min-width:0;
 }
@@ -132,18 +139,18 @@ body.cours-commun :is(summary,button,input,select,textarea,a):focus-visible{
   body.cours-commun main{max-width:100%;margin-top:15px;padding:0 9px 50px}
   body.cours-commun main details.chapter>summary{font-size:19px;padding:14px}
   body.cours-commun main details.chapter>.fold-body,
-  body.cours-commun main details.chapter>.inside{padding:14px}
-  body.cours-commun main details.nested>.inside{padding:12px}
+  body.cours-commun main details.chapter>.inside,body.cours-commun main details.chapter>.body{padding:14px}
+  body.cours-commun main details.nested>.inside,body.cours-commun main details.qcm-chapitre>.inside{padding:12px}
   body.cours-commun main :is(.table-scroll,.scroll,.cours-table-scroll) :is(th,td){padding:7px}
 }
 /* Le mode projection reste piloté par cours-barre.js et cours-barre.css. */
 html.cours-presentation body.cours-commun main{max-width:1400px;width:100%;padding:12px 18px}
 html.cours-presentation body.cours-commun main>details.chapter:not([open]){display:none}
 html.cours-presentation body.cours-commun main>details.chapter[open]{width:100%;margin:0 auto}
-html.cours-presentation body.cours-commun main>details.chapter[open]>.fold-body{
+html.cours-presentation body.cours-commun main>details.chapter[open]>.fold-body,html.cours-presentation body.cours-commun main>details.chapter[open]>.body{
   font-size:clamp(23px,2.5vw,31px);line-height:1.5;
 }
-html.cours-presentation body.cours-commun main>details.chapter[open]>.fold-body :is(p,li){font-size:inherit}
+html.cours-presentation body.cours-commun main>details.chapter[open]>.fold-body :is(p,li),html.cours-presentation body.cours-commun main>details.chapter[open]>.body :is(p,li){font-size:inherit}
 html.cours-presentation body.cours-commun main :is(.cours-illustration,.cours-bandeau,.hero){display:none}
 html.cours-presentation body.cours-commun main .course-version{display:none}
 @media print{
