@@ -1,0 +1,152 @@
+/* Cours communs V1.0.0
+   Source unique pour les nouveaux cours et les cours migrant volontairement.
+   Référence : Gestion d'incidents ; compléments : DHCP, Messagerie et DNS.
+   Ne surcharge pas les classes .qcmcore*, .diagcore* ni .coursprint*.
+   Charger la feuille propre au cours avant ce fichier, puis les feuilles des moteurs.
+   Une page active le socle via <body class="cours-commun">.
+*/
+:root{
+  --cc-bg:#f1f5fa;--cc-panel:#fff;--cc-text:#152b45;
+  --cc-muted:#51677c;--cc-border:#cbd8e8;--cc-soft:#ecf4fd;
+  --cc-accent:#2471d7;--cc-shade:rgba(40,90,145,.08);
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --cc-bg:#111b29;--cc-panel:#1c2e43;--cc-text:#edf5ff;
+    --cc-muted:#b9cfe3;--cc-border:#46617f;--cc-soft:#273d56;
+    --cc-accent:#8bbaff;--cc-shade:rgba(160,200,255,.09);
+  }
+}
+body.cours-commun{
+  margin:0;background:var(--cc-bg);color:var(--cc-text);
+  font:17px/1.55 Arial,Helvetica,sans-serif;overflow-wrap:break-word;
+}
+body.cours-commun *,body.cours-commun *::before,body.cours-commun *::after{box-sizing:border-box}
+body.cours-commun main{width:100%;max-width:950px;margin:14px auto 55px;padding:0 12px}
+body.cours-commun main :is(h2,h3,h4){line-height:1.3}
+body.cours-commun main h3{font-size:1.04rem;margin:18px 0 9px}
+body.cours-commun main p{margin:9px 0}
+body.cours-commun main li{margin:5px 0}
+body.cours-commun main :is(ul,ol){padding-left:24px}
+body.cours-commun main img{max-width:100%;height:auto}
+
+/* Bandeau photographique au ratio libre, compatible avec le 2048x683. */
+body.cours-commun main :is(.cours-illustration,.cours-bandeau){display:block;width:100%;margin:0 0 16px}
+body.cours-commun main :is(.cours-illustration,.cours-bandeau) img{
+  display:block;width:100%;height:auto;object-fit:contain;border-radius:12px;
+}
+body.cours-commun main img.hero{
+  display:block;width:100%;height:auto;max-height:none;object-fit:contain;
+  border-radius:12px;margin:0 0 16px;
+}
+
+/* Accordéons de chapitres : structure de Gestion d'incidents. */
+body.cours-commun main details.chapter,
+body.cours-commun main details.subfold{
+  background:var(--cc-panel);border:1px solid var(--cc-border);
+  border-radius:12px;margin:0 0 12px;overflow:hidden;
+}
+body.cours-commun main details.chapter>summary,
+body.cours-commun main details.subfold>summary{
+  list-style:none;display:flex;align-items:center;gap:9px;cursor:pointer;
+  padding:16px 19px;background:var(--cc-panel);font-weight:700;
+}
+body.cours-commun main details.chapter>summary{font-size:clamp(19px,2.5vw,25px)}
+body.cours-commun main details.subfold>summary{
+  font-size:1rem;padding:12px 16px;background:var(--cc-soft);
+}
+body.cours-commun main details.chapter>summary::-webkit-details-marker,
+body.cours-commun main details.subfold>summary::-webkit-details-marker{display:none}
+body.cours-commun main details.chapter>summary::after,
+body.cours-commun main details.subfold>summary::after{
+  content:"⌄";display:block;flex:none;margin-left:auto;
+  font-size:1.35rem;line-height:1;transition:transform .15s;
+}
+body.cours-commun main details.chapter[open]>summary::after,
+body.cours-commun main details.subfold[open]>summary::after{transform:rotate(180deg)}
+body.cours-commun main details.chapter>.fold-body{
+  border-top:1px solid var(--cc-border);padding:17px 20px;
+}
+body.cours-commun main details.subfold>.fold-body{
+  border-top:1px solid var(--cc-border);padding:14px 18px;
+}
+/* Si le contenu ancien utilise .inside, la structure reste utilisable. */
+body.cours-commun main details.chapter>.inside{
+  border-top:1px solid var(--cc-border);padding:17px 20px;
+}
+body.cours-commun main details.subfold>.inside{
+  border-top:1px solid var(--cc-border);padding:14px 18px;
+}
+
+/* Sous-accordéon pour exercices, conteneur uniquement : QCMCore garde ses styles. */
+body.cours-commun main details.nested{
+  background:var(--cc-soft);border:1px solid var(--cc-border);
+  border-radius:10px;margin:17px 0;overflow:hidden;
+}
+body.cours-commun main details.nested>summary{
+  list-style:none;display:flex;align-items:center;gap:8px;
+  cursor:pointer;font-size:19px;font-weight:700;padding:12px 16px;
+}
+body.cours-commun main details.nested>summary::-webkit-details-marker{display:none}
+body.cours-commun main details.nested>summary::after{content:none;display:none}
+body.cours-commun main details.nested>.inside{
+  padding:15px 18px;background:var(--cc-panel);border-top:1px solid var(--cc-border);
+  min-width:0;
+}
+
+/* Encadrés pédagogiques et exemples, hors composants interactifs. */
+body.cours-commun main .mini,
+body.cours-commun main .cours-encadre{
+  margin:14px 0;padding:12px 15px;border-left:4px solid #3378bf;
+  border-radius:8px;background:var(--cc-soft);
+}
+body.cours-commun main .mini-no-fill,
+body.cours-commun main .cours-encadre--simple{background:transparent}
+body.cours-commun main .cours-exemple{
+  margin:14px 0;padding:14px;border:1px solid var(--cc-border);
+  border-radius:10px;background:var(--cc-shade);
+}
+
+/* Tableaux : le conteneur permet le défilement sans écraser les colonnes. */
+body.cours-commun main :is(.table-scroll,.scroll,.cours-table-scroll){
+  width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;
+  margin:16px 0;
+}
+body.cours-commun main :is(.table-scroll,.scroll,.cours-table-scroll)>table{
+  border-collapse:collapse;width:100%;min-width:440px;font-size:.93rem;
+}
+body.cours-commun main :is(.table-scroll,.scroll,.cours-table-scroll) :is(th,td){
+  border:1px solid var(--cc-border);padding:9px 11px;text-align:left;vertical-align:top;
+}
+body.cours-commun main :is(.table-scroll,.scroll,.cours-table-scroll) th{background:var(--cc-soft)}
+body.cours-commun main .course-version{
+  position:fixed;right:8px;bottom:5px;z-index:12;background:var(--cc-bg);
+  color:var(--cc-muted);font:11px/1.4 Arial,sans-serif;padding:2px 5px;
+  border-radius:5px;pointer-events:none;
+}
+body.cours-commun :is(summary,button,input,select,textarea,a):focus-visible{
+  outline:3px solid #e69a21;outline-offset:2px;
+}
+@media(max-width:600px){
+  body.cours-commun{font-size:15px}
+  body.cours-commun main{max-width:100%;margin-top:15px;padding:0 9px 50px}
+  body.cours-commun main details.chapter>summary{font-size:19px;padding:14px}
+  body.cours-commun main details.chapter>.fold-body,
+  body.cours-commun main details.chapter>.inside{padding:14px}
+  body.cours-commun main details.nested>.inside{padding:12px}
+  body.cours-commun main :is(.table-scroll,.scroll,.cours-table-scroll) :is(th,td){padding:7px}
+}
+/* Le mode projection reste piloté par cours-barre.js et cours-barre.css. */
+html.cours-presentation body.cours-commun main{max-width:1400px;width:100%;padding:12px 18px}
+html.cours-presentation body.cours-commun main>details.chapter:not([open]){display:none}
+html.cours-presentation body.cours-commun main>details.chapter[open]{width:100%;margin:0 auto}
+html.cours-presentation body.cours-commun main>details.chapter[open]>.fold-body{
+  font-size:clamp(23px,2.5vw,31px);line-height:1.5;
+}
+html.cours-presentation body.cours-commun main>details.chapter[open]>.fold-body :is(p,li){font-size:inherit}
+html.cours-presentation body.cours-commun main :is(.cours-illustration,.cours-bandeau,.hero){display:none}
+html.cours-presentation body.cours-commun main .course-version{display:none}
+@media print{
+  body.cours-commun main .course-version{position:static;text-align:right}
+  body.cours-commun main img{max-width:100%;height:auto}
+}
