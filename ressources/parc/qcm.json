@@ -9,45 +9,45 @@
       "questions": [
         {
           "id": "c1-q1",
-          "text": "CyberNet intervient sur les serveurs d'un client. Quelle information doit-elle surtout conserver pour préparer ses interventions ?",
+          "text": "Sophie appelle depuis Brest pour un PC lent. Tu travailles au support à Rennes. Quelle est la meilleure première utilisation du parc ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Leur configuration et les coordonnées du contact technique."
+              "text": "Lire sa fiche pour connaître le PC et préparer les vérifications."
             },
             {
               "id": "r1",
-              "text": "Leur prix de vente chez le fabricant et la marge du vendeur."
+              "text": "Remplacer le PC à partir de son âge, sans autre contrôle."
             },
             {
               "id": "r2",
-              "text": "Les habitudes d'achat des salariés du client."
+              "text": "Réserver un ordinateur de prêt avant de lui poser des questions."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "La configuration et le contact technique permettent à CyberNet de préparer le support. Les achats du client ou la marge du fabricant ne suffisent pas à intervenir.",
-          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+          "explanation": "La fiche aide à identifier la machine et son contexte. Elle ne suffit pas à diagnostiquer la panne ni à décider un remplacement.",
+          "hint": "Relis la situation et compare les informations utiles."
         },
         {
           "id": "c1-q2",
-          "text": "Le service informatique d'une banque prépare son budget pour l'année prochaine. Quelle recherche est la plus utile ?",
+          "text": "CyberNet suit 600 PC sur 12 sites. Pourquoi les fiches partagées deviennent-elles utiles ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Les postes vendus par le fabricant pendant l'année."
+              "text": "Elles permettent d'éviter toute conversation avec les clients."
             },
             {
               "id": "r1",
-              "text": "Les postes de la banque, leur âge, leur état et leur utilisation."
+              "text": "Elles donnent aux techniciens des informations même si le PC se trouve ailleurs."
             },
             {
               "id": "r2",
-              "text": "Les ordinateurs présents chez les clients de la banque."
+              "text": "Elles garantissent qu'aucun ordinateur ne tombera en panne."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Un service interne prépare le renouvellement de ses propres équipements, en croisant leur état, leur âge et leur usage.",
-          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+          "explanation": "Les fiches permettent aux techniciens de travailler à distance et de partager ce qu'ils savent.",
+          "hint": "Relis la situation et compare les informations utiles."
         }
       ]
     },
@@ -59,45 +59,45 @@
       "questions": [
         {
           "id": "c2-q1",
-          "text": "Deux ordinateurs de même modèle sont installés dans une salle. Une garantie concerne un seul des deux. Comment reconnaître le bon ?",
+          "text": "Dans la fiche de PC-042 présentée dans le cours, quelle association est correcte ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Comparer leur mémoire vive."
+              "text": "RAM : 512 Go ; disque : 16 Go."
             },
             {
               "id": "r1",
-              "text": "Utiliser leur numéro de série."
+              "text": "RAM : 16 Go ; disque : SSD 512 Go."
             },
             {
               "id": "r2",
-              "text": "Rechercher uniquement leur modèle."
+              "text": "RAM : 16 Go ; disque : Intel Core i5-10500."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Deux PC de même modèle peuvent avoir des garanties différentes. Leur numéro de série permet de consulter la bonne fiche.",
-          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+          "explanation": "La mémoire vive est de 16 Go. Le SSD a une capacité de 512 Go. Le Core i5 est le processeur.",
+          "hint": "Relis la situation et compare les informations utiles."
         },
         {
           "id": "c2-q2",
-          "text": "Un PC change de bureau mais reste attribué à la même personne. Que faut-il modifier dans sa fiche ?",
+          "text": "Dans la fiche de PC-042, quels logiciel de protection et système sont indiqués ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le lieu, après avoir vérifié le déplacement."
+              "text": "Microsoft Defender Antivirus et Windows 11 Pro."
             },
             {
               "id": "r1",
-              "text": "L'utilisateur et le numéro de série."
+              "text": "Microsoft Defender Antivirus et Windows 10 Pro."
             },
             {
               "id": "r2",
-              "text": "La date d'achat et le fabricant."
+              "text": "Un antivirus non renseigné et Windows 11 Pro."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Le lieu change, mais pas nécessairement l'utilisateur ni les caractéristiques du PC. La fiche doit correspondre à la réalité.",
-          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+          "explanation": "La fiche indique Windows 11 Pro et Microsoft Defender Antivirus. Pour connaître leur état actuel, il faut aussi tenir compte de la date de remontée.",
+          "hint": "Relis la situation et compare les informations utiles."
         }
       ]
     },
@@ -359,45 +359,45 @@
       "questions": [
         {
           "id": "c8-q1",
-          "text": "La direction demande quels PC prévoir au renouvellement l'an prochain. Quelles données comparer ?",
+          "text": "Camille te demande les PC à examiner d'abord pour le renouvellement. Que montre le tableau du cours ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Les modèles et la taille des écrans."
+              "text": "PC-011 et PC-105, car ils datent de 2020."
             },
             {
               "id": "r1",
-              "text": "Les dates d'achat, l'état, l'usage et la politique de renouvellement."
+              "text": "PC-011 et PC-076, car ils ont des pannes fréquentes."
             },
             {
               "id": "r2",
-              "text": "Les noms des utilisateurs et les marques uniquement."
+              "text": "PC-042 et PC-076, car ils sont utilisés chaque jour."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Un renouvellement se prépare à partir de l'âge, de l'état, des besoins et des règles de l'entreprise.",
-          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+          "explanation": "PC-011 et PC-076 présentent des pannes fréquentes. Leur remplacement doit être étudié en priorité, sans décider automatiquement l'achat.",
+          "hint": "Relis la situation et compare les informations utiles."
         },
         {
           "id": "c8-q2",
-          "text": "Un rapport annonce 12 PC disponibles. Deux sont encore marqués « libres » alors qu'ils ont été prêtés. Quelle décision prendre ?",
+          "text": "PC-105 date de 2020, fonctionne bien et sert rarement. Quelle conclusion est justifiée ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Utiliser le total 12 puisque le logiciel l'affiche."
+              "text": "Son remplacement est nécessaire avant celui des PC en panne."
             },
             {
               "id": "r1",
-              "text": "Supprimer le rapport et refaire tout l'inventaire."
+              "text": "Il n'a plus besoin d'être suivi puisqu'il fonctionne."
             },
             {
               "id": "r2",
-              "text": "Vérifier et corriger les deux affectations avant de décider."
+              "text": "Son âge ne suffit pas à le rendre prioritaire."
             }
           ],
           "correctAnswerId": "r2",
-          "explanation": "Un rapport ne vaut que par ses données. Les prêts oubliés doivent être enregistrés avant d'utiliser le total.",
-          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+          "explanation": "Le PC est ancien, mais son état et son usage doivent aussi compter dans la décision.",
+          "hint": "Relis la situation et compare les informations utiles."
         }
       ]
     }
