@@ -59,44 +59,44 @@
       "questions": [
         {
           "id": "c2-q1",
-          "text": "Dans la fiche de PC-042 présentée dans le cours, quelle association est correcte ?",
+          "text": "Dans l'extrait de REN-PC-01, quelles informations correspondent à la RAM et au SSD ?",
           "answers": [
             {
               "id": "r0",
-              "text": "RAM : 512 Go ; disque : 16 Go."
+              "text": "RAM : 64 Go ; SSD : environ 2 To"
             },
             {
               "id": "r1",
-              "text": "RAM : 16 Go ; disque : SSD 512 Go."
+              "text": "RAM : 32 Go ; SSD : environ 2 To"
             },
             {
               "id": "r2",
-              "text": "RAM : 16 Go ; disque : Intel Core i5-10500."
+              "text": "RAM : 64 Go ; SSD : environ 512 Go"
             }
           ],
-          "correctAnswerId": "r1",
-          "explanation": "La mémoire vive est de 16 Go. Le SSD a une capacité de 512 Go. Le Core i5 est le processeur.",
+          "correctAnswerId": "r0",
+          "explanation": "La fiche indique deux barrettes de 32 Go, soit 64 Go de RAM. Le SSD a une capacité d'environ 2 To.",
           "hint": "Relis la situation et compare les informations utiles."
         },
         {
           "id": "c2-q2",
-          "text": "Dans la fiche de PC-042, quels logiciel de protection et système sont indiqués ?",
+          "text": "Que montrent les dates de la fiche REN-PC-01 ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Microsoft Defender Antivirus et Windows 11 Pro."
+              "text": "La fiche a été créée et actualisée le 17 juillet 2026."
             },
             {
               "id": "r1",
-              "text": "Microsoft Defender Antivirus et Windows 10 Pro."
+              "text": "La fiche a été créée en juillet puis l'inventaire a été actualisé en octobre 2026."
             },
             {
               "id": "r2",
-              "text": "Un antivirus non renseigné et Windows 11 Pro."
+              "text": "Le PC a forcément été acheté le 29 octobre 2026."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "La fiche indique Windows 11 Pro et Microsoft Defender Antivirus. Pour connaître leur état actuel, il faut aussi tenir compte de la date de remontée.",
+          "correctAnswerId": "r1",
+          "explanation": "La fiche a été créée le 17 juillet. Un nouvel inventaire est arrivé le 29 octobre : les informations techniques peuvent donc être mises à jour après la création.",
           "hint": "Relis la situation et compare les informations utiles."
         }
       ]
