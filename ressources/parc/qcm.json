@@ -9,45 +9,45 @@
       "questions": [
         {
           "id": "c1-q1",
-          "text": "Une société de services suit les serveurs de plusieurs clients. Pourquoi conserve-t-elle leurs configurations ?",
+          "text": "CyberNet intervient sur les serveurs d'un client. Quelle information doit-elle surtout conserver pour préparer ses interventions ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Pour que les techniciens préparent le support et les interventions."
+              "text": "Leur configuration et les coordonnées du contact technique."
             },
             {
               "id": "r1",
-              "text": "Pour assurer obligatoirement la garantie constructeur des serveurs."
+              "text": "Leur prix de vente chez le fabricant et la marge du vendeur."
             },
             {
               "id": "r2",
-              "text": "Pour devenir propriétaire de tous les serveurs."
+              "text": "Les habitudes d'achat des salariés du client."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "La société de services utilise ces informations pour intervenir chez les clients, sans devenir propriétaire ou garant du matériel.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "La configuration et le contact technique permettent à CyberNet de préparer le support. Les achats du client ou la marge du fabricant ne suffisent pas à intervenir.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         },
         {
           "id": "c1-q2",
-          "text": "Dans une banque, quel usage du parc correspond à un service informatique interne ?",
+          "text": "Le service informatique d'une banque prépare son budget pour l'année prochaine. Quelle recherche est la plus utile ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Suivre uniquement les ventes aux clients finaux."
+              "text": "Les postes vendus par le fabricant pendant l'année."
             },
             {
               "id": "r1",
-              "text": "Suivre les postes des salariés et préparer leur renouvellement."
+              "text": "Les postes de la banque, leur âge, leur état et leur utilisation."
             },
             {
               "id": "r2",
-              "text": "Suivre uniquement la fabrication des écrans."
+              "text": "Les ordinateurs présents chez les clients de la banque."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Le service interne gère les équipements et les besoins de sa propre organisation.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "Un service interne prépare le renouvellement de ses propres équipements, en croisant leur état, leur âge et leur usage.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     },
@@ -59,45 +59,45 @@
       "questions": [
         {
           "id": "c2-q1",
-          "text": "Deux PC ont le même fabricant et le même modèle. Quelle donnée permet de les distinguer ?",
+          "text": "Deux ordinateurs de même modèle sont installés dans une salle. Une garantie concerne un seul des deux. Comment reconnaître le bon ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le numéro de série."
+              "text": "Comparer leur mémoire vive."
             },
             {
               "id": "r1",
-              "text": "Le nombre de lettres du modèle."
+              "text": "Utiliser leur numéro de série."
             },
             {
               "id": "r2",
-              "text": "Le nom du fabricant."
-            }
-          ],
-          "correctAnswerId": "r0",
-          "explanation": "Le numéro de série sert à identifier un exemplaire précis.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
-        },
-        {
-          "id": "c2-q2",
-          "text": "Après un déménagement de bureau, que faut-il vérifier dans la fiche de l'équipement ?",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "Seulement la couleur de l'écran."
-            },
-            {
-              "id": "r1",
-              "text": "Le lieu et éventuellement l'affectation."
-            },
-            {
-              "id": "r2",
-              "text": "Uniquement la date de fabrication."
+              "text": "Rechercher uniquement leur modèle."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Les données de gestion évoluent au fil de la vie de l'équipement.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "Deux PC de même modèle peuvent avoir des garanties différentes. Leur numéro de série permet de consulter la bonne fiche.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+        },
+        {
+          "id": "c2-q2",
+          "text": "Un PC change de bureau mais reste attribué à la même personne. Que faut-il modifier dans sa fiche ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le lieu, après avoir vérifié le déplacement."
+            },
+            {
+              "id": "r1",
+              "text": "L'utilisateur et le numéro de série."
+            },
+            {
+              "id": "r2",
+              "text": "La date d'achat et le fabricant."
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le lieu change, mais pas nécessairement l'utilisateur ni les caractéristiques du PC. La fiche doit correspondre à la réalité.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     },
@@ -109,45 +109,45 @@
       "questions": [
         {
           "id": "c3-q1",
-          "text": "Une stagiaire doit saisir des équipements réseau. Quelle solution est adaptée ?",
+          "text": "Une stagiaire doit saisir les équipements réseau d'un client. Quel accès lui donner ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Partager le compte administrateur."
+              "text": "Un compte personnel avec les droits utiles à cette saisie."
             },
             {
               "id": "r1",
-              "text": "Créer un compte avec seulement les droits nécessaires."
+              "text": "Le compte d'un technicien expérimenté déjà configuré."
             },
             {
               "id": "r2",
-              "text": "Laisser son compte sans mot de passe."
-            }
-          ],
-          "correctAnswerId": "r1",
-          "explanation": "Les droits dépendent des missions de la personne.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
-        },
-        {
-          "id": "c3-q2",
-          "text": "Un salarié quitte l'entreprise. Quelle action relève de la gestion de parc ?",
-          "answers": [
-            {
-              "id": "r0",
-              "text": "Vérifier la restitution de son matériel et mettre à jour les affectations."
-            },
-            {
-              "id": "r1",
-              "text": "Effacer toutes les fiches du service."
-            },
-            {
-              "id": "r2",
-              "text": "Garder son PC affecté définitivement."
+              "text": "Un compte administrateur pour éviter les blocages."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Un départ modifie les besoins, les attributions et les accès.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "Un compte personnel avec des droits adaptés permet de travailler et de retrouver qui a effectué les opérations.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
+        },
+        {
+          "id": "c3-q2",
+          "text": "Un salarié quitte l'entreprise vendredi. Que doit préparer le gestionnaire de parc ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "La restitution de ses équipements et la mise à jour des affectations."
+            },
+            {
+              "id": "r1",
+              "text": "La suppression des fiches de tous les équipements qu'il utilisait."
+            },
+            {
+              "id": "r2",
+              "text": "Le transfert automatique de ses droits au prochain salarié."
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Les équipements peuvent être réattribués. Le départ exige de suivre les restitutions et de revoir les accès, sans effacer l'historique du matériel.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     },
@@ -159,45 +159,45 @@
       "questions": [
         {
           "id": "c4-q1",
-          "text": "Un technicien sait réparer une panne, mais son planning indique une intervention au même moment. Que faire ?",
+          "text": "Camille doit planifier une intervention mardi de 14 h à 16 h. Alex est déjà chez un client jusqu'à 15 h. Que faire ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le programmer quand même."
+              "text": "Affecter Alex et réduire la première intervention."
             },
             {
               "id": "r1",
-              "text": "Vérifier un autre créneau ou une autre personne compétente."
+              "text": "Rechercher un autre technicien compétent et disponible."
             },
             {
               "id": "r2",
-              "text": "Supprimer l'autre mission sans prévenir."
+              "text": "Ajouter la deuxième mission dans le planning sans changer la première."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "La planification doit tenir compte des conflits horaires.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "Deux missions se chevauchent. Il faut ajuster les horaires avec les personnes concernées ou choisir une autre personne disponible.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         },
         {
           "id": "c4-q2",
-          "text": "Pourquoi une journée sans rendez-vous ne prouve-t-elle pas qu'un salarié est disponible ?",
+          "text": "Le calendrier de Samir est vide mercredi. Quelle vérification manque avant de lui confier une mission ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Il peut être en congé, en repos ou en formation."
+              "text": "Son contrat de garantie informatique."
             },
             {
               "id": "r1",
-              "text": "Un planning est toujours faux."
+              "text": "Ses congés, ses repos et ses éventuelles formations."
             },
             {
               "id": "r2",
-              "text": "Les techniciens ne prennent jamais de congés."
+              "text": "La date de livraison de son ordinateur portable."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Il faut consulter les indisponibilités réelles.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "correctAnswerId": "r1",
+          "explanation": "Un agenda vide ne prouve pas la disponibilité. Les absences et les temps de repos doivent être pris en compte.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     },
@@ -209,45 +209,45 @@
       "questions": [
         {
           "id": "c5-q1",
-          "text": "Deux équipes veulent le même testeur de fibre à 15 h. Quelle information aide à décider ?",
+          "text": "Deux équipes ont réservé le même testeur de fibre sur des horaires qui se chevauchent. Que faire ?",
           "answers": [
             {
               "id": "r0",
-              "text": "La marque du smartphone du technicien."
+              "text": "Confirmer les deux réservations et les laisser s'organiser sur place."
             },
             {
               "id": "r1",
-              "text": "Le calendrier des réservations et les dates de retour."
+              "text": "Vérifier les horaires et déplacer une réservation ou trouver un autre testeur."
             },
             {
               "id": "r2",
-              "text": "Le prix du véhicule de service."
+              "text": "Attribuer le testeur à l'équipe qui a la mission la plus longue, sans prévenir l'autre."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Les réservations permettent de repérer les conflits et de chercher une autre organisation.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "Il faut résoudre le conflit de disponibilité et prévenir les équipes avant de confirmer les interventions.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         },
         {
           "id": "c5-q2",
-          "text": "Deux modules SFP sont utilisés lors d'une intervention. Que doit-on faire dans le stock ?",
+          "text": "Le stock indique 7 modules SFP. Une intervention en consomme 2. Que doit indiquer le stock après la sortie ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Enregistrer leur sortie et contrôler la quantité restante."
+              "text": "7, car le matériel appartient toujours à l'entreprise."
             },
             {
               "id": "r1",
-              "text": "Ne rien faire puisqu'ils sont petits."
+              "text": "5, car deux modules ont été sortis du stock disponible."
             },
             {
               "id": "r2",
-              "text": "Les compter comme disponibles jusqu'au prochain inventaire annuel."
+              "text": "2, car seuls les modules utilisés doivent être comptés."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Les pièces consommées doivent sortir du stock pour éviter des quantités erronées.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "correctAnswerId": "r1",
+          "explanation": "Les deux modules sortis ne sont plus disponibles : 7 - 2 = 5. Le mouvement doit être enregistré.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     },
@@ -259,45 +259,45 @@
       "questions": [
         {
           "id": "c6-q1",
-          "text": "Une entreprise renouvelle 120 PC à 900 € chaque année. Quel montant d'achats doit-elle prévoir ?",
+          "text": "Une entreprise remplace chaque année 120 PC à 900 € pièce. Quel budget annuel d'achat doit-elle prévoir ?",
           "answers": [
             {
               "id": "r0",
-              "text": "10 800 €"
+              "text": "90 000 €"
             },
             {
               "id": "r1",
-              "text": "108 000 €"
+              "text": "120 900 €"
             },
             {
               "id": "r2",
-              "text": "1 080 000 €"
+              "text": "108 000 €"
             }
           ],
-          "correctAnswerId": "r1",
-          "explanation": "120 × 900 € = 108 000 €, hors déploiement, licences et autres frais.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "correctAnswerId": "r2",
+          "explanation": "Le budget d'achat est 120 × 900 €, soit 108 000 €, hors installation, logiciels et maintenance.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         },
         {
           "id": "c6-q2",
-          "text": "Un PC de quatre ans est encore adapté à son utilisateur. Quelle décision est raisonnable ?",
+          "text": "Un PC de quatre ans fonctionne bien, mais l'entreprise prévoit un renouvellement après cinq ans. Que décider ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le remplacer obligatoirement à sa date anniversaire."
+              "text": "Le remplacer immédiatement, car quatre ans suffisent toujours."
             },
             {
               "id": "r1",
-              "text": "Examiner son état, ses besoins et les coûts avant de décider."
+              "text": "Vérifier son usage, son état et le calendrier de renouvellement avant de décider."
             },
             {
               "id": "r2",
-              "text": "Ignorer son entretien puisqu'il fonctionne."
+              "text": "Le conserver sans contrôle jusqu'à sa panne."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "L'âge est un critère parmi d'autres. L'utilisation et les coûts comptent aussi.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "La durée prévue donne un repère. La décision dépend aussi de l'état, de l'usage, des risques et du budget.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     },
@@ -309,45 +309,45 @@
       "questions": [
         {
           "id": "c7-q1",
-          "text": "Un port de switch n'a pas de destination documentée. Que faire avant un remplacement ?",
+          "text": "Un port de switch n'a pas de destination indiquée. L'équipement doit être remplacé demain. Quelle préparation est la plus sûre ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Identifier le raccordement et les services concernés."
+              "text": "Relever la liaison manquante et les services concernés."
             },
             {
               "id": "r1",
-              "text": "Débrancher au hasard."
+              "text": "Copier la documentation d'un autre switch du même modèle."
             },
             {
               "id": "r2",
-              "text": "Supprimer tous les ports du logiciel."
+              "text": "Préparer le nouveau switch uniquement à partir du nombre de ports."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "La documentation des liaisons évite des coupures inutiles.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "Le modèle ou le nombre de ports ne suffit pas : il faut identifier les connexions réelles pour limiter les interruptions.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         },
         {
           "id": "c7-q2",
-          "text": "Après avoir modifié un brassage, pourquoi mettre à jour les fiches ?",
+          "text": "Une liaison a été déplacée du port 8 au port 12 pendant une intervention. Quelle suite donner ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Pour que les collègues connaissent les nouvelles liaisons."
+              "text": "Mettre à jour la documentation et conserver la trace du changement."
             },
             {
               "id": "r1",
-              "text": "Pour changer le fabricant du switch."
+              "text": "Modifier uniquement le nom du switch dans l'inventaire."
             },
             {
               "id": "r2",
-              "text": "Pour supprimer l'historique."
+              "text": "Attendre le prochain inventaire annuel pour corriger les ports."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Le logiciel doit refléter la configuration réelle.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "explanation": "Une documentation mise à jour immédiatement permet au prochain technicien de retrouver la connexion réelle.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     },
@@ -359,45 +359,45 @@
       "questions": [
         {
           "id": "c8-q1",
-          "text": "Une direction demande les PC à renouveler l'an prochain. Quelles données sont les plus utiles ?",
+          "text": "La direction demande quels PC prévoir au renouvellement l'an prochain. Quelles données comparer ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Âge, état, usage et politique de renouvellement."
+              "text": "Les modèles et la taille des écrans."
             },
             {
               "id": "r1",
-              "text": "Couleur du clavier uniquement."
+              "text": "Les dates d'achat, l'état, l'usage et la politique de renouvellement."
             },
             {
               "id": "r2",
-              "text": "Nombre de fenêtres ouvertes."
+              "text": "Les noms des utilisateurs et les marques uniquement."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "Une prévision croise plusieurs informations fiables.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "correctAnswerId": "r1",
+          "explanation": "Un renouvellement se prépare à partir de l'âge, de l'état, des besoins et des règles de l'entreprise.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         },
         {
           "id": "c8-q2",
-          "text": "Une liste indique qu'un salarié possède un PC qu'il a déjà rendu. Quelle est la priorité ?",
+          "text": "Un rapport annonce 12 PC disponibles. Deux sont encore marqués « libres » alors qu'ils ont été prêtés. Quelle décision prendre ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Corriger l'affectation après vérification."
+              "text": "Utiliser le total 12 puisque le logiciel l'affiche."
             },
             {
               "id": "r1",
-              "text": "Acheter immédiatement un second PC."
+              "text": "Supprimer le rapport et refaire tout l'inventaire."
             },
             {
               "id": "r2",
-              "text": "Considérer que tous les rapports sont corrects."
+              "text": "Vérifier et corriger les deux affectations avant de décider."
             }
           ],
-          "correctAnswerId": "r0",
-          "explanation": "La qualité des décisions dépend de la qualité des données.",
-          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+          "correctAnswerId": "r2",
+          "explanation": "Un rapport ne vaut que par ses données. Les prêts oubliés doivent être enregistrés avant d'utiliser le total.",
+          "hint": "Compare les conséquences de chaque choix pour le suivi du parc."
         }
       ]
     }
