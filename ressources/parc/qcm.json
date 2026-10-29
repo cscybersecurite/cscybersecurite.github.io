@@ -3,233 +3,401 @@
   "quizzes": [
     {
       "id": "chapitre-1",
-      "title": "Je me teste : mission 1",
+      "title": "Je me teste : chapitre 1",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-1-q1",
-          "text": "Pourquoi une fiche d'actif doit-elle être partagée dans une application ?",
+          "id": "c1-q1",
+          "text": "Une société de services suit les serveurs de plusieurs clients. Pourquoi conserve-t-elle leurs configurations ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Pour permettre à plusieurs techniciens de travailler à partir des mêmes données."
+              "text": "Pour que les techniciens préparent le support et les interventions."
             },
             {
               "id": "r1",
-              "text": "Pour empêcher les collègues de voir le parc."
+              "text": "Pour assurer obligatoirement la garantie constructeur des serveurs."
             },
             {
               "id": "r2",
-              "text": "Pour remplacer les interventions techniques."
+              "text": "Pour devenir propriétaire de tous les serveurs."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Une fiche commune facilite la coordination et évite les informations dispersées.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "explanation": "La société de services utilise ces informations pour intervenir chez les clients, sans devenir propriétaire ou garant du matériel.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c1-q2",
+          "text": "Dans une banque, quel usage du parc correspond à un service informatique interne ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Suivre uniquement les ventes aux clients finaux."
+            },
+            {
+              "id": "r1",
+              "text": "Suivre les postes des salariés et préparer leur renouvellement."
+            },
+            {
+              "id": "r2",
+              "text": "Suivre uniquement la fabrication des écrans."
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Le service interne gère les équipements et les besoins de sa propre organisation.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     },
     {
       "id": "chapitre-2",
-      "title": "Je me teste : mission 2",
+      "title": "Je me teste : chapitre 2",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-2-q1",
-          "text": "Deux PC ont le même modèle. Quel champ permet normalement de les distinguer ?",
+          "id": "c2-q1",
+          "text": "Deux PC ont le même fabricant et le même modèle. Quelle donnée permet de les distinguer ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le type de processeur."
-            },
-            {
-              "id": "r1",
               "text": "Le numéro de série."
             },
             {
+              "id": "r1",
+              "text": "Le nombre de lettres du modèle."
+            },
+            {
               "id": "r2",
-              "text": "Le fabricant."
+              "text": "Le nom du fabricant."
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le numéro de série sert à identifier un exemplaire précis.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c2-q2",
+          "text": "Après un déménagement de bureau, que faut-il vérifier dans la fiche de l'équipement ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Seulement la couleur de l'écran."
+            },
+            {
+              "id": "r1",
+              "text": "Le lieu et éventuellement l'affectation."
+            },
+            {
+              "id": "r2",
+              "text": "Uniquement la date de fabrication."
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Le numéro de série distingue deux machines même lorsqu'elles sont identiques en apparence.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "explanation": "Les données de gestion évoluent au fil de la vie de l'équipement.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     },
     {
       "id": "chapitre-3",
-      "title": "Je me teste : mission 3",
+      "title": "Je me teste : chapitre 3",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-3-q1",
-          "text": "Une stagiaire doit seulement saisir des équipements réseau. Quel profil convient ?",
+          "id": "c3-q1",
+          "text": "Une stagiaire doit saisir des équipements réseau. Quelle solution est adaptée ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Un profil limité à l'inventaire nécessaire."
+              "text": "Partager le compte administrateur."
             },
             {
               "id": "r1",
-              "text": "Un compte administrateur complet."
+              "text": "Créer un compte avec seulement les droits nécessaires."
             },
             {
               "id": "r2",
-              "text": "Le compte personnel de Camille."
+              "text": "Laisser son compte sans mot de passe."
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Les droits dépendent des missions de la personne.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c3-q2",
+          "text": "Un salarié quitte l'entreprise. Quelle action relève de la gestion de parc ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Vérifier la restitution de son matériel et mettre à jour les affectations."
+            },
+            {
+              "id": "r1",
+              "text": "Effacer toutes les fiches du service."
+            },
+            {
+              "id": "r2",
+              "text": "Garder son PC affecté définitivement."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "Les autorisations doivent suivre la mission, selon le principe du moindre privilège.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "explanation": "Un départ modifie les besoins, les attributions et les accès.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     },
     {
       "id": "chapitre-4",
-      "title": "Je me teste : mission 4",
+      "title": "Je me teste : chapitre 4",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-4-q1",
-          "text": "Un salarié ne possède aucun rendez-vous dans le planning, mais il est en congé. Est-il disponible ?",
+          "id": "c4-q1",
+          "text": "Un technicien sait réparer une panne, mais son planning indique une intervention au même moment. Que faire ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Oui, son agenda est vide."
+              "text": "Le programmer quand même."
             },
             {
               "id": "r1",
-              "text": "Oui, si l'intervention est courte."
+              "text": "Vérifier un autre créneau ou une autre personne compétente."
             },
             {
               "id": "r2",
-              "text": "Non, le congé doit être pris en compte."
+              "text": "Supprimer l'autre mission sans prévenir."
             }
           ],
-          "correctAnswerId": "r2",
-          "explanation": "Le planning doit tenir compte des indisponibilités et des règles de travail.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "correctAnswerId": "r1",
+          "explanation": "La planification doit tenir compte des conflits horaires.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c4-q2",
+          "text": "Pourquoi une journée sans rendez-vous ne prouve-t-elle pas qu'un salarié est disponible ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Il peut être en congé, en repos ou en formation."
+            },
+            {
+              "id": "r1",
+              "text": "Un planning est toujours faux."
+            },
+            {
+              "id": "r2",
+              "text": "Les techniciens ne prennent jamais de congés."
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Il faut consulter les indisponibilités réelles.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     },
     {
       "id": "chapitre-5",
-      "title": "Je me teste : mission 5",
+      "title": "Je me teste : chapitre 5",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-5-q1",
-          "text": "Un testeur de fibre est réservé jusqu'à 16 h. Une équipe en a besoin à 15 h. Quelle action est cohérente ?",
+          "id": "c5-q1",
+          "text": "Deux équipes veulent le même testeur de fibre à 15 h. Quelle information aide à décider ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Faire apparaître le conflit et réorganiser la réservation."
+              "text": "La marque du smartphone du technicien."
             },
             {
               "id": "r1",
-              "text": "Supprimer la réservation existante sans prévenir."
+              "text": "Le calendrier des réservations et les dates de retour."
             },
             {
               "id": "r2",
-              "text": "Prendre le testeur sans enregistrer la sortie."
+              "text": "Le prix du véhicule de service."
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "Les réservations permettent de repérer les conflits et de chercher une autre organisation.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c5-q2",
+          "text": "Deux modules SFP sont utilisés lors d'une intervention. Que doit-on faire dans le stock ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Enregistrer leur sortie et contrôler la quantité restante."
+            },
+            {
+              "id": "r1",
+              "text": "Ne rien faire puisqu'ils sont petits."
+            },
+            {
+              "id": "r2",
+              "text": "Les compter comme disponibles jusqu'au prochain inventaire annuel."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "La disponibilité réelle du matériel doit être vérifiée et les conflits doivent être résolus.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "explanation": "Les pièces consommées doivent sortir du stock pour éviter des quantités erronées.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     },
     {
       "id": "chapitre-6",
-      "title": "Je me teste : mission 6",
+      "title": "Je me teste : chapitre 6",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-6-q1",
-          "text": "Un PC acheté 900 € tombe en panne après quatre ans. Que faut-il examiner avant de décider ?",
+          "id": "c6-q1",
+          "text": "Une entreprise renouvelle 120 PC à 900 € chaque année. Quel montant d'achats doit-elle prévoir ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Sa couleur et sa taille uniquement."
+              "text": "10 800 €"
             },
             {
               "id": "r1",
-              "text": "Son état, les frais de réparation, sa garantie et le programme de renouvellement."
+              "text": "108 000 €"
             },
             {
               "id": "r2",
-              "text": "Le nom de son dernier utilisateur uniquement."
+              "text": "1 080 000 €"
             }
           ],
           "correctAnswerId": "r1",
-          "explanation": "Une bonne décision compare le coût et l'intérêt de réparer ou remplacer.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "explanation": "120 × 900 € = 108 000 €, hors déploiement, licences et autres frais.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c6-q2",
+          "text": "Un PC de quatre ans est encore adapté à son utilisateur. Quelle décision est raisonnable ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le remplacer obligatoirement à sa date anniversaire."
+            },
+            {
+              "id": "r1",
+              "text": "Examiner son état, ses besoins et les coûts avant de décider."
+            },
+            {
+              "id": "r2",
+              "text": "Ignorer son entretien puisqu'il fonctionne."
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "L'âge est un critère parmi d'autres. L'utilisation et les coûts comptent aussi.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     },
     {
       "id": "chapitre-7",
-      "title": "Je me teste : mission 7",
+      "title": "Je me teste : chapitre 7",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-7-q1",
-          "text": "Avant de débrancher un switch, quel document aide le plus ?",
+          "id": "c7-q1",
+          "text": "Un port de switch n'a pas de destination documentée. Que faire avant un remplacement ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Le trombinoscope de l'entreprise."
+              "text": "Identifier le raccordement et les services concernés."
             },
             {
               "id": "r1",
-              "text": "La liste des congés."
+              "text": "Débrancher au hasard."
             },
             {
               "id": "r2",
-              "text": "Une carte des ports, liaisons et équipements raccordés."
+              "text": "Supprimer tous les ports du logiciel."
             }
           ],
-          "correctAnswerId": "r2",
-          "explanation": "La documentation du réseau limite les erreurs lors des changements.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "correctAnswerId": "r0",
+          "explanation": "La documentation des liaisons évite des coupures inutiles.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c7-q2",
+          "text": "Après avoir modifié un brassage, pourquoi mettre à jour les fiches ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Pour que les collègues connaissent les nouvelles liaisons."
+            },
+            {
+              "id": "r1",
+              "text": "Pour changer le fabricant du switch."
+            },
+            {
+              "id": "r2",
+              "text": "Pour supprimer l'historique."
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le logiciel doit refléter la configuration réelle.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     },
     {
       "id": "chapitre-8",
-      "title": "Je me teste : mission 8",
+      "title": "Je me teste : chapitre 8",
       "shuffleQuestions": true,
       "shuffleAnswers": true,
       "questions": [
         {
-          "id": "mission-8-q1",
-          "text": "Une licence expire bientôt. Pourquoi créer une alerte ?",
+          "id": "c8-q1",
+          "text": "Une direction demande les PC à renouveler l'an prochain. Quelles données sont les plus utiles ?",
           "answers": [
             {
               "id": "r0",
-              "text": "Pour anticiper son renouvellement avant une interruption."
+              "text": "Âge, état, usage et politique de renouvellement."
             },
             {
               "id": "r1",
-              "text": "Pour supprimer le logiciel dès aujourd'hui."
+              "text": "Couleur du clavier uniquement."
             },
             {
               "id": "r2",
-              "text": "Pour acheter des licences supplémentaires sans vérifier les besoins."
+              "text": "Nombre de fenêtres ouvertes."
             }
           ],
           "correctAnswerId": "r0",
-          "explanation": "L'anticipation évite les ruptures de service et les achats inutiles.",
-          "hint": "Reviens aux informations du scénario et à la méthode professionnelle."
+          "explanation": "Une prévision croise plusieurs informations fiables.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
+        },
+        {
+          "id": "c8-q2",
+          "text": "Une liste indique qu'un salarié possède un PC qu'il a déjà rendu. Quelle est la priorité ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Corriger l'affectation après vérification."
+            },
+            {
+              "id": "r1",
+              "text": "Acheter immédiatement un second PC."
+            },
+            {
+              "id": "r2",
+              "text": "Considérer que tous les rapports sont corrects."
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "La qualité des décisions dépend de la qualité des données.",
+          "hint": "Relis l'exemple et la méthode expliqués dans ce chapitre."
         }
       ]
     }
