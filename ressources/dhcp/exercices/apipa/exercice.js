@@ -57,7 +57,7 @@ function build(){
  ]}
  ],
  hypotheses:[
- {label:"Le PC utilise une adresse automatique APIPA et doit obtenir un nouveau bail DHCP.",correct:true,requiredChecks:["all"],feedback:"Tu peux maintenant proposer une intervention.",prematureFeedback:"Consulte d'abord la configuration IPv4 détaillée du PC."},
+ {label:"Le PC utilise une adresse automatique APIPA.",correct:true,requiredChecks:["all"],feedback:"Tu peux maintenant proposer une intervention.",prematureFeedback:"Consulte d'abord la configuration IPv4 détaillée du PC."},
  {label:"Le service DHCP est arrêté.",correct:false,feedback:"Ce diagnostic n'est pas confirmé. Tu peux poursuivre tes contrôles."},
  {label:"Le cordon de brassage est débranché.",correct:false,feedback:"Vérifie le câblage avant de conclure."},
  {label:"Le PC a une adresse DHCP correcte.",correct:false,feedback:"Compare l'adresse du PC avec la plage du serveur."}
