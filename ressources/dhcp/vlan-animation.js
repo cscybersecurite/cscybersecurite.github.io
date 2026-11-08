@@ -133,8 +133,13 @@
      message('Offer','Le serveur propose '+d.ip+' et répond au relais DHCP.');
      await packet([[660,179],[610,179],[477,179],[477,d.start],[342,d.start],[155,d.start]],'relay',token,'O');
      if(token!==epoch)break;
-     message('Request','PC'+d.origin+' accepte la proposition : Request transmis par le relais vers le serveur.');
-     await packet([[155,d.start],[342,d.start],[477,d.start],[477,179],[610,179],[660,179]],'relay',token,'R');
+     message('Request','PC'+d.origin+' diffuse son DHCP Request dans le VLAN '+v+'. Le switch le transmet aux autres ports du même VLAN et le relais l’envoie au serveur.');
+     await packet([[155,d.start],[342,d.start]],color,token,'R');
+     if(token!==epoch)break;
+     await Promise.all([
+      packet([[342,d.start],[387,d.start],[387,d.other],[342,d.other],[155,d.other]],color,token,'R'),
+      packet([[342,d.start],[477,d.start],[477,179],[610,179],[660,179]],'relay',token,'R')
+     ]);
      if(token!==epoch)break;
      message('ACK','Le serveur confirme le bail et renvoie l’ACK par le relais vers PC'+d.origin+'.');
      await packet([[660,179],[610,179],[477,179],[477,d.start],[342,d.start],[155,d.start]],'relay',token,'A');
