@@ -1,4 +1,5 @@
 import {createEngine} from "https://chaoli22000bzh.github.io/C2-Lab/r2d3-v1/r2d3-core.js";
+import {createPingAnimator} from "https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/ping-animation.js";
 import {formatIpconfig} from "https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/ipconfig.js";
 import {formatIpconfigAll} from "https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/ipconfig-all.js";
 import {formatIpconfigRelease,formatIpconfigRenew} from "https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/dhcp-commands.js";
@@ -6,7 +7,7 @@ import {formatIpconfigRelease,formatIpconfigRenew} from "https://chaoli22000bzh.
 // DiagCore organise les contrôles, l'hypothèse, l'intervention et la vérification.
 const host=document.getElementById("dhcp-apipa-diagnostic")??document.getElementById("diagnostic");
 const status=document.getElementById("dhcp-apipa-status")??document.getElementById("status");
-let scenario,engine,diag,seq=0,renewAttempts=0;
+let scenario,engine,diag,seq=0,renewAttempts=0,pingAnimator=null;
 const snapshot=()=>engine.getSnapshot();
 const pc=()=>snapshot().objectsById.portable;
 const server=()=>snapshot().objectsById.serveur;
@@ -57,7 +58,7 @@ function build(){
  ]}
  ],
  hypotheses:[
- {label:"Le PC utilise une adresse automatique APIPA.",correct:true,requiredChecks:["all"],feedback:"Tu peux maintenant proposer une intervention.",prematureFeedback:"Consulte d'abord la configuration IPv4 détaillée du PC."},
+ {label:"Le PC utilise une adresse automatique APIPA.",correct:true,requiredChecks:["all"],feedback:"Diagnostic correct.",prematureFeedback:"Consulte d'abord la configuration IPv4 détaillée du PC."},
  {label:"Le service DHCP est arrêté.",correct:false,feedback:"Ce diagnostic n'est pas confirmé. Tu peux poursuivre tes contrôles."},
  {label:"Le cordon de brassage est débranché.",correct:false,feedback:"Vérifie le câblage avant de conclure."},
  {label:"Le PC a une adresse DHCP correcte.",correct:false,feedback:"Compare l'adresse du PC avec la plage du serveur."}
@@ -85,35 +86,108 @@ function decorateCommandButtons(){
   primary.className="dhcp-command-label";primary.textContent=label;
   const secondary=document.createElement("span");
   secondary.className="dhcp-command-code";secondary.textContent=command;
-  button.replaceChildren(primary,secondary);
+  const wrap=document.createElement("span");wrap.className="dhcp-command-wrap";wrap.append(primary,secondary);
+  button.replaceChildren(wrap);
   button.dataset.dhcpCommand=command;
  }
 }
 
+
+// Parcours d'intervention autonome : le moteur R2D3 reste responsable du DHCP.
+// DiagCore garde la phase diagnostic. Les interventions et vérifications sont propres à cet exercice.
+function makeChoice(parent,label,command,action){
+ const b=document.createElement("button");b.type="button";b.className="diagcore__choice";
+ const wrap=document.createElement("span");wrap.className="dhcp-command-wrap";
+ const name=document.createElement("span");name.className="dhcp-command-label";name.textContent=label;wrap.append(name);
+ if(command){const code=document.createElement("span");code.className="dhcp-command-code";code.textContent=command;wrap.append(code);}
+ b.append(wrap);b.addEventListener("click",action);parent.append(b);return b;
+}
+function createSection(title){
+ const next=host.querySelector(".diagcore__next");if(!next)return null;
+ next.replaceChildren();next.dataset.dhcpStage="exercise";
+ const h=document.createElement("h2");h.className="diagcore__title";h.textContent=title;next.append(h);
+ return next;
+}
+function consoleResult(parent,content){
+ const pre=document.createElement("pre");pre.className="diagcore__terminal";pre.setAttribute("aria-live","polite");
+ pre.textContent=content;parent.append(pre);return pre;
+}
+function cancelPing(){if(pingAnimator){pingAnimator.cancel();pingAnimator=null;}}
+function pingResult(parent,completed){
+ cancelPing();
+ const pre=consoleResult(parent,"");
+ const result=engine.query({type:"network.ping",sourceId:"portable",targetId:"serveur"});
+ pingAnimator=createPingAnimator(pre);
+ pingAnimator.run({sourceName:"PC portable",sourceAddress:pc().config.ipv4.address,targetAddress:"192.168.30.2",outcome:result,onComplete:completed});
+}
+function interventions(){
+ cancelPing();
+ const next=createSection("Que fais-tu pour rétablir le réseau ?");
+ if(!next)return;
+ const choices=document.createElement("div");choices.className="dhcp-action-list";next.append(choices);
+ makeChoice(choices,"Renouveler l'adresse IP","ipconfig /renew",()=>{try{verification(doRenew().text);}catch(e){status.textContent="Commande non exécutée : "+e.message;}});
+ makeChoice(choices,"Libérer l'adresse IP","ipconfig /release",()=>{try{verification(doRelease().text);}catch(e){status.textContent="Commande non exécutée : "+e.message;}});
+ makeChoice(choices,"Vider le cache DNS","ipconfig /flushdns",()=>verification([
+  "C:\\Users\\technicien>ipconfig /flushdns","","Configuration IP de Windows","","Cache de résolution DNS vidé.","","C:\\Users\\technicien>"
+ ].join("\n")));
+ makeChoice(choices,"Tester la connexion réseau","ping 192.168.30.2",()=>verification(null,true));
+}
+function verification(output,actionPing=false){
+ cancelPing();
+ const next=createSection("Vérification");
+ if(!next)return;
+ const msg=document.createElement("p");msg.className="dhcp-verification-prompt";
+ msg.textContent="Le dépannage n'est pas terminé. Vérifie si l'incident est résolu.";next.append(msg);
+ if(actionPing)pingResult(next,()=>{});
+ else consoleResult(next,output);
+ const controls=document.createElement("div");controls.className="dhcp-action-list";
+ const heading=document.createElement("h3");heading.className="dhcp-controls-title";heading.textContent="Contrôles";next.append(heading);next.append(controls);
+ const result=consoleResult(next,"");result.hidden=true;
+ let checked=false;
+ const show=text=>{cancelPing();result.hidden=false;result.textContent=text;checked=true;notice.textContent="";};
+ makeChoice(controls,"Configuration IP","ipconfig",()=>show(ip().text));
+ makeChoice(controls,"Configuration IP détaillée","ipconfig /all",()=>show(ip(true).text));
+ makeChoice(controls,"Tester la connexion réseau","ping 192.168.30.2",()=>{
+  result.hidden=true;cancelPing();
+  const extra=next.querySelector(".dhcp-ping-check");if(extra)extra.remove();
+  const container=document.createElement("div");container.className="dhcp-ping-check";next.insertBefore(container,decisions);
+  pingResult(container,()=>{checked=true;});
+ });
+ makeChoice(controls,"Contrôler le service DHCP",null,()=>show(server().config.dhcpEnabled?"Le service DHCP est démarré.":"Le service DHCP est arrêté."));
+ makeChoice(controls,"Contrôler le câblage",null,()=>show([
+  link("cordon-pc","Cordon PC - prise murale"),
+  link("liaison-permanente","Liaison permanente"),
+  link("cordon-brassage","Cordon de brassage")
+ ].join("\n")));
+ const decisions=document.createElement("div");decisions.className="dhcp-action-list dhcp-verification-decisions";next.append(decisions);
+ const notice=document.createElement("p");notice.className="dhcp-verification-notice";
+ notice.setAttribute("role","status");next.append(notice);
+ makeChoice(decisions,"L'incident est résolu",null,()=>{
+  if(!checked){notice.textContent="Effectue d'abord un contrôle.";return;}
+  const ok=Boolean(pc().config.ipv4.lease)&&engine.query({type:"network.ping",sourceId:"portable",targetId:"serveur"}).success;
+  if(ok){cancelPing();const done=createSection("Intervention terminée");const p=document.createElement("p");p.textContent="L'incident est résolu. Le dépannage est terminé.";done.append(p);}
+  else notice.textContent="La clôture n'est pas possible avec l'état actuel du réseau. Poursuis tes contrôles ou tes interventions.";
+ });
+ makeChoice(decisions,"Poursuivre le dépannage",null,interventions);
+}
+function decorateExercise(){
+ decorateCommandButtons();
+ const next=host.querySelector(".diagcore__next");
+ if(!next||next.dataset.dhcpStage==="exercise")return;
+ const title=next.querySelector(".diagcore__title")?.textContent;
+ if(title==="Que fais-tu pour rétablir le réseau ?")interventions();
+}
 function render(){
  if(diag)diag.destroy();
- const data=build();
- // DiagCore v1.2.2 n'expose pas de callback d'action pour la phase correction.
- // On déclenche la commande réseau sur le clic réel, avant son gestionnaire interne,
- // puis la validation lit exclusivement le nouvel état moteur.
- const correctionLabel=data.correction.label;
- const onCorrection=event=>{
-  const button=event.target.closest("button.diagcore__choice");
-  if(!button||button.textContent!==correctionLabel)return;
-  try{const output=doRenew();status.textContent=output.text.includes("erreur")?"Renouvellement non obtenu.":"Commande exécutée."; }
-  catch(e){status.textContent="Erreur : "+e.message;}
- };
- host.addEventListener("click",onCorrection,true);
  if(host._cleanupCorrection)host._cleanupCorrection();
- host._cleanupCorrection=()=>host.removeEventListener("click",onCorrection,true);
  if(host._cleanupCommandButtons)host._cleanupCommandButtons();
- const commandObserver=new MutationObserver(decorateCommandButtons);
- commandObserver.observe(host,{childList:true,subtree:true});
- host._cleanupCommandButtons=()=>commandObserver.disconnect();
- diag=window.DiagCore.mount(host,data,{mode:"vertical"});
- decorateCommandButtons();
+ const observer=new MutationObserver(decorateExercise);
+ observer.observe(host,{subtree:true,childList:true});
+ host._cleanupCommandButtons=()=>observer.disconnect();
+ diag=window.DiagCore.mount(host,build(),{mode:"vertical"});
+ decorateExercise();
 }
-function reset(){engine=createEngine(scenario);seq=0;renewAttempts=0;status.textContent="Exercice prêt.";render();}
+function reset(){cancelPing();engine=createEngine(scenario);seq=0;renewAttempts=0;status.textContent="Exercice prêt.";render();}
 async function init(){
  try{
   if(!host||!status)throw new Error("Zone d’exercice introuvable");
