@@ -246,7 +246,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .dns-resolved-icon{font-size:21px;color:#49df83;flex:none}
 </style>
 <link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200">
-<link rel="stylesheet" href="../diagcore/v1.2.2/diagcore.css?v=122"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
+<link rel="stylesheet" href="https://chaoli22000bzh.github.io/DiagCore/v1.3/diagcore.css"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
 <header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
 <main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DNS" loading="eager" decoding="async"></figure>
@@ -526,12 +526,12 @@ QCMCore.load('qcm.json').then(data=>{
  console.error('DNS QCMCore :',error);
  document.querySelectorAll('.qcmcore-host').forEach(host=>{host.textContent='Impossible de charger le questionnaire. Actualise la page pour réessayer.';});
 });
-</script><script src="../diagcore/v1.2.2/diagcore.js?v=122"></script><script src="scenario-diagnostic.js?v=003"></script><script>
+</script><script src="https://chaoli22000bzh.github.io/DiagCore/v1.3/diagcore.js"></script><script src="scenario-diagnostic.js?v=130"></script><script>
 (function(){
 'use strict';
 const target=document.getElementById('dns-diagnostic-vertical');
 if(!target)return;
-if(!window.DiagCore||!window.DiagCore.version||!window.DiagCore.version.startsWith('1.2.')){target.textContent='Impossible de charger DiagCore 1.2.';return;}
+if(!window.DiagCore||!window.DiagCore.version||!window.DiagCore.version.startsWith('1.3.')){target.textContent='Impossible de charger DiagCore 1.3.';return;}
 if(!window.DNS_DIAGNOSTIC_SCENARIO){target.textContent='Scénario DNS indisponible.';return;}
 // La documentation ne nécessite pas un deuxième clic après le choix du groupe.
 target.addEventListener('click',event=>{
@@ -543,43 +543,6 @@ target.addEventListener('click',event=>{
  });
 },true);
 const app=window.DiagCore.mount(target,window.DNS_DIAGNOSTIC_SCENARIO,{mode:'vertical'});
-// Affichage HTML de ipconfig /all sur PC-01, sans modifier le moteur partagé.
-target.addEventListener('click',event=>{
- const b=event.target.closest('button.diagcore__choice');
- if(!b||b.textContent.trim()!=='ipconfig /all')return;
- const group=b.closest('.diagcore__group');
- if(group?.querySelector('.diagcore__group-title')?.textContent.trim()!=='PC-01')return;
- const entry=target.querySelector('.diagcore__timeline .diagcore__entry:last-child');
- const terminal=entry?.querySelector('.diagcore__terminal');
- if(!terminal)return;
- const rows=[['Nom de l’hôte','PC-01'],['DHCP activé','Oui'],['Adresse IPv4','192.168.10.142'],['Masque','255.255.255.0'],['Passerelle par défaut','192.168.10.1'],['Serveur DHCP','192.168.10.2'],['Serveur DNS','192.168.10.5']];
- const panel=document.createElement('div');panel.className='dns-ipconfig';
- const command=document.createElement('div');command.className='dns-ipconfig-command';command.textContent='PC-01> ipconfig /all';panel.append(command);
- for(const [label,value] of rows){const line=document.createElement('div');line.className='dns-ipconfig-row';const l=document.createElement('span');l.textContent=label;const v=document.createElement('span');v.textContent=value;line.append(l,v);panel.append(line);}
- terminal.replaceWith(panel);
-},false);
-
-// Présentation locale des etapes post-diagnostic : moteur DiagCore inchangé.
-function decorateLastPhase(label,title,icon){
- const entry=target.querySelector('.diagcore__timeline .diagcore__entry:last-child');
- if(!entry||entry.classList.contains('dns-phase-entry'))return;
- const heading=entry.querySelector('h3');
- if(!heading)return;
- entry.classList.add('dns-phase-entry');
- const original=heading.textContent;
- heading.textContent='';
- const symbol=document.createElement('span');symbol.className='dns-phase-icon';symbol.textContent=icon;symbol.setAttribute('aria-hidden','true');
- heading.append(symbol,document.createTextNode(title));
- const detail=document.createElement('p');detail.className='dns-phase-detail';detail.textContent=original;
- heading.after(detail);
-}
-target.addEventListener('click',event=>{
- const button=event.target.closest('button.diagcore__choice');
- if(!button)return;
- const name=button.textContent.trim();
- if(name==='Remettre le DNS de PC-02 en attribution automatique (DHCP)')decorateLastPhase(name,'Correction','🔧');
- if(name==='Tester la résolution DNS sur PC-02')decorateLastPhase(name,'Vérification','⌨');
-});
 target.addEventListener('diagcore:complete',()=>{
  const final=target.querySelector('.diagcore__complete');
  if(!final||final.classList.contains('dns-resolved'))return;
@@ -587,6 +550,6 @@ target.addEventListener('diagcore:complete',()=>{
  const symbol=document.createElement('span');symbol.className='dns-resolved-icon';symbol.textContent='✓';symbol.setAttribute('aria-hidden','true');
  final.prepend(symbol);
 });
-document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
+document.getElementById('dns-diagnostic-restart').addEventListener('click',()=>{window.resetDnsDiagnostic?.();app.restart();target.scrollIntoView({block:'start',behavior:'instant'});});
 })();
 </script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:".header-bar .toolbar",content:"main",title:"DNS"});</script></body></html>
