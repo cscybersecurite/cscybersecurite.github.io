@@ -33,22 +33,20 @@
 @media(max-width:520px){.dhcp-motion{padding:10px}.dhcp-motion__board{grid-template-columns:minmax(80px,1fr) minmax(44px,1fr) minmax(80px,1fr);gap:4px}.dhcp-motion__machine svg{width:50px;height:45px}.dhcp-motion__machine strong{font-size:.75rem}.dhcp-motion__machine small{font-size:.69rem}.dhcp-motion__lane>span:last-child{font-size:.65rem}.dhcp-motion__step{display:block}.dhcp-motion__step-detail{display:block;margin-top:3px}.dhcp-motion__steps{max-height:245px}}
 @media(prefers-reduced-motion:reduce){.dhcp-motion__step{animation:none}.dhcp-motion__packet--right,.dhcp-motion__packet--left,.dhcp-motion__packet--probe{animation-duration:.25s}}
 
-/* DORA : six adresses visibles, .103 proposée puis attribuée après ACK. APIPA inchangé. */
+/* DORA : quatre adresses sur une seule ligne ; fond identique, état lisible par le texte et la bordure. */
 .dhcp-motion--dora .dhcp-motion__board{grid-template-columns:minmax(110px,1fr) minmax(60px,1.15fr) minmax(146px,1.35fr)}
-.dhcp-motion__pool{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;width:100%;max-width:174px;margin-top:6px}
-.dhcp-motion__pool-card{display:grid;place-items:center;min-height:25px;padding:3px 2px;border:1px solid var(--line,#cbd8e8);border-radius:5px;font:700 .75rem/1.1 Consolas,monospace;transition:background .25s ease,border-color .25s ease,color .25s ease}
-.dhcp-motion__pool-card.is-used{background:#7d8899;color:#fff;border-color:#687586}
-.dhcp-motion__pool-card.is-free{background:var(--panel,#fff);color:var(--ink,#152b45)}
+.dhcp-motion__pool{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;width:100%;max-width:194px;margin-top:6px}
+.dhcp-motion__pool-card{display:grid;place-items:center;min-height:26px;padding:3px 1px;border:1px solid #343d49;border-radius:5px;background:#fff;color:#1a2532;font:700 .74rem/1.1 Consolas,monospace;transition:background .25s ease,border-color .25s ease,color .25s ease}
+.dhcp-motion__pool-card.is-used{background:#fff;color:#929aa5;border-color:#c6ccd3}
+.dhcp-motion__pool-card.is-free{background:#fff;color:#1a2532;border-color:#343d49}
 .dhcp-motion__pool-card.is-offered{background:#f4cb56;color:#33280f;border:2px solid #c58316;box-shadow:0 0 0 2px #e0ad3140}
-.dhcp-motion__pool-card.is-new{background:#5b907c;border-color:#377e64}
 .dhcp-motion__pool-caption{font-size:.69rem!important;min-height:0!important;margin-top:2px}
-.dhcp-motion--dora .dhcp-motion__packet--left{width:40px;display:grid;place-items:center;color:#fff;font:700 .67rem/1 Consolas,monospace;white-space:nowrap}
-.dhcp-motion--dora .dhcp-motion__packet--left{animation-name:dhcp-message-left-address}
+.dhcp-motion--dora .dhcp-motion__packet--left{width:40px;display:grid;place-items:center;color:#fff;font:700 .67rem/1 Consolas,monospace;white-space:nowrap;animation-name:dhcp-message-left-address}
 @keyframes dhcp-message-left-address{from{left:calc(100% - 40px);opacity:.9}to{left:0;opacity:1}}
 @media(max-width:520px){
  .dhcp-motion--dora .dhcp-motion__board{grid-template-columns:minmax(70px,1fr) minmax(30px,.55fr) minmax(126px,1.6fr);gap:3px;padding-inline:1px}
- .dhcp-motion__pool{gap:3px;max-width:156px}
- .dhcp-motion__pool-card{font-size:.69rem;min-height:23px;padding:2px}
+ .dhcp-motion__pool{gap:2px;max-width:172px}
+ .dhcp-motion__pool-card{font-size:.67rem;min-height:24px;padding:2px 0}
  .dhcp-motion__pool-caption{font-size:.61rem!important}
 }
 @media(prefers-reduced-motion:reduce){.dhcp-motion__pool-card{transition:none}}
