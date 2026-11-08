@@ -52,7 +52,8 @@
 .vlan-motion__history li strong{white-space:nowrap}
 @media(max-width:600px){
  .vlan-motion{padding:8px}
- .vlan-motion__svg{min-width:0}
+ .vlan-motion__canvas{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+ .vlan-motion__svg{min-width:700px;max-height:none}
  .vlan-motion__controls{gap:9px}
  .vlan-motion__toggle{font-size:.84rem}
  .vlan-motion__play{font-size:.8rem;padding:8px 10px}
