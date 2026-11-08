@@ -69,7 +69,7 @@ function html(kind){
   '<p class="dhcp-admin-save" role="status" aria-live="polite"></p>'+
   '<div class="dhcp-admin-pool"></div>'+
   '<h5>2. Effectuer les demandes DHCP</h5><div class="dhcp-admin-actions"></div>'+
-  '<h5>3. Consulter les attributions</h5><div class="dhcp-admin-leases"></div>'+
+  '<h5>3. Consulter les attributions</h5><div class="dhcp-admin-leases"></div>'+(exclusion?'<p class="dhcp-admin-conflicts" aria-live="polite"></p>':'')+
   '<div class="dhcp-admin-last" role="status" aria-live="polite"></div>'+
   '<div class="dhcp-admin-finish"><button type="button" class="dhcp-admin-check">Vérifier mon travail</button>'+
   '<button type="button" class="dhcp-admin-reset">Recommencer cet exercice</button></div>'+
@@ -104,6 +104,13 @@ function mount(kind,id){
   const cards=rows.map(x=>'<tr><td>'+((x.clientId==='tpe')?'TPE':x.clientId.replace('pc-','PC '))+'</td><td>'+x.address+'</td></tr>').join('');
   get('.dhcp-admin-leases').innerHTML='<table><thead><tr><th>Client</th><th>Adresse attribuée</th></tr></thead><tbody>'+
    (cards||'<tr><td colspan="2">Aucun bail actif.</td></tr>')+'</tbody></table>';
+  if(exclusion){
+   const detected=engine.query({type:'network.ipv4Conflicts'});
+   const conflicts=detected.status==='ok'?detected.conflicts:[];
+   const warning=get('.dhcp-admin-conflicts');
+   warning.textContent=conflicts.length?'Conflit IPv4 détecté : '+conflicts.map(x=>x.address).join(', ')+'.':'Aucun conflit IPv4 détecté.';
+   warning.className='dhcp-admin-conflicts '+(conflicts.length?'is-conflict':'');
+  }
   if(!exclusion)get('.dhcp-admin-tpe-state').textContent=snapshot().linksById['link-tpe'].connected?'TPE au bureau':'TPE en déplacement';
  }
  function command(label,fn){
@@ -145,6 +152,7 @@ function mount(kind,id){
     information('TPE : adresse attribuée '+(address||'aucune')+'.');
    }));
    actions.append(command('Faire repartir le TPE',()=>{
+    if(!rounds.firstObserved){information('Effectue une première demande DHCP du TPE avant son départ.');return;}
     if(!snapshot().linksById['link-tpe'].connected){information('Le TPE est déjà en déplacement.');return;}
     issue('dhcp.release','tpe');
     issue('network.setLinkConnected','link-tpe',{connected:false});
