@@ -5,9 +5,9 @@ const ICON_SERVER='<svg viewBox="0 0 64 55" aria-hidden="true"><rect x="13" y="4
 const scripts={
  dora:[
   ['D','Discover','Le PC recherche un serveur DHCP.','right',1500],
-  ['O','Offer','Le serveur choisit une adresse libre dans sa plage et propose 192.168.10.100.','left',2050],
+  ['O','Offer','Les adresses .100 à .102 sont déjà utilisées. Le serveur propose la première disponible : 192.168.10.103.','left',2050],
   ['R','Request','Le PC demande à utiliser l’adresse proposée.','right',1750],
-  ['A','Acknowledgment (ACK)','Le serveur confirme le bail. Le PC reçoit 192.168.10.100.','left',1950]
+  ['A','Acknowledgment (ACK)','Le serveur confirme le bail : 192.168.10.103 est maintenant attribuée au PC.','left',1950]
  ],
  apipa:[
   ['D','Discover','Le PC recherche un serveur DHCP.','right',1700],
@@ -26,7 +26,11 @@ function mount(root,mode){
  '<div class="dhcp-motion__board">'+
   '<div class="dhcp-motion__machine">'+ICON_PC+'<strong>PC Windows</strong><small class="dhcp-motion__address">Pas d’adresse IPv4</small></div>'+
   '<div class="dhcp-motion__lane" aria-hidden="true"><span class="dhcp-motion__packet"></span><span>Réseau local</span></div>'+
-  '<div class="dhcp-motion__machine '+(apipa?'dhcp-motion__machine--offline':'')+'">'+ICON_SERVER+'<strong>Serveur DHCP</strong><small>'+(apipa?'Aucune réponse':'Plage : .100 à .150')+'</small></div>'+
+  '<div class="dhcp-motion__machine '+(apipa?'dhcp-motion__machine--offline':'')+'">'+ICON_SERVER+'<strong>Serveur DHCP</strong>'+
+ (apipa?'<small>Aucune réponse</small>':'<small>Plage : .100 à .105</small>'+
+ '<div class="dhcp-motion__pool" aria-label="Plage DHCP : adresses .100, .101 et .102 déjà attribuées, .103, .104 et .105 disponibles">'+
+ [100,101,102,103,104,105].map(n=>'<span class="dhcp-motion__pool-card '+(n<=102?'is-used':'is-free')+'" data-ip="'+n+'">.'+n+'</span>').join('')+
+ '</div><small class="dhcp-motion__pool-caption">Gris : déjà attribuée</small>')+'</div>'+
  '</div>'+
  '<div class="dhcp-motion__readout"><div class="dhcp-motion__heading"><strong>'+(apipa?'DHCP indisponible puis APIPA':'Les quatre échanges DORA')+'</strong><span class="dhcp-motion__count">Prêt à démarrer</span></div>'+
  '<ol class="dhcp-motion__steps"></ol><p class="dhcp-motion__note" aria-live="polite">Clique sur « Lancer l’animation » pour observer les échanges.</p></div>'+
@@ -35,6 +39,8 @@ function mount(root,mode){
  const list=root.querySelector('.dhcp-motion__steps'),note=root.querySelector('.dhcp-motion__note');
  const count=root.querySelector('.dhcp-motion__count'),address=root.querySelector('.dhcp-motion__address');
  let timers=[],epoch=0;
+ const poolCard=apipa?null:root.querySelector('.dhcp-motion__pool-card[data-ip="103"]');
+ const resetPool=()=>{if(poolCard){poolCard.className='dhcp-motion__pool-card is-free';poolCard.setAttribute('aria-label','Adresse .103 disponible');}};
  function cancel(){epoch++;timers.forEach(clearTimeout);timers=[];packet.className='dhcp-motion__packet';}
  function schedule(fn,delay){timers.push(setTimeout(fn,delay));}
  function show(entry){
@@ -50,7 +56,7 @@ function mount(root,mode){
  }
  function play(){
   cancel();const current=epoch,reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-  list.replaceChildren();address.textContent='Pas d’adresse IPv4';count.textContent='Étape 0 / '+steps.length;
+  list.replaceChildren();resetPool();packet.textContent='';address.textContent='Pas d’adresse IPv4';count.textContent='Étape 0 / '+steps.length;
   note.textContent=apipa?'Le serveur DHCP est indisponible.':'Le serveur DHCP est disponible.';
   btn.textContent='↻ Rejouer l’animation';
   let at=280;
@@ -61,13 +67,24 @@ function mount(root,mode){
     count.textContent='Étape '+(i+1)+' / '+steps.length;
     note.textContent=entry[2];
     packet.className='dhcp-motion__packet';
+    if(!apipa){
+     packet.textContent=(entry[0]==='O'||entry[0]==='A')?'.103':'';
+     if(entry[0]==='O'){
+      poolCard.className='dhcp-motion__pool-card is-offered';
+      poolCard.setAttribute('aria-label','Adresse .103 proposée, non encore attribuée');
+     }
+     if(entry[0]==='A'){
+      poolCard.className='dhcp-motion__pool-card is-used is-new';
+      poolCard.setAttribute('aria-label','Adresse .103 attribuée au PC après ACK');
+     }
+    }
     if(entry[3]!=='none'){
      void packet.offsetWidth;
      packet.style.setProperty('--dhcp-travel',(reduced?0.3:1.15)+'s');
      packet.classList.add('dhcp-motion__packet--'+entry[3]);
     }
     show(entry);
-    if(!apipa&&entry[0]==='A')address.textContent='192.168.10.100 /24';
+    if(!apipa&&entry[0]==='A')address.textContent='192.168.10.103 /24';
     if(apipa&&entry[1]==='Adresse APIPA')address.textContent='169.254.10.20 /16';
    },at);
    at+=duration+(reduced?150:320);
