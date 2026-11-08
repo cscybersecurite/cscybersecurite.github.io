@@ -1,0 +1,63 @@
+/* C² - Animation VLAN, même identité visuelle que DORA / APIPA. */
+.vlan-motion{max-width:920px;margin:16px auto 20px;border:1px solid var(--line,#cbd8e8);border-radius:12px;padding:12px;background:var(--panel,#fff);color:var(--ink,#152b45);min-width:0}
+.vlan-motion *{box-sizing:border-box}
+.vlan-motion__controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.vlan-motion__toggle{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.94rem;cursor:pointer}
+.vlan-motion__helper{appearance:none;position:relative;width:48px;height:27px;border-radius:20px;background:#778594;border:2px solid #657382;cursor:pointer;margin:0;flex:none}
+.vlan-motion__helper:after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;background:#fff;border-radius:50%;transition:left .2s}
+.vlan-motion__helper:checked{background:#176b96;border-color:#176b96}
+.vlan-motion__helper:checked:after{left:24px}
+.vlan-motion__helper:focus-visible,.vlan-motion__play:focus-visible{outline:3px solid #eea13e;outline-offset:3px}
+.vlan-motion__toggle-status{min-width:27px}
+.vlan-motion__play{margin:0;border:1px solid #155c93;background:#155c93;color:#fff;border-radius:9px;min-height:42px;padding:8px 14px;font:700 .9rem Arial,sans-serif;cursor:pointer}
+.vlan-motion__play:disabled{opacity:.65;cursor:default}
+.vlan-motion__canvas{width:100%;overflow:hidden}
+.vlan-motion__svg{display:block;width:100%;height:auto;max-height:345px}
+.vlan-motion__switch{fill:var(--soft,#edf5fb);stroke:var(--line,#9bb1c8);stroke-width:2}
+.vlan-motion__server-card{fill:var(--soft,#edf5fb);stroke:var(--line,#a7b8cc);stroke-width:2}
+.vlan-motion__label{font:700 18px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.vlan-motion__sub{font:13px Arial,sans-serif;fill:var(--muted,#506780)}
+.vlan-motion__net{font:700 15px Arial,sans-serif}
+.vlan-motion__blue{fill:#287dac}.vlan-motion__green{fill:#278768}
+.vlan-motion__pc-name{font:700 15px Arial,sans-serif;fill:var(--ink,#23384c)}
+.vlan-motion__pc-ip{font:13px Arial,sans-serif;fill:var(--muted,#506780)}
+.vlan-motion__port{stroke-width:1.7}
+.vlan-motion__port--10{fill:#e3f3ff;stroke:#338dc6}
+.vlan-motion__port--20{fill:#e2f6ef;stroke:#329b7b}
+.vlan-motion__port--99{fill:#f0eaff;stroke:#8b83ba}
+.vlan-motion__port-num{font:700 13px Arial,sans-serif;fill:#172d44}
+.vlan-motion__port-hint{font:12px Arial,sans-serif;fill:var(--muted,#506780)}
+.vlan-motion__svi-box{fill:var(--panel,#fff);stroke:var(--line,#a7b8cc);stroke-width:1.5}
+.vlan-motion__svi-label{font:700 12px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.vlan-motion__svi-state{font:700 12px Arial,sans-serif;fill:#2c7fa7}
+.vlan-motion__scope-head{font:700 14px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.vlan-motion__scope{fill:var(--panel,#fff);stroke:var(--line,#a7b8cc);stroke-width:1.4;transition:fill .2s,stroke .2s}
+.vlan-motion__scope--active{fill:#ffe8ae;stroke:#d38e19;stroke-width:2.4}
+.vlan-motion__scope-name{font:700 13px Arial,sans-serif;fill:var(--ink,#1b3149);pointer-events:none}
+.vlan-motion__scope-address{font:12px Arial,sans-serif;fill:var(--muted,#506780);pointer-events:none}
+.vlan-motion__moving--v10{fill:#287dac;stroke:#fff;stroke-width:2}
+.vlan-motion__moving--v20{fill:#278768;stroke:#fff;stroke-width:2}
+.vlan-motion__moving--relay{fill:#b98124;stroke:#fff;stroke-width:2}
+.vlan-motion__moving-text{font:700 15px Arial,sans-serif;fill:var(--ink,#132a41);paint-order:stroke;stroke:var(--panel,#fff);stroke-width:3;stroke-linejoin:round;pointer-events:none}
+.vlan-motion__legend{display:flex;flex-wrap:wrap;gap:8px 20px;padding:4px 0 11px;font-size:.79rem;color:var(--muted,#506780)}
+.vlan-motion__legend span{display:inline-flex;align-items:center;gap:6px}
+.vlan-motion__key{display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid #8b99a9}
+.vlan-motion__key--broadcast{background:#3189b6}.vlan-motion__key--relay{background:#b98124}
+.vlan-motion__readout{padding:11px 12px;border:1px solid var(--line,#cbd8e8);border-radius:9px;background:var(--soft,#ecf4fd)}
+.vlan-motion__readout-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;font-size:.93rem}
+.vlan-motion__counter{font-size:.78rem;color:var(--muted,#506780)}
+.vlan-motion__note{font-size:.9rem;line-height:1.4;min-height:2.5em;margin:9px 0!important}
+.vlan-motion__history{display:grid;gap:5px;margin:6px 0 0;padding:0;list-style:none;max-height:150px;overflow-y:auto;font-size:.83rem}
+.vlan-motion__history li{border-left:3px solid #3281b5;background:var(--panel,#fff);border-radius:4px;padding:6px 9px;display:flex;flex-wrap:wrap;gap:4px 9px}
+.vlan-motion__history li strong{white-space:nowrap}
+@media(max-width:600px){
+ .vlan-motion{padding:8px}
+ .vlan-motion__svg{min-width:0}
+ .vlan-motion__controls{gap:9px}
+ .vlan-motion__toggle{font-size:.84rem}
+ .vlan-motion__play{font-size:.8rem;padding:8px 10px}
+ .vlan-motion__legend{font-size:.72rem}
+ .vlan-motion__note{font-size:.84rem}
+ .vlan-motion__history{font-size:.77rem}
+}
+@media(prefers-reduced-motion:reduce){.vlan-motion__helper:after,.vlan-motion__scope{transition:none}}
