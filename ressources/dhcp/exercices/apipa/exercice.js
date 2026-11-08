@@ -18,7 +18,7 @@ function dispatch(type,targetId,params={}){
 const display=text=>({type:"command",text});
 function ip(all=false){
  const c=pc(),ipv4=c.config.ipv4,o=c.config.networkOptions??{gateway:null,dns:[]},lease=ipv4.lease;
- if(!all)return display(formatIpconfig({ipv4,gateway:o.gateway,connected:true})));
+ if(!all)return display(formatIpconfig({ipv4,gateway:o.gateway,connected:true}));
  const toDate=n=>new Intl.DateTimeFormat("fr-FR",{timeZone:"UTC",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(new Date(Date.UTC(2026,10,8,9,0)+n*1000));
  return display(formatIpconfigAll({ipv4,hostname:c.name,dhcp:true,autoconfiguration:true,connected:true,description:"Carte Ethernet du PC portable",mac:c.config.macAddress,gateway:o.gateway,dns:o.dns,dhcpServer:lease?server().config.ipv4.address:undefined,leaseStart:lease?toDate(lease.start):undefined,leaseEnd:lease?toDate(lease.expires):undefined}));
 }
