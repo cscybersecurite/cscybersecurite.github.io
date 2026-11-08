@@ -32,3 +32,6 @@
 .dhcp-admin-leases th,.dhcp-admin-leases td{border:1px solid var(--line,#bdccdc);padding:8px 10px;text-align:left;font-variant-numeric:tabular-nums}
 .dhcp-admin-leases th{background:var(--soft,#edf5fb)}
 @media(max-width:600px){.dhcp-admin-form{grid-template-columns:1fr}.dhcp-admin-form label:first-child{grid-column:auto}.dhcp-admin-actions{grid-template-columns:1fr}.dhcp-admin-finish>*{width:100%}.dhcp-admin-case{padding:12px}}
+
+.dhcp-admin-conflicts{font-size:.88rem;margin:7px 0;color:var(--muted,#51677c)}
+.dhcp-admin-conflicts.is-conflict{font-weight:700;border-left:4px solid #d77b22;padding:7px 10px;background:color-mix(in srgb,#d77b22 12%,transparent);color:var(--ink,#203046)}
