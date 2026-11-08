@@ -1,0 +1,34 @@
+/* C² : animation des échanges DHCP, commune à DORA et APIPA. */
+.dhcp-motion{max-width:740px;margin:17px auto 20px;padding:14px;border:1px solid var(--line,#cbd8e8);border-radius:12px;background:var(--panel,#fff);color:var(--ink,#152b45);font:inherit;min-width:0}
+.dhcp-motion *{box-sizing:border-box}
+.dhcp-motion__board{display:grid;grid-template-columns:minmax(92px,1fr) minmax(65px,1.4fr) minmax(92px,1fr);align-items:center;gap:9px;padding:9px 6px 14px}
+.dhcp-motion__machine{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;min-width:0}
+.dhcp-motion__machine svg{width:60px;height:54px;display:block}
+.dhcp-motion__machine strong{font-size:.89rem;line-height:1.25}
+.dhcp-motion__machine small{font-size:.77rem;color:var(--muted,#56677c);line-height:1.3;min-height:2em;overflow-wrap:anywhere}
+.dhcp-motion__machine--offline{opacity:.30;filter:grayscale(1)}
+.dhcp-motion__lane{border-top:2px dashed #7189a1;position:relative;height:52px;text-align:center;align-self:center;margin-top:7px}
+.dhcp-motion__lane>span:last-child{position:absolute;top:8px;left:0;right:0;font-size:.78rem;color:var(--muted,#56677c)}
+.dhcp-motion__packet{display:none;position:absolute;top:-14px;left:0;border-radius:7px;background:#1b78b6;border:2px solid #f4f8fc;width:25px;height:25px;box-shadow:0 2px 7px #0003;z-index:1}
+.dhcp-motion__packet--right,.dhcp-motion__packet--left,.dhcp-motion__packet--probe{display:block;animation-duration:var(--dhcp-travel,1.15s);animation-timing-function:ease-in-out;animation-fill-mode:both}
+.dhcp-motion__packet--right{animation-name:dhcp-message-right}
+.dhcp-motion__packet--left{background:#13815c;animation-name:dhcp-message-left}
+.dhcp-motion__packet--probe{background:#d18d1e;animation-name:dhcp-message-probe}
+@keyframes dhcp-message-right{from{left:0;opacity:.85}to{left:calc(100% - 25px);opacity:1}}
+@keyframes dhcp-message-left{from{left:calc(100% - 25px);opacity:.85}to{left:0;opacity:1}}
+@keyframes dhcp-message-probe{0%{left:0;opacity:1}65%{left:40%;opacity:1}100%{left:60%;opacity:0}}
+.dhcp-motion__readout{padding:11px 13px;border:1px solid var(--line,#cbd8e8);border-radius:9px;background:var(--soft,#ecf4fd)}
+.dhcp-motion__heading{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;font-size:.94rem}
+.dhcp-motion__count{font-size:.78rem;color:var(--muted,#56677c)}
+.dhcp-motion__steps{display:grid;gap:6px;margin:12px 0;padding:0;list-style:none;max-height:290px;overflow-y:auto}
+.dhcp-motion__step{display:flex;flex-wrap:wrap;gap:3px 10px;align-items:baseline;padding:7px 10px;border-left:3px solid #267cb3;background:var(--panel,#fff);border-radius:5px;animation:dhcp-appear .22s ease-out}
+.dhcp-motion__step-title{font-size:.88rem;flex:0 0 auto}
+.dhcp-motion__initial{font-size:1.16em;color:#176aab}
+.dhcp-motion__step-detail{font-size:.86rem;flex:1 1 200px}
+.dhcp-motion__note{font-size:.9rem;line-height:1.45;min-height:1.5em;margin:10px 0 0!important}
+.dhcp-motion__play{margin-top:11px;border:1px solid #155c93;background:#155c93;color:#fff;border-radius:9px;min-height:44px;padding:10px 16px;font:700 .93rem Arial,sans-serif;cursor:pointer}
+.dhcp-motion__play:hover{background:#114a77}
+.dhcp-motion__play:focus-visible{outline:3px solid #eea13e;outline-offset:2px}
+@keyframes dhcp-appear{from{opacity:.15;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:520px){.dhcp-motion{padding:10px}.dhcp-motion__board{grid-template-columns:minmax(80px,1fr) minmax(44px,1fr) minmax(80px,1fr);gap:4px}.dhcp-motion__machine svg{width:50px;height:45px}.dhcp-motion__machine strong{font-size:.75rem}.dhcp-motion__machine small{font-size:.69rem}.dhcp-motion__lane>span:last-child{font-size:.65rem}.dhcp-motion__step{display:block}.dhcp-motion__step-detail{display:block;margin-top:3px}.dhcp-motion__steps{max-height:245px}}
+@media(prefers-reduced-motion:reduce){.dhcp-motion__step{animation:none}.dhcp-motion__packet--right,.dhcp-motion__packet--left,.dhcp-motion__packet--probe{animation-duration:.25s}}
