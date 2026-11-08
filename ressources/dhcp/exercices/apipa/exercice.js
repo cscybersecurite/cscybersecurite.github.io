@@ -104,6 +104,7 @@ function build(){
     executed:true,changed:false,observation:display(["C:\\Users\\technicien>ipconfig /flushdns",
      "","Configuration IP de Windows","","Cache de résolution DNS vidé."].join("\n"))
    })}
+   ,{id:"ping-intervention",label:"Tester la connexion réseau",subtitle:"ping 192.168.30.2",execute:()=>({...ping(),changed:false})}
   ],
   canClose:({revision,verifications})=>{
    const ipValid=pc().config.ipv4.lease!==null&&pc().config.ipv4.address?.startsWith("192.168.30.");
@@ -127,6 +128,11 @@ function reset(){
 function loadCore(){
  if(window.DiagCore?.version==="1.3.0")return Promise.resolve();
  return new Promise((resolve,reject)=>{
+  if(!document.querySelector('link[data-diagcore-v13]')){
+   const css=document.createElement("link");css.rel="stylesheet";
+   css.href="https://chaoli22000bzh.github.io/DiagCore/v1.3/diagcore.css";
+   css.dataset.diagcoreV13="";document.head.append(css);
+  }
   const script=document.createElement("script");
   script.src="https://chaoli22000bzh.github.io/DiagCore/v1.3/diagcore.js";
   script.onload=()=>window.DiagCore?.version==="1.3.0"?resolve():reject(new Error("DiagCore V1.3 indisponible"));
