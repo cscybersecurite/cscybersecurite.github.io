@@ -1,7 +1,13 @@
 /* Diagnostic DNS - scénario indépendant du moteur partagé DiagCore. */
 (function(){
 'use strict';
+let repaired=false,technicalRevision=0;
+window.resetDnsDiagnostic=()=>{repaired=false;technicalRevision=0;};
 window.DNS_DIAGNOSTIC_SCENARIO={
+ getRevision:()=>technicalRevision,
+ workTitle:"Intervenir ou vérifier",
+ workPrompt:"Le dépannage n'est pas terminé. Vérifie si l'incident est résolu.",
+ interventionTitle:"Interventions possibles",
  title:'Où veux-tu intervenir ?',
  minimumChecks:2,groupPicker:true,hideHypothesisUntilReady:true,
  hypothesisLabel:'Mon diagnostic',hypothesisTitle:'Quelle est la cause de la panne ?',
@@ -15,10 +21,10 @@ window.DNS_DIAGNOSTIC_SCENARIO={
   {id:'nslookup1',label:'nslookup SRV-FICHIERS',observation:{type:'command',text:'PC-01> nslookup SRV-FICHIERS\nServeur : dns-interne\nAddress: 192.168.10.5\nNom : SRV-FICHIERS\nAddress: 192.168.10.10'}}
  ]},
  {title:'PC-02',checks:[
-  {id:'ipconfig2',label:'ipconfig /all',observation:{type:'command',text:'PC-02> ipconfig /all\nNom de l’hôte          PC-02\nDHCP activé            Oui\nAdresse IPv4           192.168.10.187\nMasque                 255.255.255.0\nPasserelle par défaut  192.168.10.1\nServeur DHCP           192.168.10.2\nServeur DNS            8.8.8.8'}},
+  {id:'ipconfig2',label:'ipconfig /all',verify:()=>({executed:true,observation:{type:'command',text:'PC-02> ipconfig /all\nNom de l’hôte          PC-02\nDHCP activé            Oui\nAdresse IPv4           192.168.10.187\nMasque                 255.255.255.0\nPasserelle par défaut  192.168.10.1\nServeur DHCP           192.168.10.2\nServeur DNS            '+(repaired?'192.168.10.5':'8.8.8.8')}}),observation:{type:'command',text:'PC-02> ipconfig /all\nNom de l’hôte          PC-02\nDHCP activé            Oui\nAdresse IPv4           192.168.10.187\nMasque                 255.255.255.0\nPasserelle par défaut  192.168.10.1\nServeur DHCP           192.168.10.2\nServeur DNS            8.8.8.8'}},
   {id:'pingip',label:'ping 192.168.10.10',observation:{type:'command',text:'PC-02> ping 192.168.10.10\nRéponse de 192.168.10.10 : octets=32 temps<1 ms TTL=128'}},
-  {id:'pingname',label:'ping SRV-FICHIERS',observation:{type:'command',text:'PC-02> ping SRV-FICHIERS\nLa requête Ping n’a pas pu trouver l’hôte SRV-FICHIERS.'}},
-  {id:'nslookup2',label:'nslookup SRV-FICHIERS',observation:{type:'command',text:'PC-02> nslookup SRV-FICHIERS\nServeur : dns.google\nAddress: 8.8.8.8\n*** dns.google ne parvient pas à trouver SRV-FICHIERS : domaine inexistant'}},
+  {id:'pingname',label:'ping SRV-FICHIERS',verify:()=>({executed:true,passed:repaired,observation:{type:'command',text:repaired?'PC-02> ping SRV-FICHIERS\nRéponse de 192.168.10.10 : octets=32 temps<1 ms TTL=128':'PC-02> ping SRV-FICHIERS\nLa requête Ping n’a pas pu trouver l’hôte SRV-FICHIERS.'}}),observation:{type:'command',text:'PC-02> ping SRV-FICHIERS\nLa requête Ping n’a pas pu trouver l’hôte SRV-FICHIERS.'}},
+  {id:'nslookup2',label:'nslookup SRV-FICHIERS',verify:()=>({executed:true,passed:repaired,observation:{type:'command',text:repaired?'PC-02> nslookup SRV-FICHIERS\nServeur : dns-interne\nAddress: 192.168.10.5\nNom : SRV-FICHIERS\nAddress: 192.168.10.10':'PC-02> nslookup SRV-FICHIERS\nServeur : dns.google\nAddress: 8.8.8.8\n*** dns.google ne parvient pas à trouver SRV-FICHIERS : domaine inexistant'}}),observation:{type:'command',text:'PC-02> nslookup SRV-FICHIERS\nServeur : dns.google\nAddress: 8.8.8.8\n*** dns.google ne parvient pas à trouver SRV-FICHIERS : domaine inexistant'}},
  ]},
  {title:'Infrastructure',checks:[
   {id:'dnsserver',label:'Serveur DNS interne',observation:{type:'command',text:'Serveur DNS : 192.168.10.5\nEnregistrement A\nSRV-FICHIERS -> 192.168.10.10\nService DNS : démarré'}},
@@ -30,8 +36,16 @@ window.DNS_DIAGNOSTIC_SCENARIO={
   {label:'Le serveur de fichiers est arrêté',correct:false,feedback:'Les résultats ne confirment pas cette hypothèse. Continue les vérifications.'},
   {label:'Le serveur DNS interne ne possède pas le nom du serveur de fichiers',correct:false,feedback:'Les résultats ne confirment pas cette hypothèse. Continue les vérifications.'}
  ],
- correction:{title:'Quelle correction proposes-tu ?',label:'Remettre le DNS de PC-02 en attribution automatique (DHCP)',requiredChecks:['dossier','ipconfig2','nslookup2'],prematureFeedback:'Il te manque des informations pour proposer un diagnostic.',observation:{type:'command',text:'PC-02 : attribution DNS automatique (DHCP) rétablie.\nServeur DNS reçu : 192.168.10.5'}},
- verification:{title:'Comment vérifies-tu la réparation ?',label:'Tester la résolution DNS sur PC-02',check:()=>true,observation:{type:'command',text:'PC-02 > nslookup SRV-FICHIERS\nServeur : dns-interne\nAddress: 192.168.10.5\nNom : SRV-FICHIERS\nAddress: 192.168.10.10'}},
+ interventions:[
+ {id:'dns-auto',label:'Remettre le DNS de PC-02 en attribution automatique (DHCP)',execute:()=>{
+  const changed=!repaired;repaired=true;if(changed)technicalRevision++;
+  return {executed:true,changed,observation:{type:'command',text:'PC-02 : attribution DNS automatique (DHCP) rétablie.\nServeur DNS reçu : 192.168.10.5'}};
+ }}
+ ],
+ canClose:({revision,verifications})=>({
+  allowed:repaired&&verifications.some(v=>v.id==='nslookup2'&&v.revision===revision&&v.passed===true),
+  feedback:"Vérifie la résolution DNS sur PC-02 avant de clôturer."
+ }),
  success:'PC-02 résout maintenant le nom SRV-FICHIERS. Incident résolu.'
 };
 })();
