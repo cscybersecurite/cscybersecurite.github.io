@@ -6,7 +6,6 @@ import {formatIpconfigRelease,formatIpconfigRenew} from "https://chaoli22000bzh.
 // DiagCore organise les contrôles, l'hypothèse, l'intervention et la vérification.
 const host=document.getElementById("dhcp-apipa-diagnostic")??document.getElementById("diagnostic");
 const status=document.getElementById("dhcp-apipa-status")??document.getElementById("status");
-const output=document.getElementById("dhcp-apipa-output")??document.getElementById("windows-output");
 let scenario,engine,diag,seq=0,renewAttempts=0;
 const snapshot=()=>engine.getSnapshot();
 const pc=()=>snapshot().objectsById.portable;
@@ -17,19 +16,18 @@ function dispatch(type,targetId,params={}){
   return snapshot();
 }
 const display=text=>({type:"command",text});
-function record(result){if(result?.type==="command")output.textContent=result.text;return result;}
 function ip(all=false){
  const c=pc(),ipv4=c.config.ipv4,o=c.config.networkOptions??{gateway:null,dns:[]},lease=ipv4.lease;
- if(!all)return record(display(formatIpconfig({ipv4,gateway:o.gateway,connected:true})));
+ if(!all)return display(formatIpconfig({ipv4,gateway:o.gateway,connected:true})));
  const toDate=n=>new Intl.DateTimeFormat("fr-FR",{timeZone:"UTC",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(new Date(Date.UTC(2026,10,8,9,0)+n*1000));
- return record(display(formatIpconfigAll({ipv4,hostname:c.name,dhcp:true,autoconfiguration:true,connected:true,description:"Carte Ethernet du PC portable",mac:c.config.macAddress,gateway:o.gateway,dns:o.dns,dhcpServer:lease?server().config.ipv4.address:undefined,leaseStart:lease?toDate(lease.start):undefined,leaseEnd:lease?toDate(lease.expires):undefined})));
+ return display(formatIpconfigAll({ipv4,hostname:c.name,dhcp:true,autoconfiguration:true,connected:true,description:"Carte Ethernet du PC portable",mac:c.config.macAddress,gateway:o.gateway,dns:o.dns,dhcpServer:lease?server().config.ipv4.address:undefined,leaseStart:lease?toDate(lease.start):undefined,leaseEnd:lease?toDate(lease.expires):undefined}));
 }
 function doRenew(){
  dispatch("dhcp.request","portable");renewAttempts++;
  const s=snapshot(),v=pc().config.ipv4;
- return record(display(formatIpconfigRenew({ipv4:v,status:s.runtime.portable?.dhcpStatus,gateway:pc().config.networkOptions?.gateway})));
+ return display(formatIpconfigRenew({ipv4:v,status:s.runtime.portable?.dhcpStatus,gateway:pc().config.networkOptions?.gateway}));
 }
-function doRelease(){dispatch("dhcp.release","portable");return record(display(formatIpconfigRelease({ipv4:pc().config.ipv4})));}
+function doRelease(){dispatch("dhcp.release","portable");return display(formatIpconfigRelease({ipv4:pc().config.ipv4}));}
 function link(id,label){const ok=snapshot().linksById[id].connected;return label+" : "+(ok?"branché, liaison présente.":"débranché, liaison absente.");}
 const check=(id,label,observe)=>({id,label,observe});
 function build(){
@@ -87,10 +85,10 @@ function render(){
  host._cleanupCorrection=()=>host.removeEventListener("click",onCorrection,true);
  diag=window.DiagCore.mount(host,data,{mode:"vertical"});
 }
-function reset(){engine=createEngine(scenario);seq=0;renewAttempts=0;output.textContent="Aucune commande exécutée.";status.textContent="Exercice prêt.";render();}
+function reset(){engine=createEngine(scenario);seq=0;renewAttempts=0;status.textContent="Exercice prêt.";render();}
 async function init(){
  try{
-  if(!host||!status||!output)throw new Error("Zone d’exercice introuvable");
+  if(!host||!status)throw new Error("Zone d’exercice introuvable");
   if(!window.DiagCore?.version?.startsWith("1.2."))throw new Error("DiagCore indisponible");
   const r=await fetch(new URL("./scenario.json",import.meta.url));if(!r.ok)throw new Error("Scénario indisponible");
   scenario=await r.json();reset();
