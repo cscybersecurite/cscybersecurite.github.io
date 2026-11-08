@@ -35,10 +35,10 @@ function build(){
  title:"Où veux-tu intervenir ?",groupPicker:true,minimumChecks:2,hideHypothesisUntilReady:true,hypothesisLabel:"Mon diagnostic",hypothesisTitle:"D'après tes contrôles, que se passe-t-il ?",backLabel:"Continuer mes contrôles",
  groups:[
  {title:"PC portable",checks:[
- check("ip","Exécuter ipconfig",()=>ip()),
- check("all","Exécuter ipconfig /all",()=>ip(true)),
- check("release","Exécuter ipconfig /release",()=>doRelease()),
- check("renew","Exécuter ipconfig /renew",()=>doRenew()),
+ check("ip","Configuration IP",()=>ip()),
+ check("all","Configuration IP détaillée",()=>ip(true)),
+ check("release","Libérer l'adresse IP",()=>doRelease()),
+ check("renew","Renouveler l'adresse IP",()=>doRenew()),
  check("cablepc","Regarder le câble branché au PC",()=>link("cordon-pc","Câble entre PC et prise réseau"))
  ]},
  {title:"Câblage",checks:[
@@ -67,6 +67,29 @@ function build(){
  success:"Intervention terminée : le PC a retrouvé une configuration DHCP."
  };
 }
+
+// Présentation des quatre commandes sur deux lignes, sans modifier DiagCore.
+const commandLabels=new Map([
+ ["Configuration IP","ipconfig"],
+ ["Configuration IP détaillée","ipconfig /all"],
+ ["Libérer l'adresse IP","ipconfig /release"],
+ ["Renouveler l'adresse IP","ipconfig /renew"]
+]);
+function decorateCommandButtons(){
+ for(const button of host.querySelectorAll("button.diagcore__choice")){
+  if(button.dataset.dhcpCommand)return;
+  const label=button.textContent.trim();
+  const command=commandLabels.get(label);
+  if(!command)return;
+  const primary=document.createElement("span");
+  primary.className="dhcp-command-label";primary.textContent=label;
+  const secondary=document.createElement("span");
+  secondary.className="dhcp-command-code";secondary.textContent=command;
+  button.replaceChildren(primary,secondary);
+  button.dataset.dhcpCommand=command;
+ }
+}
+
 function render(){
  if(diag)diag.destroy();
  const data=build();
@@ -83,7 +106,12 @@ function render(){
  host.addEventListener("click",onCorrection,true);
  if(host._cleanupCorrection)host._cleanupCorrection();
  host._cleanupCorrection=()=>host.removeEventListener("click",onCorrection,true);
+ if(host._cleanupCommandButtons)host._cleanupCommandButtons();
+ const commandObserver=new MutationObserver(decorateCommandButtons);
+ commandObserver.observe(host,{childList:true,subtree:true});
+ host._cleanupCommandButtons=()=>commandObserver.disconnect();
  diag=window.DiagCore.mount(host,data,{mode:"vertical"});
+ decorateCommandButtons();
 }
 function reset(){engine=createEngine(scenario);seq=0;renewAttempts=0;status.textContent="Exercice prêt.";render();}
 async function init(){
