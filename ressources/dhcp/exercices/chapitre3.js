@@ -53,8 +53,8 @@ function html(kind){
  const situation=exclusion
   ? 'Dans une usine automobile, un robot fonctionne avec une adresse IP fixe. Modifier son adressage obligerait à interrompre la production. Ton rôle : éviter qu’un PC reçoive cette adresse par DHCP.'
   : 'Un commerçant rapporte son terminal de paiement au bureau pour la télécollecte. Le pare-feu autorise les échanges nécessaires depuis une adresse IP précise. Ton rôle : permettre au TPE de retrouver cette adresse à chaque retour.';
- return '<section class="dhcp-admin-case" aria-label="'+title+'">'+
-  '<h4>'+title+'</h4><p>'+situation+'</p>'+
+ return '<section class="dhcp-admin-case dhcp-admin-case--'+kind+'" aria-label="'+title+'">'+
+  '<div class="dhcp-admin-head"><span class="dhcp-admin-icon" aria-hidden="true"></span><h4>'+title+'</h4></div><p>'+situation+'</p>'+
   '<div class="dhcp-admin-facts">'+
   (exclusion?'<p><strong>Robot :</strong> IP fixe <code>192.168.10.105</code>. Sa configuration ne doit pas être modifiée.</p>':
    '<p><strong>Adresse attendue par le pare-feu :</strong> <code>192.168.10.120</code>.</p>'+
@@ -168,7 +168,7 @@ function mount(kind,id){
   get('.dhcp-admin-form').reset();
   get('.dhcp-admin-save').textContent='';
   get('.dhcp-admin-feedback').textContent='';
-  get('.dhcp-admin-last').textContent='Exercice prêt.';
+  get('.dhcp-admin-last').textContent='';
   renderActions();
  }
  get('.dhcp-admin-form').addEventListener('submit',event=>{
