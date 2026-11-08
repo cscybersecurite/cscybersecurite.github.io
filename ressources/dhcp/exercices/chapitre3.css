@@ -1,0 +1,34 @@
+
+/* Exercices DHCP chapitre 3, administration R2D3 sans moteur local. */
+.dhcp-ch3{display:grid;gap:16px;margin:14px 0}
+.dhcp-admin-case{background:var(--panel,#fff);border:1px solid var(--line,#c9d5e3);border-radius:12px;padding:clamp(12px,2.5vw,20px);min-width:0}
+.dhcp-admin-case h4{font-size:1.11rem;margin:0 0 10px;color:var(--ink,#24354c)}
+.dhcp-admin-case h5{font-size:1rem;margin:18px 0 9px;color:var(--ink,#24354c)}
+.dhcp-admin-case p{margin:8px 0;line-height:1.5}
+.dhcp-admin-case code{font:inherit;font-family:ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+.dhcp-admin-facts{border-left:4px solid #3378bf;padding:8px 13px;background:var(--soft,#edf5fb);border-radius:6px;margin:12px 0}
+.dhcp-admin-facts details{margin:9px 0}
+.dhcp-admin-facts summary{cursor:pointer;font-weight:700}
+.dhcp-admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:10px 0}
+.dhcp-admin-form label{display:flex;flex-direction:column;gap:5px;min-width:0;font-weight:650}
+.dhcp-admin-form label:first-child{grid-column:1/-1}
+.dhcp-admin-form input{width:100%;min-width:0;padding:11px;border-radius:8px;border:1px solid var(--line,#aabed3);background:var(--panel,#fff);color:var(--ink,#203046);font:inherit;font-weight:400}
+.dhcp-admin-form>button{grid-column:1/-1}
+.dhcp-admin-case button{min-height:44px;font:inherit;font-weight:650;border:1px solid #1769a0;border-radius:9px;background:#1769a0;color:#fff;padding:9px 12px;cursor:pointer;text-align:left;overflow-wrap:anywhere}
+.dhcp-admin-case button:hover{background:#125582}
+.dhcp-admin-case button:focus-visible{outline:3px solid #eea13e;outline-offset:2px}
+.dhcp-admin-case button:active{transform:translateY(1px)}
+.dhcp-admin-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px}
+.dhcp-admin-actions>p{grid-column:1/-1}
+.dhcp-admin-finish{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.dhcp-admin-reset{background:transparent!important;color:var(--ink,#24354c)!important;border-color:#3378bf!important}
+.dhcp-admin-save,.dhcp-admin-last,.dhcp-admin-feedback{min-height:22px}
+.dhcp-admin-feedback{font-weight:700;margin:13px 0 0!important}
+.dhcp-admin-feedback.is-success{border-left:4px solid #16945c;padding:9px 12px;background:color-mix(in srgb,#16945c 10%,transparent)}
+.dhcp-admin-feedback.is-warning{border-left:4px solid #d38c20;padding:9px 12px;background:color-mix(in srgb,#d38c20 10%,transparent)}
+.dhcp-admin-pool{font-size:.88rem;background:var(--soft,#eef4fa);border-radius:8px;padding:10px 12px;overflow-wrap:anywhere}
+.dhcp-admin-leases{overflow-x:auto}
+.dhcp-admin-leases table{border-collapse:collapse;width:100%;min-width:260px}
+.dhcp-admin-leases th,.dhcp-admin-leases td{border:1px solid var(--line,#bdccdc);padding:8px 10px;text-align:left;font-variant-numeric:tabular-nums}
+.dhcp-admin-leases th{background:var(--soft,#edf5fb)}
+@media(max-width:600px){.dhcp-admin-form{grid-template-columns:1fr}.dhcp-admin-form label:first-child{grid-column:auto}.dhcp-admin-actions{grid-template-columns:1fr}.dhcp-admin-finish>*{width:100%}.dhcp-admin-case{padding:12px}}
