@@ -45,8 +45,19 @@ function ping(){
  stopPing();
  const outcome=engine.query({type:"network.ping",sourceId:"portable",targetId:"serveur"});
  const address="192.168.30.2";
- const output=document.getElementById("windows-output");
- // Le composant commun anime les quatre réponses ; DiagCore enregistre l'observation.
+ let output=document.getElementById("windows-output");
+ // Le cours et la page autonome utilisent le même animateur partagé.
+ if(!output){
+  output=document.getElementById("dhcp-apipa-ping-output");
+  if(!output){
+   output=document.createElement("pre");
+   output.id="dhcp-apipa-ping-output";
+   output.className="diagcore__terminal";
+   output.setAttribute("aria-live","polite");
+   output.style.cssText="white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto;padding:12px;border-radius:8px;background:#17212d;color:#eff5fa;font:12px/1.5 Consolas,monospace";
+   host.before(output);
+  }
+ }
  if(output){
   const animation=createPingAnimator(output);
   pingAnimator=animation;
@@ -122,6 +133,7 @@ function reset(){
  engine=createEngine(scenario);seq=0;technicalRevision=0;
  const output=document.getElementById("windows-output");
  if(output)output.textContent="Aucune commande exécutée.";
+ document.getElementById("dhcp-apipa-ping-output")?.remove();
  if(status)status.textContent="";
  diag=window.DiagCore.mount(host,build(),{mode:"vertical"});
 }
