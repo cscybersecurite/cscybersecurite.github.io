@@ -110,9 +110,6 @@ details>.inside,.example,.qrow label{font-size:17px;line-height:1.55}
 /* Exercice R2D3 / APIPA intégré dans le Je me teste du chapitre 7. */
 .dhcp-apipa-exercice{border-top:1px solid var(--line);margin-top:24px;padding-top:18px;min-width:0}
 .dhcp-apipa-exercice h3{margin-top:0}
-.dhcp-apipa-console{margin:14px 0;padding:12px;border-radius:11px;background:#0e1d30;color:#e9f1fa}
-.dhcp-apipa-console>strong{font-size:13px}
-.dhcp-apipa-console pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:9px 0 0;color:inherit;font:12px/1.55 Consolas,"Courier New",monospace}
 .dhcp-apipa-exercice .diagcore__equipment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .dhcp-apipa-exercice .diagcore__equipment{min-width:0;min-height:70px;white-space:normal}
 .dhcp-apipa-exercice .diagcore__terminal{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;font-size:12px}
@@ -174,10 +171,6 @@ Carte Ethernet Ethernet :
 <h3>Exercice pratique : dépanner un PC portable</h3>
 <p>Dans une entreprise, un salarié n'arrive plus à ouvrir les dossiers partagés depuis son PC portable. Le câble réseau est branché.</p>
 <p><strong>Ta mission :</strong> trouve pourquoi le réseau ne fonctionne pas et remets le PC en état de marche.</p>
-<div class="dhcp-apipa-console" aria-label="Dernière commande Windows">
-<strong>Invite de commandes Windows</strong>
-<pre id="dhcp-apipa-output" aria-live="polite">Aucune commande exécutée.</pre>
-</div>
 <div id="dhcp-apipa-diagnostic" aria-label="Parcours de diagnostic APIPA">Chargement du diagnostic…</div>
 <div class="dhcp-diagnostic-actions"><button type="button" id="dhcp-apipa-restart">↻ Recommencer l'exercice</button></div>
 <p id="dhcp-apipa-status" class="dhcp-apipa-status" role="status"></p>
@@ -264,4 +257,4 @@ target.addEventListener('click',event=>{
 });
 document.getElementById('dhcp-diagnostic-restart').addEventListener('click',()=>{if(app){app.restart();target.scrollIntoView({block:'start',behavior:'instant'});}});
 })();
-</script><script type="module" src="./exercices/apipa/exercice.js?v=001"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
+</script><script type="module" src="./exercices/apipa/exercice.js?v=002"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
