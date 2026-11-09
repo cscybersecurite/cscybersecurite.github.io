@@ -1,7 +1,8 @@
 /* VPN et DHCP : famille visuelle DORA / VLAN, presentation verticale mobile. */
 .vpn-motion{max-width:920px;margin:16px auto 20px;border:1px solid var(--line,#cbd8e8);border-radius:12px;padding:12px;background:var(--panel,#fff);color:var(--ink,#152b45);min-width:0}
 .vpn-motion *{box-sizing:border-box}
-.vpn-motion__controls{display:flex;align-items:center;flex-wrap:wrap;gap:11px 15px;margin-bottom:10px}
+.vpn-motion__controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px 13px;margin-bottom:10px}
+.vpn-motion__controls-label{font-weight:700;font-size:.94rem}
 .vpn-motion__toggle{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:.9rem;cursor:pointer}
 .vpn-motion__enabled{appearance:none;position:relative;width:48px;height:27px;border-radius:20px;background:#778594;border:2px solid #657382;cursor:pointer;margin:0;flex:none}
 .vpn-motion__enabled:after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;background:#fff;border-radius:50%;transition:left .2s}
@@ -42,8 +43,8 @@
 .vpn-motion__readout{padding:11px 12px;border:1px solid var(--line,#cbd8e8);border-radius:9px;background:var(--soft,#ecf4fd)}
 .vpn-motion__readout-head{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:baseline;gap:7px;font-size:.93rem}
 .vpn-motion__counter{font-size:.78rem;color:var(--muted,#506780)}
-.vpn-motion__note{font-size:.9rem;line-height:1.45;min-height:2em;margin:9px 0!important}
-.vpn-motion__history{display:grid;gap:5px;margin:6px 0 0;padding:0;list-style:none;font-size:.83rem;max-height:230px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin}
+.vpn-motion__history{display:grid;gap:5px;margin:9px 0 0;padding:0;list-style:none;font-size:.83rem;max-height:230px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin}
+.vpn-motion__history:empty:before{content:'Choisir les IP helper, puis lancer l’animation.';color:var(--muted,#506780)}
 .vpn-motion__history li{border-left:3px solid #3281b5;background:var(--panel,#fff);border-radius:4px;padding:6px 9px;display:flex;flex-wrap:wrap;gap:4px 9px}
 .vpn-motion__history li strong{white-space:nowrap}
 @media(min-width:850px){.vpn-motion{display:grid;grid-template-columns:minmax(300px,1fr) minmax(340px,.92fr);gap:0 15px}
@@ -52,5 +53,5 @@
  .vpn-motion__legend{grid-column:2;grid-row:2;align-self:start;align-content:start}
  .vpn-motion__readout{grid-column:2;grid-row:3;align-self:start}
 }
-@media(max-width:600px){.vpn-motion{padding:8px}.vpn-motion__controls{gap:9px}.vpn-motion__toggle{font-size:.84rem}.vpn-motion__play{font-size:.8rem;padding:8px 10px}.vpn-motion__note{font-size:.84rem}.vpn-motion__history{font-size:.77rem;max-height:210px}.vpn-motion__legend{font-size:.72rem}}
+@media(max-width:600px){.vpn-motion{padding:8px}.vpn-motion__controls{gap:8px;justify-content:flex-start}.vpn-motion__controls-label{font-size:.84rem}.vpn-motion__toggle{font-size:.8rem;gap:5px}.vpn-motion__enabled{width:40px;height:24px}.vpn-motion__enabled:after{width:14px;height:14px}.vpn-motion__enabled:checked:after{left:19px}.vpn-motion__toggle-label{min-width:23px}.vpn-motion__play{font-size:.8rem;padding:8px 10px;flex-basis:100%;max-width:max-content}.vpn-motion__history{font-size:.77rem;max-height:210px}.vpn-motion__legend{font-size:.72rem}}
 @media(prefers-reduced-motion:reduce){.vpn-motion__enabled:after,.vpn-motion__scope{transition:none}}
