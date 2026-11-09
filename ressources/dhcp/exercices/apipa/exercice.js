@@ -142,11 +142,11 @@ function loadCore(){
  return new Promise((resolve,reject)=>{
   if(!document.querySelector('link[data-diagcore-v13]')){
    const css=document.createElement("link");css.rel="stylesheet";
-   css.href="https://chaoli22000bzh.github.io/DiagCore/v1.3/diagcore.css";
+   css.href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css";
    css.dataset.diagcoreV13="";document.head.append(css);
   }
   const script=document.createElement("script");
-  script.src="https://chaoli22000bzh.github.io/DiagCore/v1.3/diagcore.js";
+  script.src="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.js";
   script.onload=()=>window.DiagCore?.version==="1.3.0"?resolve():reject(new Error("DiagCore V1.3 indisponible"));
   script.onerror=()=>reject(new Error("Chargement de DiagCore V1.3 impossible"));
   document.head.append(script);
