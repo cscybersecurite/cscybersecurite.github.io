@@ -13,6 +13,7 @@
 .vlan-motion__play:disabled{opacity:.65;cursor:default}
 .vlan-motion__canvas{width:100%;overflow:hidden}
 .vlan-motion__svg{display:block;width:100%;height:auto;max-height:345px}
+.vlan-motion__svg--mobile{display:none}
 .vlan-motion__switch{fill:var(--soft,#edf5fb);stroke:var(--line,#9bb1c8);stroke-width:2}
 .vlan-motion__server-card{fill:var(--soft,#edf5fb);stroke:var(--line,#a7b8cc);stroke-width:2}
 .vlan-motion__label{font:700 18px Arial,sans-serif;fill:var(--ink,#1b3149)}
@@ -47,13 +48,14 @@
 .vlan-motion__readout-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;font-size:.93rem}
 .vlan-motion__counter{font-size:.78rem;color:var(--muted,#506780)}
 .vlan-motion__note{font-size:.9rem;line-height:1.4;min-height:2.5em;margin:9px 0!important}
-.vlan-motion__history{display:grid;gap:5px;margin:6px 0 0;padding:0;list-style:none;max-height:150px;overflow-y:auto;font-size:.83rem}
+.vlan-motion__history{display:grid;gap:5px;margin:6px 0 0;padding:0;list-style:none;font-size:.83rem}
 .vlan-motion__history li{border-left:3px solid #3281b5;background:var(--panel,#fff);border-radius:4px;padding:6px 9px;display:flex;flex-wrap:wrap;gap:4px 9px}
 .vlan-motion__history li strong{white-space:nowrap}
 @media(max-width:600px){
  .vlan-motion{padding:8px}
- .vlan-motion__canvas{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
- .vlan-motion__svg{min-width:700px;max-height:none}
+ .vlan-motion__canvas{overflow:visible}
+ .vlan-motion__svg:not(.vlan-motion__svg--mobile){display:none}
+ .vlan-motion__svg--mobile{display:block;width:100%;min-width:0;max-height:none}
  .vlan-motion__controls{gap:9px}
  .vlan-motion__toggle{font-size:.84rem}
  .vlan-motion__play{font-size:.8rem;padding:8px 10px}
