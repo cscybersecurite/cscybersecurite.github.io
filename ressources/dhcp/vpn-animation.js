@@ -1,0 +1,145 @@
+/* C² - VPN et DHCP : même langue graphique que le chapitre VLAN.
+   Deux sites distants, routeurs-relais DHCP, tunnel intersite, serveur central Rennes.
+   Modèle pédagogique : diffusion locale, relayage (giaddr) et DORA complet. */
+(() => {
+ 'use strict';
+ const ns='http://www.w3.org/2000/svg';
+ const sites=[
+  {name:'Brest',net:'192.168.20.0/24',ip:'192.168.20.100',scope:'brest',left:true},
+  {name:'Lorient',net:'192.168.30.0/24',ip:'192.168.30.100',scope:'lorient',left:false}
+ ];
+ const pcSVG='<rect x="-17" y="-15" width="34" height="24" rx="3" fill="#315f83" stroke="#79b0d0" stroke-width="1.8"/><rect x="-12" y="-11" width="24" height="16" fill="#d0ecff"/><path d="M0 9v7m-12 2h24" stroke="#658ba7" stroke-width="3"/>';
+ const gateSVG='<rect x="-21" y="-15" width="42" height="30" rx="5" fill="#526e83" stroke="#91b6c9" stroke-width="2"/><path d="M-13 -5h26M-13 5h26" stroke="#d8eaf6" stroke-width="3"/>';
+ function svg(){
+  let s='<svg class="vpn-motion__svg" viewBox="0 0 420 490" role="img" aria-label="Deux sites distants, Brest et Lorient, avec chacun un PC et un routeur relais DHCP. Leurs tunnels VPN traversent Internet vers le siège de Rennes, qui héberge un serveur DHCP avec trois étendues.">';
+  const groups=[{x:6,center:104,pc:53,gw:151,name:'BREST',net:sites[0].net,cls:'vpn-motion__brest'},
+                {x:216,center:314,pc:263,gw:361,name:'LORIENT',net:sites[1].net,cls:'vpn-motion__lorient'}];
+  groups.forEach((g,i)=>{
+   s+='<rect x="'+g.x+'" y="5" width="198" height="150" rx="12" class="vpn-motion__site '+g.cls+'"/>';
+   s+='<text x="'+g.center+'" y="28" text-anchor="middle" class="vpn-motion__heading">'+g.name+'</text>';
+   s+='<text x="'+g.center+'" y="45" text-anchor="middle" class="vpn-motion__small">'+g.net+'</text>';
+   s+='<g transform="translate('+g.pc+' 78)">'+pcSVG+'</g>';
+   s+='<g transform="translate('+g.gw+' 78)">'+gateSVG+'</g>';
+   s+='<path d="M'+(g.pc+17)+' 78 H'+(g.gw-21)+'" class="vpn-motion__lan"/>';
+   s+='<text x="'+g.pc+'" y="115" text-anchor="middle" class="vpn-motion__small">PC</text>';
+   s+='<text x="'+g.pc+'" y="131" text-anchor="middle" class="vpn-motion__pc-ip" data-pc="'+i+'">DHCP</text>';
+   s+='<text x="'+g.gw+'" y="114" text-anchor="middle" class="vpn-motion__small">Routeur VPN</text>';
+   s+='<text x="'+g.gw+'" y="130" text-anchor="middle" class="vpn-motion__small">Relais DHCP</text>';
+   s+='<path d="M'+g.gw+' 155 V174 L210 210" class="vpn-motion__tunnel vpn-motion__tunnel--'+i+'"/>';
+  });
+  s+='<rect x="151" y="184" width="118" height="52" rx="22" class="vpn-motion__internet"/>';
+  s+='<text x="210" y="205" text-anchor="middle" class="vpn-motion__heading">Internet</text>';
+  s+='<text x="210" y="220" text-anchor="middle" class="vpn-motion__small">Tunnels VPN</text>';
+  s+='<path d="M210 236 V261" class="vpn-motion__tunnel vpn-motion__tunnel--hq"/>';
+  s+='<rect x="5" y="261" width="410" height="220" rx="12" class="vpn-motion__hq"/>';
+  s+='<text x="210" y="284" text-anchor="middle" class="vpn-motion__heading">RENNES · SIÈGE</text>';
+  s+='<text x="210" y="302" text-anchor="middle" class="vpn-motion__small">192.168.10.0/24</text>';
+  s+='<text x="210" y="324" text-anchor="middle" class="vpn-motion__heading">Serveur DHCP central</text>';
+  s+='<text x="210" y="341" text-anchor="middle" class="vpn-motion__small">192.168.10.10</text>';
+  s+='<text x="20" y="363" class="vpn-motion__scope-head">Étendues DHCP gérées</text>';
+  [['Rennes','192.168.10.100 à .200','rennes'],['Brest','192.168.20.100 à .200','brest'],['Lorient','192.168.30.100 à .200','lorient']].forEach((v,i)=>{
+   const y=372+i*32;
+   s+='<rect x="19" y="'+y+'" width="382" height="28" rx="6" class="vpn-motion__scope" data-scope="'+v[2]+'"/>';
+   s+='<text x="31" y="'+(y+18)+'" class="vpn-motion__scope-label">'+v[0]+'</text>';
+   s+='<text x="157" y="'+(y+18)+'" class="vpn-motion__scope-range">'+v[1]+'</text>';
+  });
+  return s+'<g class="vpn-motion__packets"></g></svg>';
+ }
+ function route(site,stage){
+  const left=site.left,c=left?151:361,p=left?53:263;
+  const localOut=[[p+17,78],[c-21,78]];
+  const localIn=[[c-21,78],[p+17,78]];
+  const fromGw=[[c,93],[c,155],[210,210],[210,261],[210,309]];
+  const toGw=[...fromGw].reverse();
+  return {discover:localOut,relay:fromGw,offer:[...toGw,...localIn],request:localOut,requestRelay:fromGw,ack:[...toGw,...localIn],blocked:[[c,93],[c,155],[210,210]]}[stage];
+ }
+ document.querySelectorAll('[data-dhcp-vpn]').forEach(host=>{
+  host.classList.add('vpn-motion');
+  host.innerHTML='<div class="vpn-motion__controls"><label class="vpn-motion__toggle"><span>Tunnels VPN</span><input type="checkbox" class="vpn-motion__enabled" role="switch" checked><span class="vpn-motion__toggle-label">ON</span></label><button type="button" class="vpn-motion__play">▶ Lancer l’animation</button></div>'+
+    '<div class="vpn-motion__canvas">'+svg()+'</div>'+
+    '<div class="vpn-motion__legend"><span><i class="vpn-motion__dot vpn-motion__dot--local"></i> Broadcast DHCP local</span><span><i class="vpn-motion__dot vpn-motion__dot--vpn"></i> Relais DHCP via VPN</span></div>'+
+    '<div class="vpn-motion__readout"><div class="vpn-motion__readout-head"><strong>DHCP entre sites via VPN</strong><span class="vpn-motion__counter"></span></div><p class="vpn-motion__note" role="status" aria-live="polite">Lance l’animation pour observer les échanges.</p><ol class="vpn-motion__history" aria-label="Messages observés"></ol></div>';
+  const toggle=host.querySelector('.vpn-motion__enabled'),state=host.querySelector('.vpn-motion__toggle-label'),button=host.querySelector('.vpn-motion__play');
+  const layer=host.querySelector('.vpn-motion__packets'),history=host.querySelector('.vpn-motion__history'),note=host.querySelector('.vpn-motion__note'),counter=host.querySelector('.vpn-motion__counter');
+  const svgRoot=host.querySelector('svg');
+  let epoch=0,timers=new Set(),running=false;
+  const reduced=()=>window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  const cancel=()=>{epoch++;timers.forEach(clearTimeout);timers.clear();layer.replaceChildren();button.disabled=false;toggle.disabled=false;running=false;};
+  function delay(ms,token){return new Promise(resolve=>{const id=setTimeout(()=>{timers.delete(id);resolve(token===epoch)},ms);timers.add(id);});}
+  function add(label,body){
+   note.textContent=body;
+   const li=document.createElement('li'),b=document.createElement('strong'),span=document.createElement('span');
+   b.textContent=label;span.textContent=body;li.append(b,span);history.append(li);
+   history.scrollTop=history.scrollHeight;
+  }
+  function mark(scope,on){host.querySelector('[data-scope="'+scope+'"]').classList.toggle('vpn-motion__scope--active',on);}
+  function reset(){
+   cancel();history.replaceChildren();note.textContent='Lance l’animation pour observer les échanges.';counter.textContent='';
+   sites.forEach((site,i)=>{host.querySelector('[data-pc="'+i+'"]').textContent='DHCP';mark(site.scope,false);});
+   state.textContent=toggle.checked?'ON':'OFF';
+   host.classList.toggle('vpn-motion--offline',!toggle.checked);
+   button.textContent='▶ Lancer l’animation';
+  }
+  async function move(points,type,label,token){
+   if(token!==epoch)return false;
+   const node=document.createElementNS(ns,'circle'),txt=document.createElementNS(ns,'text');
+   node.setAttribute('r','7');node.setAttribute('class','vpn-motion__packet vpn-motion__packet--'+type);
+   txt.setAttribute('class','vpn-motion__packet-text');txt.textContent=label;layer.append(node,txt);
+   let lengths=[],total=0;for(let i=1;i<points.length;i++){const l=Math.hypot(points[i][0]-points[i-1][0],points[i][1]-points[i-1][1]);lengths.push(l);total+=l;}
+   const duration=reduced()?250:Math.min(1900,Math.max(500,total*2.5)),start=performance.now();
+   return new Promise(resolve=>{
+    function tick(now){
+     if(token!==epoch){node.remove();txt.remove();resolve(false);return;}
+     let remaining=Math.min(1,(now-start)/duration)*total,i=0;
+     while(i<lengths.length-1&&remaining>lengths[i]){remaining-=lengths[i];i++;}
+     const a=points[i],b=points[i+1],portion=lengths[i]?Math.min(1,remaining/lengths[i]):0;
+     const x=a[0]+(b[0]-a[0])*portion,y=a[1]+(b[1]-a[1])*portion;
+     node.setAttribute('cx',x);node.setAttribute('cy',y);txt.setAttribute('x',x);txt.setAttribute('y',y-12);
+     if(now-start<duration)requestAnimationFrame(tick);
+     else{node.remove();txt.remove();resolve(true);}
+    }
+    requestAnimationFrame(tick);
+   });
+  }
+  toggle.addEventListener('change',reset);
+  async function play(){
+   reset();const token=epoch,on=toggle.checked;running=true;toggle.disabled=true;button.disabled=true;button.textContent='▶ Animation en cours';
+   const gap=reduced()?180:450;
+   try{
+    for(const site of sites){
+     if(token!==epoch)break;
+     counter.textContent=site.name;
+     add('Discover · '+site.name,'Le PC de '+site.name+' diffuse un DHCP Discover sur son réseau local. Le routeur reçoit ce broadcast.');
+     if(!await move(route(site,'discover'),'local','D',token))break;
+     if(!on){
+      add('VPN indisponible','Le relais DHCP est configuré, mais le tunnel VPN est coupé. La demande ne peut pas atteindre Rennes.');
+      if(!await move(route(site,'blocked'),'blocked','×',token))break;
+      if(!await delay(gap,token))break;
+      continue;
+     }
+     add('Relais DHCP','La passerelle de '+site.name+' relaie le Discover vers Rennes en unicast à travers le tunnel VPN (giaddr identifie le réseau client).');
+     if(!await move(route(site,'relay'),'vpn','D',token))break;
+     mark(site.scope,true);
+     add('Étendue de '+site.name,'Le serveur central choisit la plage '+site.net+' pour répondre au client de '+site.name+'.');
+     if(!await delay(gap,token))break;
+     add('Offer','Le serveur propose '+site.ip+'. L’Offer revient au client par le tunnel VPN et le relais DHCP.');
+     if(!await move(route(site,'offer'),'vpn','O',token))break;
+     add('Request','Le client diffuse un Request local. Le routeur le relaie vers Rennes via le VPN.');
+     if(!await move(route(site,'request'),'local','R',token))break;
+     if(!await move(route(site,'requestRelay'),'vpn','R',token))break;
+     add('ACK','Le serveur confirme le bail ; l’ACK revient vers le PC de '+site.name+' via le relais.');
+     if(!await move(route(site,'ack'),'vpn','A',token))break;
+     host.querySelector('[data-pc="'+sites.indexOf(site)+'"]').textContent=site.ip;
+     mark(site.scope,false);
+     if(!await delay(gap,token))break;
+    }
+    if(token!==epoch)return;
+    counter.textContent='Animation terminée';
+    note.textContent=on?'Les deux sites ont reçu leurs adresses de leurs étendues respectives, gérées par Rennes.':'Les broadcasts restent sur chaque site et les relais ne peuvent joindre Rennes sans tunnel VPN.';
+   }finally{if(token===epoch){running=false;toggle.disabled=false;button.disabled=false;button.textContent='↻ Rejouer l’animation';}}
+  }
+  button.addEventListener('click',()=>{if(!running)play();});
+  const chapter=host.closest('details.chapter');chapter?.addEventListener('toggle',()=>{if(!chapter.open)reset();});
+  window.addEventListener('pagehide',cancel);
+ });
+})();
