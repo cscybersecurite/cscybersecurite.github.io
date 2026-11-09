@@ -51,22 +51,93 @@
   '<text x="627" y="160" class="vlan-motion__port-hint">VLAN 99</text>'+
   '<g class="vlan-motion__packets"></g></svg>';
  }
+
+ function mobileFrame(){
+  const mobPC=[
+   {id:1,v:10,x:26,y:61,port:1,px:85},
+   {id:2,v:10,x:26,y:119,port:2,px:155},
+   {id:3,v:20,x:239,y:61,port:3,px:265},
+   {id:4,v:20,x:239,y:119,port:4,px:335}
+  ];
+  return '<svg class="vlan-motion__svg vlan-motion__svg--mobile" viewBox="0 0 420 665" role="img" aria-label="Deux VLAN clients en haut, chacun avec deux PC et deux ports physiques du switch L3 au centre. Le port 5 relie le switch au serveur DHCP du VLAN 99 en bas.">'+
+   '<rect x="5" y="7" width="199" height="175" rx="11" fill="#2387bf" fill-opacity=".08" stroke="#438fbe" stroke-dasharray="5 4"/>'+
+   '<rect x="216" y="7" width="199" height="175" rx="11" fill="#2b987b" fill-opacity=".08" stroke="#2b987b" stroke-dasharray="5 4"/>'+
+   '<text x="14" y="29" class="vlan-motion__net vlan-motion__blue">VLAN 10</text><text x="14" y="45" class="vlan-motion__sub">10.10.0.0/24</text>'+
+   '<text x="225" y="29" class="vlan-motion__net vlan-motion__green">VLAN 20</text><text x="225" y="45" class="vlan-motion__sub">10.20.0.0/24</text>'+
+   mobPC.map(p=>{
+    const col=p.v===10?'#338dc6':'#329b7b';
+    const isFirst=p.id===1||p.id===3,srcX=p.v===10?117:328,yy=p.y+15;
+    return path([[srcX,yy],[srcX,197],[p.px,197],[p.px,226]],col,2)+
+      '<g class="vlan-motion__pc" data-pc="'+p.id+'">'+
+       '<rect x="'+p.x+'" y="'+p.y+'" width="29" height="22" rx="2" fill="#315f83" stroke="#79b0d0" stroke-width="1.5"/>'+
+       '<rect x="'+(p.x+4)+'" y="'+(p.y+4)+'" width="21" height="14" fill="#d0ecff"/>'+
+       '<path d="M'+(p.x+14)+' '+(p.y+22)+' v6 m-11 1 h22" stroke="#658ba7" stroke-width="2.3"/>'+
+       '<text x="'+(p.x+38)+'" y="'+(p.y+11)+'" class="vlan-motion__pc-name">PC'+p.id+'</text>'+
+       '<text x="'+(p.x+38)+'" y="'+(p.y+28)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">DHCP</text></g>';
+   }).join('')+
+   '<rect x="5" y="212" width="410" height="177" rx="12" class="vlan-motion__switch"/>'+
+   '<text x="210" y="292" class="vlan-motion__label" text-anchor="middle">SWITCH L3</text>'+
+   '<rect x="134" y="308" width="152" height="57" rx="7" class="vlan-motion__svi-box"/>'+
+   '<text x="210" y="324" text-anchor="middle" class="vlan-motion__svi-label">Interfaces VLAN</text>'+
+   '<text x="210" y="341" text-anchor="middle" class="vlan-motion__svi-label">SVI 10 et 20</text>'+
+   '<text x="210" y="357" text-anchor="middle" class="vlan-motion__svi-state">Relais : OFF</text>'+
+   mobPC.map(p=>'<rect x="'+(p.px-12)+'" y="223" width="24" height="22" rx="3" class="vlan-motion__port '+(p.v===10?'vlan-motion__port--10':'vlan-motion__port--20')+'" data-port="'+p.port+'"/>'+
+   '<text x="'+p.px+'" y="239" class="vlan-motion__port-num" text-anchor="middle">'+p.port+'</text>').join('')+
+   path([[210,389],[210,418]],'#8b83ba',3)+
+   '<rect x="198" y="375" width="24" height="24" rx="3" class="vlan-motion__port vlan-motion__port--99" data-port="5"/>'+
+   '<text x="210" y="392" class="vlan-motion__port-num" text-anchor="middle">5</text>'+
+   '<rect x="5" y="417" width="410" height="241" rx="12" class="vlan-motion__server-card"/>'+
+   '<text x="210" y="440" class="vlan-motion__label" text-anchor="middle">SERVEUR DHCP · VLAN 99</text>'+
+   '<text x="210" y="459" class="vlan-motion__sub" text-anchor="middle">IP fixe : 10.99.0.10</text>'+
+   '<text x="22" y="482" class="vlan-motion__scope-head">Étendues DHCP centralisées</text>'+
+   '<rect x="20" y="493" width="380" height="37" rx="7" class="vlan-motion__scope" data-scope="v10"/>'+
+   '<rect x="20" y="536" width="380" height="37" rx="7" class="vlan-motion__scope" data-scope="v20"/>'+
+   '<rect x="20" y="579" width="380" height="37" rx="7" class="vlan-motion__scope" data-scope="v99"/>'+
+   '<text x="34" y="508" class="vlan-motion__scope-name">VLAN 10</text><text x="34" y="523" class="vlan-motion__scope-address">10.10.0.100 à .200</text>'+
+   '<text x="34" y="551" class="vlan-motion__scope-name">VLAN 20</text><text x="34" y="566" class="vlan-motion__scope-address">10.20.0.100 à .200</text>'+
+   '<text x="34" y="594" class="vlan-motion__scope-name">VLAN 99</text><text x="34" y="609" class="vlan-motion__scope-address">10.99.0.100 à .150</text>'+
+   '<text x="210" y="642" class="vlan-motion__sub" text-anchor="middle">Un serveur, trois étendues</text>'+
+   '<g class="vlan-motion__packets"></g></svg>';
+ }
+ function isMobile(){return window.matchMedia('(max-width:600px)').matches;}
+ function route(v,stage){
+  const d=entry[v];
+  if(!isMobile()){
+   const from=[[155,d.start],[334,d.start]],
+     flood=[[342,d.start],[387,d.start],[387,d.other],[342,d.other],[155,d.other]],
+     relay=[[387,d.start],[477,d.start],[477,179],[610,179],[660,179]],
+     reply=[[660,179],[610,179],[477,179],[477,d.start],[342,d.start],[155,d.start]],
+     request=[[155,d.start],[342,d.start]],
+     reqRelay=[[342,d.start],[477,d.start],[477,179],[610,179],[660,179]];
+   return {discover:from,broadcast:flood,relay,offer:reply,request,requestFlood:flood,requestRelay:reqRelay,ack:reply}[stage];
+  }
+  const origin=v===10?[117,76]:[328,76],other=v===10?[117,134]:[328,134];
+  const p=v===10?85:265,q=v===10?155:335;
+  const ingress=[[origin[0],origin[1]],[origin[0],197],[p,197],[p,223]],
+     local=[[p,245],[p,270],[q,270],[q,245],[q,197],[other[0],197],[other[0],other[1]]],
+     unicast=[[p,245],[p,286],[210,286],[210,381],[210,421]],
+     back=[[210,421],[210,381],[210,286],[p,286],[p,245],[p,197],[origin[0],197],origin],
+     request=[[origin[0],origin[1]],[origin[0],197],[p,197],[p,223]],
+     requestRelay=[[p,245],[p,286],[210,286],[210,381],[210,421]];
+  return {discover:ingress,broadcast:local,relay:unicast,offer:back,request,requestFlood:local,requestRelay,ack:back}[stage];
+ }
+
  hosts.forEach(host=>{
   host.classList.add('vlan-motion');
   host.innerHTML='<div class="vlan-motion__controls"><label class="vlan-motion__toggle"><span>IP helper</span><input type="checkbox" class="vlan-motion__helper" role="switch"><span class="vlan-motion__toggle-status">OFF</span></label><button type="button" class="vlan-motion__play">▶ Lancer l’animation</button></div>'+
-  '<div class="vlan-motion__canvas">'+frame()+'</div>'+
+  '<div class="vlan-motion__canvas">'+frame()+mobileFrame()+'</div>'+
   '<div class="vlan-motion__legend"><span><i class="vlan-motion__key vlan-motion__key--broadcast"></i> Broadcast dans le VLAN</span><span><i class="vlan-motion__key vlan-motion__key--relay"></i> Relais DHCP en unicast</span></div>'+
   '<div class="vlan-motion__readout"><div class="vlan-motion__readout-head"><strong>Diffusion des broadcasts et relais DHCP</strong><span class="vlan-motion__counter">Prêt</span></div><p class="vlan-motion__note" role="status" aria-live="polite">Choisis l’état de l’IP helper, puis lance l’animation.</p><ol class="vlan-motion__history" aria-label="Messages observés"></ol></div>';
-  const toggle=host.querySelector('.vlan-motion__helper'),state=host.querySelector('.vlan-motion__toggle-status'),play=host.querySelector('.vlan-motion__play'),canvas=host.querySelector('svg'),layer=host.querySelector('.vlan-motion__packets'),note=host.querySelector('.vlan-motion__note'),history=host.querySelector('.vlan-motion__history'),counter=host.querySelector('.vlan-motion__counter'),svi=host.querySelector('.vlan-motion__svi-state');
+  const toggle=host.querySelector('.vlan-motion__helper'),state=host.querySelector('.vlan-motion__toggle-status'),play=host.querySelector('.vlan-motion__play'),canvas=host.querySelector('.vlan-motion__canvas'),noteAnchor=host.querySelector('.vlan-motion__readout'),note=host.querySelector('.vlan-motion__note'),history=host.querySelector('.vlan-motion__history'),counter=host.querySelector('.vlan-motion__counter'),svi=host.querySelector('.vlan-motion__svi-state');
   let epoch=0,timers=new Set(),frames=new Set(),running=false;
-  const stopped=()=>{epoch++;for(const t of timers)clearTimeout(t);timers.clear();for(const f of frames)cancelAnimationFrame(f);frames.clear();layer.replaceChildren();running=false;play.disabled=false;toggle.disabled=false;};
+  const stopped=()=>{epoch++;for(const t of timers)clearTimeout(t);timers.clear();for(const f of frames)cancelAnimationFrame(f);frames.clear();host.querySelectorAll('.vlan-motion__packets').forEach(layer=>layer.replaceChildren());running=false;play.disabled=false;toggle.disabled=false;};
   const pause=(ms,token)=>new Promise(resolve=>{const t=setTimeout(()=>{timers.delete(t);resolve(token===epoch)},ms);timers.add(t);});
   const reduced=()=>window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
   function message(label,description){
    note.textContent=description;
    const li=document.createElement('li'),strong=document.createElement('strong'),span=document.createElement('span');
    strong.textContent=label;span.textContent=description;li.append(strong,span);history.append(li);
-   history.scrollTop=history.scrollHeight;
+   // L'historique s'étend naturellement : pas de défilement imbriqué.
   }
   function packet(points,type,token,tag=''){
    return new Promise(resolve=>{
@@ -75,7 +146,9 @@
     circle.setAttribute('r',type==='relay'?'7':'8');
     circle.setAttribute('class','vlan-motion__moving vlan-motion__moving--'+type);
     const label=document.createElementNS(svgNS,'text');label.setAttribute('class','vlan-motion__moving-text');
-    label.textContent=tag;layer.append(circle,label);
+    label.textContent=tag;
+    const layer=host.querySelector(isMobile()?'.vlan-motion__svg--mobile .vlan-motion__packets':'.vlan-motion__svg:not(.vlan-motion__svg--mobile) .vlan-motion__packets');
+    layer.append(circle,label);
     let lengths=[],sum=0;
     for(let i=1;i<points.length;i++){const d=Math.hypot(points[i][0]-points[i-1][0],points[i][1]-points[i-1][1]);lengths.push(d);sum+=d;}
     const duration=reduced()?260:Math.max(550,Math.min(1650,sum*2.3));
@@ -93,12 +166,12 @@
     const id=requestAnimationFrame(tick);frames.add(id);
    });
   }
-  function setIP(id,value){host.querySelector('[data-ip="'+id+'"]').textContent=value;}
-  function scope(v,active){host.querySelector('[data-scope="v'+v+'"]').classList.toggle('vlan-motion__scope--active',active);}
+  function setIP(id,value){host.querySelectorAll('[data-ip="'+id+'"]').forEach(n=>n.textContent=value);}
+  function scope(v,active){host.querySelectorAll('[data-scope="v'+v+'"]').forEach(n=>n.classList.toggle('vlan-motion__scope--active',active));}
   function reset(){
    stopped();history.replaceChildren();counter.textContent='Prêt';
    [1,2,3,4].forEach(p=>setIP(p,'DHCP'));[10,20,99].forEach(v=>scope(v,false));
-   svi.textContent='Relais : '+(toggle.checked?'ON':'OFF');
+   host.querySelectorAll('.vlan-motion__svi-state').forEach(n=>n.textContent='Relais : '+(toggle.checked?'ON':'OFF'));
    state.textContent=toggle.checked?'ON':'OFF';
    note.textContent='Choisis l’état de l’IP helper, puis lance l’animation.';
   }
@@ -114,10 +187,10 @@
      const d=entry[v],color=v===10?'v10':'v20';
      counter.textContent='VLAN '+v+' / '+(on?'relais ON':'relais OFF');
      message('Discover · VLAN '+v,'PC'+d.origin+' diffuse un DHCP Discover. Le message entre dans le switch par le port '+d.origin+'.');
-     await packet([[155,d.start],[334,d.start]],color,token,'D');
+     await packet(route(v,'discover'),color,token,'D');
      if(token!==epoch)break;
      message('Broadcast local','Le switch diffuse sur le port '+d.otherPort+' du VLAN '+v+', mais pas vers les ports des autres VLAN.');
-     await packet([[342,d.start],[387,d.start],[387,d.other],[342,d.other],[155,d.other]],color,token,'D');
+     await packet(route(v,'broadcast'),color,token,'D');
      if(token!==epoch)break;
      if(!on){
       message('Aucun relais','Le broadcast n’est pas routé vers le VLAN 99. Aucun Offer n’arrive au PC'+d.origin+'.');
@@ -125,24 +198,24 @@
       continue;
      }
      message('Relais IP helper','L’interface VLAN '+v+' relaie la demande en unicast vers le serveur 10.99.0.10, avec le réseau d’origine identifié par giaddr.');
-     await packet([[387,d.start],[477,d.start],[477,179],[610,179],[660,179]],'relay',token,'D');
+     await packet(route(v,'relay'),'relay',token,'D');
      if(token!==epoch)break;
      scope(v,true);
      message('Plage VLAN '+v,'Le serveur sélectionne son étendue '+(v===10?'10.10':'10.20')+'.0.0/24 grâce à l’adresse du relais (giaddr).');
      if(!await pause(gap,token))break;
      message('Offer','Le serveur propose '+d.ip+' et répond au relais DHCP.');
-     await packet([[660,179],[610,179],[477,179],[477,d.start],[342,d.start],[155,d.start]],'relay',token,'O');
+     await packet(route(v,'offer'),'relay',token,'O');
      if(token!==epoch)break;
      message('Request','PC'+d.origin+' diffuse son DHCP Request dans le VLAN '+v+'. Le switch le transmet aux autres ports du même VLAN et le relais l’envoie au serveur.');
-     await packet([[155,d.start],[342,d.start]],color,token,'R');
+     await packet(route(v,'request'),color,token,'R');
      if(token!==epoch)break;
      await Promise.all([
-      packet([[342,d.start],[387,d.start],[387,d.other],[342,d.other],[155,d.other]],color,token,'R'),
-      packet([[342,d.start],[477,d.start],[477,179],[610,179],[660,179]],'relay',token,'R')
+      packet(route(v,'requestFlood'),color,token,'R'),
+      packet(route(v,'requestRelay'),'relay',token,'R')
      ]);
      if(token!==epoch)break;
      message('ACK','Le serveur confirme le bail et renvoie l’ACK par le relais vers PC'+d.origin+'.');
-     await packet([[660,179],[610,179],[477,179],[477,d.start],[342,d.start],[155,d.start]],'relay',token,'A');
+     await packet(route(v,'ack'),'relay',token,'A');
      if(token!==epoch)break;
      setIP(d.origin,d.ip);
      scope(v,false);
