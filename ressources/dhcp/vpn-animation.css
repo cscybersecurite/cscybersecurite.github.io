@@ -1,0 +1,55 @@
+/* VPN et DHCP : famille visuelle DORA / VLAN, presentation verticale mobile. */
+.vpn-motion{max-width:920px;margin:16px auto 20px;border:1px solid var(--line,#cbd8e8);border-radius:12px;padding:12px;background:var(--panel,#fff);color:var(--ink,#152b45);min-width:0}
+.vpn-motion *{box-sizing:border-box}
+.vpn-motion__controls{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:10px}
+.vpn-motion__toggle{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.94rem;cursor:pointer}
+.vpn-motion__enabled{appearance:none;position:relative;width:48px;height:27px;border-radius:20px;background:#778594;border:2px solid #657382;cursor:pointer;margin:0;flex:none}
+.vpn-motion__enabled:after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;background:#fff;border-radius:50%;transition:left .2s}
+.vpn-motion__enabled:checked{background:#176b96;border-color:#176b96}
+.vpn-motion__enabled:checked:after{left:24px}
+.vpn-motion__enabled:focus-visible,.vpn-motion__play:focus-visible{outline:3px solid #eea13e;outline-offset:3px}
+.vpn-motion__toggle-label{min-width:28px}
+.vpn-motion__play{margin:0;border:1px solid #155c93;background:#155c93;color:#fff;border-radius:9px;min-height:42px;padding:8px 14px;font:700 .9rem Arial,sans-serif;cursor:pointer}
+.vpn-motion__play:disabled{opacity:.65;cursor:default}
+.vpn-motion__canvas{width:100%;max-width:490px;margin:auto}
+.vpn-motion__svg{display:block;width:100%;height:auto}
+.vpn-motion__site{stroke-width:1.5;stroke-dasharray:5 4}
+.vpn-motion__brest{fill:#2387bf;fill-opacity:.08;stroke:#438fbe}
+.vpn-motion__lorient{fill:#2b987b;fill-opacity:.08;stroke:#2b987b}
+.vpn-motion__hq{fill:var(--soft,#edf5fb);stroke:var(--line,#a7b8cc);stroke-width:2}
+.vpn-motion__internet{fill:var(--panel,#fff);stroke:var(--line,#a7b8cc);stroke-width:2}
+.vpn-motion__heading{font:700 17px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.vpn-motion__small{font:12px Arial,sans-serif;fill:var(--muted,#506780)}
+.vpn-motion__pc-ip{font:12px Arial,sans-serif;fill:var(--muted,#506780)}
+.vpn-motion__lan{fill:none;stroke:#3189b6;stroke-width:2.5;stroke-linecap:round}
+.vpn-motion__tunnel{fill:none;stroke:#bd8a33;stroke-width:3.5;stroke-dasharray:7 5;stroke-linecap:round}
+.vpn-motion--offline .vpn-motion__tunnel{stroke:#8d929a;opacity:.45}
+.vpn-motion__scope-head{font:700 14px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.vpn-motion__scope{fill:var(--panel,#fff);stroke:var(--line,#a7b8cc);stroke-width:1.3;transition:fill .2s,stroke .2s}
+.vpn-motion__scope--active{fill:#ffe8ae;stroke:#d38e19;stroke-width:2.5}
+.vpn-motion__scope-label{font:700 13px Arial,sans-serif;fill:var(--ink,#1b3149);pointer-events:none}
+.vpn-motion__scope-range{font:12px Arial,sans-serif;fill:var(--muted,#506780);pointer-events:none}
+.vpn-motion__packet{stroke:#fff;stroke-width:2}
+.vpn-motion__packet--local{fill:#287dac}
+.vpn-motion__packet--vpn{fill:#c48b2c}
+.vpn-motion__packet--blocked{fill:#be5146}
+.vpn-motion__packet-text{font:700 14px Arial,sans-serif;fill:var(--ink,#142c44);paint-order:stroke;stroke:var(--panel,#fff);stroke-width:3;stroke-linejoin:round;pointer-events:none}
+.vpn-motion__legend{display:flex;flex-wrap:wrap;gap:7px 18px;padding:4px 0 11px;font-size:.8rem;color:var(--muted,#506780)}
+.vpn-motion__legend span{display:inline-flex;align-items:center;gap:7px}
+.vpn-motion__dot{width:13px;height:13px;border-radius:50%;display:inline-block;border:1px solid #8899aa}
+.vpn-motion__dot--local{background:#3189b6}.vpn-motion__dot--vpn{background:#bd8a33}
+.vpn-motion__readout{padding:11px 12px;border:1px solid var(--line,#cbd8e8);border-radius:9px;background:var(--soft,#ecf4fd)}
+.vpn-motion__readout-head{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:baseline;gap:7px;font-size:.93rem}
+.vpn-motion__counter{font-size:.78rem;color:var(--muted,#506780)}
+.vpn-motion__note{font-size:.9rem;line-height:1.45;min-height:2em;margin:9px 0!important}
+.vpn-motion__history{display:grid;gap:5px;margin:6px 0 0;padding:0;list-style:none;font-size:.83rem;max-height:230px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin}
+.vpn-motion__history li{border-left:3px solid #3281b5;background:var(--panel,#fff);border-radius:4px;padding:6px 9px;display:flex;flex-wrap:wrap;gap:4px 9px}
+.vpn-motion__history li strong{white-space:nowrap}
+@media(min-width:850px){.vpn-motion{display:grid;grid-template-columns:minmax(300px,1fr) minmax(340px,.92fr);gap:0 15px}
+ .vpn-motion__controls{grid-column:1/-1}
+ .vpn-motion__canvas{grid-column:1;grid-row:2/4;align-self:start}
+ .vpn-motion__legend{grid-column:2;grid-row:2;align-self:start;align-content:start}
+ .vpn-motion__readout{grid-column:2;grid-row:3;align-self:start}
+}
+@media(max-width:600px){.vpn-motion{padding:8px}.vpn-motion__controls{gap:9px}.vpn-motion__toggle{font-size:.84rem}.vpn-motion__play{font-size:.8rem;padding:8px 10px}.vpn-motion__note{font-size:.84rem}.vpn-motion__history{font-size:.77rem;max-height:210px}.vpn-motion__legend{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){.vpn-motion__enabled:after,.vpn-motion__scope{transition:none}}
