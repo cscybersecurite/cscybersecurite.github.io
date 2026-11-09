@@ -24,7 +24,7 @@
    s+='<text x="'+g.pc+'" y="115" text-anchor="middle" class="vpn-motion__small">PC</text>';
    s+='<text x="'+g.pc+'" y="131" text-anchor="middle" class="vpn-motion__pc-ip" data-pc="'+i+'">DHCP</text>';
    s+='<text x="'+g.gw+'" y="114" text-anchor="middle" class="vpn-motion__small">Routeur VPN</text>';
-   s+='<text x="'+g.gw+'" y="130" text-anchor="middle" class="vpn-motion__small">Relais DHCP</text>';
+   s+='<text x="'+g.gw+'" y="130" text-anchor="middle" class="vpn-motion__helper-state" data-helper-state="'+i+'">Helper : ON</text>';
    s+='<path d="M'+g.gw+' 155 V174 L210 210" class="vpn-motion__tunnel vpn-motion__tunnel--'+i+'"/>';
   });
   s+='<rect x="151" y="184" width="118" height="52" rx="22" class="vpn-motion__internet"/>';
@@ -55,16 +55,16 @@
  }
  document.querySelectorAll('[data-dhcp-vpn]').forEach(host=>{
   host.classList.add('vpn-motion');
-  host.innerHTML='<div class="vpn-motion__controls"><label class="vpn-motion__toggle"><span>Tunnels VPN</span><input type="checkbox" class="vpn-motion__enabled" role="switch" checked><span class="vpn-motion__toggle-label">ON</span></label><button type="button" class="vpn-motion__play">▶ Lancer l’animation</button></div>'+
+  host.innerHTML='<div class="vpn-motion__controls"><label class="vpn-motion__toggle"><span>IP helper Pacé</span><input type="checkbox" class="vpn-motion__enabled" data-helper="0" role="switch" checked><span class="vpn-motion__toggle-label" data-helper-label="0">ON</span></label><label class="vpn-motion__toggle"><span>IP helper Bruz</span><input type="checkbox" class="vpn-motion__enabled" data-helper="1" role="switch" checked><span class="vpn-motion__toggle-label" data-helper-label="1">ON</span></label><button type="button" class="vpn-motion__play">▶ Lancer l’animation</button></div>'+
     '<div class="vpn-motion__canvas">'+svg()+'</div>'+
     '<div class="vpn-motion__legend"><span><i class="vpn-motion__dot vpn-motion__dot--local"></i> Broadcast DHCP local</span><span><i class="vpn-motion__dot vpn-motion__dot--vpn"></i> Relais DHCP via VPN</span></div>'+
     '<div class="vpn-motion__readout"><div class="vpn-motion__readout-head"><strong>DHCP entre sites via VPN</strong><span class="vpn-motion__counter"></span></div><p class="vpn-motion__note" role="status" aria-live="polite">Lance l’animation pour observer les échanges.</p><ol class="vpn-motion__history" aria-label="Messages observés"></ol></div>';
-  const toggle=host.querySelector('.vpn-motion__enabled'),state=host.querySelector('.vpn-motion__toggle-label'),button=host.querySelector('.vpn-motion__play');
+  const helpers=[...host.querySelectorAll('[data-helper]')],helperLabels=[...host.querySelectorAll('[data-helper-label]')],helperStates=[...host.querySelectorAll('[data-helper-state]')],button=host.querySelector('.vpn-motion__play');
   const layer=host.querySelector('.vpn-motion__packets'),history=host.querySelector('.vpn-motion__history'),note=host.querySelector('.vpn-motion__note'),counter=host.querySelector('.vpn-motion__counter');
   const svgRoot=host.querySelector('svg');
   let epoch=0,timers=new Set(),running=false;
   const reduced=()=>window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-  const cancel=()=>{epoch++;timers.forEach(clearTimeout);timers.clear();layer.replaceChildren();button.disabled=false;toggle.disabled=false;running=false;};
+  const cancel=()=>{epoch++;timers.forEach(clearTimeout);timers.clear();layer.replaceChildren();button.disabled=false;helpers.forEach(el=>el.disabled=false);running=false;};
   function delay(ms,token){return new Promise(resolve=>{const id=setTimeout(()=>{timers.delete(id);resolve(token===epoch)},ms);timers.add(id);});}
   function add(label,body){
    note.textContent=body;
@@ -76,8 +76,12 @@
   function reset(){
    cancel();history.replaceChildren();note.textContent='Lance l’animation pour observer les échanges.';counter.textContent='';
    sites.forEach((site,i)=>{host.querySelector('[data-pc="'+i+'"]').textContent='DHCP';mark(site.scope,false);});
-   state.textContent=toggle.checked?'ON':'OFF';
-   host.classList.toggle('vpn-motion--offline',!toggle.checked);
+   helpers.forEach((el,i)=>{
+    const value=el.checked?'ON':'OFF';
+    helperLabels[i].textContent=value;
+    helperStates[i].textContent='Helper : '+value;
+    helperStates[i].classList.toggle('vpn-motion__helper-state--off',!el.checked);
+   });
    button.textContent='▶ Lancer l’animation';
   }
   async function move(points,type,label,token){
@@ -101,19 +105,18 @@
     requestAnimationFrame(tick);
    });
   }
-  toggle.addEventListener('change',reset);
+  helpers.forEach(el=>el.addEventListener('change',reset));
   async function play(){
-   reset();const token=epoch,on=toggle.checked;running=true;toggle.disabled=true;button.disabled=true;button.textContent='▶ Animation en cours';
+   reset();const token=epoch,active=helpers.map(el=>el.checked);running=true;helpers.forEach(el=>el.disabled=true);button.disabled=true;button.textContent='▶ Animation en cours';
    const gap=reduced()?180:450;
    try{
-    for(const site of sites){
+    for(const [index,site] of sites.entries()){
      if(token!==epoch)break;
      counter.textContent=site.name;
      add('Discover · '+site.name,'Le PC de '+site.name+' diffuse un DHCP Discover sur son réseau local. Le routeur reçoit ce broadcast.');
      if(!await move(route(site,'discover'),'local','D',token))break;
-     if(!on){
-      add('VPN indisponible','Le relais DHCP est configuré, mais le tunnel VPN est coupé. La demande ne peut pas atteindre Rennes.');
-      if(!await move(route(site,'blocked'),'blocked','×',token))break;
+     if(!active[index]){
+      add('IP helper désactivé','Le tunnel VPN de '+site.name+' fonctionne, mais son routeur ne relaie pas le Discover. Le serveur de Rennes ne reçoit aucune demande DHCP.');
       if(!await delay(gap,token))break;
       continue;
      }
@@ -135,8 +138,9 @@
     }
     if(token!==epoch)return;
     counter.textContent='Animation terminée';
-    note.textContent=on?'Les deux sites ont reçu leurs adresses de leurs étendues respectives, gérées par Rennes.':'Les broadcasts restent sur chaque site et les relais ne peuvent joindre Rennes sans tunnel VPN.';
-   }finally{if(token===epoch){running=false;toggle.disabled=false;button.disabled=false;button.textContent='↻ Rejouer l’animation';}}
+    const success=active.filter(Boolean).length;
+    note.textContent=success===2?'Pacé et Bruz ont obtenu leurs adresses depuis le serveur DHCP de Rennes.':success===0?'Les VPN fonctionnent, mais aucun routeur ne relaie les demandes DHCP : les deux PC restent sans adresse.':'Le VPN fonctionne sur les deux sites, mais seul le site dont l’IP helper est activé reçoit une adresse DHCP.';
+   }finally{if(token===epoch){running=false;helpers.forEach(el=>el.disabled=false);button.disabled=false;button.textContent='↻ Rejouer l’animation';}}
   }
   button.addEventListener('click',()=>{if(!running)play();});
   const chapter=host.closest('details.chapter');chapter?.addEventListener('toggle',()=>{if(!chapter.open)reset();});
