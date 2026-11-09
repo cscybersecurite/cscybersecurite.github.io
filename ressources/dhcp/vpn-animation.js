@@ -5,15 +5,15 @@
  'use strict';
  const ns='http://www.w3.org/2000/svg';
  const sites=[
-  {name:'Brest',net:'192.168.20.0/24',ip:'192.168.20.100',scope:'brest',left:true},
-  {name:'Lorient',net:'192.168.30.0/24',ip:'192.168.30.100',scope:'lorient',left:false}
+  {name:'Pacé',net:'192.168.20.0/24',ip:'192.168.20.100',scope:'pace',left:true},
+  {name:'Bruz',net:'192.168.30.0/24',ip:'192.168.30.100',scope:'bruz',left:false}
  ];
  const pcSVG='<rect x="-17" y="-15" width="34" height="24" rx="3" fill="#315f83" stroke="#79b0d0" stroke-width="1.8"/><rect x="-12" y="-11" width="24" height="16" fill="#d0ecff"/><path d="M0 9v7m-12 2h24" stroke="#658ba7" stroke-width="3"/>';
  const gateSVG='<rect x="-21" y="-15" width="42" height="30" rx="5" fill="#526e83" stroke="#91b6c9" stroke-width="2"/><path d="M-13 -5h26M-13 5h26" stroke="#d8eaf6" stroke-width="3"/>';
  function svg(){
-  let s='<svg class="vpn-motion__svg" viewBox="0 0 420 490" role="img" aria-label="Deux sites distants, Brest et Lorient, avec chacun un PC et un routeur relais DHCP. Leurs tunnels VPN traversent Internet vers le siège de Rennes, qui héberge un serveur DHCP avec trois étendues.">';
-  const groups=[{x:6,center:104,pc:53,gw:151,name:'BREST',net:sites[0].net,cls:'vpn-motion__brest'},
-                {x:216,center:314,pc:263,gw:361,name:'LORIENT',net:sites[1].net,cls:'vpn-motion__lorient'}];
+  let s='<svg class="vpn-motion__svg" viewBox="0 0 420 490" role="img" aria-label="Deux sites distants, Pacé et Bruz, avec chacun un PC et un routeur relais DHCP. Leurs tunnels VPN traversent Internet vers le siège de Rennes, qui héberge un serveur DHCP avec trois étendues.">';
+  const groups=[{x:6,center:104,pc:53,gw:151,name:'PACÉ',net:sites[0].net,cls:'vpn-motion__pace'},
+                {x:216,center:314,pc:263,gw:361,name:'BRUZ',net:sites[1].net,cls:'vpn-motion__bruz'}];
   groups.forEach((g,i)=>{
    s+='<rect x="'+g.x+'" y="5" width="198" height="150" rx="12" class="vpn-motion__site '+g.cls+'"/>';
    s+='<text x="'+g.center+'" y="28" text-anchor="middle" class="vpn-motion__heading">'+g.name+'</text>';
@@ -37,7 +37,7 @@
   s+='<text x="210" y="324" text-anchor="middle" class="vpn-motion__heading">Serveur DHCP central</text>';
   s+='<text x="210" y="341" text-anchor="middle" class="vpn-motion__small">192.168.10.10</text>';
   s+='<text x="20" y="363" class="vpn-motion__scope-head">Étendues DHCP gérées</text>';
-  [['Rennes','192.168.10.100 à .200','rennes'],['Brest','192.168.20.100 à .200','brest'],['Lorient','192.168.30.100 à .200','lorient']].forEach((v,i)=>{
+  [['Rennes','192.168.10.100 à .200','rennes'],['Pacé','192.168.20.100 à .200','pace'],['Bruz','192.168.30.100 à .200','bruz']].forEach((v,i)=>{
    const y=372+i*32;
    s+='<rect x="19" y="'+y+'" width="382" height="28" rx="6" class="vpn-motion__scope" data-scope="'+v[2]+'"/>';
    s+='<text x="31" y="'+(y+18)+'" class="vpn-motion__scope-label">'+v[0]+'</text>';
