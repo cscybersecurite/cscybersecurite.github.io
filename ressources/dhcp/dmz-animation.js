@@ -187,7 +187,14 @@
    stage.textContent='Discover';
    entry('Discover','Le smartphone diffuse un Discover sur le Wi-Fi. Le point d’accès transmet la demande dans la DMZ.');
    if(!await move(seg.discover,'local','D',token))return;
-   if(!relayOn){entry('IP helper désactivé','Le broadcast ne traverse pas le pare-feu jusqu’au serveur DHCP du LAN. Le smartphone reste sans adresse.');return;}
+   if(!relayOn){
+    entry('IP helper désactivé','Le broadcast ne traverse pas le pare-feu jusqu’au serveur DHCP du LAN. Aucune réponse DHCP ne revient.');
+    if(!await sleep(reduced()?130:460,token))return;
+    if(!active(token))return;
+    phoneIP.textContent='APIPA';
+    entry('APIPA','Après l’échec des tentatives DHCP, le smartphone utilise une adresse automatique 169.254.x.x/16, sans passerelle.');
+    return;
+   }
    stage.textContent='Relais DHCP';
    entry('Relais DHCP','L’interface DMZ du pare-feu relaie la demande en unicast au serveur DHCP du LAN. Le réseau d’origine est identifié par giaddr.');
    if(!await move(seg.relay,'relay','D',token))return;
