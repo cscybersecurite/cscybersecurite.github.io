@@ -30,6 +30,13 @@
 .dmz-motion__scope--active{fill:#ffe8ae;stroke:#d38e19;stroke-width:2.4}
 .dmz-motion__scope-label{font:700 13px Arial,sans-serif;fill:var(--ink,#1b3149)}
 .dmz-motion__ip{font:700 12px Arial,sans-serif;fill:var(--muted,#536b81)}
+/* Flèches didactiques durables, indépendantes de l'animation DORA. */
+.dmz-motion__flow{fill:none;stroke-width:4;stroke-linejoin:round;stroke-linecap:round;opacity:.96;pointer-events:none;filter:drop-shadow(0 0 2px var(--panel,#fff))}
+.dmz-motion__flow--allowed{stroke:#219464}
+.dmz-motion__flow--blocked{stroke:#d14f4f}
+.dmz-motion__arrowhead--allowed{fill:#219464}
+.dmz-motion__arrowhead--blocked{fill:#d14f4f}
+.dmz-motion__flow-cross{font:700 25px Arial,sans-serif;fill:#cf4242;stroke:var(--panel,#fff);stroke-width:3;paint-order:stroke;pointer-events:none}
 .dmz-motion__packet{stroke:#fff;stroke-width:2}
 .dmz-motion__packet--allowed{fill:#2a9977}
 .dmz-motion__packet--blocked{fill:#c05b50}
