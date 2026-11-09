@@ -197,6 +197,10 @@
      if(!on){
       message('Aucun relais','Le broadcast n’est pas routé vers le VLAN 99. Aucun Offer n’arrive au PC'+d.origin+'.');
       if(!await pause(gap,token))break;
+      if(token!==epoch)break;
+      // Les tentatives DHCP ont échoué : le client s'autoconfigure en APIPA.
+      setIP(d.origin,'APIPA');
+      message('APIPA · PC'+d.origin,'Après l’échec des tentatives DHCP, PC'+d.origin+' utilise une adresse automatique 169.254.x.x/16, sans passerelle.');
       continue;
      }
      message('Relais IP helper','L’interface VLAN '+v+' relaie la demande en unicast vers le serveur 10.99.0.10, avec le réseau d’origine identifié par giaddr.');
@@ -225,7 +229,7 @@
     }
     if(token!==epoch)return;
     counter.textContent='Animation terminée';
-    note.textContent=on?'Le serveur du VLAN 99 a attribué deux adresses, chacune depuis l’étendue correspondant au VLAN du client.':'Sans relais, les Discover restent dans leurs domaines de broadcast. Le serveur du VLAN 99 ne reçoit aucune demande.';
+    note.textContent=on?'Le serveur du VLAN 99 a attribué deux adresses, chacune depuis l’étendue correspondant au VLAN du client.':'Sans relais DHCP, les Discover restent dans leur VLAN. PC1 et PC3 utilisent chacun une adresse APIPA (169.254.x.x/16), sans passerelle.';
    } finally {
     if(token===epoch){running=false;toggle.disabled=false;play.disabled=false;play.textContent='↻ Rejouer l’animation';}
    }
