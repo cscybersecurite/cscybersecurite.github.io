@@ -48,7 +48,7 @@
 .vlan-motion__readout-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;font-size:.93rem}
 .vlan-motion__counter{font-size:.78rem;color:var(--muted,#506780)}
 .vlan-motion__note{font-size:.9rem;line-height:1.4;min-height:2.5em;margin:9px 0!important}
-.vlan-motion__history{display:grid;gap:5px;margin:6px 0 0;padding:0;list-style:none;font-size:.83rem}
+.vlan-motion__history{display:grid;gap:5px;margin:6px 0 0;padding:0;list-style:none;font-size:.83rem;max-height:240px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin}
 .vlan-motion__history li{border-left:3px solid #3281b5;background:var(--panel,#fff);border-radius:4px;padding:6px 9px;display:flex;flex-wrap:wrap;gap:4px 9px}
 .vlan-motion__history li strong{white-space:nowrap}
 @media(max-width:600px){
@@ -61,6 +61,6 @@
  .vlan-motion__play{font-size:.8rem;padding:8px 10px}
  .vlan-motion__legend{font-size:.72rem}
  .vlan-motion__note{font-size:.84rem}
- .vlan-motion__history{font-size:.77rem}
+ .vlan-motion__history{font-size:.77rem;max-height:210px}
 }
 @media(prefers-reduced-motion:reduce){.vlan-motion__helper:after,.vlan-motion__scope{transition:none}}
