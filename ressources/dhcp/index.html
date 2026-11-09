@@ -189,7 +189,7 @@ Carte Ethernet Ethernet :
 </div></div>
 <div id="dhcp-diagnostic-vertical" aria-label="Parcours de diagnostic DHCP">Chargement du diagnostic…</div>
 <div class="dhcp-diagnostic-actions"><button type="button" id="dhcp-diagnostic-restart">↻ Recommencer le diagnostic</button></div>
-</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.72</div><script>
+</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.73</div><script>
 const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -262,4 +262,4 @@ target.addEventListener('click',event=>{
 });
 document.getElementById('dhcp-diagnostic-restart').addEventListener('click',()=>{if(app){app.restart();target.scrollIntoView({block:'start',behavior:'instant'});}});
 })();
-</script><script defer src="./dhcp-animation.js?v=102"></script><script defer src="./vlan-animation.js?v=103"></script><script type="module" src="./exercices/chapitre3.js?v=102"></script><script type="module" src="./exercices/apipa/exercice.js?v=130"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
+</script><script defer src="./dhcp-animation.js?v=102"></script><script defer src="./vlan-animation.js?v=104"></script><script type="module" src="./exercices/chapitre3.js?v=102"></script><script type="module" src="./exercices/apipa/exercice.js?v=130"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
