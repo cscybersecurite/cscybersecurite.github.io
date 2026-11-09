@@ -40,7 +40,7 @@
       '<rect x="29" y="'+(p.y-18)+'" width="21" height="14" fill="#d0ecff"/>'+
       '<path d="M39 '+p.y+' v6 m-11 1 h22" stroke="#658ba7" stroke-width="2.3"/>'+
       '<text x="65" y="'+(p.y-6)+'" class="vlan-motion__pc-name">PC'+p.id+'</text>'+
-      '<text x="65" y="'+(p.y+11)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">DHCP</text>'+
+      '<text x="65" y="'+(p.y+11)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">'+(p.id===2||p.id===4?'Témoin':'DHCP')+'</text>'+
     '</g>'+
     '<rect x="334" y="'+(p.y-11)+'" width="24" height="22" rx="3" class="vlan-motion__port '+(p.v===10?'vlan-motion__port--10':'vlan-motion__port--20')+'" data-port="'+p.port+'"/>'+
     '<text x="346" y="'+(p.y+5)+'" class="vlan-motion__port-num" text-anchor="middle">'+p.port+'</text>';
@@ -75,7 +75,7 @@
        '<rect x="'+(p.x+4)+'" y="'+mobileY(p.y+4)+'" width="21" height="14" fill="#d0ecff"/>'+
        '<path d="M'+(p.x+14)+' '+mobileY(p.y+22)+' v6 m-11 1 h22" stroke="#658ba7" stroke-width="2.3"/>'+
        '<text x="'+(p.x+38)+'" y="'+mobileY(p.y+11)+'" class="vlan-motion__pc-name">PC'+p.id+'</text>'+
-       '<text x="'+(p.x+38)+'" y="'+mobileY(p.y+28)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">DHCP</text></g>';
+       '<text x="'+(p.x+38)+'" y="'+mobileY(p.y+28)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">'+(p.id===2||p.id===4?'Témoin':'DHCP')+'</text></g>';
    }).join('')+
    '<rect x="5" y="157" width="410" height="105" rx="12" class="vlan-motion__switch"/>'+
    '<text x="157" y="226" class="vlan-motion__label" text-anchor="middle">SWITCH L3</text>'+
@@ -129,7 +129,7 @@
   host.innerHTML='<div class="vlan-motion__controls"><label class="vlan-motion__toggle"><span>IP helper</span><input type="checkbox" class="vlan-motion__helper" role="switch"><span class="vlan-motion__toggle-status">OFF</span></label><button type="button" class="vlan-motion__play">▶ Lancer l’animation</button></div>'+
   '<div class="vlan-motion__canvas">'+frame()+mobileFrame()+'</div>'+
   '<div class="vlan-motion__legend"><span><i class="vlan-motion__key vlan-motion__key--broadcast"></i> Broadcast dans le VLAN</span><span><i class="vlan-motion__key vlan-motion__key--relay"></i> Relais DHCP en unicast</span></div>'+
-  '<div class="vlan-motion__readout"><div class="vlan-motion__readout-head"><strong>Diffusion des broadcasts et relais DHCP</strong><span class="vlan-motion__counter"></span></div><p class="vlan-motion__note" role="status" aria-live="polite">Choisis l’état de l’IP helper, puis lance l’animation.</p><ol class="vlan-motion__history" aria-label="Messages observés"></ol></div>';
+  '<div class="vlan-motion__readout"><div class="vlan-motion__readout-head"><strong>Diffusion des broadcasts et relais DHCP</strong><span class="vlan-motion__counter"></span></div><p class="vlan-motion__note" role="status" aria-live="polite">PC1 et PC3 demandent une adresse. PC2 et PC4 observent les broadcasts.</p><ol class="vlan-motion__history" aria-label="Messages observés"></ol></div>';
   const toggle=host.querySelector('.vlan-motion__helper'),state=host.querySelector('.vlan-motion__toggle-status'),play=host.querySelector('.vlan-motion__play'),canvas=host.querySelector('.vlan-motion__canvas'),noteAnchor=host.querySelector('.vlan-motion__readout'),note=host.querySelector('.vlan-motion__note'),history=host.querySelector('.vlan-motion__history'),counter=host.querySelector('.vlan-motion__counter'),svi=host.querySelector('.vlan-motion__svi-state');
   let epoch=0,timers=new Set(),frames=new Set(),running=false;
   const stopped=()=>{epoch++;for(const t of timers)clearTimeout(t);timers.clear();for(const f of frames)cancelAnimationFrame(f);frames.clear();host.querySelectorAll('.vlan-motion__packets').forEach(layer=>layer.replaceChildren());running=false;play.disabled=false;toggle.disabled=false;};
