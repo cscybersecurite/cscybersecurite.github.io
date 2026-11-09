@@ -117,6 +117,9 @@
      if(!active[index]){
       add('IP helper désactivé','Le tunnel VPN de '+site.name+' fonctionne, mais son routeur ne relaie pas le Discover. Le serveur de Rennes ne reçoit aucune demande DHCP.');
       if(!await delay(gap,token))break;
+      if(token!==epoch)break;
+      host.querySelector('[data-pc="'+index+'"]').textContent='APIPA';
+      add('APIPA · '+site.name,'Après l’échec des tentatives DHCP, le PC de '+site.name+' utilise une adresse automatique 169.254.x.x/16, sans passerelle.');
       continue;
      }
      add('Relais DHCP','La passerelle de '+site.name+' relaie le Discover vers Rennes en unicast à travers le tunnel VPN (giaddr identifie le réseau client).');
@@ -140,7 +143,7 @@
     if(token!==epoch)return;
     counter.textContent='Animation terminée';
     const success=active.filter(Boolean).length;
-    add('Bilan',success===2?'Pacé et Bruz ont obtenu leurs adresses depuis le serveur DHCP de Rennes.':success===0?'Les VPN fonctionnent, mais aucun routeur ne relaie les demandes DHCP : les deux PC restent sans adresse.':'Le VPN fonctionne sur les deux sites, mais seul le site dont l’IP helper est activé reçoit une adresse DHCP.');
+    add('Bilan',success===2?'Pacé et Bruz ont obtenu leurs adresses depuis le serveur DHCP de Rennes.':success===0?'Les VPN fonctionnent, mais aucun routeur ne relaie les demandes DHCP : les deux PC passent en APIPA.':'Le VPN fonctionne sur les deux sites, mais seul le site dont l’IP helper est activé reçoit une adresse DHCP. L’autre PC passe en APIPA.');
    }finally{if(token===epoch){running=false;helpers.forEach(el=>el.disabled=false);button.disabled=false;button.textContent='↻ Rejouer l’animation';}}
   }
   button.addEventListener('click',()=>{if(!running)play();});
