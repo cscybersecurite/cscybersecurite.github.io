@@ -52,6 +52,8 @@
   '<g class="vlan-motion__packets"></g></svg>';
  }
 
+ // Compactage géométrique mobile : coordonnées verticales réduites, sans écraser les textes.
+ function mobileY(y){return Math.round(y<=45?y:y<=182?45+(y-45)*.78:y<=417?152+(y-182)*.76:331+(y-417)*.79);}
  function mobileFrame(){
   const mobPC=[
    {id:1,v:10,x:26,y:61,port:1,px:85},
@@ -59,44 +61,44 @@
    {id:3,v:20,x:239,y:61,port:3,px:265},
    {id:4,v:20,x:239,y:119,port:4,px:335}
   ];
-  return '<svg class="vlan-motion__svg vlan-motion__svg--mobile" viewBox="0 0 420 665" role="img" aria-label="Deux VLAN clients en haut, chacun avec deux PC et deux ports physiques du switch L3 au centre. Le port 5 relie le switch au serveur DHCP du VLAN 99 en bas.">'+
-   '<rect x="5" y="7" width="199" height="175" rx="11" fill="#2387bf" fill-opacity=".08" stroke="#438fbe" stroke-dasharray="5 4"/>'+
-   '<rect x="216" y="7" width="199" height="175" rx="11" fill="#2b987b" fill-opacity=".08" stroke="#2b987b" stroke-dasharray="5 4"/>'+
+  return '<svg class="vlan-motion__svg vlan-motion__svg--mobile" viewBox="0 0 420 530" role="img" aria-label="Deux VLAN clients en haut, chacun avec deux PC et deux ports physiques du switch L3 au centre. Le port 5 relie le switch au serveur DHCP du VLAN 99 en bas.">'+
+   '<rect x="5" y="7" width="199" height="145" rx="11" fill="#2387bf" fill-opacity=".08" stroke="#438fbe" stroke-dasharray="5 4"/>'+
+   '<rect x="216" y="7" width="199" height="145" rx="11" fill="#2b987b" fill-opacity=".08" stroke="#2b987b" stroke-dasharray="5 4"/>'+
    '<text x="14" y="29" class="vlan-motion__net vlan-motion__blue">VLAN 10</text><text x="14" y="45" class="vlan-motion__sub">10.10.0.0/24</text>'+
    '<text x="225" y="29" class="vlan-motion__net vlan-motion__green">VLAN 20</text><text x="225" y="45" class="vlan-motion__sub">10.20.0.0/24</text>'+
    mobPC.map(p=>{
     const col=p.v===10?'#338dc6':'#329b7b';
-    const isFirst=p.id===1||p.id===3,srcX=p.v===10?117:328,yy=p.y+15;
-    return path([[srcX,yy],[srcX,197],[p.px,197],[p.px,226]],col,2)+
+    const srcX=p.v===10?117:328,yy=mobileY(p.y+15);
+    return path([[srcX,yy],[srcX,mobileY(197)],[p.px,mobileY(197)],[p.px,mobileY(226)]],col,2)+
       '<g class="vlan-motion__pc" data-pc="'+p.id+'">'+
-       '<rect x="'+p.x+'" y="'+p.y+'" width="29" height="22" rx="2" fill="#315f83" stroke="#79b0d0" stroke-width="1.5"/>'+
-       '<rect x="'+(p.x+4)+'" y="'+(p.y+4)+'" width="21" height="14" fill="#d0ecff"/>'+
-       '<path d="M'+(p.x+14)+' '+(p.y+22)+' v6 m-11 1 h22" stroke="#658ba7" stroke-width="2.3"/>'+
-       '<text x="'+(p.x+38)+'" y="'+(p.y+11)+'" class="vlan-motion__pc-name">PC'+p.id+'</text>'+
-       '<text x="'+(p.x+38)+'" y="'+(p.y+28)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">DHCP</text></g>';
+       '<rect x="'+p.x+'" y="'+mobileY(p.y)+'" width="29" height="22" rx="2" fill="#315f83" stroke="#79b0d0" stroke-width="1.5"/>'+
+       '<rect x="'+(p.x+4)+'" y="'+mobileY(p.y+4)+'" width="21" height="14" fill="#d0ecff"/>'+
+       '<path d="M'+(p.x+14)+' '+mobileY(p.y+22)+' v6 m-11 1 h22" stroke="#658ba7" stroke-width="2.3"/>'+
+       '<text x="'+(p.x+38)+'" y="'+mobileY(p.y+11)+'" class="vlan-motion__pc-name">PC'+p.id+'</text>'+
+       '<text x="'+(p.x+38)+'" y="'+mobileY(p.y+28)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">DHCP</text></g>';
    }).join('')+
-   '<rect x="5" y="212" width="410" height="177" rx="12" class="vlan-motion__switch"/>'+
-   '<text x="210" y="292" class="vlan-motion__label" text-anchor="middle">SWITCH L3</text>'+
-   '<rect x="134" y="308" width="152" height="57" rx="7" class="vlan-motion__svi-box"/>'+
-   '<text x="210" y="324" text-anchor="middle" class="vlan-motion__svi-label">Interfaces VLAN</text>'+
-   '<text x="210" y="341" text-anchor="middle" class="vlan-motion__svi-label">SVI 10 et 20</text>'+
-   '<text x="210" y="357" text-anchor="middle" class="vlan-motion__svi-state">Relais : OFF</text>'+
-   mobPC.map(p=>'<rect x="'+(p.px-12)+'" y="223" width="24" height="22" rx="3" class="vlan-motion__port '+(p.v===10?'vlan-motion__port--10':'vlan-motion__port--20')+'" data-port="'+p.port+'"/>'+
-   '<text x="'+p.px+'" y="239" class="vlan-motion__port-num" text-anchor="middle">'+p.port+'</text>').join('')+
-   path([[210,389],[210,418]],'#8b83ba',3)+
-   '<rect x="198" y="375" width="24" height="24" rx="3" class="vlan-motion__port vlan-motion__port--99" data-port="5"/>'+
-   '<text x="210" y="392" class="vlan-motion__port-num" text-anchor="middle">5</text>'+
-   '<rect x="5" y="417" width="410" height="241" rx="12" class="vlan-motion__server-card"/>'+
-   '<text x="210" y="440" class="vlan-motion__label" text-anchor="middle">SERVEUR DHCP · VLAN 99</text>'+
-   '<text x="210" y="459" class="vlan-motion__sub" text-anchor="middle">IP fixe : 10.99.0.10</text>'+
-   '<text x="22" y="482" class="vlan-motion__scope-head">Étendues DHCP centralisées</text>'+
-   '<rect x="20" y="493" width="380" height="37" rx="7" class="vlan-motion__scope" data-scope="v10"/>'+
-   '<rect x="20" y="536" width="380" height="37" rx="7" class="vlan-motion__scope" data-scope="v20"/>'+
-   '<rect x="20" y="579" width="380" height="37" rx="7" class="vlan-motion__scope" data-scope="v99"/>'+
-   '<text x="34" y="508" class="vlan-motion__scope-name">VLAN 10</text><text x="34" y="523" class="vlan-motion__scope-address">10.10.0.100 à .200</text>'+
-   '<text x="34" y="551" class="vlan-motion__scope-name">VLAN 20</text><text x="34" y="566" class="vlan-motion__scope-address">10.20.0.100 à .200</text>'+
-   '<text x="34" y="594" class="vlan-motion__scope-name">VLAN 99</text><text x="34" y="609" class="vlan-motion__scope-address">10.99.0.100 à .150</text>'+
-   '<text x="210" y="642" class="vlan-motion__sub" text-anchor="middle">Un serveur, trois étendues</text>'+
+   '<rect x="5" y="146" width="410" height="134" rx="12" class="vlan-motion__switch"/>'+
+   '<text x="210" y="236" class="vlan-motion__label" text-anchor="middle">SWITCH L3</text>'+
+   '<rect x="134" y="202" width="152" height="43" rx="7" class="vlan-motion__svi-box"/>'+
+   '<text x="210" y="260" text-anchor="middle" class="vlan-motion__svi-label">Interfaces VLAN</text>'+
+   '<text x="210" y="273" text-anchor="middle" class="vlan-motion__svi-label">SVI 10 et 20</text>'+
+   '<text x="210" y="285" text-anchor="middle" class="vlan-motion__svi-state">Relais : OFF</text>'+
+   mobPC.map(p=>'<rect x="'+(p.px-12)+'" y="153" width="24" height="17" rx="3" class="vlan-motion__port '+(p.v===10?'vlan-motion__port--10':'vlan-motion__port--20')+'" data-port="'+p.port+'"/>'+
+   '<text x="'+p.px+'" y="195" class="vlan-motion__port-num" text-anchor="middle">'+p.port+'</text>').join('')+
+   path([[210,mobileY(389)],[210,mobileY(418)]],'#8b83ba',3)+
+   '<rect x="198" y="241" width="24" height="18" rx="3" class="vlan-motion__port vlan-motion__port--99" data-port="5"/>'+
+   '<text x="210" y="312" class="vlan-motion__port-num" text-anchor="middle">5</text>'+
+   '<rect x="5" y="265" width="410" height="190" rx="12" class="vlan-motion__server-card"/>'+
+   '<text x="210" y="349" class="vlan-motion__label" text-anchor="middle">SERVEUR DHCP · VLAN 99</text>'+
+   '<text x="210" y="364" class="vlan-motion__sub" text-anchor="middle">IP fixe : 10.99.0.10</text>'+
+   '<text x="22" y="382" class="vlan-motion__scope-head">Étendues DHCP centralisées</text>'+
+   '<rect x="20" y="311" width="380" height="29" rx="7" class="vlan-motion__scope" data-scope="v10"/>'+
+   '<rect x="20" y="337" width="380" height="29" rx="7" class="vlan-motion__scope" data-scope="v20"/>'+
+   '<rect x="20" y="364" width="380" height="29" rx="7" class="vlan-motion__scope" data-scope="v99"/>'+
+   '<text x="34" y="403" class="vlan-motion__scope-name">VLAN 10</text><text x="34" y="415" class="vlan-motion__scope-address">10.10.0.100 à .200</text>'+
+   '<text x="34" y="437" class="vlan-motion__scope-name">VLAN 20</text><text x="34" y="449" class="vlan-motion__scope-address">10.20.0.100 à .200</text>'+
+   '<text x="34" y="471" class="vlan-motion__scope-name">VLAN 99</text><text x="34" y="483" class="vlan-motion__scope-address">10.99.0.100 à .150</text>'+
+   '<text x="210" y="509" class="vlan-motion__sub" text-anchor="middle">Un serveur, trois étendues</text>'+
    '<g class="vlan-motion__packets"></g></svg>';
  }
  function isMobile(){return window.matchMedia('(max-width:600px)').matches;}
@@ -119,7 +121,7 @@
      back=[[210,421],[210,381],[210,286],[p,286],[p,245],[p,197],[origin[0],197],origin],
      request=[[origin[0],origin[1]],[origin[0],197],[p,197],[p,223]],
      requestRelay=[[p,245],[p,286],[210,286],[210,381],[210,421]];
-  return {discover:ingress,broadcast:local,relay:unicast,offer:back,request,requestFlood:local,requestRelay,ack:back}[stage];
+  return {discover:ingress,broadcast:local,relay:unicast,offer:back,request,requestFlood:local,requestRelay,ack:back}[stage].map(([x,y])=>[x,mobileY(y)]);
  }
 
  hosts.forEach(host=>{
