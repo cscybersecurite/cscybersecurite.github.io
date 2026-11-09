@@ -1,8 +1,8 @@
 /* VPN et DHCP : famille visuelle DORA / VLAN, presentation verticale mobile. */
 .vpn-motion{max-width:920px;margin:16px auto 20px;border:1px solid var(--line,#cbd8e8);border-radius:12px;padding:12px;background:var(--panel,#fff);color:var(--ink,#152b45);min-width:0}
 .vpn-motion *{box-sizing:border-box}
-.vpn-motion__controls{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:10px}
-.vpn-motion__toggle{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.94rem;cursor:pointer}
+.vpn-motion__controls{display:flex;align-items:center;flex-wrap:wrap;gap:11px 15px;margin-bottom:10px}
+.vpn-motion__toggle{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:.9rem;cursor:pointer}
 .vpn-motion__enabled{appearance:none;position:relative;width:48px;height:27px;border-radius:20px;background:#778594;border:2px solid #657382;cursor:pointer;margin:0;flex:none}
 .vpn-motion__enabled:after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;background:#fff;border-radius:50%;transition:left .2s}
 .vpn-motion__enabled:checked{background:#176b96;border-color:#176b96}
@@ -14,16 +14,17 @@
 .vpn-motion__canvas{width:100%;max-width:490px;margin:auto}
 .vpn-motion__svg{display:block;width:100%;height:auto}
 .vpn-motion__site{stroke-width:1.5;stroke-dasharray:5 4}
-.vpn-motion__brest{fill:#2387bf;fill-opacity:.08;stroke:#438fbe}
-.vpn-motion__lorient{fill:#2b987b;fill-opacity:.08;stroke:#2b987b}
+.vpn-motion__pace{fill:#2387bf;fill-opacity:.08;stroke:#438fbe}
+.vpn-motion__bruz{fill:#2b987b;fill-opacity:.08;stroke:#2b987b}
 .vpn-motion__hq{fill:var(--soft,#edf5fb);stroke:var(--line,#a7b8cc);stroke-width:2}
 .vpn-motion__internet{fill:var(--panel,#fff);stroke:var(--line,#a7b8cc);stroke-width:2}
 .vpn-motion__heading{font:700 17px Arial,sans-serif;fill:var(--ink,#1b3149)}
 .vpn-motion__small{font:12px Arial,sans-serif;fill:var(--muted,#506780)}
 .vpn-motion__pc-ip{font:12px Arial,sans-serif;fill:var(--muted,#506780)}
+.vpn-motion__helper-state{font:700 12px Arial,sans-serif;fill:#277f6a}
+.vpn-motion__helper-state--off{fill:#b35248}
 .vpn-motion__lan{fill:none;stroke:#3189b6;stroke-width:2.5;stroke-linecap:round}
 .vpn-motion__tunnel{fill:none;stroke:#bd8a33;stroke-width:3.5;stroke-dasharray:7 5;stroke-linecap:round}
-.vpn-motion--offline .vpn-motion__tunnel{stroke:#8d929a;opacity:.45}
 .vpn-motion__scope-head{font:700 14px Arial,sans-serif;fill:var(--ink,#1b3149)}
 .vpn-motion__scope{fill:var(--panel,#fff);stroke:var(--line,#a7b8cc);stroke-width:1.3;transition:fill .2s,stroke .2s}
 .vpn-motion__scope--active{fill:#ffe8ae;stroke:#d38e19;stroke-width:2.5}
