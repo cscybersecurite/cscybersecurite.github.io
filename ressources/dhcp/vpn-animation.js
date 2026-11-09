@@ -48,33 +48,32 @@
  function route(site,stage){
   const left=site.left,c=left?151:361,p=left?53:263;
   const localOut=[[p+17,78],[c-21,78]];
-  const localIn=[[c-21,78],[p+17,78]];
+  const localIn=[[c,93],[c-21,78],[p+17,78]];
   const fromGw=[[c,93],[c,155],[210,210],[210,261],[210,309]];
   const toGw=[...fromGw].reverse();
-  return {discover:localOut,relay:fromGw,offer:[...toGw,...localIn],request:localOut,requestRelay:fromGw,ack:[...toGw,...localIn],blocked:[[c,93],[c,155],[210,210]]}[stage];
+  return {discover:localOut,relay:fromGw,offerRelay:toGw,offerClient:localIn,request:localOut,requestRelay:fromGw,ackRelay:toGw,ackClient:localIn}[stage];
  }
  document.querySelectorAll('[data-dhcp-vpn]').forEach(host=>{
   host.classList.add('vpn-motion');
-  host.innerHTML='<div class="vpn-motion__controls"><label class="vpn-motion__toggle"><span>IP helper Pacé</span><input type="checkbox" class="vpn-motion__enabled" data-helper="0" role="switch" checked><span class="vpn-motion__toggle-label" data-helper-label="0">ON</span></label><label class="vpn-motion__toggle"><span>IP helper Bruz</span><input type="checkbox" class="vpn-motion__enabled" data-helper="1" role="switch" checked><span class="vpn-motion__toggle-label" data-helper-label="1">ON</span></label><button type="button" class="vpn-motion__play">▶ Lancer l’animation</button></div>'+
+  host.innerHTML='<div class="vpn-motion__controls"><span class="vpn-motion__controls-label">IP helper</span><label class="vpn-motion__toggle"><span>Pacé</span><input type="checkbox" class="vpn-motion__enabled" data-helper="0" role="switch" checked><span class="vpn-motion__toggle-label" data-helper-label="0">ON</span></label><label class="vpn-motion__toggle"><span>Bruz</span><input type="checkbox" class="vpn-motion__enabled" data-helper="1" role="switch" checked><span class="vpn-motion__toggle-label" data-helper-label="1">ON</span></label><button type="button" class="vpn-motion__play">▶ Lancer l’animation</button></div>'+
     '<div class="vpn-motion__canvas">'+svg()+'</div>'+
     '<div class="vpn-motion__legend"><span><i class="vpn-motion__dot vpn-motion__dot--local"></i> Broadcast DHCP local</span><span><i class="vpn-motion__dot vpn-motion__dot--vpn"></i> Relais DHCP via VPN</span></div>'+
-    '<div class="vpn-motion__readout"><div class="vpn-motion__readout-head"><strong>DHCP entre sites via VPN</strong><span class="vpn-motion__counter"></span></div><p class="vpn-motion__note" role="status" aria-live="polite">Lance l’animation pour observer les échanges.</p><ol class="vpn-motion__history" aria-label="Messages observés"></ol></div>';
+    '<div class="vpn-motion__readout"><div class="vpn-motion__readout-head"><strong>DHCP entre sites via VPN</strong><span class="vpn-motion__counter"></span></div><ol class="vpn-motion__history" role="log" aria-live="polite" aria-relevant="additions" aria-label="Messages observés"></ol></div>';
   const helpers=[...host.querySelectorAll('[data-helper]')],helperLabels=[...host.querySelectorAll('[data-helper-label]')],helperStates=[...host.querySelectorAll('[data-helper-state]')],button=host.querySelector('.vpn-motion__play');
-  const layer=host.querySelector('.vpn-motion__packets'),history=host.querySelector('.vpn-motion__history'),note=host.querySelector('.vpn-motion__note'),counter=host.querySelector('.vpn-motion__counter');
+  const layer=host.querySelector('.vpn-motion__packets'),history=host.querySelector('.vpn-motion__history'),counter=host.querySelector('.vpn-motion__counter');
   const svgRoot=host.querySelector('svg');
   let epoch=0,timers=new Set(),running=false;
   const reduced=()=>window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
   const cancel=()=>{epoch++;timers.forEach(clearTimeout);timers.clear();layer.replaceChildren();button.disabled=false;helpers.forEach(el=>el.disabled=false);running=false;};
   function delay(ms,token){return new Promise(resolve=>{const id=setTimeout(()=>{timers.delete(id);resolve(token===epoch)},ms);timers.add(id);});}
   function add(label,body){
-   note.textContent=body;
    const li=document.createElement('li'),b=document.createElement('strong'),span=document.createElement('span');
    b.textContent=label;span.textContent=body;li.append(b,span);history.append(li);
    history.scrollTop=history.scrollHeight;
   }
   function mark(scope,on){host.querySelector('[data-scope="'+scope+'"]').classList.toggle('vpn-motion__scope--active',on);}
   function reset(){
-   cancel();history.replaceChildren();note.textContent='Lance l’animation pour observer les échanges.';counter.textContent='';
+   cancel();history.replaceChildren();counter.textContent='';
    sites.forEach((site,i)=>{host.querySelector('[data-pc="'+i+'"]').textContent='DHCP';mark(site.scope,false);});
    helpers.forEach((el,i)=>{
     const value=el.checked?'ON':'OFF';
@@ -126,12 +125,14 @@
      add('Étendue de '+site.name,'Le serveur central choisit la plage '+site.net+' pour répondre au client de '+site.name+'.');
      if(!await delay(gap,token))break;
      add('Offer','Le serveur propose '+site.ip+'. L’Offer revient au client par le tunnel VPN et le relais DHCP.');
-     if(!await move(route(site,'offer'),'vpn','O',token))break;
+     if(!await move(route(site,'offerRelay'),'vpn','O',token))break;
+     if(!await move(route(site,'offerClient'),'local','O',token))break;
      add('Request','Le client diffuse un Request local. Le routeur le relaie vers Rennes via le VPN.');
      if(!await move(route(site,'request'),'local','R',token))break;
      if(!await move(route(site,'requestRelay'),'vpn','R',token))break;
      add('ACK','Le serveur confirme le bail ; l’ACK revient vers le PC de '+site.name+' via le relais.');
-     if(!await move(route(site,'ack'),'vpn','A',token))break;
+     if(!await move(route(site,'ackRelay'),'vpn','A',token))break;
+     if(!await move(route(site,'ackClient'),'local','A',token))break;
      host.querySelector('[data-pc="'+sites.indexOf(site)+'"]').textContent=site.ip;
      mark(site.scope,false);
      if(!await delay(gap,token))break;
@@ -139,7 +140,7 @@
     if(token!==epoch)return;
     counter.textContent='Animation terminée';
     const success=active.filter(Boolean).length;
-    note.textContent=success===2?'Pacé et Bruz ont obtenu leurs adresses depuis le serveur DHCP de Rennes.':success===0?'Les VPN fonctionnent, mais aucun routeur ne relaie les demandes DHCP : les deux PC restent sans adresse.':'Le VPN fonctionne sur les deux sites, mais seul le site dont l’IP helper est activé reçoit une adresse DHCP.';
+    add('Bilan',success===2?'Pacé et Bruz ont obtenu leurs adresses depuis le serveur DHCP de Rennes.':success===0?'Les VPN fonctionnent, mais aucun routeur ne relaie les demandes DHCP : les deux PC restent sans adresse.':'Le VPN fonctionne sur les deux sites, mais seul le site dont l’IP helper est activé reçoit une adresse DHCP.');
    }finally{if(token===epoch){running=false;helpers.forEach(el=>el.disabled=false);button.disabled=false;button.textContent='↻ Rejouer l’animation';}}
   }
   button.addEventListener('click',()=>{if(!running)play();});
