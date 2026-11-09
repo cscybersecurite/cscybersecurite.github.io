@@ -61,7 +61,7 @@
    {id:3,v:20,x:239,y:61,port:3,px:265},
    {id:4,v:20,x:239,y:119,port:4,px:335}
   ];
-  return '<svg class="vlan-motion__svg vlan-motion__svg--mobile" viewBox="0 0 420 530" role="img" aria-label="Deux VLAN clients en haut, chacun avec deux PC et deux ports physiques du switch L3 au centre. Le port 5 relie le switch au serveur DHCP du VLAN 99 en bas.">'+
+  return '<svg class="vlan-motion__svg vlan-motion__svg--mobile" viewBox="0 0 420 422" role="img" aria-label="Deux VLAN clients en haut, chacun avec deux PC et deux ports physiques du switch L3 au centre. Le port 5 relie le switch au serveur DHCP du VLAN 99 en bas.">'+
    '<rect x="5" y="7" width="199" height="145" rx="11" fill="#2387bf" fill-opacity=".08" stroke="#438fbe" stroke-dasharray="5 4"/>'+
    '<rect x="216" y="7" width="199" height="145" rx="11" fill="#2b987b" fill-opacity=".08" stroke="#2b987b" stroke-dasharray="5 4"/>'+
    '<text x="14" y="29" class="vlan-motion__net vlan-motion__blue">VLAN 10</text><text x="14" y="45" class="vlan-motion__sub">10.10.0.0/24</text>'+
@@ -69,7 +69,7 @@
    mobPC.map(p=>{
     const col=p.v===10?'#338dc6':'#329b7b';
     const srcX=p.v===10?117:328,yy=mobileY(p.y+15);
-    return path([[srcX,yy],[srcX,mobileY(197)],[p.px,mobileY(197)],[p.px,mobileY(226)]],col,2)+
+    return path([[srcX,yy],[srcX,152],[p.px,152],[p.px,165]],col,2)+
       '<g class="vlan-motion__pc" data-pc="'+p.id+'">'+
        '<rect x="'+p.x+'" y="'+mobileY(p.y)+'" width="29" height="22" rx="2" fill="#315f83" stroke="#79b0d0" stroke-width="1.5"/>'+
        '<rect x="'+(p.x+4)+'" y="'+mobileY(p.y+4)+'" width="21" height="14" fill="#d0ecff"/>'+
@@ -77,28 +77,28 @@
        '<text x="'+(p.x+38)+'" y="'+mobileY(p.y+11)+'" class="vlan-motion__pc-name">PC'+p.id+'</text>'+
        '<text x="'+(p.x+38)+'" y="'+mobileY(p.y+28)+'" class="vlan-motion__pc-ip" data-ip="'+p.id+'">DHCP</text></g>';
    }).join('')+
-   '<rect x="5" y="175" width="410" height="135" rx="12" class="vlan-motion__switch"/>'+
-   '<text x="210" y="236" class="vlan-motion__label" text-anchor="middle">SWITCH L3</text>'+
-   '<rect x="134" y="251" width="152" height="43" rx="7" class="vlan-motion__svi-box"/>'+
-   '<text x="210" y="260" text-anchor="middle" class="vlan-motion__svi-label">Interfaces VLAN</text>'+
-   '<text x="210" y="273" text-anchor="middle" class="vlan-motion__svi-label">SVI 10 et 20</text>'+
-   '<text x="210" y="285" text-anchor="middle" class="vlan-motion__svi-state">Relais : OFF</text>'+
-   mobPC.map(p=>'<rect x="'+(p.px-12)+'" y="183" width="24" height="22" rx="3" class="vlan-motion__port '+(p.v===10?'vlan-motion__port--10':'vlan-motion__port--20')+'" data-port="'+p.port+'"/>'+
-   '<text x="'+p.px+'" y="195" class="vlan-motion__port-num" text-anchor="middle">'+p.port+'</text>').join('')+
-   path([[210,mobileY(389)],[210,mobileY(418)]],'#8b83ba',3)+
-   '<rect x="198" y="299" width="24" height="22" rx="3" class="vlan-motion__port vlan-motion__port--99" data-port="5"/>'+
-   '<text x="210" y="312" class="vlan-motion__port-num" text-anchor="middle">5</text>'+
-   '<rect x="5" y="331" width="410" height="190" rx="12" class="vlan-motion__server-card"/>'+
-   '<text x="210" y="349" class="vlan-motion__label" text-anchor="middle">SERVEUR DHCP · VLAN 99</text>'+
-   '<text x="210" y="364" class="vlan-motion__sub" text-anchor="middle">IP fixe : 10.99.0.10</text>'+
-   '<text x="22" y="382" class="vlan-motion__scope-head">Étendues DHCP centralisées</text>'+
-   '<rect x="20" y="391" width="380" height="29" rx="7" class="vlan-motion__scope" data-scope="v10"/>'+
-   '<rect x="20" y="425" width="380" height="29" rx="7" class="vlan-motion__scope" data-scope="v20"/>'+
-   '<rect x="20" y="459" width="380" height="29" rx="7" class="vlan-motion__scope" data-scope="v99"/>'+
-   '<text x="34" y="403" class="vlan-motion__scope-name">VLAN 10</text><text x="34" y="415" class="vlan-motion__scope-address">10.10.0.100 à .200</text>'+
-   '<text x="34" y="437" class="vlan-motion__scope-name">VLAN 20</text><text x="34" y="449" class="vlan-motion__scope-address">10.20.0.100 à .200</text>'+
-   '<text x="34" y="471" class="vlan-motion__scope-name">VLAN 99</text><text x="34" y="483" class="vlan-motion__scope-address">10.99.0.100 à .150</text>'+
-   '<text x="210" y="509" class="vlan-motion__sub" text-anchor="middle">Un serveur, trois étendues</text>'+
+   '<rect x="5" y="157" width="410" height="105" rx="12" class="vlan-motion__switch"/>'+
+   '<text x="157" y="226" class="vlan-motion__label" text-anchor="middle">SWITCH L3</text>'+
+   ''+
+   ''+
+   ''+
+   '<text x="315" y="226" text-anchor="middle" class="vlan-motion__svi-state">Relais : OFF</text>'+
+   mobPC.map(p=>'<rect x="'+(p.px-12)+'" y="165" width="24" height="22" rx="3" class="vlan-motion__port '+(p.v===10?'vlan-motion__port--10':'vlan-motion__port--20')+'" data-port="'+p.port+'"/>'+
+   '<text x="'+p.px+'" y="180" class="vlan-motion__port-num" text-anchor="middle">'+p.port+'</text>').join('')+
+   path([[210,252],[210,276]],'#8b83ba',3)+
+   '<rect x="198" y="248" width="24" height="22" rx="3" class="vlan-motion__port vlan-motion__port--99" data-port="5"/>'+
+   '<text x="210" y="264" class="vlan-motion__port-num" text-anchor="middle">5</text>'+
+   '<rect x="5" y="275" width="410" height="140" rx="12" class="vlan-motion__server-card"/>'+
+   '<text x="210" y="293" class="vlan-motion__label" text-anchor="middle">SERVEUR DHCP · VLAN 99</text>'+
+   '<text x="210" y="309" class="vlan-motion__sub" text-anchor="middle">IP fixe : 10.99.0.10</text>'+
+   '<text x="22" y="329" class="vlan-motion__scope-head">Étendues DHCP centralisées</text>'+
+   '<rect x="20" y="335" width="380" height="23" rx="7" class="vlan-motion__scope" data-scope="v10"/>'+
+   '<rect x="20" y="361" width="380" height="23" rx="7" class="vlan-motion__scope" data-scope="v20"/>'+
+   '<rect x="20" y="387" width="380" height="23" rx="7" class="vlan-motion__scope" data-scope="v99"/>'+
+   '<text x="32" y="351" class="vlan-motion__scope-name">VLAN 10</text><text x="157" y="351" class="vlan-motion__scope-address">10.10.0.100 à .200</text>'+
+   '<text x="32" y="377" class="vlan-motion__scope-name">VLAN 20</text><text x="157" y="377" class="vlan-motion__scope-address">10.20.0.100 à .200</text>'+
+   '<text x="32" y="403" class="vlan-motion__scope-name">VLAN 99</text><text x="157" y="403" class="vlan-motion__scope-address">10.99.0.100 à .150</text>'+
+   ''+
    '<g class="vlan-motion__packets"></g></svg>';
  }
  function isMobile(){return window.matchMedia('(max-width:600px)').matches;}
@@ -115,13 +115,13 @@
   }
   const origin=v===10?[117,76]:[328,76],other=v===10?[117,134]:[328,134];
   const p=v===10?85:265,q=v===10?155:335;
-  const ingress=[[origin[0],origin[1]],[origin[0],197],[p,197],[p,223]],
-     local=[[p,245],[p,270],[q,270],[q,245],[q,197],[other[0],197],[other[0],other[1]]],
-     unicast=[[p,245],[p,286],[210,286],[210,381],[210,421]],
-     back=[[210,421],[210,381],[210,286],[p,286],[p,245],[p,197],[origin[0],197],origin],
-     request=[[origin[0],origin[1]],[origin[0],197],[p,197],[p,223]],
-     requestRelay=[[p,245],[p,286],[210,286],[210,381],[210,421]];
-  return {discover:ingress,broadcast:local,relay:unicast,offer:back,request,requestFlood:local,requestRelay,ack:back}[stage].map(([x,y])=>[x,mobileY(y)]);
+  const ingress=[[origin[0],origin[1]],[origin[0],152],[p,152],[p,165]],
+    local=[[p,187],[p,204],[q,204],[q,187],[q,152],[other[0],152],other],
+    unicast=[[p,187],[p,218],[210,218],[210,259],[210,275]],
+    back=[[210,275],[210,259],[210,218],[p,218],[p,187],[p,152],[origin[0],152],origin],
+    request=ingress,
+    requestRelay=[[p,187],[p,218],[210,218],[210,259],[210,275]];
+  return {discover:ingress,broadcast:local,relay:unicast,offer:back,request,requestFlood:local,requestRelay,ack:back}[stage];
  }
 
  hosts.forEach(host=>{
@@ -129,7 +129,7 @@
   host.innerHTML='<div class="vlan-motion__controls"><label class="vlan-motion__toggle"><span>IP helper</span><input type="checkbox" class="vlan-motion__helper" role="switch"><span class="vlan-motion__toggle-status">OFF</span></label><button type="button" class="vlan-motion__play">▶ Lancer l’animation</button></div>'+
   '<div class="vlan-motion__canvas">'+frame()+mobileFrame()+'</div>'+
   '<div class="vlan-motion__legend"><span><i class="vlan-motion__key vlan-motion__key--broadcast"></i> Broadcast dans le VLAN</span><span><i class="vlan-motion__key vlan-motion__key--relay"></i> Relais DHCP en unicast</span></div>'+
-  '<div class="vlan-motion__readout"><div class="vlan-motion__readout-head"><strong>Diffusion des broadcasts et relais DHCP</strong><span class="vlan-motion__counter">Prêt</span></div><p class="vlan-motion__note" role="status" aria-live="polite">Choisis l’état de l’IP helper, puis lance l’animation.</p><ol class="vlan-motion__history" aria-label="Messages observés"></ol></div>';
+  '<div class="vlan-motion__readout"><div class="vlan-motion__readout-head"><strong>Diffusion des broadcasts et relais DHCP</strong><span class="vlan-motion__counter"></span></div><p class="vlan-motion__note" role="status" aria-live="polite">Choisis l’état de l’IP helper, puis lance l’animation.</p><ol class="vlan-motion__history" aria-label="Messages observés"></ol></div>';
   const toggle=host.querySelector('.vlan-motion__helper'),state=host.querySelector('.vlan-motion__toggle-status'),play=host.querySelector('.vlan-motion__play'),canvas=host.querySelector('.vlan-motion__canvas'),noteAnchor=host.querySelector('.vlan-motion__readout'),note=host.querySelector('.vlan-motion__note'),history=host.querySelector('.vlan-motion__history'),counter=host.querySelector('.vlan-motion__counter'),svi=host.querySelector('.vlan-motion__svi-state');
   let epoch=0,timers=new Set(),frames=new Set(),running=false;
   const stopped=()=>{epoch++;for(const t of timers)clearTimeout(t);timers.clear();for(const f of frames)cancelAnimationFrame(f);frames.clear();host.querySelectorAll('.vlan-motion__packets').forEach(layer=>layer.replaceChildren());running=false;play.disabled=false;toggle.disabled=false;};
@@ -171,11 +171,11 @@
   function setIP(id,value){host.querySelectorAll('[data-ip="'+id+'"]').forEach(n=>n.textContent=value);}
   function scope(v,active){host.querySelectorAll('[data-scope="v'+v+'"]').forEach(n=>n.classList.toggle('vlan-motion__scope--active',active));}
   function reset(){
-   stopped();history.replaceChildren();counter.textContent='Prêt';
-   [1,2,3,4].forEach(p=>setIP(p,'DHCP'));[10,20,99].forEach(v=>scope(v,false));
+   stopped();history.replaceChildren();counter.textContent='';
+   [1,3].forEach(p=>setIP(p,'DHCP'));[2,4].forEach(p=>setIP(p,'Témoin'));[10,20,99].forEach(v=>scope(v,false));
    host.querySelectorAll('.vlan-motion__svi-state').forEach(n=>n.textContent='Relais : '+(toggle.checked?'ON':'OFF'));
    state.textContent=toggle.checked?'ON':'OFF';
-   note.textContent='Choisis l’état de l’IP helper, puis lance l’animation.';
+   note.textContent='PC1 et PC3 demandent une adresse. PC2 et PC4 observent les broadcasts.';
   }
   toggle.addEventListener('change',reset);
   async function run(){
