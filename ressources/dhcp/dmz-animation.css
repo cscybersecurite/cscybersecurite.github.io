@@ -1,0 +1,52 @@
+/* C², chapitre DHCP : DMZ du cabinet médical, identité VLAN/VPN. */
+.dmz-motion{max-width:920px;margin:16px auto 20px;padding:11px;border:1px solid var(--line,#cbd8e8);border-radius:12px;background:var(--panel,#fff);color:var(--ink,#152b45);min-width:0}
+.dmz-motion *{box-sizing:border-box}
+.dmz-motion__controls{display:grid;gap:9px;margin-bottom:10px}
+.dmz-motion__modes,.dmz-motion__actions{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+.dmz-motion__mode{cursor:pointer;border:1px solid var(--line,#a5b9c9);background:var(--soft,#eaf3fa);color:var(--ink,#1b3149);font:700 .88rem Arial,sans-serif;min-height:38px;border-radius:9px;padding:8px 11px}
+.dmz-motion__mode--active{background:#155c93;border-color:#155c93;color:#fff}
+.dmz-motion__mode:disabled,.dmz-motion__play:disabled{opacity:.65;cursor:default}
+.dmz-motion__play{cursor:pointer;border:1px solid #155c93;background:#155c93;color:#fff;border-radius:9px;min-height:40px;padding:8px 13px;font:700 .88rem Arial,sans-serif}
+.dmz-motion__toggle{display:inline-flex;align-items:center;gap:7px;font:700 .87rem Arial,sans-serif;cursor:pointer}
+.dmz-motion__toggle[hidden]{display:none!important}
+.dmz-motion__helper-input{appearance:none;position:relative;width:44px;height:25px;border:2px solid #657382;border-radius:18px;background:#778594;margin:0;cursor:pointer;flex:none}
+.dmz-motion__helper-input:after{content:"";position:absolute;top:3px;left:3px;width:15px;height:15px;background:white;border-radius:50%;transition:left .2s}
+.dmz-motion__helper-input:checked{background:#176b96;border-color:#176b96}
+.dmz-motion__helper-input:checked:after{left:22px}
+.dmz-motion__mode:focus-visible,.dmz-motion__play:focus-visible,.dmz-motion__helper-input:focus-visible{outline:3px solid #e9a03c;outline-offset:3px}
+.dmz-motion__canvas{max-width:500px;width:100%;margin:auto}
+.dmz-motion__svg{display:block;width:100%;height:auto}
+.dmz-motion__internet{fill:var(--panel,#fff);stroke:var(--line,#b1c2d3);stroke-width:2}
+.dmz-motion__firewall{fill:var(--soft,#edf5fb);stroke:#6696b2;stroke-width:2}
+.dmz-motion__lan{fill:#338dc6;fill-opacity:.08;stroke:#438fbe;stroke-width:1.7;stroke-dasharray:5 4}
+.dmz-motion__dmz{fill:#30977b;fill-opacity:.08;stroke:#319578;stroke-width:1.7;stroke-dasharray:5 4}
+.dmz-motion__line{fill:none;stroke:#8196aa;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.dmz-motion__wifi{fill:none;stroke:#319578;stroke-width:2.5;stroke-dasharray:4 3}
+.dmz-motion__title{font:700 16px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.dmz-motion__small{font:12px Arial,sans-serif;fill:var(--muted,#536b81)}
+.dmz-motion__caption{font:700 13px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.dmz-motion__helper{font:700 12px Arial,sans-serif;fill:#226b91}
+.dmz-motion__scope{fill:var(--panel,#fff);stroke:var(--line,#a7b8cc);stroke-width:1.4}
+.dmz-motion__scope--active{fill:#ffe8ae;stroke:#d38e19;stroke-width:2.4}
+.dmz-motion__scope-label{font:700 13px Arial,sans-serif;fill:var(--ink,#1b3149)}
+.dmz-motion__ip{font:700 12px Arial,sans-serif;fill:var(--muted,#536b81)}
+.dmz-motion__packet{stroke:#fff;stroke-width:2}
+.dmz-motion__packet--allowed{fill:#2a9977}
+.dmz-motion__packet--blocked{fill:#c05b50}
+.dmz-motion__packet--local{fill:#3189b6}
+.dmz-motion__packet--relay{fill:#bb842c}
+.dmz-motion__packet-letter{font:700 15px Arial,sans-serif;fill:var(--ink,#163049);stroke:var(--panel,#fff);stroke-width:3;paint-order:stroke;stroke-linejoin:round;pointer-events:none}
+.dmz-motion__legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:5px 0 10px;font-size:.78rem;color:var(--muted,#536b81)}
+.dmz-motion__legend span{display:inline-flex;align-items:center;gap:6px}
+.dmz-motion__key{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid #90a0b0}
+.dmz-motion__key--allowed{background:#2a9977}.dmz-motion__key--blocked{background:#c05b50}.dmz-motion__key--relay{background:#bb842c}
+.dmz-motion__log{padding:11px;border:1px solid var(--line,#cbd8e8);border-radius:9px;background:var(--soft,#eef5fb)}
+.dmz-motion__loghead{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline;font-size:.92rem}
+.dmz-motion__stage{font-size:.78rem;color:var(--muted,#536b81)}
+.dmz-motion__history{display:grid;gap:5px;margin:9px 0 0;padding:0;list-style:none;font-size:.83rem;max-height:220px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin}
+.dmz-motion__history:empty:before{content:"Choisir une animation, puis lancer.";color:var(--muted,#536b81)}
+.dmz-motion__history li{border-left:3px solid #3189b6;padding:6px 9px;background:var(--panel,#fff);border-radius:4px;display:flex;flex-wrap:wrap;gap:4px 9px}
+.dmz-motion__history li strong{white-space:nowrap}
+@media(min-width:850px){.dmz-motion{display:grid;grid-template-columns:minmax(310px,1fr) minmax(330px,.92fr);gap:0 15px}.dmz-motion__controls{grid-column:1/-1}.dmz-motion__canvas{grid-column:1;grid-row:2/4;align-self:start}.dmz-motion__legend{grid-column:2;grid-row:2;align-self:start}.dmz-motion__log{grid-column:2;grid-row:3;align-self:start}}
+@media(max-width:600px){.dmz-motion{padding:8px}.dmz-motion__modes{display:grid;grid-template-columns:1fr 1fr;gap:6px}.dmz-motion__mode{font-size:.73rem;min-height:40px;padding:6px}.dmz-motion__actions{gap:8px}.dmz-motion__play{font-size:.8rem}.dmz-motion__toggle{font-size:.8rem}.dmz-motion__history{font-size:.77rem;max-height:210px}.dmz-motion__legend{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){.dmz-motion__helper-input:after{transition:none}}
