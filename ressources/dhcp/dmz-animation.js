@@ -5,7 +5,6 @@
  'use strict';
  const NS='http://www.w3.org/2000/svg';
  const hosts=document.querySelectorAll('[data-dhcp-dmz]');
- const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
  function diagram(){
   return '<svg class="dmz-motion__svg" viewBox="0 0 420 465" role="img" aria-label="Internet en haut, pare-feu au centre, réseau LAN du cabinet à gauche et DMZ Wi-Fi patients à droite. Le serveur DHCP se trouve dans le LAN.">'+
   '<rect x="146" y="6" width="128" height="43" rx="20" class="dmz-motion__internet"/>'+
@@ -37,7 +36,7 @@
   '<g transform="translate(316 366)"><rect x="-11" y="-18" width="22" height="36" rx="4" fill="#294e6a" stroke="#80acc5" stroke-width="2"/><rect x="-8" y="-13" width="16" height="24" rx="1" fill="#d4edfd"/><circle cx="0" cy="14" r="2" fill="#b8d7ec"/></g>'+
   '<text x="316" y="408" class="dmz-motion__caption" text-anchor="middle">Smartphone patient</text>'+
   '<text x="316" y="425" class="dmz-motion__ip" text-anchor="middle">DHCP</text>'+
-  '<g class="dmz-motion__packets"></g></svg>';
+  '<g class="dmz-motion__flows" aria-label="Flux autorisés et bloqués selon les règles de cet exemple"></g><g class="dmz-motion__packets"></g></svg>';
  }
  const seg={
   patientInternet:[[316,366],[316,282],[316,178],[246,178],[210,157],[210,93],[210,49],[210,28]],
@@ -54,13 +53,14 @@
   '<div class="dmz-motion__canvas">'+diagram()+'</div>'+
   '<div class="dmz-motion__legend"><span><i class="dmz-motion__key dmz-motion__key--allowed"></i> Communication autorisée</span><span><i class="dmz-motion__key dmz-motion__key--blocked"></i> Communication bloquée</span><span><i class="dmz-motion__key dmz-motion__key--relay"></i> DHCP relayé</span></div>'+
   '<div class="dmz-motion__log"><div class="dmz-motion__loghead"><strong>DMZ et DHCP</strong><span class="dmz-motion__stage"></span></div><ol class="dmz-motion__history" role="log" aria-label="Étapes de l’animation" aria-live="polite" aria-relevant="additions"></ol></div>';
-  const modes=[...host.querySelectorAll('.dmz-motion__mode')],play=host.querySelector('.dmz-motion__play'),toggle=host.querySelector('.dmz-motion__toggle'),helper=host.querySelector('.dmz-motion__helper-input'),helperValue=host.querySelector('.dmz-motion__helper-value'),layer=host.querySelector('.dmz-motion__packets'),log=host.querySelector('.dmz-motion__history'),stage=host.querySelector('.dmz-motion__stage'),fwState=host.querySelector('.dmz-motion__helper'),phoneIP=host.querySelector('.dmz-motion__ip'),scope=host.querySelector('.dmz-motion__scope');
+  const modes=[...host.querySelectorAll('.dmz-motion__mode')],play=host.querySelector('.dmz-motion__play'),toggle=host.querySelector('.dmz-motion__toggle'),helper=host.querySelector('.dmz-motion__helper-input'),helperValue=host.querySelector('.dmz-motion__helper-value'),layer=host.querySelector('.dmz-motion__packets'),flows=host.querySelector('.dmz-motion__flows'),log=host.querySelector('.dmz-motion__history'),stage=host.querySelector('.dmz-motion__stage'),fwState=host.querySelector('.dmz-motion__helper'),phoneIP=host.querySelector('.dmz-motion__ip'),scope=host.querySelector('.dmz-motion__scope');
   let current='zones',runId=0,disabled=false;
+  host.dataset.dmzInstance=String([...hosts].indexOf(host)+1);
   const reduced=()=>window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
   const active=token=>token===runId;
   const sleep=(ms,token)=>new Promise(resolve=>{const id=setTimeout(()=>resolve(active(token)),ms);});
   function reset(){
-   runId++;layer.replaceChildren();log.replaceChildren();stage.textContent='';
+   runId++;layer.replaceChildren();flows.replaceChildren();log.replaceChildren();stage.textContent='';
    phoneIP.textContent='DHCP';scope.classList.remove('dmz-motion__scope--active');
    fwState.textContent='IP helper : '+(helper.checked?'ON':'OFF');
    helperValue.textContent=helper.checked?'ON':'OFF';
@@ -93,21 +93,95 @@
     requestAnimationFrame(tick);
    });
   }
-  async function animateZones(token){
-   const steps=[
-    ['Patient → Internet','Le Wi-Fi visiteurs permet au patient d’accéder à Internet.',seg.patientInternet,'allowed','✓',1],
-    ['Internet → patient','La réponse au trafic autorisé revient vers le patient.',seg.internetReturn,'allowed','✓',1],
-    ['Patient → LAN','L’accès aux ordinateurs et données du cabinet est bloqué.',seg.patientLAN,'blocked','×',.49],
-    ['Internet → LAN','Internet ne peut pas accéder directement au LAN médical.',seg.internetLAN,'blocked','×',.55]
-   ];
-   entry('Zones séparées','Le pare-feu isole le LAN médical et le Wi-Fi des patients. Les flèches représentent les règles de notre exemple.');
-   for(const [title,desc,pts,type,letter,stopAt] of steps){
-    if(!active(token))return;
-    stage.textContent=title;entry(title,desc);
-    if(!await move(pts,type,letter,token,stopAt))return;
-    if(!await sleep(reduced()?120:330,token))return;
+  // Flèches permanentes. Les chemins aboutissent aux interfaces du pare-feu,
+  // et les directions bloquées s'arrêtent au pare-feu (pas dans le LAN).
+  // Les deux accès Internet de retour sont des réponses à des sessions établies.
+  const flowSteps=[
+   {
+    name:'DMZ → Internet', description:'Le patient accède à Internet depuis le Wi-Fi visiteurs.',
+    d:'M343 205 L352 184 L274 166 L266 93 L258 49',
+    result:'allowed'
+   },
+   {
+    name:'Internet → DMZ',description:'Les réponses aux connexions ouvertes par les patients peuvent revenir. Ce n’est pas un accès libre depuis Internet.',
+    d:'M274 49 L287 94 L292 165 L368 183 L361 205',
+    result:'allowed'
+   },
+   {
+    name:'LAN → Internet',description:'Les ordinateurs du cabinet peuvent accéder à Internet.',
+    d:'M90 205 L67 182 L146 170 L155 153 L160 93 L162 49',
+    result:'allowed'
+   },
+   {
+    name:'Internet → LAN',description:'Une connexion entrante non sollicitée depuis Internet est bloquée par le pare-feu.',
+    d:'M194 49 L194 88',result:'blocked',x:194,y:88
+   },
+   {
+    name:'LAN → DMZ',description:'Dans notre exemple, le cabinet peut joindre le réseau d’accueil en passant par le pare-feu.',
+    d:'M168 205 L165 181 L183 156 L231 156 L254 182 L254 205',
+    result:'allowed'
+   },
+   {
+    name:'DMZ → LAN',description:'Le Wi-Fi patients ne peut pas accéder librement au LAN médical.',
+    d:'M287 205 L287 183 L262 162',result:'blocked',x:262,y:162
    }
-   entry('À retenir','Les patients ont accès à Internet, mais pas au LAN du cabinet. Les règles exactes dépendent du pare-feu.');
+  ];
+  function svgElement(tag,attrs){
+   const el=document.createElementNS(NS,tag);
+   for(const [key,value] of Object.entries(attrs))el.setAttribute(key,String(value));
+   return el;
+  }
+  function setupFlowMarkers(){
+   const defs=svgElement('defs',{});
+   for(const kind of ['allowed','blocked']){
+    const marker=svgElement('marker',{
+     id:'dmz-'+kind+'-'+host.dataset.dmzInstance,
+     markerWidth:8,markerHeight:8,refX:7,refY:4,
+     orient:'auto',markerUnits:'userSpaceOnUse'
+    });
+    marker.append(svgElement('path',{d:'M0 0 L8 4 L0 8 Z',class:'dmz-motion__arrowhead dmz-motion__arrowhead--'+kind}));
+    defs.append(marker);
+   }
+   flows.append(defs);
+  }
+  async function revealFlow(step,token){
+   if(!active(token))return false;
+   const path=svgElement('path',{
+    d:step.d,
+    class:'dmz-motion__flow dmz-motion__flow--'+step.result,
+    'marker-end':'url(#dmz-'+step.result+'-'+host.dataset.dmzInstance+')'
+   });
+   flows.append(path);
+   const len=path.getTotalLength();
+   const duration=reduced()?0:850;
+   // La flèche se dessine progressivement et reste affichée après l'étape.
+   path.style.strokeDasharray=String(len);
+   path.style.strokeDashoffset=String(len);
+   path.getBoundingClientRect();
+   path.style.transition='stroke-dashoffset '+duration+'ms ease-out';
+   path.style.strokeDashoffset='0';
+   if(!await sleep(duration+60,token))return false;
+   if(step.result==='blocked'){
+    const cross=svgElement('text',{
+     x:step.x,y:step.y-7,
+     class:'dmz-motion__flow-cross',
+     'text-anchor':'middle','aria-label':'Bloqué'
+    });
+    cross.textContent='×';flows.append(cross);
+   }
+   return true;
+  }
+  async function animateZones(token){
+   setupFlowMarkers();
+   entry('Zones séparées','Le pare-feu contrôle les communications entre Internet, le LAN médical et le Wi-Fi des patients. Les flèches illustrent les règles choisies pour ce cabinet.');
+   for(const step of flowSteps){
+    if(!active(token))return;
+    stage.textContent=step.name;
+    entry(step.name,step.description);
+    if(!await revealFlow(step,token))return;
+    if(!await sleep(reduced()?90:200,token))return;
+   }
+   entry('À retenir','Vert : échanges autorisés dans le sens de la flèche. Rouge : tentative bloquée. Le Wi-Fi patients ne peut pas accéder au LAN médical.');
   }
   async function animateDhcp(token,relayOn){
    stage.textContent='Discover';
@@ -144,7 +218,7 @@
    finally{if(active(token)){disabled=false;play.disabled=false;helper.disabled=false;modes.forEach(el=>el.disabled=false);play.textContent='↻ Rejouer l’animation';stage.textContent='Terminé';}}
   });
   const chapter=host.closest('details.chapter');chapter?.addEventListener('toggle',()=>{if(!chapter.open)reset();});
-  window.addEventListener('pagehide',()=>{runId++;layer.replaceChildren();});
+  window.addEventListener('pagehide',()=>{runId++;layer.replaceChildren();flows.replaceChildren();});
   reset();
  });
 })();
