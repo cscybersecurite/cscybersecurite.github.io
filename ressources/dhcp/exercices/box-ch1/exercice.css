@@ -1,35 +1,66 @@
-.dhcp-box-ch1{--db-accent:#1870bd;--db-border:var(--line,#c5d5e5);--db-panel:var(--panel,#fff);--db-soft:var(--soft,#eef5fb);color:var(--ink,#162b44);border:1px solid var(--db-border);border-radius:14px;overflow:hidden;margin:14px 0 4px}
+/* Exercice box Internet : énoncé hors interface, console d'administration inspirée d'une box. */
+.db-brief{margin:12px 0 16px;font-size:16px;line-height:1.55}
+.db-brief>p{margin:0 0 12px}
+.db-request{background:var(--soft,#edf4fb);color:var(--ink,#172c42);border-left:4px solid #3583cc;padding:12px 16px;border-radius:7px}
+.db-request ul{margin:6px 0 0;padding-left:22px}.db-request li{margin:4px 0}
+.dhcp-box-ch1{--db-accent:#1870bd;--db-border:var(--line,#c5d5e5);--db-panel:var(--panel,#fff);--db-soft:var(--soft,#eef5fb);color:var(--ink,#162b44);margin:10px 0 4px}
 .dhcp-box-ch1 *{box-sizing:border-box}
-.dhcp-box-ch1 .db-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:13px 16px;background:#183e66;color:#fff}
-.dhcp-box-ch1 .db-header strong{font-size:18px}.dhcp-box-ch1 .db-header small{display:block;opacity:.8;font-size:12px}
-.dhcp-box-ch1 .db-led{font-size:12px;display:flex;align-items:center;gap:7px}.dhcp-box-ch1 .db-led::before{content:"";display:block;width:9px;height:9px;background:#48d48a;border-radius:50%}
-.dhcp-box-ch1 .db-body{padding:15px;display:grid;gap:16px}
-.dhcp-box-ch1 h4{font-size:17px;margin:0 0 8px;color:inherit}
-.dhcp-box-ch1 .db-help{font-size:14px;color:var(--muted,#546778);margin:0 0 10px}
-.dhcp-box-ch1 .db-mission{border-left:4px solid var(--db-accent);background:var(--db-soft);border-radius:8px;padding:12px 14px;font-size:15px}
-.dhcp-box-ch1 .db-mission p{margin:0 0 7px}.dhcp-box-ch1 .db-mission ul{margin:5px 0;padding-left:23px}
-.dhcp-box-ch1 .db-phase{border-top:1px solid var(--db-border);padding-top:15px}
-.dhcp-box-ch1 .db-phase-title{display:flex;gap:9px;align-items:center;margin-bottom:8px}
-.dhcp-box-ch1 .db-num{display:grid;place-items:center;min-width:27px;height:27px;border-radius:50%;background:#1c6fb5;color:#fff;font-weight:700;font-size:14px}
-.dhcp-box-ch1 .db-admin{border:1px solid var(--db-border);border-radius:10px;overflow:hidden}
-.dhcp-box-ch1 .db-nav{padding:11px 13px;background:var(--db-soft);font-weight:700;font-size:14px;border-bottom:1px solid var(--db-border)}
-.dhcp-box-ch1 .db-panel{padding:13px}
-.dhcp-box-ch1 .db-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.dhcp-box-ch1 label{font-size:14px;font-weight:700;display:grid;gap:5px}
-.dhcp-box-ch1 input[type=text],.dhcp-box-ch1 input[type=number]{width:100%;min-width:0;border:1px solid #829bb1;background:var(--db-panel);color:inherit;border-radius:7px;padding:9px 10px;font:inherit;font-size:15px}
-.dhcp-box-ch1 input:focus-visible,.dhcp-box-ch1 button:focus-visible{outline:3px solid #e2ac4d;outline-offset:2px}
-.dhcp-box-ch1 input:disabled{opacity:.7}
-.dhcp-box-ch1 .db-static{border:1px solid var(--db-border);padding:9px 10px;border-radius:7px;font-size:15px}
-.dhcp-box-ch1 .db-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:11px}
-.dhcp-box-ch1 button{border:1px solid #256dae;border-radius:8px;padding:10px 13px;background:#176db4;color:#fff;font:700 14px Arial,sans-serif;cursor:pointer;min-height:42px}
+.dhcp-box-ch1 .db-body{display:grid;gap:18px}
+.dhcp-box-ch1 h4{font-size:17px;margin:0;color:inherit}
+.dhcp-box-ch1 .db-phase{border:1px solid var(--db-border);background:var(--db-panel);border-radius:11px;padding:15px;min-width:0}
+.dhcp-box-ch1 .db-phase-title{display:flex;gap:9px;align-items:center;margin-bottom:10px}
+.dhcp-box-ch1 .db-num{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:50%;background:#176fb8;color:#fff;font-weight:700;font-size:14px}
+.dhcp-box-ch1 .db-help{font-size:14px;line-height:1.5;color:var(--muted,#53677c);margin:0 0 12px}
+.dhcp-box-ch1 .db-actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.dhcp-box-ch1 button{border:1px solid #286cad;border-radius:7px;padding:10px 13px;background:#176db4;color:#fff;font:700 14px Arial,sans-serif;cursor:pointer;min-height:40px}
 .dhcp-box-ch1 button:disabled{cursor:not-allowed;opacity:.55}
 .dhcp-box-ch1 button.db-secondary{background:var(--db-panel);color:var(--ink,#162b44);border-color:var(--db-border)}
-.dhcp-box-ch1 .db-console{background:#121d2b;color:#e7f2fc;padding:12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto;font:12px/1.55 Consolas,"Courier New",monospace;min-height:60px;max-height:330px;overflow-y:auto;margin:9px 0 0}
-.dhcp-box-ch1 .db-feedback{font-size:14px;margin:10px 0 0;line-height:1.5}
+.dhcp-box-ch1 button:focus-visible,.dhcp-box-ch1 input:focus-visible{outline:3px solid #e2ac4d;outline-offset:2px}
+.dhcp-box-ch1 .db-console{background:#111e2d;color:#e7f2fc;padding:12px;border-radius:7px;white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto;font:12px/1.55 Consolas,"Courier New",monospace;min-height:58px;max-height:330px;overflow-y:auto;margin:10px 0 0}
+.dhcp-box-ch1 .db-console:empty{display:none}
+.dhcp-box-ch1 .db-feedback{font-size:14px;margin:0;line-height:1.5}
 .dhcp-box-ch1 .db-feedback:empty{display:none}
 .dhcp-box-ch1 .db-results{margin:8px 0 0;padding-left:21px;font-size:14px}
 .dhcp-box-ch1 .db-results li{margin-bottom:4px}
 .dhcp-box-ch1 .db-results li.db-ok{color:#13683d}.dhcp-box-ch1 .db-results li.db-error{color:#a23e26}
-.dhcp-box-ch1 .db-success{font-weight:bold;color:#087545}
-@media(max-width:580px){.dhcp-box-ch1 .db-grid{grid-template-columns:1fr}.dhcp-box-ch1 .db-body{padding:12px}.dhcp-box-ch1 .db-console{font-size:11px}.dhcp-box-ch1 .db-panel{padding:11px}}
-@media(prefers-color-scheme:dark){.dhcp-box-ch1 .db-results li.db-ok,.dhcp-box-ch1 .db-success{color:#83edb0}.dhcp-box-ch1 .db-results li.db-error{color:#ffb3a5}.dhcp-box-ch1 .db-mission{border-color:#70b9f1}.dhcp-box-ch1 input[type=text],.dhcp-box-ch1 input[type=number]{border-color:#778da6}}
+/* Une application visuellement distincte du cours, pensée aussi pour le mobile. */
+.dhcp-box-ch1 .db-admin{--db-ui-ink:#242c36;--db-ui-line:#cfd5dc;--db-ui-bg:#f5f6f8;border:1px solid #a8b2bc;border-radius:8px;overflow:hidden;background:#fff;color:var(--db-ui-ink);font:14px/1.4 Arial,sans-serif}
+.dhcp-box-ch1 .db-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:13px 16px;background:#303238;color:#fff}
+.dhcp-box-ch1 .db-header strong{font-size:18px;font-weight:700}.dhcp-box-ch1 .db-header small{display:block;font-size:12px;color:#c8d0d8;margin-top:3px}
+.dhcp-box-ch1 .db-led{font-size:12px;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.dhcp-box-ch1 .db-led::before{content:"";display:block;width:9px;height:9px;background:#39cf82;border-radius:50%}
+.dhcp-box-ch1 .db-nav{display:flex;align-items:center;gap:8px;padding:10px 15px;background:#e8eaed;color:#313841;font-size:13px;border-bottom:1px solid var(--db-ui-line)}
+.dhcp-box-ch1 .db-tabs{display:flex;gap:2px;padding:8px 11px 0;background:#303238;overflow-x:auto}
+.dhcp-box-ch1 .db-tab{border:0;border-radius:5px 5px 0 0;background:#44464a;color:#e9edf1;min-height:36px;padding:9px 13px;font-weight:600;white-space:nowrap}
+.dhcp-box-ch1 .db-tab:hover{background:#535b65}.dhcp-box-ch1 .db-tab[aria-selected="true"]{background:#fff;color:#172e52;border-bottom:3px solid #236bc1}
+.dhcp-box-ch1 .db-admin-content{padding:17px 15px 12px;background:#fff;min-height:196px}
+.dhcp-box-ch1 .db-pane[hidden]{display:none}
+.dhcp-box-ch1 .db-fieldset{margin:0 0 15px;border:1px solid #d1d7dd;border-radius:5px;padding:13px 14px 10px;min-width:0}
+.dhcp-box-ch1 .db-fieldset legend{padding:0 7px;color:#1261bf;font-weight:700;font-size:15px}
+.dhcp-box-ch1 .db-form-row{display:grid;grid-template-columns:minmax(145px,42%) minmax(0,1fr);gap:14px;align-items:center;margin:0 0 10px}
+.dhcp-box-ch1 .db-form-row label,.dhcp-box-ch1 .db-field-label{font-size:13px;font-weight:700;line-height:1.4}
+.dhcp-box-ch1 .db-form-row input{width:100%;min-width:0;min-height:37px;border:1px solid #b7c2cb;background:#fff;color:#1a2531;border-radius:4px;padding:7px 10px;font:14px Arial,sans-serif}
+.dhcp-box-ch1 .db-static{display:flex;align-items:center;min-height:36px;font-size:14px;color:#394753}
+.dhcp-box-ch1 .db-on{font-weight:700;color:#167544}.dhcp-box-ch1 .db-on::before{content:"";width:8px;height:8px;border-radius:50%;background:#27a55d;margin-right:8px}
+.dhcp-box-ch1 .db-field-help{font-size:12px;color:#596777;line-height:1.5;margin:2px 0 8px}
+.dhcp-box-ch1 .db-footer{background:#f3f4f6;border-top:1px solid #d8dce1;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px}
+.dhcp-box-ch1 .db-footer-hint{font-size:12px;color:#596777}
+.dhcp-box-ch1 .db-footer .db-secondary{background:#fff;color:#3a4650;border:1px solid #b8c2ce}
+.dhcp-box-ch1 .db-leases-wrap{overflow-x:auto}
+.dhcp-box-ch1 .db-leases{width:100%;border-collapse:collapse;text-align:left;font-size:13px}
+.dhcp-box-ch1 .db-leases th{background:#edf1f5;color:#243342}.dhcp-box-ch1 .db-leases th,.dhcp-box-ch1 .db-leases td{padding:9px 8px;border-bottom:1px solid #d8dfe5}
+@media(max-width:620px){
+ .dhcp-box-ch1 .db-phase{padding:11px}
+ .dhcp-box-ch1 .db-header{padding:11px 12px}
+ .dhcp-box-ch1 .db-admin-content{padding:12px 9px}
+ .dhcp-box-ch1 .db-fieldset{padding:11px 9px 8px}
+ .dhcp-box-ch1 .db-form-row{grid-template-columns:1fr;gap:4px;margin-bottom:12px}
+ .dhcp-box-ch1 .db-footer{flex-wrap:wrap}
+ .dhcp-box-ch1 .db-footer .db-actions{margin-left:auto}
+ .dhcp-box-ch1 .db-console{font-size:11px}
+}
+@media(prefers-color-scheme:dark){
+ .dhcp-box-ch1 .db-results li.db-ok{color:#83edb0}
+ .dhcp-box-ch1 .db-results li.db-error{color:#ffb3a5}
+ .db-request{border-left-color:#70b9f1}
+}
