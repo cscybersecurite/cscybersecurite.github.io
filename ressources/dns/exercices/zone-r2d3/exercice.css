@@ -1,6 +1,7 @@
 /* Chapitre 5 : administration DNS, adaptateur graphique au moteur R2D3. */
 .dns-r2d3{border:1px solid var(--line,#c9d7e6);border-radius:10px;overflow:hidden;margin:13px 0 15px;--dns-ui-border:#cfdae5;--dns-ui-bg:#fff;--dns-ui-field:#fff;--dns-ui-text:#1a3045;--dns-ui-muted:#526b80;--dns-ui-table:#eaf1f8;background:var(--dns-ui-bg);color:var(--dns-ui-text);font:14px/1.4 Arial,sans-serif}
 .dns-r2d3 *{box-sizing:border-box}
+.dns-r2d3 [hidden]{display:none!important}
 .dns-r2d3-header{background:#273d54;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 13px}
 .dns-r2d3-header strong{font-size:16px}
 .dns-r2d3-online{font-size:12px;display:flex;gap:7px;align-items:center}
