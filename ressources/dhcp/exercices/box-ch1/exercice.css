@@ -1,0 +1,35 @@
+.dhcp-box-ch1{--db-accent:#1870bd;--db-border:var(--line,#c5d5e5);--db-panel:var(--panel,#fff);--db-soft:var(--soft,#eef5fb);color:var(--ink,#162b44);border:1px solid var(--db-border);border-radius:14px;overflow:hidden;margin:14px 0 4px}
+.dhcp-box-ch1 *{box-sizing:border-box}
+.dhcp-box-ch1 .db-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:13px 16px;background:#183e66;color:#fff}
+.dhcp-box-ch1 .db-header strong{font-size:18px}.dhcp-box-ch1 .db-header small{display:block;opacity:.8;font-size:12px}
+.dhcp-box-ch1 .db-led{font-size:12px;display:flex;align-items:center;gap:7px}.dhcp-box-ch1 .db-led::before{content:"";display:block;width:9px;height:9px;background:#48d48a;border-radius:50%}
+.dhcp-box-ch1 .db-body{padding:15px;display:grid;gap:16px}
+.dhcp-box-ch1 h4{font-size:17px;margin:0 0 8px;color:inherit}
+.dhcp-box-ch1 .db-help{font-size:14px;color:var(--muted,#546778);margin:0 0 10px}
+.dhcp-box-ch1 .db-mission{border-left:4px solid var(--db-accent);background:var(--db-soft);border-radius:8px;padding:12px 14px;font-size:15px}
+.dhcp-box-ch1 .db-mission p{margin:0 0 7px}.dhcp-box-ch1 .db-mission ul{margin:5px 0;padding-left:23px}
+.dhcp-box-ch1 .db-phase{border-top:1px solid var(--db-border);padding-top:15px}
+.dhcp-box-ch1 .db-phase-title{display:flex;gap:9px;align-items:center;margin-bottom:8px}
+.dhcp-box-ch1 .db-num{display:grid;place-items:center;min-width:27px;height:27px;border-radius:50%;background:#1c6fb5;color:#fff;font-weight:700;font-size:14px}
+.dhcp-box-ch1 .db-admin{border:1px solid var(--db-border);border-radius:10px;overflow:hidden}
+.dhcp-box-ch1 .db-nav{padding:11px 13px;background:var(--db-soft);font-weight:700;font-size:14px;border-bottom:1px solid var(--db-border)}
+.dhcp-box-ch1 .db-panel{padding:13px}
+.dhcp-box-ch1 .db-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dhcp-box-ch1 label{font-size:14px;font-weight:700;display:grid;gap:5px}
+.dhcp-box-ch1 input[type=text],.dhcp-box-ch1 input[type=number]{width:100%;min-width:0;border:1px solid #829bb1;background:var(--db-panel);color:inherit;border-radius:7px;padding:9px 10px;font:inherit;font-size:15px}
+.dhcp-box-ch1 input:focus-visible,.dhcp-box-ch1 button:focus-visible{outline:3px solid #e2ac4d;outline-offset:2px}
+.dhcp-box-ch1 input:disabled{opacity:.7}
+.dhcp-box-ch1 .db-static{border:1px solid var(--db-border);padding:9px 10px;border-radius:7px;font-size:15px}
+.dhcp-box-ch1 .db-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:11px}
+.dhcp-box-ch1 button{border:1px solid #256dae;border-radius:8px;padding:10px 13px;background:#176db4;color:#fff;font:700 14px Arial,sans-serif;cursor:pointer;min-height:42px}
+.dhcp-box-ch1 button:disabled{cursor:not-allowed;opacity:.55}
+.dhcp-box-ch1 button.db-secondary{background:var(--db-panel);color:var(--ink,#162b44);border-color:var(--db-border)}
+.dhcp-box-ch1 .db-console{background:#121d2b;color:#e7f2fc;padding:12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto;font:12px/1.55 Consolas,"Courier New",monospace;min-height:60px;max-height:330px;overflow-y:auto;margin:9px 0 0}
+.dhcp-box-ch1 .db-feedback{font-size:14px;margin:10px 0 0;line-height:1.5}
+.dhcp-box-ch1 .db-feedback:empty{display:none}
+.dhcp-box-ch1 .db-results{margin:8px 0 0;padding-left:21px;font-size:14px}
+.dhcp-box-ch1 .db-results li{margin-bottom:4px}
+.dhcp-box-ch1 .db-results li.db-ok{color:#13683d}.dhcp-box-ch1 .db-results li.db-error{color:#a23e26}
+.dhcp-box-ch1 .db-success{font-weight:bold;color:#087545}
+@media(max-width:580px){.dhcp-box-ch1 .db-grid{grid-template-columns:1fr}.dhcp-box-ch1 .db-body{padding:12px}.dhcp-box-ch1 .db-console{font-size:11px}.dhcp-box-ch1 .db-panel{padding:11px}}
+@media(prefers-color-scheme:dark){.dhcp-box-ch1 .db-results li.db-ok,.dhcp-box-ch1 .db-success{color:#83edb0}.dhcp-box-ch1 .db-results li.db-error{color:#ffb3a5}.dhcp-box-ch1 .db-mission{border-color:#70b9f1}.dhcp-box-ch1 input[type=text],.dhcp-box-ch1 input[type=number]{border-color:#778da6}}
