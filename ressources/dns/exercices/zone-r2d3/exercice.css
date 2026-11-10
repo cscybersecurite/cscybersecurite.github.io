@@ -1,0 +1,63 @@
+/* Chapitre 5 : administration DNS, adaptateur graphique au moteur R2D3. */
+.dns-r2d3{border:1px solid var(--line,#c9d7e6);border-radius:10px;overflow:hidden;margin:13px 0 15px;--dns-ui-border:#cfdae5;--dns-ui-bg:#fff;--dns-ui-field:#fff;--dns-ui-text:#1a3045;--dns-ui-muted:#526b80;--dns-ui-table:#eaf1f8;background:var(--dns-ui-bg);color:var(--dns-ui-text);font:14px/1.4 Arial,sans-serif}
+.dns-r2d3 *{box-sizing:border-box}
+.dns-r2d3-header{background:#273d54;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 13px}
+.dns-r2d3-header strong{font-size:16px}
+.dns-r2d3-online{font-size:12px;display:flex;gap:7px;align-items:center}
+.dns-r2d3-online::before{content:"";width:8px;height:8px;border-radius:50%;background:#4fe38d}
+.dns-r2d3-body{padding:12px;display:grid;gap:12px}
+.dns-r2d3 h4{margin:0 0 7px;color:var(--dns-ui-text);font-size:15px}
+.dns-r2d3 p{margin:0 0 8px}
+.dns-r2d3-note{color:var(--dns-ui-muted);font-size:13px}
+.dns-r2d3-table-wrap{overflow-x:auto;max-width:100%}
+.dns-r2d3 table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}
+.dns-r2d3 th{background:var(--dns-ui-table);font-weight:700}
+.dns-r2d3 th,.dns-r2d3 td{border-bottom:1px solid var(--dns-ui-border);padding:7px 8px;vertical-align:middle}
+.dns-r2d3 td:nth-child(1){overflow-wrap:anywhere}
+.dns-r2d3 td:nth-child(3){overflow-wrap:anywhere}
+.dns-r2d3 td:last-child,.dns-r2d3 th:last-child{text-align:right}
+.dns-r2d3-selected{background:var(--dns-ui-table)}
+.dns-r2d3 button{width:auto;min-height:34px;border:1px solid #2670af;background:#176db4;color:#fff;padding:6px 10px;border-radius:5px;font:700 13px Arial,sans-serif;margin:0;cursor:pointer}
+.dns-r2d3 button:disabled{opacity:.55;cursor:not-allowed}
+.dns-r2d3 button.dns-r2d3-secondary,.dns-r2d3 .dns-r2d3-mini{background:var(--dns-ui-field);border-color:#9baec1;color:var(--dns-ui-text)}
+.dns-r2d3 .dns-r2d3-mini{padding:4px 9px;min-height:30px;font-size:12px}
+.dns-r2d3 button:focus-visible,.dns-r2d3 input:focus-visible,.dns-r2d3 select:focus-visible{outline:3px solid #e7af49;outline-offset:2px}
+.dns-r2d3-zone{border:1px solid var(--dns-ui-border);border-radius:6px;padding:10px;min-width:0}
+.dns-r2d3-zone-head{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:7px}
+.dns-r2d3-zone-head h4{margin:0}
+.dns-r2d3-editor{border:1px solid var(--dns-ui-border);border-radius:6px;padding:10px;min-width:0}
+.dns-r2d3-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+.dns-r2d3 label{display:grid;gap:4px;font-weight:700;font-size:12px}
+.dns-r2d3 input,.dns-r2d3 select{height:34px;min-width:0;width:100%;background:var(--dns-ui-field);color:var(--dns-ui-text);border:1px solid #9baec1;border-radius:5px;padding:4px 8px;font:13px Arial,sans-serif}
+.dns-r2d3 .dns-r2d3-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.dns-r2d3-shell{border:1px solid #38526a;border-radius:6px;overflow:hidden;min-width:0}
+.dns-r2d3-shell h4{margin:0;background:#223448;color:#fff;padding:8px 11px;font-size:14px}
+.dns-r2d3-shell form{display:flex;align-items:stretch;gap:6px;background:#111d2d;padding:9px}
+.dns-r2d3-shell form label{display:flex;align-items:center;color:#dceaf8;gap:7px;flex:1;min-width:0}
+.dns-r2d3-shell input{background:#1d3047;border:1px solid #587794;color:#fff;flex:1;min-width:0;font:13px Consolas,monospace}
+.dns-r2d3-shell button{flex:none}
+.dns-r2d3-terminal{background:#101b2b;color:#e5f4fd;padding:12px;margin:0;min-height:85px;max-height:280px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 Consolas,"Courier New",monospace}
+.dns-r2d3-feedback{font-size:13px;margin:0!important;min-height:18px;color:var(--dns-ui-muted)}
+.dns-r2d3-success{font-weight:700;color:#137444}
+.dns-r2d3-footer{border-top:1px solid var(--dns-ui-border);padding:9px 12px;display:flex;align-items:center;justify-content:flex-end;gap:9px}
+.dns-nslookup-guide{padding:12px 14px;border-left:4px solid #287bc3;background:var(--soft,#eef5fc);border-radius:7px;margin:12px 0;font-size:15px}
+.dns-nslookup-guide p{margin:5px 0 8px}
+.dns-nslookup-guide pre{background:#15263a;color:#eaf6ff;white-space:pre-wrap;overflow-wrap:anywhere;border-radius:5px;padding:10px;font:13px/1.5 Consolas,monospace;margin:8px 0}
+.dns-nslookup-guide code{font-family:Consolas,monospace}
+@media(max-width:650px){
+ .dns-r2d3-body{padding:8px;gap:10px}
+ .dns-r2d3-zone,.dns-r2d3-editor{padding:8px}
+ .dns-r2d3-form-grid{grid-template-columns:1fr}
+ .dns-r2d3 th,.dns-r2d3 td{padding:6px 4px}
+ .dns-r2d3 table{font-size:12px}
+ .dns-r2d3-shell form{flex-wrap:wrap}
+ .dns-r2d3-shell form label{flex-basis:100%}
+}
+@media(prefers-color-scheme:dark){
+ .dns-r2d3{--dns-ui-border:#4a6078;--dns-ui-bg:#1b2b40;--dns-ui-field:#273c55;--dns-ui-text:#ebf4ff;--dns-ui-muted:#b6c8db;--dns-ui-table:#293f57}
+ .dns-r2d3-header{background:#111e2d}
+ .dns-r2d3 .dns-r2d3-mini,.dns-r2d3 button.dns-r2d3-secondary{border-color:#738ba4}
+ .dns-r2d3 input,.dns-r2d3 select{border-color:#738ba4}
+ .dns-r2d3-success{color:#87e9b0}
+ .dns-nslookup-guide{border-left-color:#89c5ff}
+}
