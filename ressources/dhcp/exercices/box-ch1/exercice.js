@@ -39,6 +39,7 @@ if(root){
   $("save").disabled=!observedBefore;
   $("release").disabled=!saved;
   $("renew").disabled=!saved;
+  $("all").disabled=!saved;
   $("ping").disabled=!saved;
   $("check").disabled=!observedBefore;
  }
@@ -113,11 +114,15 @@ if(root){
   if(r.status!=="applied"){fail("Renouvellement refusé : "+(r.message??r.code));return;}
   const s=state(),pc=s.objectsById.pc,status=s.runtime.pc?.dhcpStatus;
   renderLeases();
-  $("after").textContent=formatIpconfigRenew({ipv4:pc.config.ipv4,status,gateway:pc.config.networkOptions.gateway})+"\n\n"+ipAll();
+  $("after").textContent=formatIpconfigRenew({ipv4:pc.config.ipv4,status,gateway:pc.config.networkOptions.gateway});
   renewed=status==="lease"&&!pc.config.ipv4.address?.startsWith("192.168.0.");
   pingPassed=false;pingAnimator?.cancel();
   $("ping-result").textContent="";
-  fail("Lis la nouvelle sortie ipconfig /all, puis teste la communication avec la box.");
+  fail("Renouvellement exécuté. Utilise maintenant ipconfig /all pour consulter la configuration du PC.");
+ }
+ function showAll(){
+  $("after").textContent=ipAll();
+  fail("Configuration affichée avec ipconfig /all. Vérifie les informations avant de tester la liaison.");
  }
  function ping(){
   const s=state(),ip=s.objectsById.box.config.ipv4.address,outcome=engine.query({type:"network.ping",sourceId:"pc",targetId:"box"});
@@ -166,6 +171,7 @@ if(root){
    $("save").addEventListener("click",save);
    $("release").addEventListener("click",release);
    $("renew").addEventListener("click",renew);
+   $("all").addEventListener("click",showAll);
    $("ping").addEventListener("click",ping);
    $("check").addEventListener("click",verify);
    $("reset").addEventListener("click",reset);
