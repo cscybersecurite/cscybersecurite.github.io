@@ -62,3 +62,33 @@
  .dns-r2d3-success{color:#87e9b0}
  .dns-nslookup-guide{border-left-color:#89c5ff}
 }
+
+/* Adaptation locale DNS : neutralise les styles génériques du cours sur les champs. */
+.dns-r2d3 input,.dns-r2d3 select{
+ transform:none;
+ margin:0;
+ max-width:100%;
+ min-width:0;
+}
+.dns-r2d3 label,.dns-r2d3-form-grid,.dns-r2d3-shell form{min-width:0;max-width:100%}
+.dns-r2d3-shell form label input{width:100%;min-width:0}
+.dns-r2d3-table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.dns-r2d3 table{min-width:500px;table-layout:auto}
+.dns-r2d3 td:nth-child(1),.dns-r2d3 td:nth-child(3){overflow-wrap:normal;word-break:normal}
+.dns-r2d3-actions button{max-width:100%;white-space:normal}
+.dns-nslookup-guide{color:#17314a;background:#eef5fc}
+.dns-nslookup-guide strong,.dns-nslookup-guide p,.dns-nslookup-guide code{color:inherit}
+@media(max-width:650px){
+ .dns-r2d3{min-width:0}
+ .dns-r2d3-form-grid{grid-template-columns:minmax(0,1fr)}
+ .dns-r2d3-shell form{flex-direction:column}
+ .dns-r2d3-shell form label{flex:0 1 auto;width:100%}
+ .dns-r2d3-shell form button{align-self:flex-start}
+ .dns-r2d3-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dns-r2d3-actions button{width:100%;margin:0}
+ .dns-r2d3-actions button:first-child{grid-column:1/-1}
+ .dns-r2d3-terminal{max-width:100%;font-size:12px}
+}
+@media(prefers-color-scheme:dark){
+ .dns-nslookup-guide{background:#243c55;color:#eef6ff;border-left-color:#89c5ff}
+}
