@@ -1,0 +1,87 @@
+{
+  "format": "r2d3-scenario",
+  "schemaVersion": 1,
+  "scenarioId": "cours-dhcp-box-ch1",
+  "scenarioVersion": "1.0.0",
+  "capabilities": {
+    "network": true
+  },
+  "objects": [
+    {
+      "id": "box",
+      "kind": "home-router",
+      "name": "Box Internet",
+      "ports": [
+        {
+          "id": "lan0",
+          "type": "rj45"
+        }
+      ],
+      "config": {
+        "ipv4": {
+          "interfaceId": "lan0",
+          "mode": "static",
+          "address": "192.168.0.1",
+          "prefix": 24
+        },
+        "dhcpEnabled": true,
+        "dhcpPool": {
+          "start": "192.168.0.100",
+          "end": "192.168.0.250",
+          "prefix": 24,
+          "gateway": "192.168.0.1",
+          "dns": [
+            "192.168.0.1"
+          ],
+          "leaseSeconds": 86400,
+          "exclusions": [],
+          "reservations": []
+        }
+      },
+      "runtime": {}
+    },
+    {
+      "id": "pc",
+      "kind": "pc-windows",
+      "name": "PC-CLIENT",
+      "ports": [
+        {
+          "id": "eth0",
+          "type": "rj45"
+        }
+      ],
+      "config": {
+        "ipv4": {
+          "interfaceId": "eth0",
+          "mode": "dhcp",
+          "address": null,
+          "prefix": null,
+          "lease": null
+        },
+        "networkOptions": {
+          "gateway": null,
+          "dns": []
+        },
+        "macAddress": "02-52-32-44-33-01"
+      },
+      "runtime": {}
+    }
+  ],
+  "links": [
+    {
+      "id": "lan-cable",
+      "kind": "ethernet-cable",
+      "endpoints": [
+        {
+          "objectId": "box",
+          "portId": "lan0"
+        },
+        {
+          "objectId": "pc",
+          "portId": "eth0"
+        }
+      ],
+      "connected": true
+    }
+  ]
+}
