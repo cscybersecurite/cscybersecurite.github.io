@@ -4,7 +4,7 @@ import {formatNslookup,formatTypedNslookup} from "https://chaoli22000bzh.github.
 
 const SCENARIOS="./exercices/zone-r2d3/scenarios.json";
 const PC="pc-dhcp-01", DNS="srv-dns";
-const initialLookups={arte:"nslookup www.arte.net",armor:"nslookup www.armortech.fr"};
+const initialLookups={arte:"nslookup www.arte.net",armor:"nslookup www.armortech.fr",reverse:"nslookup 192.168.10.50"};
 const q=(root,key)=>root.querySelector('[data-dns-ui="'+key+'"]');
 const report=(root,message)=>{q(root,"status").textContent=message;};
 const rowKey=(r)=>[r.name,r.type,r.value,r.priority??""].join("|");
@@ -13,6 +13,7 @@ function setup(root,scenarios){
  const mode=root.dataset.dnsMode,scenario=scenarios[mode];
  if(!scenario){report(root,"Scénario DNS introuvable.");return;}
  let engine,serial=0,selected=null,seenBefore=false,lookedAfter=false,modified=false;
+ let reverseForwardBefore=false,reverseForwardAfter=false;
  const snapshot=()=>engine.getSnapshot();
  const records=()=>snapshot().objectsById[DNS].config.dnsZone.records;
  const send=(type,targetId,params={})=>engine.dispatch({
@@ -73,7 +74,7 @@ function setup(root,scenarios){
   const response=send("dns.upsertRecord",DNS,{record});
   if(response.status!=="applied"){report(root,"Modification refusée par R2D3 : "+(response.message??response.code));return;}
   if(before){
-   modified=true;lookedAfter=false;
+   modified=true;lookedAfter=false;reverseForwardAfter=false;
   }
   const updated=records().find(r=>r.name===record.name&&r.type===record.type&&r.value===record.value);
   selected=updated?rowKey(updated):null;
@@ -85,7 +86,7 @@ function setup(root,scenarios){
   if(!chosen)return;
   const response=send("dns.removeRecord",DNS,{name:chosen.name,recordType:chosen.type,value:chosen.value});
   if(response.status!=="applied"){report(root,"Suppression refusée par R2D3 : "+(response.message??response.code));return;}
-  selected=null;modified=true;lookedAfter=false;render();
+  selected=null;modified=true;lookedAfter=false;reverseForwardAfter=false;render();
   report(root,"Enregistrement supprimé du serveur DNS.");
  }
  function lookup(event){
@@ -93,17 +94,44 @@ function setup(root,scenarios){
   const command=q(root,"command").value.trim();
   const match=/^nslookup(?:\s+-type=(A|AAAA|MX|TXT|PTR))?\s+([^\s]+)$/i.exec(command);
   if(!match){report(root,"Commande attendue : nslookup nom.domaine ou nslookup -type=MX nom.domaine");return;}
-  const type=(match[1]??"A").toUpperCase(),name=match[2].toLowerCase();
+  const name=match[2].toLowerCase();
+  // Avec une adresse IPv4, nslookup recherche naturellement un PTR.
+  const reverseIp=/^\\d{1,3}(?:\\.\\d{1,3}){3}$/.test(name);
+  const type=(match[1]??(reverseIp?"PTR":"A")).toUpperCase();
   const result=engine.query({type:"dns.resolve",sourceId:PC,name,recordType:type});
-  const output=type==="A"?formatNslookup({name,result}):formatTypedNslookup({name,recordType:type,result});
+  let output=type==="A"?formatNslookup({name,result}):formatTypedNslookup({name,recordType:type,result});
+  if(reverseIp&&type==="PTR"&&!match[1])output=output.replace("nslookup -type=PTR ","nslookup ");
   q(root,"terminal").textContent=output;
   if(mode==="armor"&&type==="A"&&name==="www.armortech.fr"){
    if(!modified)seenBefore=true;
    else lookedAfter=true;
   }
+  if(mode==="reverse"){
+   if(type==="PTR"&&name==="192.168.10.50"&&result.status==="ok"&&result.found){
+    if(!modified)seenBefore=true;
+    else lookedAfter=true;
+   }
+   if(type==="A"&&result.status==="ok"&&result.found){
+    if(!modified&&name==="ancien-poste.atelier.test")reverseForwardBefore=true;
+    if(modified&&name==="imprimante.atelier.test")reverseForwardAfter=true;
+   }
+  }
   report(root,result.status==="ok"?"Requête DNS exécutée. Examine la réponse du serveur.":"Requête exécutée. Examine le message d'erreur.");
  }
  function verify(){
+  if(mode==="reverse"){
+   if(!seenBefore){report(root,"Commence par identifier le nom associé à 192.168.10.50 avec nslookup.");return;}
+   if(!reverseForwardBefore){report(root,"Vérifie maintenant l'adresse IPv4 correspondant au nom obtenu.");return;}
+   if(!lookedAfter){report(root,"Après la correction, relance nslookup 192.168.10.50.");return;}
+   if(!reverseForwardAfter){report(root,"Vérifie aussi l'adresse IPv4 correspondant au nouveau nom.");return;}
+   const ptr=engine.query({type:"dns.resolve",sourceId:PC,name:"192.168.10.50",recordType:"PTR"});
+   const target=ptr.records?.[0]?.value;
+   const forward=target?engine.query({type:"dns.resolve",sourceId:PC,name:target,recordType:"A"}):null;
+   const valid=ptr.found&&target==="imprimante.atelier.test"&&forward?.found&&forward.address==="192.168.10.50";
+   report(root,valid?"Mission réussie ! Les enregistrements PTR et A sont maintenant cohérents.":"Les recherches directe et inverse ne correspondent pas encore. Vérifie l'enregistrement PTR puis recommence.");
+   q(root,"result").textContent=valid?"Intervention terminée : cohérence A et PTR vérifiée avec nslookup.":"";
+   return;
+  }
   if(!seenBefore){report(root,"Commence par constater le problème avec nslookup www.armortech.fr.");return;}
   if(!lookedAfter){report(root,"Après la modification, relance nslookup www.armortech.fr.");return;}
   const cname=records().find(r=>r.name==="www.armortech.fr"&&r.type==="CNAME");
@@ -113,7 +141,7 @@ function setup(root,scenarios){
   q(root,"result").textContent=success?"Intervention terminée : DNS corrigé et nouvelle réponse vérifiée.":"";
  }
  function reset(){
-  engine=createEngine(scenario);serial=0;selected=null;seenBefore=false;lookedAfter=false;modified=false;
+  engine=createEngine(scenario);serial=0;selected=null;seenBefore=false;lookedAfter=false;modified=false;reverseForwardBefore=false;reverseForwardAfter=false;
   const response=send("dhcp.request",PC);
   if(response.status!=="applied"){report(root,"Initialisation du PC refusée par R2D3 : "+(response.message??response.code));return;}
   q(root,"command").value=initialLookups[mode];
@@ -121,7 +149,7 @@ function setup(root,scenarios){
   q(root,"result").textContent="";
   q(root,"type").value="A";q(root,"priority-row").hidden=true;
   newRecord();render();
-  report(root,mode==="armor"?"Commence par vérifier le problème avec nslookup.":"Zone DNS chargée. Sélectionne un enregistrement ou exécute nslookup.");
+  report(root,mode==="armor"?"Commence par vérifier le problème avec nslookup.":mode==="reverse"?"Commence par rechercher le nom associé à l’adresse IP indiquée.":"Zone DNS chargée. Sélectionne un enregistrement ou exécute nslookup.");
  }
  q(root,"edit-form").addEventListener("submit",e=>{e.preventDefault();save();});
  q(root,"lookup-form").addEventListener("submit",lookup);
@@ -129,7 +157,7 @@ function setup(root,scenarios){
  q(root,"new").addEventListener("click",newRecord);
  q(root,"delete").addEventListener("click",remove);
  q(root,"reset").addEventListener("click",reset);
- if(mode==="armor")q(root,"verify").addEventListener("click",verify);
+ if(mode==="armor"||mode==="reverse")q(root,"verify").addEventListener("click",verify);
  reset();
 }
 
