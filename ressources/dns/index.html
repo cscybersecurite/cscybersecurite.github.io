@@ -446,8 +446,37 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 <p>Voici à quoi ressemble un enregistrement dans une zone DNS inverse :</p>
 <pre class="dns-txt-extrait">10.2.0.192.in-addr.arpa. IN PTR serveur.arte.net.</pre>
 <p>À gauche, on trouve le nom demandé. <code>PTR</code> est le type d'enregistrement. À droite, on trouve le nom de la machine renvoyé par le DNS.</p>
-<details class="quiz-standard"><summary>Je me teste</summary><div class="inside">
-<div class="qcmcore-host" data-quiz-id="chapitre-8">Chargement du questionnaire…</div>
+<p class="rdns-note"><strong>Commande Windows :</strong> <code>nslookup 192.168.10.50</code> lance directement une recherche DNS inverse. Pour vérifier le nom obtenu, utilise ensuite <code>nslookup nom.domaine</code> et compare l'adresse IPv4 renvoyée.</p>
+<details class="quiz-standard"><summary>Je me teste : identifier et corriger une machine</summary><div class="inside">
+<p><strong>Situation professionnelle :</strong> le technicien consulte les journaux du pare-feu de l'atelier. Il remarque une communication provenant de l'adresse <code>192.168.10.50</code>. La documentation indique que cette adresse est actuellement attribuée à l'imprimante réseau, mais l'identification DNS semble incohérente.</p>
+<p><strong>Ta mission :</strong> exécute <code>nslookup 192.168.10.50</code> pour retrouver le nom DNS publié. Recherche ensuite l'adresse IP correspondant à ce nom, compare les résultats avec la zone DNS et corrige l'enregistrement PTR erroné. Relance les recherches directe et inverse avant de contrôler ton intervention.</p>
+<section class="dns-r2d3" data-dns-mode="reverse" aria-label="Exercice de diagnostic et correction Reverse DNS PTR" data-coursprint-exclude>
+ <div class="dns-r2d3-header"><strong>Gestionnaire DNS | atelier.test</strong><span class="dns-r2d3-online" data-dns-ui="server-status">Service DNS</span></div>
+ <div class="dns-r2d3-body">
+  <section class="dns-r2d3-zone"><div class="dns-r2d3-zone-head"><h4>Enregistrements de la zone</h4><span class="dns-r2d3-note" data-dns-ui="count"></span></div>
+   <div class="dns-r2d3-table-wrap"><table><thead><tr><th scope="col">Nom DNS</th><th scope="col">Type</th><th scope="col">Valeur</th><th scope="col">Action</th></tr></thead><tbody data-dns-ui="records"></tbody></table></div>
+  </section>
+  <form class="dns-r2d3-editor" data-dns-ui="edit-form">
+   <h4>Édition d'un enregistrement</h4>
+   <div class="dns-r2d3-form-grid">
+    <label>Nom DNS<input type="text" data-dns-ui="name" spellcheck="false" autocomplete="off" placeholder="www.exemple.net"></label>
+    <label>Type<select data-dns-ui="type"><option value="A">A</option><option value="AAAA">AAAA</option><option value="CNAME">CNAME</option><option value="MX">MX</option><option value="TXT">TXT</option><option value="PTR">PTR</option></select></label>
+    <label>Valeur<input type="text" data-dns-ui="value" spellcheck="false" autocomplete="off" placeholder="Adresse IP ou nom DNS"></label>
+    <label data-dns-ui="priority-row" hidden>Priorité MX<input type="number" data-dns-ui="priority" min="0" max="65535" value="10"></label>
+   </div>
+   <div class="dns-r2d3-actions"><button type="button" class="dns-r2d3-secondary" data-dns-ui="new">Nouvel enregistrement</button><button type="button" class="dns-r2d3-secondary" data-dns-ui="delete" disabled>Supprimer</button><button type="submit">Enregistrer</button></div>
+  </form>
+  <section class="dns-r2d3-shell" aria-label="Console Windows de requêtes DNS">
+   <h4>Console Windows | PC1</h4>
+   <form data-dns-ui="lookup-form"><label><span>C:\&gt;</span><input data-dns-ui="command" aria-label="Commande nslookup" type="text" spellcheck="false" autocomplete="off" placeholder="nslookup www.exemple.net"></label><button type="submit">Exécuter</button></form>
+   <pre class="dns-r2d3-terminal" data-dns-ui="terminal" aria-live="polite">Chargement...</pre>
+  </section>
+  <p class="dns-r2d3-feedback" data-dns-ui="status" role="status" aria-live="polite">Chargement du moteur R2D3...</p>
+  <div class="dns-r2d3-actions"><button type="button" data-dns-ui="verify">Contrôler mon intervention</button></div>
+  <p class="dns-r2d3-success" data-dns-ui="result" role="status" aria-live="polite"></p>
+ </div>
+ <div class="dns-r2d3-footer"><button type="button" class="dns-r2d3-secondary" data-dns-ui="reset">Recommencer</button></div>
+</section>
 </div></details>
 </div></details>
 <details id="chapitre-9"><summary>9. Diagnostic professionnel <svg class="diagnostic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 1.4 1.4l2.2-2.2a6 6 0 0 1-7.9 7.9l-6.6 6.6a2 2 0 0 1-2.8-2.8l6.6-6.6a6 6 0 0 1 7.9-7.9z"/></svg></summary><div class="inside">
@@ -531,7 +560,7 @@ frame=requestAnimationFrame(back);
 button.addEventListener('click',start);
 })();
 
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.51</div>\n<script src="./exercices/mini-interactifs.js?v=101" defer></script><script type="module" src="./exercices/zone-r2d3/exercice.js?v=100"></script><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.52</div>\n<script src="./exercices/mini-interactifs.js?v=101" defer></script><script type="module" src="./exercices/zone-r2d3/exercice.js?v=101"></script><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
 QCMCore.load('qcm.json').then(data=>{
  document.querySelectorAll('.qcmcore-host').forEach(host=>{
   const panel=host.closest('details');
