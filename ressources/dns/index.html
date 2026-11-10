@@ -246,7 +246,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .dns-resolved-icon{font-size:21px;color:#49df83;flex:none}
 </style>
 <link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200">\n<link rel="stylesheet" href="./exercices/zone-r2d3/exercice.css?v=101">
-<link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
+<link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"><link rel="stylesheet" href="./exercices/mini-interactifs.css?v=101"></head>
 <body>
 <header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
 <main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DNS" loading="eager" decoding="async"></figure>
@@ -280,7 +280,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 
 </div>
 
-<details id="exercice-2" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><div class="qcmcore-host" data-quiz-id="chapitre-2">Chargement du questionnaire…</div></div></details>
+<details id="exercice-2" class="nested-exercise"><summary>Je me teste</summary><div class="inside"><div id="dns-mini-order" class="dns-mini" aria-label="Remettre les échanges DNS dans l’ordre"></div></div></details>
 </div></details>
 <details id="chapitre-3"><summary>3. Structure d'un nom de domaine</summary><div class="inside">
 <p>Un nom DNS contient plusieurs parties séparées par des points.</p>
@@ -296,9 +296,8 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 <p class="dns-name"><span class="dns-host">srv-fichiers</span>.<span class="dns-sub">rennes</span>.<span class="dns-domain">cybernet</span>.<span class="dns-ext">fr</span></p>
 </div>
 <details id="exercice-3" class="nested-exercise"><summary>Je me teste</summary><div class="inside">
-<p>Identifie les parties de ce nom DNS :</p>
-<p class="dns-ex3-name"><strong>pc01.atelier.cybernet.fr</strong></p>
-<div class="qcmcore-host" data-quiz-id="chapitre-3">Chargement du questionnaire…</div></div></details>
+<p>Entraîne-toi à identifier les parties de plusieurs noms DNS.</p>
+<div id="dns-mini-parts" class="dns-mini" aria-label="Identifier les parties d’un nom DNS"></div></div></details>
 </div></details>
 <details id="chapitre-4"><summary>4. Les enregistrements DNS</summary><div class="inside">
 <p>Un enregistrement DNS contient un <strong>nom</strong>, un <strong>type</strong> et une <strong>valeur</strong>.</p>
@@ -532,7 +531,7 @@ frame=requestAnimationFrame(back);
 button.addEventListener('click',start);
 })();
 
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.51</div>\n<script type="module" src="./exercices/zone-r2d3/exercice.js?v=100"></script><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.51</div>\n<script src="./exercices/mini-interactifs.js?v=101" defer></script><script type="module" src="./exercices/zone-r2d3/exercice.js?v=100"></script><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
 QCMCore.load('qcm.json').then(data=>{
  document.querySelectorAll('.qcmcore-host').forEach(host=>{
   const panel=host.closest('details');
