@@ -96,7 +96,7 @@ function setup(root,scenarios){
   if(!match){report(root,"Commande attendue : nslookup nom.domaine ou nslookup -type=MX nom.domaine");return;}
   const name=match[2].toLowerCase();
   // Avec une adresse IPv4, nslookup recherche naturellement un PTR.
-  const reverseIp=/^\\d{1,3}(?:\\.\\d{1,3}){3}$/.test(name);
+  const reverseIp=/^\d{1,3}(?:\.\d{1,3}){3}$/.test(name);
   const type=(match[1]??(reverseIp?"PTR":"A")).toUpperCase();
   const result=engine.query({type:"dns.resolve",sourceId:PC,name,recordType:type});
   let output=type==="A"?formatNslookup({name,result}):formatTypedNslookup({name,recordType:type,result});
