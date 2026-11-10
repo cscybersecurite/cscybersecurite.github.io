@@ -116,7 +116,7 @@ details>.inside,.example,.qrow label{font-size:17px;line-height:1.55}
 .dhcp-apipa-exercice .diagcore__entry{min-width:0;overflow-wrap:anywhere}
 .dhcp-apipa-status{font-size:13px}
 @media(max-width:380px){.dhcp-apipa-exercice .diagcore__equipment{font-size:14px}}
-</style><link rel="stylesheet" href="./dhcp-animation.css?v=102"><link rel="stylesheet" href="./vlan-animation.css?v=103"><link rel="stylesheet" href="./vpn-animation.css?v=102"><link rel="stylesheet" href="./dmz-animation.css?v=101"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"><link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200"><link rel="stylesheet" href="./exercices/chapitre3.css?v=103"></head><body><header><div class="bar"><h1>DHCP</h1><nav class="actions" aria-label="Navigation"><a class="icon" href="/" aria-label="Retour au portail" title="Retour au portail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></svg></a></nav></div></header><main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DHCP" loading="eager" decoding="async"></figure><details class="chapter"><summary>1. À quoi sert le DHCP ?</summary><div class="inside">
+</style><link rel="stylesheet" href="./dhcp-animation.css?v=102"><link rel="stylesheet" href="./vlan-animation.css?v=103"><link rel="stylesheet" href="./exercices/box-ch1/exercice.css?v=100"><link rel="stylesheet" href="./vpn-animation.css?v=102"><link rel="stylesheet" href="./dmz-animation.css?v=101"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"><link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200"><link rel="stylesheet" href="./exercices/chapitre3.css?v=103"></head><body><header><div class="bar"><h1>DHCP</h1><nav class="actions" aria-label="Navigation"><a class="icon" href="/" aria-label="Retour au portail" title="Retour au portail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></svg></a></nav></div></header><main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DHCP" loading="eager" decoding="async"></figure><details class="chapter"><summary>1. À quoi sert le DHCP ?</summary><div class="inside">
 <p>Un serveur <strong>DHCP</strong> permet à un appareil d'obtenir automatiquement sa configuration réseau, notamment une <strong>adresse IPv4</strong>, un <strong>masque de sous-réseau</strong> et un <strong>bail</strong> (durée pendant laquelle l'adresse lui est attribuée).</p>
 <p>Il peut aussi fournir des <strong>options DHCP</strong>, comme l'adresse de la <strong>passerelle</strong> et celle des <strong>serveurs DNS</strong>. D'autres options existent selon les besoins du réseau.</p>
 <h3>Observer une configuration réelle</h3>
@@ -146,8 +146,54 @@ Carte Ethernet Ethernet :
 <div class="bail-exemples"><div class="bail-cas"><strong>Cabinet médical : Wi-Fi de la salle d'attente</strong><p>Les visiteurs restent peu de temps. Un bail d'environ <strong>1 à 2 heures</strong> peut permettre de réutiliser plus rapidement les adresses après leur départ.</p></div><div class="bail-cas"><strong>Entreprise : postes de travail fixes</strong><p>Les mêmes ordinateurs se reconnectent régulièrement. Un bail de <strong>plusieurs jours</strong> peut convenir : inutile d'imposer une durée très courte.</p></div></div>
 <div class="example"><strong>Attention à la saturation de la plage DHCP.</strong><p>Avec beaucoup de visiteurs, un bail de 30 jours peut être trop long. Des adresses IP restent attribuées après le départ des visiteurs. Le serveur risque alors de manquer d'adresses disponibles.</p></div>
 <h3>À quoi servent la passerelle et le DNS ?</h3><p>La <strong>passerelle</strong> permet de communiquer avec d'autres réseaux, notamment Internet. Les <strong>serveurs DNS</strong> permettent de trouver l'adresse IP correspondant à un nom comme <code>www.decathlon.fr</code>.</p><p>Une adresse IPv4 correcte ne garantit donc pas l'accès à tous les services : la passerelle et les DNS doivent aussi être correctement configurés.</p></section>
-<details class="nested"><summary>Je me teste</summary><div class="inside"><p>Utilise la sortie <code>ipconfig /all</code> ci-dessus pour répondre. Cherche les informations comme le ferait un technicien.</p>
-<div class="qcmcore-host" data-quiz-id="chapitre-1">Chargement du questionnaire…</div></div></details></div></details>
+<details class="nested"><summary>Je me teste</summary><div class="inside">
+<p><strong>Mission :</strong> un client souhaite reconfigurer le réseau local de sa box Internet. Relève d'abord la configuration de son PC, modifie les paramètres de la box puis vérifie que le PC reçoit les nouvelles informations DHCP.</p>
+<section class="dhcp-box-ch1" id="dhcp-box-ch1" aria-label="Exercice pratique de configuration d'une box Internet">
+ <div class="db-header"><div><strong>BOX INTERNET | Administration</strong><small>Réseau local · DHCP · Configuration virtuelle R2D3</small></div><span class="db-led">Réseau local connecté</span></div>
+ <div class="db-body">
+  <div class="db-mission"><p><strong>Demande du client :</strong></p><ul>
+   <li>Adresse LAN de la box : <code>192.168.1.1</code> avec le masque <code>255.255.255.0</code></li>
+   <li>Plage DHCP : <code>192.168.1.151</code> à <code>192.168.1.199</code></li>
+   <li>DNS principal : <code>192.168.1.1</code> et DNS secondaire à ajouter : <code>8.8.8.8</code></li>
+   <li>Durée du bail : <strong>1 heure</strong> au lieu de 24 heures</li>
+  </ul></div>
+  <section class="db-phase"><div class="db-phase-title"><span class="db-num">1</span><h4>Relever la configuration actuelle du PC</h4></div>
+   <p class="db-help">Le PC du client utilise DHCP. Demande sa configuration initiale pour pouvoir la comparer à celle obtenue après l'intervention.</p>
+   <div class="db-actions"><button type="button" data-db="observe">Relever la configuration initiale</button></div>
+   <pre class="db-console" data-db="before" aria-label="Résultat initial ipconfig /all">Chargement du laboratoire…</pre>
+  </section>
+  <section class="db-phase"><div class="db-phase-title"><span class="db-num">2</span><h4>Configurer la box Internet</h4></div>
+   <div class="db-admin"><div class="db-nav">Administration › Paramètres avancés › Réseau local / Serveur DHCP</div>
+    <div class="db-panel"><h4>Réseau local (LAN)</h4><div class="db-grid">
+     <label>Adresse IPv4 de la box<input type="text" data-db="box-ip" inputmode="decimal" spellcheck="false" autocomplete="off"></label>
+     <label>Masque de sous-réseau<span class="db-static" data-db="mask">255.255.255.0</span></label>
+    </div></div>
+    <div class="db-panel"><h4>Serveur DHCP</h4><div class="db-grid">
+     <label>État du service<span class="db-static" data-db="server">Activé</span></label>
+     <label>Passerelle distribuée<span class="db-static" data-db="gateway">192.168.0.1</span></label>
+     <label>Première adresse de la plage<input type="text" data-db="start" inputmode="decimal" spellcheck="false" autocomplete="off"></label>
+     <label>Dernière adresse de la plage<input type="text" data-db="end" inputmode="decimal" spellcheck="false" autocomplete="off"></label>
+     <label>Serveur DNS principal<input type="text" data-db="dns1" inputmode="decimal" spellcheck="false" autocomplete="off"></label>
+     <label>Serveur DNS secondaire<input type="text" data-db="dns2" inputmode="decimal" spellcheck="false" autocomplete="off" placeholder="Non configuré"></label>
+     <label>Durée du bail (heures)<input type="number" data-db="hours" min="1" max="720" step="1"></label>
+    </div>
+    <div class="db-actions"><button type="button" data-db="save" disabled>Enregistrer les paramètres</button></div></div>
+   </div>
+  </section>
+  <section class="db-phase"><div class="db-phase-title"><span class="db-num">3</span><h4>Vérifier la nouvelle configuration du PC</h4></div>
+   <p class="db-help">Libère l'ancien bail DHCP, demande une nouvelle configuration, puis vérifie les adresses, les DNS et la durée du bail dans <code>ipconfig /all</code>.</p>
+   <div class="db-actions"><button type="button" class="db-secondary" data-db="release" disabled>ipconfig /release</button><button type="button" data-db="renew" disabled>ipconfig /renew puis /all</button><button type="button" class="db-secondary" data-db="ping" disabled>ping vers la box</button></div>
+   <pre class="db-console" data-db="after" aria-label="Résultat des commandes Windows après modification">Aucune nouvelle configuration relevée.</pre>
+   <pre class="db-console" data-db="ping-result" aria-label="Résultat du ping" aria-live="polite"></pre>
+  </section>
+  <section class="db-phase"><div class="db-phase-title"><span class="db-num">4</span><h4>Contrôler la mission</h4></div>
+   <p class="db-help">La vérification indique quels paramètres sont corrects et lesquels sont à revoir. Elle ne remplit pas les champs à ta place.</p>
+   <div class="db-actions"><button type="button" data-db="check" disabled>Vérifier mon travail</button><button type="button" class="db-secondary" data-db="reset">Recommencer l'exercice</button></div>
+   <ol class="db-results" data-db="results" aria-live="polite"></ol>
+  </section>
+  <p class="db-feedback" data-db="message" role="status" aria-live="polite"></p>
+ </div>
+</section></div></details></div></details>
 <details class="chapter"><summary>2. DORA : les 4 messages du DHCP</summary><div class="inside"><p>Lorsqu'un PC demande une configuration réseau, il échange <strong>quatre messages</strong> avec le serveur DHCP. Les premières lettres de leurs noms forment le mot <strong>DORA</strong>.</p><div data-dhcp-animation="dora" aria-label="Animation des quatre échanges DORA">Animation DORA indisponible. Discover, Offer, Request, Acknowledgment.</div><details class="nested"><summary>Je me teste</summary><div class="inside"><p>Choisis une réponse pour chaque situation.</p><div class="qcmcore-host" data-quiz-id="chapitre-2">Chargement du questionnaire…</div></div></details></div></details>
 <details class="chapter"><summary>3. Plage, exclusion et réservation</summary><div class="inside">
 <p>Le serveur DHCP distribue des adresses IPv4 aux appareils du réseau. Trois réglages permettent de décider <strong>quelles adresses sont disponibles</strong> et <strong>à quels appareils les attribuer</strong>.</p>
@@ -201,7 +247,7 @@ Carte Ethernet Ethernet :
 </div></div>
 <div id="dhcp-diagnostic-vertical" aria-label="Parcours de diagnostic DHCP">Chargement du diagnostic…</div>
 <div class="dhcp-diagnostic-actions"><button type="button" id="dhcp-diagnostic-restart">↻ Recommencer le diagnostic</button></div>
-</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.82</div><script>
+</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.83</div><script>
 const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -274,4 +320,4 @@ target.addEventListener('click',event=>{
 });
 document.getElementById('dhcp-diagnostic-restart').addEventListener('click',()=>{if(app){app.restart();target.scrollIntoView({block:'start',behavior:'instant'});}});
 })();
-</script><script defer src="./dhcp-animation.js?v=102"></script><script defer src="./vlan-animation.js?v=106"></script><script defer src="./vpn-animation.js?v=104"></script><script defer src="./dmz-animation.js?v=102"></script><script type="module" src="./exercices/chapitre3.js?v=102"></script><script type="module" src="./exercices/apipa/exercice.js?v=130"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
+</script><script defer src="./dhcp-animation.js?v=102"></script><script defer src="./vlan-animation.js?v=106"></script><script defer src="./vpn-animation.js?v=104"></script><script defer src="./dmz-animation.js?v=102"></script><script type="module" src="./exercices/box-ch1/exercice.js?v=100"></script><script type="module" src="./exercices/chapitre3.js?v=102"></script><script type="module" src="./exercices/apipa/exercice.js?v=130"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
