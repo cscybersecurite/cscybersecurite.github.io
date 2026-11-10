@@ -116,7 +116,7 @@ details>.inside,.example,.qrow label{font-size:17px;line-height:1.55}
 .dhcp-apipa-exercice .diagcore__entry{min-width:0;overflow-wrap:anywhere}
 .dhcp-apipa-status{font-size:13px}
 @media(max-width:380px){.dhcp-apipa-exercice .diagcore__equipment{font-size:14px}}
-</style><link rel="stylesheet" href="./dhcp-animation.css?v=102"><link rel="stylesheet" href="./vlan-animation.css?v=103"><link rel="stylesheet" href="./exercices/box-ch1/exercice.css?v=101"><link rel="stylesheet" href="./vpn-animation.css?v=102"><link rel="stylesheet" href="./dmz-animation.css?v=101"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"><link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200"><link rel="stylesheet" href="./exercices/chapitre3.css?v=103"></head><body><header><div class="bar"><h1>DHCP</h1><nav class="actions" aria-label="Navigation"><a class="icon" href="/" aria-label="Retour au portail" title="Retour au portail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></svg></a></nav></div></header><main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DHCP" loading="eager" decoding="async"></figure><details class="chapter"><summary>1. À quoi sert le DHCP ?</summary><div class="inside">
+</style><link rel="stylesheet" href="./dhcp-animation.css?v=102"><link rel="stylesheet" href="./vlan-animation.css?v=103"><link rel="stylesheet" href="./exercices/box-ch1/exercice.css?v=102"><link rel="stylesheet" href="./vpn-animation.css?v=102"><link rel="stylesheet" href="./dmz-animation.css?v=101"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"><link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200"><link rel="stylesheet" href="./exercices/chapitre3.css?v=103"></head><body><header><div class="bar"><h1>DHCP</h1><nav class="actions" aria-label="Navigation"><a class="icon" href="/" aria-label="Retour au portail" title="Retour au portail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></svg></a></nav></div></header><main><figure class="bandeau-cours"><img src="bandeau.webp" alt="Bandeau illustré du cours DHCP" loading="eager" decoding="async"></figure><details class="chapter"><summary>1. À quoi sert le DHCP ?</summary><div class="inside">
 <p>Un serveur <strong>DHCP</strong> permet à un appareil d'obtenir automatiquement sa configuration réseau, notamment une <strong>adresse IPv4</strong>, un <strong>masque de sous-réseau</strong> et un <strong>bail</strong> (durée pendant laquelle l'adresse lui est attribuée).</p>
 <p>Il peut aussi fournir des <strong>options DHCP</strong>, comme l'adresse de la <strong>passerelle</strong> et celle des <strong>serveurs DNS</strong>. D'autres options existent selon les besoins du réseau.</p>
 <h3>Observer une configuration réelle</h3>
@@ -164,44 +164,29 @@ Carte Ethernet Ethernet :
    <pre class="db-console" data-db="before" aria-label="Résultat initial ipconfig /all">Chargement du laboratoire…</pre>
   </section>
   <section class="db-phase"><div class="db-phase-title"><span class="db-num">2</span><h4>Configurer la box Internet</h4></div>
-   <p class="db-help">Tu es maintenant dans l'interface d'administration virtuelle de la box. Utilise les onglets pour modifier le réseau local et le service DHCP.</p>
    <div class="db-admin">
-    <div class="db-header"><div class="db-header-name"><strong>Box Internet</strong><small>Interface d'administration · Configuration virtuelle R2D3</small></div><span class="db-led">Réseau local connecté</span></div>
-    <div class="db-nav"><span>Paramètres avancés</span><span aria-hidden="true">›</span><strong>Réseau local / DHCP</strong></div>
-    <div class="db-tabs" role="tablist" aria-label="Rubriques de la box">
-     <button type="button" class="db-tab" role="tab" id="db-tab-lan" aria-controls="db-pane-lan" aria-selected="true" data-db-tab="lan">Réseau local</button>
-     <button type="button" class="db-tab" role="tab" id="db-tab-dhcp" aria-controls="db-pane-dhcp" aria-selected="false" tabindex="-1" data-db-tab="dhcp">Serveur DHCP</button>
-     <button type="button" class="db-tab" role="tab" id="db-tab-leases" aria-controls="db-pane-leases" aria-selected="false" tabindex="-1" data-db-tab="leases">Baux actifs</button>
-    </div>
+    <div class="db-header"><strong>Box Internet</strong><div class="db-connection-status"><span class="db-led">Réseau local connecté</span><span class="db-led">Internet connecté</span></div></div>
     <div class="db-admin-content">
-     <section class="db-pane" id="db-pane-lan" role="tabpanel" aria-labelledby="db-tab-lan" data-db-pane="lan">
-      <fieldset class="db-fieldset"><legend>Réseau local (LAN)</legend>
-       <div class="db-form-row"><label for="db-box-ip">Adresse IPv4 de la box</label><input id="db-box-ip" type="text" data-db="box-ip" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
-       <div class="db-form-row"><span class="db-field-label">Masque de sous-réseau</span><span class="db-static" data-db="mask">255.255.255.0</span></div>
-       <p class="db-field-help">La passerelle distribuée aux PC prendra la nouvelle adresse LAN de la box.</p>
-      </fieldset>
-     </section>
-     <section class="db-pane" id="db-pane-dhcp" role="tabpanel" aria-labelledby="db-tab-dhcp" data-db-pane="dhcp" hidden>
-      <fieldset class="db-fieldset"><legend>Serveur DHCP</legend>
-       <div class="db-form-row"><span class="db-field-label">État du service DHCP</span><span class="db-static db-on" data-db="server">Activé</span></div>
-       <div class="db-form-row"><label for="db-start">Début de la plage d'adresses</label><input id="db-start" type="text" data-db="start" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
-       <div class="db-form-row"><label for="db-end">Fin de la plage d'adresses</label><input id="db-end" type="text" data-db="end" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
-       <div class="db-form-row"><label for="db-hours">Durée du bail (heures)</label><input id="db-hours" type="number" data-db="hours" min="1" max="720" step="1"></div>
-       <div class="db-form-row"><span class="db-field-label">Passerelle distribuée</span><span class="db-static" data-db="gateway">192.168.0.1</span></div>
-      </fieldset>
-      <fieldset class="db-fieldset"><legend>Serveurs DNS distribués</legend>
-       <div class="db-form-row"><label for="db-dns1">Serveur DNS principal</label><input id="db-dns1" type="text" data-db="dns1" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
-       <div class="db-form-row"><label for="db-dns2">Serveur DNS secondaire</label><input id="db-dns2" type="text" data-db="dns2" inputmode="decimal" spellcheck="false" autocomplete="off" placeholder="Non configuré"></div>
-      </fieldset>
-     </section>
-     <section class="db-pane" id="db-pane-leases" role="tabpanel" aria-labelledby="db-tab-leases" data-db-pane="leases" hidden>
-      <fieldset class="db-fieldset"><legend>Baux DHCP actifs</legend>
-       <p class="db-field-help">Liste des adresses actuellement attribuées par le serveur DHCP de la box virtuelle.</p>
-       <div class="db-leases-wrap"><table class="db-leases"><thead><tr><th scope="col">Appareil</th><th scope="col">Adresse IPv4</th><th scope="col">Expiration du bail</th></tr></thead><tbody data-db="leases"><tr><td colspan="3">Aucun bail actif.</td></tr></tbody></table></div>
-      </fieldset>
-     </section>
+     <fieldset class="db-fieldset"><legend>Réseau local (LAN)</legend>
+      <div class="db-form-row"><label for="db-box-ip">Adresse IPv4 de la box</label><input id="db-box-ip" type="text" data-db="box-ip" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
+      <div class="db-form-row"><span class="db-field-label">Masque de sous-réseau</span><span class="db-static" data-db="mask">255.255.255.0</span></div>
+     </fieldset>
+     <fieldset class="db-fieldset"><legend>Serveur DHCP</legend>
+      <div class="db-form-row"><span class="db-field-label">État du service DHCP</span><span class="db-static db-on" data-db="server">Activé</span></div>
+      <div class="db-form-row"><label for="db-start">Début de la plage d'adresses</label><input id="db-start" type="text" data-db="start" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
+      <div class="db-form-row"><label for="db-end">Fin de la plage d'adresses</label><input id="db-end" type="text" data-db="end" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
+      <div class="db-form-row"><label for="db-hours">Durée du bail (heures)</label><input id="db-hours" type="number" data-db="hours" min="1" max="720" step="1"></div>
+      <div class="db-form-row"><span class="db-field-label">Passerelle distribuée</span><span class="db-static" data-db="gateway">192.168.0.1</span></div>
+     </fieldset>
+     <fieldset class="db-fieldset"><legend>Serveurs DNS distribués</legend>
+      <div class="db-form-row"><label for="db-dns1">Serveur DNS principal</label><input id="db-dns1" type="text" data-db="dns1" inputmode="decimal" spellcheck="false" autocomplete="off"></div>
+      <div class="db-form-row"><label for="db-dns2">Serveur DNS secondaire</label><input id="db-dns2" type="text" data-db="dns2" inputmode="decimal" spellcheck="false" autocomplete="off" placeholder="Non configuré"></div>
+     </fieldset>
+     <fieldset class="db-fieldset db-fieldset--leases"><legend>Baux actifs</legend>
+      <div class="db-leases-wrap"><table class="db-leases"><thead><tr><th scope="col">Appareil</th><th scope="col">Adresse IPv4</th><th scope="col">Expiration du bail</th></tr></thead><tbody data-db="leases"><tr><td colspan="3">Aucun bail actif.</td></tr></tbody></table></div>
+     </fieldset>
     </div>
-    <div class="db-footer"><span class="db-footer-hint">Les modifications sont appliquées à la box virtuelle.</span><div class="db-actions"><button type="button" class="db-secondary" data-db="cancel">Annuler</button><button type="button" data-db="save" disabled>Appliquer</button></div></div>
+    <div class="db-footer"><div class="db-actions"><button type="button" class="db-secondary" data-db="cancel">Annuler</button><button type="button" data-db="save" disabled>Appliquer</button></div></div>
    </div>
   </section>
   <section class="db-phase"><div class="db-phase-title"><span class="db-num">3</span><h4>Vérifier la nouvelle configuration du PC</h4></div>
@@ -271,7 +256,7 @@ Carte Ethernet Ethernet :
 </div></div>
 <div id="dhcp-diagnostic-vertical" aria-label="Parcours de diagnostic DHCP">Chargement du diagnostic…</div>
 <div class="dhcp-diagnostic-actions"><button type="button" id="dhcp-diagnostic-restart">↻ Recommencer le diagnostic</button></div>
-</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.84</div><script>
+</div></details></main><button type="button" id="presentation" class="projection-float" aria-pressed="false" title="Activer la projection" aria-label="Activer la projection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v4M8 21h8"/></svg><span class="projection-label">Projection</span></button><div class="version">V0.1.85</div><script>
 const chapters=[...document.querySelectorAll('main>.chapter')];
 chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  if(!chapter.open)return;
@@ -344,4 +329,4 @@ target.addEventListener('click',event=>{
 });
 document.getElementById('dhcp-diagnostic-restart').addEventListener('click',()=>{if(app){app.restart();target.scrollIntoView({block:'start',behavior:'instant'});}});
 })();
-</script><script defer src="./dhcp-animation.js?v=102"></script><script defer src="./vlan-animation.js?v=106"></script><script defer src="./vpn-animation.js?v=104"></script><script defer src="./dmz-animation.js?v=102"></script><script type="module" src="./exercices/box-ch1/exercice.js?v=101"></script><script type="module" src="./exercices/chapitre3.js?v=102"></script><script type="module" src="./exercices/apipa/exercice.js?v=130"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
+</script><script defer src="./dhcp-animation.js?v=102"></script><script defer src="./vlan-animation.js?v=106"></script><script defer src="./vpn-animation.js?v=104"></script><script defer src="./dmz-animation.js?v=102"></script><script type="module" src="./exercices/box-ch1/exercice.js?v=102"></script><script type="module" src="./exercices/chapitre3.js?v=102"></script><script type="module" src="./exercices/apipa/exercice.js?v=130"></script><script src="../coursprint/v1/coursprint.js?v=200"></script><script>CoursPrint.init({toolbar:"header .actions",content:"main",title:"DHCP"});</script></body></html>
