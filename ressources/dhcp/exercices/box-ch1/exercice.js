@@ -21,6 +21,25 @@ if(root){
   dns1:$("dns1").value.trim(),dns2:$("dns2").value.trim(),
   hours:Number($("hours").value)
  });
+ function selectTab(name){
+  const tabs=[...root.querySelectorAll('[data-db-tab]')];
+  tabs.forEach(tab=>{const active=tab.dataset.dbTab===name;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
+  root.querySelectorAll('[data-db-pane]').forEach(panel=>{panel.hidden=panel.dataset.dbPane!==name;});
+  if(name==='leases')renderLeases();
+ }
+ function renderLeases(){
+  const target=$("leases"),r=engine.query({type:"dhcp.leases",serverId:"box"});
+  if(r.status!=="ok"){target.replaceChildren();return;}
+  const leases=r.leases??[];
+  if(!leases.length){const tr=document.createElement("tr"),td=document.createElement("td");td.colSpan=3;td.textContent="Aucun bail actif.";tr.appendChild(td);target.replaceChildren(tr);return;}
+  target.replaceChildren(...leases.map(lease=>{
+   const tr=document.createElement("tr"),client=state().objectsById[lease.clientId];
+   for(const value of [client?.name??lease.clientId,lease.address,date(lease.expires)]){
+    const td=document.createElement("td");td.textContent=value;tr.appendChild(td);
+   }
+   return tr;
+  }));
+ }
  function updateControls(){
   $("observe").disabled=observedBefore;
   $("save").disabled=!observedBefore;
@@ -38,6 +57,7 @@ if(root){
   $("mask").textContent="255.255.255.0";
   $("gateway").textContent=srv.config.ipv4.address;
   $("server").textContent=srv.config.dhcpEnabled?"Activé":"Arrêté";
+  renderLeases();
  }
  function ipAll(){
   const o=state().objectsById.pc,ip=o.config.ipv4,lease=ip.lease,opts=o.config.networkOptions??{gateway:null,dns:[]};
@@ -53,6 +73,7 @@ if(root){
   const r=command("dhcp.request","pc");
   if(r.status!=="applied"){fail("Impossible de relever la configuration initiale : "+(r.message??r.code));return;}
   observedBefore=true;
+  renderLeases();
   $("before").textContent=ipAll();
   fail("Configuration initiale relevée. Modifie maintenant les paramètres de la box.");
   updateControls();
@@ -81,6 +102,7 @@ if(root){
   $("ping-result").textContent="";
   $("results").replaceChildren();
   fill();
+  selectTab("dhcp");
   fail("Modifications enregistrées dans la box virtuelle. Sur le PC, libère l'ancien bail, puis demande une nouvelle configuration.");
   updateControls();
  }
@@ -88,6 +110,7 @@ if(root){
   const r=command("dhcp.release","pc");
   if(r.status!=="applied"){fail("Libération refusée : "+(r.message??r.code));return;}
   renewed=false;pingPassed=false;pingAnimator?.cancel();
+  renderLeases();
   $("after").textContent=formatIpconfigRelease({ipv4:state().objectsById.pc.config.ipv4});
   $("ping-result").textContent="";
   fail("Ancien bail libéré. Exécute maintenant ipconfig /renew pour recevoir la configuration de la box.");
@@ -96,6 +119,7 @@ if(root){
   const r=command("dhcp.request","pc");
   if(r.status!=="applied"){fail("Renouvellement refusé : "+(r.message??r.code));return;}
   const s=state(),pc=s.objectsById.pc,status=s.runtime.pc?.dhcpStatus;
+  renderLeases();
   $("after").textContent=formatIpconfigRenew({ipv4:pc.config.ipv4,status,gateway:pc.config.networkOptions.gateway})+"\n\n"+ipAll();
   renewed=status==="lease"&&!pc.config.ipv4.address?.startsWith("192.168.0.");
   pingPassed=false;pingAnimator?.cancel();
@@ -133,7 +157,7 @@ if(root){
  function reset(){
   pingAnimator?.cancel();engine=createEngine(scenario);serial=0;
   observedBefore=false;saved=false;renewed=false;pingPassed=false;
-  fill();$("before").textContent="Clique sur « Relever la configuration initiale ».";
+  fill();selectTab("lan");$("before").textContent="Clique sur « Relever la configuration initiale ».";
   $("after").textContent="Aucune nouvelle configuration relevée.";
   $("ping-result").textContent="";$("results").replaceChildren();
   fail("");updateControls();
@@ -144,6 +168,16 @@ if(root){
    if(!response.ok)throw new Error("Scénario non disponible");
    scenario=await response.json();
    pingAnimator=createPingAnimator($("ping-result"));
+   root.querySelectorAll('[data-db-tab]').forEach(tab=>{
+    tab.addEventListener('click',()=>selectTab(tab.dataset.dbTab));
+    tab.addEventListener('keydown',event=>{
+     if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+     const tabs=[...root.querySelectorAll('[data-db-tab]')],index=tabs.indexOf(tab);
+     const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;
+     event.preventDefault();selectTab(tabs[next].dataset.dbTab);tabs[next].focus();
+    });
+   });
+   $("cancel").addEventListener("click",()=>{fill();fail("Modifications non enregistrées annulées.");});
    $("observe").addEventListener("click",observe);
    $("save").addEventListener("click",save);
    $("release").addEventListener("click",release);
