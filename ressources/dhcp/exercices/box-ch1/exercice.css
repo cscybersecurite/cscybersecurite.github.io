@@ -58,3 +58,37 @@
  .dhcp-box-ch1 .db-results li.db-error{color:#ffb3a5}
  .db-request{border-left-color:#70b9f1}
 }
+
+/* Palette automatique de l'interface de box selon le thème du navigateur. */
+@media(prefers-color-scheme:dark){
+ .dhcp-box-ch1 .db-admin{
+  --db-ui-ink:#e7edf6;
+  --db-ui-line:#526277;
+  --db-ui-bg:#202d3d;
+  border-color:#63758a;
+  background:#202d3d;
+  color:var(--db-ui-ink);
+  color-scheme:dark;
+ }
+ .dhcp-box-ch1 .db-header{background:#151c27;color:#f3f7fc}
+ .dhcp-box-ch1 .db-admin-content{background:#202d3d}
+ .dhcp-box-ch1 .db-fieldset{border-color:#526277}
+ .dhcp-box-ch1 .db-fieldset legend{color:#9cc8ff}
+ .dhcp-box-ch1 .db-form-row input{
+  background:#293b50;
+  color:#f2f7ff;
+  border-color:#69829c;
+ }
+ .dhcp-box-ch1 .db-form-row input::placeholder{color:#b8c7d8}
+ .dhcp-box-ch1 .db-static{color:#e1eaf5}
+ .dhcp-box-ch1 .db-on{color:#84e9ad}
+ .dhcp-box-ch1 .db-footer{background:#192637;border-color:#526277}
+ .dhcp-box-ch1 .db-footer .db-secondary{
+  background:#2b3d51;
+  color:#f1f6fc;
+  border-color:#71869c;
+ }
+ .dhcp-box-ch1 .db-leases th{background:#30445b;color:#eaf2fb}
+ .dhcp-box-ch1 .db-leases td{color:#e1eaf5}
+ .dhcp-box-ch1 .db-leases th,.dhcp-box-ch1 .db-leases td{border-color:#526277}
+}
