@@ -245,7 +245,7 @@ html:not(.presentation) .dns-table .dns-test-btn{width:auto;min-width:60px;font-
 #dns-diagnostic-vertical .diagcore__complete.dns-resolved{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:10px;background:#202a35;color:#fff;font-weight:600}
 #dns-diagnostic-vertical .dns-resolved-icon{font-size:21px;color:#49df83;flex:none}
 </style>
-<link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200">
+<link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200">\n<link rel="stylesheet" href="./exercices/zone-r2d3/exercice.css?v=100">
 <link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"></head>
 <body>
 <header><div class="header-bar"><h1>DNS</h1><nav class="toolbar" aria-label="Navigation du cours"><a class="link secondary home-link" href="/" title="Retour au portail" aria-label="Retour au portail"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav></div></header>
@@ -332,23 +332,74 @@ cybernet.fr.  IN  MX  10 mail.cybernet.fr.</pre></div>
 </div></details>
 </div></details>
 <details id="chapitre-5"><summary>5. Lire une zone DNS</summary><div class="inside">
-<p>Une zone DNS regroupe des enregistrements administrés pour un domaine. Observe cette zone simplifiée de <strong>arte.net</strong>, puis lance des requêtes ou modifie un enregistrement.</p>
-<p><strong>Tester le DNS avec nslookup :</strong> la commande <code>nslookup</code> permet de demander à un serveur DNS l’adresse IP associée à un nom. Exemple : <code>nslookup www.arte.net</code>. Le résultat s’affiche dans la console.</p>
-<section class="dns-lab" aria-label="Simulateur de zone DNS" data-coursprint-exclude>
-<h3>Serveur DNS virtuel : arte.net</h3>
-<p class="muted">Simulation pédagogique, sans modification d'un véritable serveur.</p>
-<div class="dns-table-wrap"><table class="dns-table"><thead><tr><th>Nom</th><th>Type</th><th>Valeur</th><th><span class="visually-hidden">Action</span></th></tr></thead><tbody id="dns-records"></tbody></table></div>
-<div id="dns-result" class="dns-console" role="status" aria-live="polite" hidden><div class="dns-console-title">Console DNS</div><pre id="dns-output"></pre></div>
-<p id="dns-status" role="status" aria-live="polite" class="muted"></p>
+<p>Une <strong>zone DNS</strong> regroupe les enregistrements administrés pour un nom de domaine. Le technicien peut les consulter et les modifier sur le serveur DNS. Il utilise ensuite <code>nslookup</code> pour vérifier les réponses.</p>
+<div class="dns-nslookup-guide">
+ <strong>La commande Windows <code>nslookup</code></strong>
+ <p>Elle interroge un serveur DNS pour connaître l'adresse IP correspondant à un nom. On la lance depuis l'invite de commandes Windows.</p>
+ <pre>C:\&gt;nslookup www.arte.net</pre>
+ <p>La réponse indique le serveur DNS interrogé et l'adresse obtenue. Pour rechercher un autre type d'enregistrement, on précise le type, par exemple :</p>
+ <pre>C:\&gt;nslookup -type=MX arte.net</pre>
+ <p><strong>À retenir :</strong> <code>nslookup</code> vérifie la résolution DNS. Une adresse IP obtenue ne garantit pas que le site web ou le service fonctionne.</p>
+</div>
+<h3>Découvrir la zone arte.net</h3>
+<p>Observe les enregistrements A, CNAME et MX. Exécute <code>nslookup www.arte.net</code> puis <code>nslookup -type=MX arte.net</code>. Sélectionne ensuite un enregistrement, modifie sa valeur et recommence la requête pour comparer les résultats.</p>
+<section class="dns-r2d3" data-dns-mode="arte" aria-label="Découverte et modification de la zone DNS arte.net" data-coursprint-exclude>
+ <div class="dns-r2d3-header"><strong>Gestionnaire DNS | arte.net</strong><span class="dns-r2d3-online" data-dns-ui="server-status">Service DNS</span></div>
+ <div class="dns-r2d3-body">
+  <section class="dns-r2d3-zone"><div class="dns-r2d3-zone-head"><h4>Enregistrements de la zone</h4><span class="dns-r2d3-note" data-dns-ui="count"></span></div>
+   <div class="dns-r2d3-table-wrap"><table><thead><tr><th scope="col">Nom DNS</th><th scope="col">Type</th><th scope="col">Valeur</th><th scope="col">Action</th></tr></thead><tbody data-dns-ui="records"></tbody></table></div>
+  </section>
+  <form class="dns-r2d3-editor" data-dns-ui="edit-form">
+   <h4>Édition d'un enregistrement</h4>
+   <div class="dns-r2d3-form-grid">
+    <label>Nom DNS<input type="text" data-dns-ui="name" spellcheck="false" autocomplete="off" placeholder="www.exemple.net"></label>
+    <label>Type<select data-dns-ui="type"><option value="A">A</option><option value="AAAA">AAAA</option><option value="CNAME">CNAME</option><option value="MX">MX</option><option value="TXT">TXT</option><option value="PTR">PTR</option></select></label>
+    <label>Valeur<input type="text" data-dns-ui="value" spellcheck="false" autocomplete="off" placeholder="Adresse IP ou nom DNS"></label>
+    <label data-dns-ui="priority-row" hidden>Priorité MX<input type="number" data-dns-ui="priority" min="0" max="65535" value="10"></label>
+   </div>
+   <div class="dns-r2d3-actions"><button type="button" class="dns-r2d3-secondary" data-dns-ui="new">Nouvel enregistrement</button><button type="button" class="dns-r2d3-secondary" data-dns-ui="delete" disabled>Supprimer</button><button type="submit">Enregistrer</button></div>
+  </form>
+  <section class="dns-r2d3-shell" aria-label="Console Windows de requêtes DNS">
+   <h4>Console Windows | PC1</h4>
+   <form data-dns-ui="lookup-form"><label><span>C:\&gt;</span><input data-dns-ui="command" aria-label="Commande nslookup" type="text" spellcheck="false" autocomplete="off" placeholder="nslookup www.exemple.net"></label><button type="submit">Exécuter</button></form>
+   <pre class="dns-r2d3-terminal" data-dns-ui="terminal" aria-live="polite">Chargement...</pre>
+  </section>
+  <p class="dns-r2d3-feedback" data-dns-ui="status" role="status" aria-live="polite">Chargement du moteur R2D3...</p>
+  
+  <p class="dns-r2d3-success" data-dns-ui="result" role="status" aria-live="polite"></p>
+ </div>
+ <div class="dns-r2d3-footer"><button type="button" class="dns-r2d3-secondary" data-dns-ui="reset">Recommencer</button></div>
 </section>
-<p>Le nom <strong>www</strong> est un alias CNAME. L'enregistrement MX indique un serveur de réception et sa priorité. Compare les réponses avant et après une modification.</p>
 <details class="quiz-standard diagnostic-cas"><summary>Je me teste : le site inaccessible avec www</summary><div class="inside">
-<p>L'entreprise ArmorTech a déplacé son site web vers un nouveau serveur. <code>armortech.fr</code> fonctionne, mais <code>www.armortech.fr</code> ne fonctionne plus.</p><p>Le technicien consulte la zone DNS :</p>
-<div class="diag-zone"><div class="diag-zone-head"><span>Nom DNS</span><span>Type</span><span>Valeur</span></div><div><span>armortech.fr</span><span>A</span><span>192.0.2.80</span></div><div><span>www.armortech.fr</span><span>CNAME</span><span>ancien-web.armortech.fr</span></div><div><span>ancien-web.armortech.fr</span><span>A</span><span>192.0.2.40</span></div></div>
-<p>L'ancien serveur <code>192.0.2.40</code> est arrêté.</p>
-<form id="diag-2a" class="diagnostic-question"><fieldset><legend>1. Pourquoi www.armortech.fr ne fonctionne-t-il plus ?</legend><label class="choice"><input type="radio" name="rep" value="a"> Le nouveau serveur n'a aucune adresse IPv4</label><label class="choice"><input type="radio" name="rep" value="b"> Le serveur DNS ne connaît pas armortech.fr</label><label class="choice"><input type="radio" name="rep" value="c"> L'adresse armortech.fr est incorrecte</label><label class="choice"><input type="radio" name="rep" value="d"> Le nom www renvoie encore vers l'ancien serveur arrêté</label></fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-diag-2a" class="feedback" role="status" aria-live="polite" hidden></p></form>
-<form id="diag-2b" class="diagnostic-question"><fieldset><legend>2. Quel enregistrement faut-il corriger ?</legend><label class="choice"><input type="radio" name="rep" value="a"> L'enregistrement A de armortech.fr</label><label class="choice"><input type="radio" name="rep" value="b"> Le CNAME de www.armortech.fr</label><label class="choice"><input type="radio" name="rep" value="c"> L'enregistrement A de l'ancien serveur</label><label class="choice"><input type="radio" name="rep" value="d"> Le CNAME de ancien-web.armortech.fr</label></fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-diag-2b" class="feedback" role="status" aria-live="polite" hidden></p></form>
-<form id="diag-2c" class="diagnostic-question"><fieldset><legend>3. Quelle nouvelle valeur faut-il donner au CNAME de www.armortech.fr ?</legend><label class="choice"><input type="radio" name="rep" value="a"> 192.0.2.40</label><label class="choice"><input type="radio" name="rep" value="b"> ancien-web.armortech.fr</label><label class="choice"><input type="radio" name="rep" value="c"> armortech.fr</label><label class="choice"><input type="radio" name="rep" value="d"> 192.0.2.80</label></fieldset><button type="submit">Vérifier ma réponse</button><p id="feedback-diag-2c" class="feedback" role="status" aria-live="polite" hidden></p></form>
+<p><strong>Intervention ArmorTech :</strong> l'entreprise a déplacé son site vers un nouveau serveur. <code>armortech.fr</code> fonctionne, mais <code>www.armortech.fr</code> dirige toujours vers l'ancien serveur, désormais arrêté.</p>
+<p><strong>Ta mission :</strong> utilise la console <code>nslookup</code> pour constater le problème, retrouve l'enregistrement incorrect dans la zone <code>armortech.fr</code>, corrige-le et vérifie la nouvelle réponse DNS. Les enregistrements ne sont pas corrigés automatiquement.</p>
+<section class="dns-r2d3" data-dns-mode="armor" aria-label="Exercice de dépannage de la zone DNS ArmorTech" data-coursprint-exclude>
+ <div class="dns-r2d3-header"><strong>Gestionnaire DNS | armortech.fr</strong><span class="dns-r2d3-online" data-dns-ui="server-status">Service DNS</span></div>
+ <div class="dns-r2d3-body">
+  <section class="dns-r2d3-zone"><div class="dns-r2d3-zone-head"><h4>Enregistrements de la zone</h4><span class="dns-r2d3-note" data-dns-ui="count"></span></div>
+   <div class="dns-r2d3-table-wrap"><table><thead><tr><th scope="col">Nom DNS</th><th scope="col">Type</th><th scope="col">Valeur</th><th scope="col">Action</th></tr></thead><tbody data-dns-ui="records"></tbody></table></div>
+  </section>
+  <form class="dns-r2d3-editor" data-dns-ui="edit-form">
+   <h4>Édition d'un enregistrement</h4>
+   <div class="dns-r2d3-form-grid">
+    <label>Nom DNS<input type="text" data-dns-ui="name" spellcheck="false" autocomplete="off" placeholder="www.exemple.net"></label>
+    <label>Type<select data-dns-ui="type"><option value="A">A</option><option value="AAAA">AAAA</option><option value="CNAME">CNAME</option><option value="MX">MX</option><option value="TXT">TXT</option><option value="PTR">PTR</option></select></label>
+    <label>Valeur<input type="text" data-dns-ui="value" spellcheck="false" autocomplete="off" placeholder="Adresse IP ou nom DNS"></label>
+    <label data-dns-ui="priority-row" hidden>Priorité MX<input type="number" data-dns-ui="priority" min="0" max="65535" value="10"></label>
+   </div>
+   <div class="dns-r2d3-actions"><button type="button" class="dns-r2d3-secondary" data-dns-ui="new">Nouvel enregistrement</button><button type="button" class="dns-r2d3-secondary" data-dns-ui="delete" disabled>Supprimer</button><button type="submit">Enregistrer</button></div>
+  </form>
+  <section class="dns-r2d3-shell" aria-label="Console Windows de requêtes DNS">
+   <h4>Console Windows | PC1</h4>
+   <form data-dns-ui="lookup-form"><label><span>C:\&gt;</span><input data-dns-ui="command" aria-label="Commande nslookup" type="text" spellcheck="false" autocomplete="off" placeholder="nslookup www.exemple.net"></label><button type="submit">Exécuter</button></form>
+   <pre class="dns-r2d3-terminal" data-dns-ui="terminal" aria-live="polite">Chargement...</pre>
+  </section>
+  <p class="dns-r2d3-feedback" data-dns-ui="status" role="status" aria-live="polite">Chargement du moteur R2D3...</p>
+  <div class="dns-r2d3-actions"><button type="button" data-dns-ui="verify">Contrôler mon intervention</button></div>
+  <p class="dns-r2d3-success" data-dns-ui="result" role="status" aria-live="polite"></p>
+ </div>
+ <div class="dns-r2d3-footer"><button type="button" class="dns-r2d3-secondary" data-dns-ui="reset">Recommencer</button></div>
+</section>
 </div></details>
 </div></details>
 <details id="chapitre-6"><summary>6. Enregistrements TXT et sécurité des courriels</summary><div class="inside">
@@ -435,19 +486,7 @@ chapters.forEach(chapter=>chapter.addEventListener('toggle',()=>{
  requestAnimationFrame(()=>requestAnimationFrame(align));
  setTimeout(align,120);
 }));
-const dnsInitial={site:"192.0.2.10",www:"arte.net",mail:"192.0.2.20",mx:"10 mail.arte.net"};
-let dnsZone={...dnsInitial};
-const dnsNames={site:"arte.net",www:"www",mail:"mail",mx:"arte.net"};
-const dnsTypes={site:"A",www:"CNAME",mail:"A",mx:"MX"};
-const dnsChoices={site:["192.0.2.10","192.0.2.30","192.0.2.50"],www:["arte.net","mail.arte.net","serveur-inconnu.arte.net"],mail:["192.0.2.20","192.0.2.40","192.0.2.50"],mx:["10 mail.arte.net","10 www.arte.net","10 serveur-inconnu.arte.net"]};
-let dnsActiveTest=null;
-const dnsRows=document.getElementById("dns-records"),dnsResult=document.getElementById("dns-result"),dnsOutput=document.getElementById("dns-output"),dnsStatus=document.getElementById("dns-status");
-function dnsRender(){dnsRows.replaceChildren(...["site","www","mail","mx"].map(k=>{const tr=document.createElement("tr");for(const v of [dnsNames[k],dnsTypes[k]]){const td=document.createElement("td");td.textContent=v;tr.appendChild(td)}
-const valueCell=document.createElement("td"),select=document.createElement("select");select.className="dns-row-value";select.setAttribute("aria-label","Valeur de "+dnsTypes[k]+" "+dnsNames[k]);for(const v of dnsChoices[k]){const option=document.createElement("option");option.value=v;option.textContent=v;select.appendChild(option)}select.value=dnsZone[k];select.addEventListener("change",()=>{dnsZone[k]=select.value;dnsResult.hidden=true;dnsActiveTest=null;dnsStatus.textContent="Valeur modifiée. Clique sur Test pour vérifier.";});valueCell.appendChild(select);tr.appendChild(valueCell);
-const cell=document.createElement("td"),btn=document.createElement("button");btn.type="button";btn.className="dns-test-btn";btn.textContent="Test";btn.setAttribute("aria-label","Tester "+dnsTypes[k]+" "+(k==="www"?"www.arte.net":k==="mail"?"mail.arte.net":"arte.net"));btn.addEventListener("click",()=>dnsTest(k));cell.appendChild(btn);tr.appendChild(cell);return tr}))}
-function dnsLookup(name,seen=[]){if(seen.includes(name))return null;if(name==="arte.net")return dnsZone.site;if(name==="mail.arte.net")return dnsZone.mail;if(name==="www.arte.net")return dnsLookup(dnsZone.www,[...seen,name]);return null}
-function dnsTest(k){if(!dnsResult.hidden&&dnsActiveTest===k){dnsResult.hidden=true;dnsActiveTest=null;return}dnsActiveTest=k;const name=k==="www"?"www.arte.net":k==="mail"?"mail.arte.net":"arte.net",type=dnsTypes[k];let lines=["C:\\> nslookup -type="+type+" "+name,""];if(k==="www"){lines.push(name+".  CNAME  "+dnsZone.www+".");}else if(k==="mx"){lines.push(name+".  MX  "+dnsZone.mx+".");}else{const ip=dnsLookup(name);lines.push(ip?name+".  A  "+ip:"*** Aucun enregistrement A trouvé");}dnsOutput.textContent=lines.join("\n");dnsResult.hidden=false;dnsStatus.textContent=""}
-dnsRender();
+
 
 (function(){
 const button=document.getElementById('dns-parcours-suivant');
@@ -493,29 +532,7 @@ frame=requestAnimationFrame(back);
 button.addEventListener('click',start);
 })();
 
-// Modèle commun de QCM : les prochains exercices peuvent réutiliser ce moteur.
-function installerQcm({formId,feedbackId,nomChamp,bonneReponse,felicitations,indices}){
- const formulaire=document.getElementById(formId);
- const retour=document.getElementById(feedbackId);
- if(!formulaire||!retour)return;
- const effacer=()=>{retour.hidden=true;retour.textContent='';retour.removeAttribute('data-result');};
- formulaire.reset();
- window.addEventListener('pageshow',()=>{formulaire.reset();effacer();});
- formulaire.addEventListener('change',effacer);
- formulaire.addEventListener('submit',event=>{
-  event.preventDefault();
-  const choix=new FormData(formulaire).get(nomChamp);
-  retour.hidden=false;
-  if(!choix){retour.textContent='Choisis une réponse.';return;}
-  const reussi=choix===bonneReponse;
-  retour.dataset.result=reussi?'correct':'incorrect';
-  retour.textContent=reussi?felicitations:(indices[choix]||'Ce n’est pas la bonne réponse. Relis la situation et essaie encore.');
- });
-}
-installerQcm({"formId":"diag-2a","feedbackId":"feedback-diag-2a","nomChamp":"rep","bonneReponse":"d","felicitations":"Bravo ! Le nom www utilise encore un alias vers l'ancien serveur.","indices":{"a":"Ce n’est pas la bonne réponse. Un enregistrement A indique bien l'adresse du nouveau serveur. Réessaie.","b":"Ce n’est pas la bonne réponse. Le nom armortech.fr fonctionne et possède déjà un enregistrement A. Réessaie.","c":"Ce n’est pas la bonne réponse. Le nom sans www fonctionne correctement. Réessaie."}});
-installerQcm({"formId":"diag-2b","feedbackId":"feedback-diag-2b","nomChamp":"rep","bonneReponse":"b","felicitations":"Bravo ! Le CNAME de www doit pointer vers le bon nom.","indices":{"a":"Ce n’est pas la bonne réponse. Cet enregistrement fonctionne déjà : armortech.fr ouvre le nouveau site. Réessaie.","c":"Ce n’est pas la bonne réponse. La question concerne le nom www, qui est un alias. Réessaie.","d":"Ce n’est pas la bonne réponse. L’enregistrement à corriger porte sur www.armortech.fr, pas sur ancien-web.armortech.fr. Réessaie."}});
-installerQcm({"formId":"diag-2c","feedbackId":"feedback-diag-2c","nomChamp":"rep","bonneReponse":"c","felicitations":"Bravo ! Le CNAME de www peut pointer vers armortech.fr, qui possède déjà la bonne adresse IP.","indices":{"a":"Ce n’est pas la bonne réponse. Cette adresse correspond à l'ancien serveur arrêté. Réessaie.","b":"Ce n’est pas la bonne réponse. Ce nom renvoie encore vers l'ancien serveur. Réessaie.","d":"Ce n’est pas la bonne réponse. Un CNAME doit contenir un nom DNS, pas une adresse IP. Réessaie."}});
-</script><div class="version-fixe" aria-label="Version du cours">V0.3.50</div><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
+</script><div class="version-fixe" aria-label="Version du cours">V0.3.51</div>\n<script type="module" src="./exercices/zone-r2d3/exercice.js?v=100"></script><script src="../qcmcore/v1/qcmcore.js?v=101"></script><script>
 QCMCore.load('qcm.json').then(data=>{
  document.querySelectorAll('.qcmcore-host').forEach(host=>{
   const panel=host.closest('details');
