@@ -1,0 +1,26 @@
+/* POP3 et IMAP : mêmes situations et même structure. Respect du thème et du smartphone. */
+.mail-sync-exercise{margin:7px 0 3px;font-size:15px}
+.mail-sync-context{padding:11px 13px;border-left:4px solid #397caf;background:var(--panel);border-radius:6px;line-height:1.5}
+.mail-sync-instruction{font-weight:600;margin-top:14px}
+.mail-sync-progress{font-size:14px;color:var(--muted);font-weight:700;margin:12px 0}
+.mail-sync-cards{display:grid;gap:14px}
+.mail-sync-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px}
+.mail-sync-card h4{margin:0 0 10px;color:var(--ink);font-size:17px}
+.mail-sync-flow{display:grid;grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);gap:7px;align-items:stretch}
+.mail-sync-device{border:1px solid var(--line);background:var(--soft);padding:10px;border-radius:8px;min-width:0;display:grid;gap:5px;align-content:start}
+.mail-sync-device strong{font-size:14px}.mail-sync-device span{font-size:14px;line-height:1.4}
+.mail-sync-arrow{align-self:center;text-align:center;font-weight:700;color:#397caf;font-size:22px}
+.mail-sync-question{font-size:14px;font-weight:700;margin:12px 0 7px}
+.mail-sync-answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mail-sync-choice,.mail-sync-reset{font:inherit;border-radius:7px;cursor:pointer;min-height:42px}
+.mail-sync-choice{padding:10px;border:1px solid #799dbf;color:var(--ink);background:var(--soft);text-align:left;line-height:1.4}
+.mail-sync-choice.mail-sync-selected{border:2px solid #27824c;background:#e6f6e9;color:#135a2e}
+.mail-sync-choice.mail-sync-wrong{border:2px solid #ae6427;background:#fff0dc;color:#764116}
+.mail-sync-choice:disabled{cursor:default;opacity:1}
+.mail-sync-feedback{font-size:14px;line-height:1.45;margin:8px 0 0}
+.mail-sync-feedback:empty{display:none}
+.mail-sync-feedback[data-state=success]{color:#1b7540;font-weight:600}
+.mail-sync-feedback[data-state=retry]{color:var(--ink)}
+.mail-sync-reset{margin-top:14px;padding:9px 14px;border:1px solid #799dbf;background:var(--panel);color:var(--ink);font-weight:700}
+@media(prefers-color-scheme:dark){.mail-sync-choice.mail-sync-selected{background:#18472d;color:#d7f8e1;border-color:#54c980}.mail-sync-choice.mail-sync-wrong{background:#523718;color:#ffe6bd;border-color:#e5a64b}.mail-sync-feedback[data-state=success]{color:#84d9a1}}
+@media(max-width:620px){.mail-sync-exercise{font-size:14px}.mail-sync-flow{grid-template-columns:1fr;gap:4px}.mail-sync-arrow{transform:rotate(90deg);font-size:21px;line-height:1}.mail-sync-answers{grid-template-columns:1fr}.mail-sync-choice{min-height:44px}.mail-sync-card{padding:11px}}
