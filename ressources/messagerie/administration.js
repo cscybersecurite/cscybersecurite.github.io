@@ -20,10 +20,19 @@ if(root){
  function render(){
    const boxes=created();
    table.replaceChildren();
-   for(const spec of [{email:"contact@"+domain,type:"imap"},{email:"sav@"+domain,type:"pop3"}]){
+   const listed=boxes.filter(x=>names.some(name=>x.email===name+"@"+domain));
+   if(!listed.length){
      const row=document.createElement("tr");
-     for(const text of [spec.email,spec.type.toUpperCase(),boxes.some(x=>x.email===spec.email&&x.type===spec.type)?"Créée":"À créer"]){
-       const cell=document.createElement("td");cell.textContent=text;row.append(cell);
+     const cell=document.createElement("td");
+     cell.colSpan=3;
+     cell.textContent="Aucune boîte créée pour le moment.";
+     row.append(cell);
+     table.append(row);
+   }
+   for(const box of listed){
+     const row=document.createElement("tr");
+     for(const value of [box.email,box.type.toUpperCase(),"Créée"]){
+       const cell=document.createElement("td");cell.textContent=value;row.append(cell);
      }
      table.append(row);
    }
@@ -45,7 +54,7 @@ if(root){
    const email=values.name+"@"+domain;
    const type=values.name==="contact"?"imap":"pop3";
    const result=engine.createMailbox({email,type,password:values.password});
-   setStatus(result.success?"Boîte "+email+" créée. Tu peux retrouver ses paramètres dans le tableau ci-dessous.":result.message,result.success);
+   setStatus(result.success?"Boîte "+email+" créée. Elle apparaît dans la liste des boîtes créées.":result.message,result.success);
    form.elements.password.value="";
    render();
  });
