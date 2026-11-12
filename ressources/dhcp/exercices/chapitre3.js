@@ -62,9 +62,13 @@ function html(kind){
   '<p><strong>Serveur DHCP :</strong> réseau <code>192.168.10.0/24</code>, plage <code>192.168.10.100</code> à <code>192.168.10.150</code>.</p></div>'+
   '<div class="dhcp-admin-work"><h5>1. Configurer le serveur DHCP</h5>'+
   '<form class="dhcp-admin-form">'+
-  '<label>Adresses à exclure <input name="exclusions" placeholder="Adresse(s) IPv4 séparée(s) par une virgule" spellcheck="false"></label>'+
+  '<fieldset class="dhcp-admin-fieldset dhcp-admin-fieldset--exclusion"><legend>Exclusion DHCP</legend>'+
+  '<label>Adresses à exclure <input name="exclusions" placeholder="Adresse(s) IPv4 séparée(s) par une virgule" spellcheck="false"></label></fieldset>'+
+  '<fieldset class="dhcp-admin-fieldset dhcp-admin-fieldset--reservation"><legend>Réservation DHCP</legend>'+
+  '<div class="dhcp-admin-reservation-fields">'+
   '<label>Adresse MAC à réserver <input name="mac" placeholder="Ex. : 02-00-00-00-00-01" spellcheck="false"></label>'+
   '<label>Adresse IPv4 réservée <input name="reserved" placeholder="Ex. : 192.168.10.120" spellcheck="false"></label>'+
+  '</div></fieldset>'+
   '<button type="submit">Enregistrer la configuration</button></form>'+
   '<p class="dhcp-admin-save" role="status" aria-live="polite"></p>'+
   '<div class="dhcp-admin-pool"></div>'+
