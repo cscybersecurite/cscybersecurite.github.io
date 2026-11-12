@@ -13,6 +13,13 @@
 .dhcp-admin-form label{display:flex;flex-direction:column;gap:5px;min-width:0;font-weight:650}
 .dhcp-admin-form label:first-child{grid-column:1/-1}
 .dhcp-admin-form input{width:100%;min-width:0;padding:11px;border-radius:8px;border:1px solid var(--line,#aabed3);background:var(--panel,#fff);color:var(--ink,#203046);font:inherit;font-weight:400}
+
+/* Regroupement explicite des réglages, identique dans les deux scénarios. */
+.dhcp-admin-fieldset{grid-column:1/-1;min-width:0;margin:0;padding:13px 14px 15px;border:1px solid var(--line,#aabed3);border-left:4px solid #bd6b32;border-radius:9px;background:var(--soft,#edf5fb)}
+.dhcp-admin-fieldset legend{font-weight:750;padding:0 8px;color:var(--ink,#24354c)}
+.dhcp-admin-fieldset--reservation{border-left-color:#188598}
+.dhcp-admin-reservation-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dhcp-admin-case .dhcp-admin-fieldset label:first-child{grid-column:auto}
 .dhcp-admin-form>button{grid-column:1/-1}
 .dhcp-admin-case button{min-height:44px;font:inherit;font-weight:650;border:1px solid #1769a0;border-radius:9px;background:#1769a0;color:#fff;padding:9px 12px;cursor:pointer;text-align:left;overflow-wrap:anywhere}
 .dhcp-admin-case button:hover{background:#125582}
@@ -31,7 +38,7 @@
 .dhcp-admin-leases table{border-collapse:collapse;width:100%;min-width:260px}
 .dhcp-admin-leases th,.dhcp-admin-leases td{border:1px solid var(--line,#bdccdc);padding:8px 10px;text-align:left;font-variant-numeric:tabular-nums}
 .dhcp-admin-leases th{background:var(--soft,#edf5fb)}
-@media(max-width:600px){.dhcp-admin-form{grid-template-columns:1fr}.dhcp-admin-form label:first-child{grid-column:auto}.dhcp-admin-actions{grid-template-columns:1fr}.dhcp-admin-finish>*{width:100%}.dhcp-admin-case{padding:12px}}
+@media(max-width:600px){.dhcp-admin-reservation-fields{grid-template-columns:1fr}.dhcp-admin-fieldset{padding:11px}.dhcp-admin-form{grid-template-columns:1fr}.dhcp-admin-form label:first-child{grid-column:auto}.dhcp-admin-actions{grid-template-columns:1fr}.dhcp-admin-finish>*{width:100%}.dhcp-admin-case{padding:12px}}
 
 .dhcp-admin-conflicts{font-size:.88rem;margin:7px 0;color:var(--muted,#51677c)}
 .dhcp-admin-conflicts.is-conflict{font-weight:700;border-left:4px solid #d77b22;padding:7px 10px;background:color-mix(in srgb,#d77b22 12%,transparent);color:var(--ink,#203046)}
