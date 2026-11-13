@@ -98,3 +98,59 @@
 .nas-empty{min-height:114px}
 @media(max-width:780px){.storage-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.hardware-grid,.usecase-grid{grid-template-columns:1fr}.hardware-card{display:grid;grid-template-columns:minmax(110px,160px) 1fr;align-items:center}.hardware-art{max-height:115px}.nas-slots{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:560px){.nas-slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:5px;border-width:6px}.nas-tray{min-height:90px;padding:6px 3px 5px}.nas-empty{min-height:90px}.nas-tray .nas-led{margin-bottom:5px}.nas-keyhole{margin-bottom:4px}.storage-figure{padding:9px}.storage-stages{gap:7px}.storage-stage{padding:10px 4px 9px}.disk-drawing,.partition-drawing,.volume-drawing,.files-drawing{margin-top:18px}.storage-stage small{font-size:.7rem}.hardware-card{grid-template-columns:minmax(100px,126px) 1fr;gap:10px;padding:10px}.hardware-card figcaption span{font-size:.81rem}.spare-explainer{grid-template-columns:1fr;padding:9px}.spare-mini-nas{padding:7px;gap:5px}.usecase{padding:14px}}
+
+/* V4 : boitier NAS identifiable, volume 3D et facade inspiree des NAS de bureau. */
+.tool-disks{padding:8px 27px 18px 0;overflow:visible}
+.nas-chassis{
+  isolation:isolate;position:relative;overflow:visible;
+  border:3px solid #101317;border-bottom-width:7px;
+  border-radius:23px 23px 13px 13px;
+  padding:14px clamp(10px,2vw,21px) 8px;
+  background:linear-gradient(164deg,#41474c 0%,#252a2f 30%,#171b20 72%,#32363b 100%);
+  box-shadow:inset 0 3px 2px #737a7f,inset 0 -7px 11px #0a0d10,0 18px 24px #0004;
+}
+.nas-chassis::before{content:"";position:absolute;z-index:-1;left:auto;right:-27px;top:21px;bottom:1px;width:29px;height:auto;
+  background:linear-gradient(90deg,#272b31 0%,#14191e 60%,#373c40 100%);
+  transform:skewY(-16deg);transform-origin:left top;border-radius:0 13px 11px 0;border:2px solid #101418;box-shadow:7px 10px 18px #0004}
+.nas-chassis::after{content:"";position:absolute;z-index:-2;left:8%;right:auto;bottom:-16px;width:38px;height:12px;
+  background:linear-gradient(#16191c,#090b0d);border-radius:0 0 8px 8px;box-shadow:490px 0 0 #0d1013}
+.nas-header{display:grid;grid-template-columns:minmax(70px,1fr) auto 44px;gap:9px;min-height:43px;align-items:center;padding:0 5px 8px;margin-bottom:6px}
+.nas-brand{font:700 clamp(15px,2.2vw,23px)/1.1 Arial,Helvetica,sans-serif;letter-spacing:-.045em;color:#e0e4e6;text-shadow:0 1px 1px #000b}
+.nas-indicators{display:flex;align-items:center;justify-content:center;gap:clamp(6px,1.5vw,17px);min-width:0}
+.nas-indicator{display:flex;gap:4px;align-items:center;white-space:nowrap;font-size:clamp(8px,.85vw,10px);font-weight:650;letter-spacing:.01em;color:#d1d8dc}
+.nas-indicator-led{display:inline-block;flex:none;width:7px;height:7px;border-radius:2px;background:#161a1d;border:1px solid #626a6e;box-shadow:inset 0 0 2px #000}
+.nas-indicator-led.on{background:#8bdb55;border-color:#b1ee83;box-shadow:0 0 5px #72d348a9}
+.nas-power-button{display:grid;place-items:center;width:39px;height:27px;border:2px solid #0e151a;border-radius:6px;background:linear-gradient(#323a42,#151b20);color:#68b7fa;font:bold 23px/1 Arial;box-shadow:inset 0 1px 2px #89949b,0 1px 1px #000}
+.nas-slots{border-radius:14px 14px 10px 10px;border:8px solid #111619;box-shadow:inset 0 6px 12px #000,0 2px 0 #667077}
+.nas-tray{background:linear-gradient(105deg,#3a4148,#242b32 45%,#343940 87%,#1c2328);box-shadow:inset 2px 0 2px #5e656a,inset -3px 0 4px #101518,0 3px 3px #000a}
+.nas-footer{min-height:24px;justify-content:flex-end;padding-right:5px;letter-spacing:.02em;color:#b4babe}
+@media(max-width:740px){
+  .nas-header{grid-template-columns:minmax(65px,1fr) auto 35px;gap:5px}
+  .nas-brand{font-size:clamp(14px,3vw,19px)}
+  .nas-indicators{gap:6px}
+  .nas-indicator{font-size:8px;gap:3px}
+  .nas-indicator-led{width:5px;height:5px}
+  .nas-power-button{width:31px;height:26px;font-size:20px}
+}
+@media(max-width:480px){
+  .tool-disks{padding-right:15px;margin-top:11px}
+  .nas-chassis{padding:9px 7px 5px;border-radius:15px 15px 9px 9px}
+  .nas-chassis::before{right:-15px;width:17px;top:14px}
+  .nas-chassis::after{bottom:-12px;width:24px;height:8px;box-shadow:200px 0 0 #0d1013}
+  .nas-header{grid-template-columns:1fr auto;grid-template-areas:"brand power" "indicators indicators";row-gap:5px;min-height:0}
+  .nas-brand{grid-area:brand;font-size:17px}
+  .nas-indicators{grid-area:indicators;justify-content:space-between;padding:0 2px}
+  .nas-indicator{font-size:9px;gap:4px}
+  .nas-power-button{grid-area:power;justify-self:end;width:33px;height:25px}
+  .nas-slots{border-width:5px}
+  .nas-footer{font-size:.66rem}
+}
+@media(prefers-color-scheme:dark){
+  .nas-chassis{box-shadow:inset 0 3px 2px #737a7f,inset 0 -7px 11px #0a0d10,0 18px 28px #0009}
+}
+
+/* Pieds indépendants : toujours placés sous les deux coins du boitier. */
+.nas-chassis::after{content:none}
+.nas-feet{position:absolute;inset:auto 6% -15px;display:flex;justify-content:space-between;pointer-events:none}
+.nas-feet i{display:block;width:clamp(25px,6vw,42px);height:11px;border-radius:0 0 8px 8px;background:linear-gradient(#1c2226,#080b0e);box-shadow:0 3px 5px #0005}
+@media(max-width:480px){.nas-feet{bottom:-11px}.nas-feet i{width:24px;height:8px}}

@@ -87,10 +87,21 @@ function toolConfiguration(){return cfg($("tool-level").value,disks.map(d=>({...
 function renderTool(){
  const area=$("tool-disks");area.replaceChildren();
  const chassis=document.createElement("div");chassis.className="nas-chassis";
+ chassis.setAttribute("role","group");chassis.setAttribute("aria-label","NAS Synology pédagogique, tiroirs interactifs");
  const header=document.createElement("div");header.className="nas-header";
- const brand=document.createElement("span");brand.className="nas-brand";brand.textContent="STOCKAGE / LAB";
- const status=document.createElement("span");status.className="nas-power";status.textContent="● ON";
- header.append(brand,status);
+ const brand=document.createElement("span");brand.className="nas-brand";brand.textContent="Synology";
+ const lights=document.createElement("div");lights.className="nas-indicators";
+ const indicators=[["STATUS","on"],["ALERT","off"],["LAN 1","on"],["LAN 2","on"]];
+ for(const [label,state] of indicators){
+  const light=document.createElement("span");light.className="nas-indicator";
+  const led=document.createElement("i");led.className="nas-indicator-led "+state;led.setAttribute("aria-hidden","true");
+  const caption=document.createElement("span");caption.textContent=label;
+  light.append(led,caption);lights.append(light);
+ }
+ const power=document.createElement("span");power.className="nas-power-button";
+ power.setAttribute("role","img");power.setAttribute("aria-label","NAS allumé");
+ power.textContent="⏻";
+ header.append(brand,lights,power);
  const grid=document.createElement("div");grid.className="nas-slots";
  const slots=disks.length<=4?4:disks.length<=6?6:disks.length<=8?8:disks.length<=10?10:12;
  for(let i=0;i<slots;i++){
@@ -116,7 +127,7 @@ function renderTool(){
  }
  chassis.append(header,grid);
  const footer=document.createElement("div");footer.className="nas-footer";footer.textContent=disks.length+" / 12 places occupées";
- chassis.append(footer);area.append(chassis);
+ chassis.append(footer);const feet=document.createElement("div");feet.className="nas-feet";feet.setAttribute("aria-hidden","true");feet.append(document.createElement("i"),document.createElement("i"));chassis.append(feet);area.append(chassis);
  const add=$("tool-add");add.disabled=disks.length>=12;
  add.setAttribute("aria-disabled",String(add.disabled));
  add.title=add.disabled?"Les 12 places du NAS sont occupées.":"Ajouter un disque";

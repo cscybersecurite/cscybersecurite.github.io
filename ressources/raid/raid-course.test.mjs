@@ -92,3 +92,17 @@ test("V3 : quatre choix au mini-défi 01",()=>{
  assert.ok(block,"défi 01 présent");
  assert.equal((block.match(/data-answer=/g)||[]).length,4);
 });
+
+test("V4 : façade NAS identifiable sans retirer les tiroirs interactifs",()=>{
+ assert.match(js,/brand.textContent="Synology"/);
+ assert.match(js,/nas-indicators/);
+ assert.match(js,/nas-power-button/);
+ assert.match(js,/nas-feet/);
+ assert.match(js,/indicators=\[\["STATUS"/);
+ assert.match(js,/\["ALERT","off"\]/);
+ assert.match(js,/\["LAN 1","on"\]/);
+ assert.match(js,/nas-tray/);
+ assert.match(css,/\.nas-chassis::before/);
+ assert.match(css,/\.nas-feet i/);
+ assert.match(css,/@media\(max-width:480px\)/);
+});
