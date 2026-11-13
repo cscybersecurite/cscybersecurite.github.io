@@ -56,6 +56,31 @@
           "correctAnswerId": "r1",
           "explanation": "On exprime souvent le débit en Mbit/s.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-1",
+          "text": "Une paroi en béton armé peut :",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Affaiblir la liaison"
+            },
+            {
+              "id": "r1",
+              "text": "Augmenter toujours la portée"
+            },
+            {
+              "id": "r2",
+              "text": "Remplacer l'antenne"
+            },
+            {
+              "id": "r3",
+              "text": "Garantir Internet"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le béton armé peut atténuer fortement la réception.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     },
@@ -114,6 +139,31 @@
           "correctAnswerId": "r0",
           "explanation": "BLE vise les communications à faible consommation.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-2",
+          "text": "Quel est le rôle de BLE ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Réduire la consommation pour des usages adaptés"
+            },
+            {
+              "id": "r1",
+              "text": "Transporter des vidéos 8K"
+            },
+            {
+              "id": "r2",
+              "text": "Remplacer tous les réseaux mobiles"
+            },
+            {
+              "id": "r3",
+              "text": "Garantir 1000 connexions"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Bluetooth Low Energy vise notamment les objets économes en énergie.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     },
@@ -172,6 +222,56 @@
           "correctAnswerId": "r0",
           "explanation": "Le 2,4 GHz présente souvent une meilleure pénétration dans les murs.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-3",
+          "text": "Que représente le SSID ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Le nom du réseau Wi-Fi"
+            },
+            {
+              "id": "r1",
+              "text": "L'adresse du serveur DNS"
+            },
+            {
+              "id": "r2",
+              "text": "Un type de câble"
+            },
+            {
+              "id": "r3",
+              "text": "Le débit garanti"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le SSID est le nom affiché du réseau.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
+        },
+        {
+          "id": "enrichi-4",
+          "text": "Quel apport caractérise Wi-Fi 6E ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "L'utilisation de la bande 6 GHz selon équipement"
+            },
+            {
+              "id": "r1",
+              "text": "Un réseau cellulaire 6G"
+            },
+            {
+              "id": "r2",
+              "text": "Une portée de 600 m garantie"
+            },
+            {
+              "id": "r3",
+              "text": "L'absence de chiffrement"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Wi-Fi 6E étend les capacités Wi-Fi 6 à la bande 6 GHz.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     },
@@ -230,6 +330,31 @@
           "correctAnswerId": "r0",
           "explanation": "Le coordinateur organise le réseau Zigbee.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-5",
+          "text": "Quel appareil Zigbee peut relayer des messages ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Une prise routeur alimentée et compatible"
+            },
+            {
+              "id": "r1",
+              "text": "Un capteur sur pile endormi"
+            },
+            {
+              "id": "r2",
+              "text": "Une clé HDMI"
+            },
+            {
+              "id": "r3",
+              "text": "Un écran éteint"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Un routeur Zigbee peut relayer les informations vers le coordinateur.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     },
@@ -288,6 +413,31 @@
           "correctAnswerId": "r0",
           "explanation": "La modulation radio et les règles du réseau jouent des rôles différents.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-6",
+          "text": "Quel rôle joue la passerelle LoRaWAN ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Relayer les messages radio vers le réseau IP"
+            },
+            {
+              "id": "r1",
+              "text": "Diffuser des vidéos HD"
+            },
+            {
+              "id": "r2",
+              "text": "Remplacer le capteur"
+            },
+            {
+              "id": "r3",
+              "text": "Créer un réseau Bluetooth"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "La passerelle assure le passage entre la radio et le réseau.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     },
@@ -346,6 +496,31 @@
           "correctAnswerId": "r0",
           "explanation": "La 5G est distincte des bandes Wi-Fi.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-7",
+          "text": "Comment appelle-t-on le transfert entre deux cellules ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Handover"
+            },
+            {
+              "id": "r1",
+              "text": "Appairage Bluetooth"
+            },
+            {
+              "id": "r2",
+              "text": "WPA3"
+            },
+            {
+              "id": "r3",
+              "text": "SSID"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le handover accompagne le changement de cellule lors d'un déplacement.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     },
@@ -404,6 +579,56 @@
           "correctAnswerId": "r0",
           "explanation": "HTTPS n'est pas un substitut à la sécurité du réseau.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-8",
+          "text": "Quelle protection est obsolète ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "WEP"
+            },
+            {
+              "id": "r1",
+              "text": "WPA3"
+            },
+            {
+              "id": "r2",
+              "text": "WPA2-AES"
+            },
+            {
+              "id": "r3",
+              "text": "WPA3-Enterprise"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "WEP a des faiblesses connues et ne doit plus être utilisé.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
+        },
+        {
+          "id": "enrichi-9",
+          "text": "Pourquoi préférer une phrase de passe longue et imprévisible ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Elle est plus difficile à deviner"
+            },
+            {
+              "id": "r1",
+              "text": "Elle accélère la bande 6 GHz"
+            },
+            {
+              "id": "r2",
+              "text": "Elle remplace HTTPS"
+            },
+            {
+              "id": "r3",
+              "text": "Elle évite les mises à jour"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "La longueur et l'imprévisibilité renforcent la résistance au devinage.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     },
@@ -462,6 +687,31 @@
           "correctAnswerId": "r0",
           "explanation": "La consommation détermine l'autonomie.",
           "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "enrichi-10",
+          "text": "Quel réseau convient à un capteur très éloigné qui envoie une petite mesure par heure ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "LoRaWAN si une passerelle est disponible"
+            },
+            {
+              "id": "r1",
+              "text": "Bluetooth audio obligatoirement"
+            },
+            {
+              "id": "r2",
+              "text": "HDMI"
+            },
+            {
+              "id": "r3",
+              "text": "Wi-Fi 1 obligatoire"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "LoRaWAN est adapté à de courts messages sur de grandes distances si la couverture existe.",
+          "hint": "Relis le tableau ou le schéma correspondant avant de répondre."
         }
       ]
     }
