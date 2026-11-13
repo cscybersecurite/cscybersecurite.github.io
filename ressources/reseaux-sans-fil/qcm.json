@@ -1,0 +1,469 @@
+{
+  "version": 1,
+  "quizzes": [
+    {
+      "id": "chapitre-1",
+      "title": "Je me teste : chapitre 1",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-1-1",
+          "text": "Que peut faire un mur épais au signal radio ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "L'affaiblir"
+            },
+            {
+              "id": "r1",
+              "text": "Le multiplier"
+            },
+            {
+              "id": "r2",
+              "text": "Le transformer en câble"
+            },
+            {
+              "id": "r3",
+              "text": "Le rendre toujours plus rapide"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le matériau peut atténuer les ondes.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-1-2",
+          "text": "Qu'est-ce que le débit ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "La distance en mètres"
+            },
+            {
+              "id": "r1",
+              "text": "La quantité de données transmise par seconde"
+            },
+            {
+              "id": "r2",
+              "text": "Le nombre de murs"
+            },
+            {
+              "id": "r3",
+              "text": "La fréquence de recharge"
+            }
+          ],
+          "correctAnswerId": "r1",
+          "explanation": "On exprime souvent le débit en Mbit/s.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-2",
+      "title": "Je me teste : chapitre 2",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-2-1",
+          "text": "Quel usage correspond au Bluetooth ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Casque relié au téléphone"
+            },
+            {
+              "id": "r1",
+              "text": "Caméra 4K à 5 km"
+            },
+            {
+              "id": "r2",
+              "text": "Antenne-relais 5G"
+            },
+            {
+              "id": "r3",
+              "text": "Serveur DNS"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le Bluetooth convient notamment à l'audio entre appareils proches.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-2-2",
+          "text": "Que signifie BLE ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Bluetooth Low Energy"
+            },
+            {
+              "id": "r1",
+              "text": "Borne locale Ethernet"
+            },
+            {
+              "id": "r2",
+              "text": "Bande longue émettrice"
+            },
+            {
+              "id": "r3",
+              "text": "Batterie libre externe"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "BLE vise les communications à faible consommation.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-3",
+      "title": "Je me teste : chapitre 3",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-3-1",
+          "text": "Quel équipement donne l'accès Wi-Fi ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Un point d'accès"
+            },
+            {
+              "id": "r1",
+              "text": "Un disque dur"
+            },
+            {
+              "id": "r2",
+              "text": "Une clé HDMI"
+            },
+            {
+              "id": "r3",
+              "text": "Une souris"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "La borne Wi-Fi fait communiquer les clients avec le réseau.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-3-2",
+          "text": "Quelle bande traverse souvent mieux les obstacles en intérieur ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "2,4 GHz"
+            },
+            {
+              "id": "r1",
+              "text": "6 GHz dans tous les cas"
+            },
+            {
+              "id": "r2",
+              "text": "Toutes de façon identique"
+            },
+            {
+              "id": "r3",
+              "text": "Aucune bande"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le 2,4 GHz présente souvent une meilleure pénétration dans les murs.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-4",
+      "title": "Je me teste : chapitre 4",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-4-1",
+          "text": "Dans Zigbee, qui peut relayer les messages ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Un routeur alimenté"
+            },
+            {
+              "id": "r1",
+              "text": "Une pile seule"
+            },
+            {
+              "id": "r2",
+              "text": "Un écran LCD"
+            },
+            {
+              "id": "r3",
+              "text": "Un câble USB"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Les routeurs Zigbee peuvent former un maillage.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-4-2",
+          "text": "Un coordinateur Zigbee sert à :",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Former et gérer le réseau"
+            },
+            {
+              "id": "r1",
+              "text": "Lire des mails"
+            },
+            {
+              "id": "r2",
+              "text": "Créer la 5G"
+            },
+            {
+              "id": "r3",
+              "text": "Imprimer les messages"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Le coordinateur organise le réseau Zigbee.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-5",
+      "title": "Je me teste : chapitre 5",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-5-1",
+          "text": "Quel réseau pour un petit capteur dans un champ éloigné ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "LoRaWAN"
+            },
+            {
+              "id": "r1",
+              "text": "Bluetooth audio"
+            },
+            {
+              "id": "r2",
+              "text": "HDMI"
+            },
+            {
+              "id": "r3",
+              "text": "Wi-Fi obligatoire"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "LoRaWAN convient aux petits échanges à longue portée.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-5-2",
+          "text": "Différence entre LoRa et LoRaWAN ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "LoRa est la radio ; LoRaWAN est le protocole réseau"
+            },
+            {
+              "id": "r1",
+              "text": "LoRa est une prise USB"
+            },
+            {
+              "id": "r2",
+              "text": "LoRaWAN est une norme vidéo"
+            },
+            {
+              "id": "r3",
+              "text": "Ce sont deux noms de la 5G"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "La modulation radio et les règles du réseau jouent des rôles différents.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-6",
+      "title": "Je me teste : chapitre 6",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-6-1",
+          "text": "Un téléphone en 4G communique avec :",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Une antenne-relais"
+            },
+            {
+              "id": "r1",
+              "text": "Un routeur Zigbee"
+            },
+            {
+              "id": "r2",
+              "text": "Un casque Bluetooth"
+            },
+            {
+              "id": "r3",
+              "text": "Un NAS isolé"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "L'antenne-relais donne accès au réseau de l'opérateur.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-6-2",
+          "text": "La 5G est :",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Une génération mobile"
+            },
+            {
+              "id": "r1",
+              "text": "Une version de Bluetooth"
+            },
+            {
+              "id": "r2",
+              "text": "Un nom pour le Wi-Fi 5 GHz"
+            },
+            {
+              "id": "r3",
+              "text": "Un chiffrement"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "La 5G est distincte des bandes Wi-Fi.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-7",
+      "title": "Je me teste : chapitre 7",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-7-1",
+          "text": "Quel réglage Wi-Fi est recommandé ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "WPA3-Personal avec une longue phrase de passe"
+            },
+            {
+              "id": "r1",
+              "text": "WEP"
+            },
+            {
+              "id": "r2",
+              "text": "Réseau ouvert sans protection"
+            },
+            {
+              "id": "r3",
+              "text": "WPA ancien"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "WPA3-Personal est recommandé si les appareils le permettent.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-7-2",
+          "text": "HTTPS sur un Wi-Fi public :",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Protège les échanges avec le site, pas tout l'appareil"
+            },
+            {
+              "id": "r1",
+              "text": "Rend le Wi-Fi privé"
+            },
+            {
+              "id": "r2",
+              "text": "Supprime tous les risques"
+            },
+            {
+              "id": "r3",
+              "text": "Remplace le mot de passe Wi-Fi"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "HTTPS n'est pas un substitut à la sécurité du réseau.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    },
+    {
+      "id": "chapitre-8",
+      "title": "Je me teste : chapitre 8",
+      "shuffleQuestions": true,
+      "shuffleAnswers": true,
+      "questions": [
+        {
+          "id": "sf-8-1",
+          "text": "Un casque audio sans fil utilise couramment :",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "Bluetooth"
+            },
+            {
+              "id": "r1",
+              "text": "LoRaWAN"
+            },
+            {
+              "id": "r2",
+              "text": "Zigbee uniquement"
+            },
+            {
+              "id": "r3",
+              "text": "5G obligatoire"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "Bluetooth convient à l'audio.",
+          "hint": "Relis la notion et compare les quatre choix."
+        },
+        {
+          "id": "sf-8-2",
+          "text": "Quelle contrainte est importante pour un capteur sur pile ?",
+          "answers": [
+            {
+              "id": "r0",
+              "text": "La consommation d'énergie"
+            },
+            {
+              "id": "r1",
+              "text": "La taille de son écran"
+            },
+            {
+              "id": "r2",
+              "text": "Le format HDMI"
+            },
+            {
+              "id": "r3",
+              "text": "Le nombre de claviers"
+            }
+          ],
+          "correctAnswerId": "r0",
+          "explanation": "La consommation détermine l'autonomie.",
+          "hint": "Relis la notion et compare les quatre choix."
+        }
+      ]
+    }
+  ]
+}
