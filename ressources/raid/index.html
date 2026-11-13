@@ -2,83 +2,85 @@
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Comprendre le RAID avec des disques interactifs, des pannes simulées et un calculateur.">
 <title>RAID : les données sous protection | CIEL</title>
-<link rel="stylesheet" href="./raid-course.css?v=1"></head>
+<link rel="stylesheet" href="./raid-course.css?v=2"></head>
 <body><header class="top"><div class="top-inner"><div class="brand">CIEL / Stockage & sécurité</div><a class="home" href="/" aria-label="Retour au portail">Retour au portail</a></div></header>
 <section class="hero"><div class="hero-inner"><div><span class="eyebrow">Cours interactif • 01 / Stockage</span><h1>Un disque lâche.<br><em>Et après ?</em></h1>
-<p>Les fichiers d'une entreprise tiennent parfois sur plusieurs disques. Certains montages accélèrent le travail. D'autres permettent de continuer après une panne. On va les construire, les comparer et les mettre à l'épreuve.</p>
-<div class="hero-actions"><a class="action primary" href="#depart">Commencer le cours</a><a class="action dark" href="#atelier">Ouvrir le calculateur</a></div></div>
+<p>Une entreprise garde ses fichiers sur des disques. Mais que se passe-t-il si un disque casse ? Tu vas essayer plusieurs RAID et découvrir lesquels continuent à marcher.</p>
+<div class="hero-actions"><a class="action primary" href="#depart">Commencer le cours</a><a class="action dark" href="#atelier">Construire un RAID</a></div></div>
 <div class="hero-device" role="img" aria-label="Illustration d'un serveur de stockage avec quatre tiroirs à disques, dont un voyant orange"><div class="device-top"><span>Serveur de stockage</span><span>SYS / STORAGE</span></div><div class="bays"><div class="bay"><span class="led"></span><small>DISK 01</small><span class="slot"></span></div><div class="bay"><span class="led"></span><small>DISK 02</small><span class="slot"></span></div><div class="bay"><span class="led"></span><small>DISK 03</small><span class="slot"></span></div><div class="bay"><span class="led"></span><small>DISK 04</small><span class="slot"></span></div></div><p class="tiny" style="color:#c7dbe4;margin:13px 0 0">Un voyant orange ne signifie pas forcément que les fichiers sont perdus.</p></div></div></section>
 <main class="wrap">
-<div class="intro"><article><h2>Ta mission</h2><p>Tu es technicien dans une entreprise. Le serveur contient les documents de travail. Tu dois choisir une solution de stockage et expliquer ce qui se passe quand un disque tombe en panne.</p></article>
-<article><h2>Comment utiliser ce cours ?</h2><p>Lis les exemples, manipule les disques, puis réponds aux mini-défis. Les activités fonctionnent sur téléphone et sur ordinateur. Aucun compte n'est nécessaire.</p></article></div>
+<div class="intro"><article><h2>Ta mission</h2><p>Tu travailles dans une entreprise. Tous les documents sont sur un serveur. Ton travail : choisir les disques et éviter de perdre les fichiers.</p></article>
+<article><h2>Comment utiliser ce cours ?</h2><p>Lis, clique sur les disques et essaie les défis. Tu peux utiliser ton téléphone ou ton PC.</p></article></div>
 <nav class="roadmap" aria-label="Accès aux chapitres"><a href="#depart">01. Les bases</a><a href="#comprendre">02. Répartir ou copier</a><a href="#simulateur">03. Voir les RAID</a><a href="#parite">04. La parité</a><a href="#pannes">05. Les pannes</a><a href="#atelier">06. Le calculateur</a><a href="#choix">07. Choisir</a><a href="#synthese">08. À retenir</a></nav>
 
-<section class="chapter" id="depart"><div class="chapter-head"><span class="chapter-index">01</span><div><h2>Avant le RAID : les bases</h2><p>On commence par ce qu'on manipule vraiment sur un PC.</p></div></div>
-<div class="panel"><h3>Un disque, ce n'est pas un dossier</h3>
-<div class="example-file"><span class="file-icon" aria-hidden="true">📁</span><span class="file-meta"><strong>Documents clients</strong><span>Un dossier contenant des fichiers : devis.pdf, photo.jpg, factures.xlsx</span></span></div>
+<section class="chapter" id="depart"><div class="chapter-head"><span class="chapter-index">01</span><div><h2>Avant le RAID : les bases</h2><p>D'abord, quelques mots utiles.</p></div></div>
+<div class="panel"><h3>Un disque et un dossier : ce n'est pas pareil</h3>
+<div class="example-file"><span class="file-icon" aria-hidden="true">📁</span><span class="file-meta"><strong>Documents clients</strong><span>Dans ce dossier : un devis, une photo et des factures</span></span></div>
 <div class="flowline" aria-label="Du matériel vers les fichiers"><span class="flow-unit"><strong>Disque</strong><small>Matériel</small></span><span class="flow-arrow" aria-hidden="true">›</span><span class="flow-unit"><strong>Partition</strong><small>Découpage</small></span><span class="flow-arrow" aria-hidden="true">›</span><span class="flow-unit"><strong>Volume</strong><small>Espace utilisable</small></span><span class="flow-arrow" aria-hidden="true">›</span><span class="flow-unit"><strong>Fichiers</strong><small>Contenu</small></span></div>
-<p><strong>Le disque</strong> est le matériel qui stocke les informations. Une <strong>partition</strong> est une portion de l'espace du disque. Un <strong>volume</strong> est un espace de stockage que le système peut utiliser, souvent affiché comme <strong>C:</strong> ou <strong>D:</strong> dans Windows. Un volume peut s'appuyer sur une partition ou sur un montage plus complexe, comme un RAID.</p>
-<p>Pour enregistrer des fichiers, le volume doit utiliser un <strong>système de fichiers</strong>, par exemple NTFS. Ce n'est pas la même chose que le <strong>format d'un fichier</strong>, comme PDF, JPG ou MP4.</p>
-<div class="aside"><strong>Une image simple :</strong> le disque est un terrain, la partition délimite une zone, le volume est l'espace que le système te présente, et le système de fichiers organise ce que tu y ranges. C'est une comparaison, pas un fonctionnement physique exact.</div></div>
+<p><strong>Le <strong>disque</strong> garde les fichiers. Une <strong>partition</strong> est une partie du disque. Un <strong>volume</strong>, c'est un espace de stockage que Windows te montre, par exemple <strong>C:</strong>. Plusieurs disques peuvent aussi former un seul volume grâce au RAID.</p>
+<p>Windows utilise un <strong>système de fichiers</strong>, comme NTFS, pour ranger les données. Attention : PDF, JPG et MP4 sont des <strong>formats de fichiers</strong>. Ce n'est pas pareil.</p>
+<div class="aside"><strong>Imagine :</strong> le disque est une armoire. La partition sépare l'armoire en parties. Le volume est la place que Windows te montre. Le système de fichiers aide à tout ranger. C'est une comparaison pour comprendre.</div></div>
 <div class="panel"><h3>HDD, SSD, NVMe : ce qu'il faut distinguer</h3><div class="three">
-<div class="concept"><strong>HDD</strong><p>Disque mécanique avec des plateaux. Souvent choisi pour de grandes capacités à coût modéré.</p></div>
-<div class="concept"><strong>SSD SATA</strong><p>Stockage à mémoire flash. Pas de pièces mobiles. Généralement plus réactif qu'un HDD.</p></div>
-<div class="concept"><strong>SSD NVMe</strong><p>SSD utilisant le protocole NVMe, généralement sur PCIe. NVMe n'est pas un type de mémoire différent.</p></div></div>
-<div class="aside warn"><strong>À ne pas mélanger :</strong> RAID décrit la façon d'organiser plusieurs disques. HDD, SSD et NVMe décrivent des technologies de stockage ou de communication.</div></div>
+<div class="concept"><strong>HDD</strong><p>Il contient des pièces qui tournent. Il peut stocker beaucoup de fichiers pour un prix souvent plus faible.</p></div>
+<div class="concept"><strong>SSD SATA</strong><p>Il n'a pas de pièces qui tournent. Il est souvent plus rapide qu'un HDD.</p></div>
+<div class="concept"><strong>SSD NVMe</strong><p>C'est un SSD qui utilise une connexion très rapide. NVMe est une façon de communiquer avec le SSD.</p></div></div>
+<div class="aside warn"><strong>À retenir :</strong> HDD et SSD parlent du matériel. RAID explique comment plusieurs disques travaillent ensemble.</div></div>
 <div class="quiz" data-question="base"><span class="tag">Mini-défi 01</span><h3>Dans Windows, à quoi correspond souvent C: ?</h3><div class="choices"><button data-answer="non">À un format de fichier</button><button data-answer="oui">À un volume de stockage</button><button data-answer="non">À une marque de disque</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="comprendre"><div class="chapter-head"><span class="chapter-index">02</span><div><h2>Répartir ou copier ?</h2><p>Deux idées à comprendre avant de retenir les noms des RAID.</p></div></div>
-<div class="two"><div class="panel"><span class="tag">Répartition</span><h3>Une partie sur chaque disque</h3><p>Les blocs d'un fichier sont distribués entre plusieurs disques. Ils peuvent travailler ensemble. Mais si un bloc indispensable disparaît, le fichier ne peut plus être reconstitué.</p><div class="flowline"><span class="flow-unit"><strong>A1 • A3</strong><small>Disque 1</small></span><span class="flow-unit"><strong>A2 • A4</strong><small>Disque 2</small></span></div><p class="tiny">C'est l'idée du RAID 0 : privilégier la répartition, sans protection contre une panne.</p></div>
-<div class="panel"><span class="tag">Miroir</span><h3>Une copie sur chaque disque</h3><p>Les mêmes blocs sont écrits sur plusieurs disques. Si un disque tombe en panne, une autre copie peut rester disponible.</p><div class="flowline"><span class="flow-unit"><strong>A1 • A2</strong><small>Disque 1</small></span><span class="flow-unit"><strong>A1 • A2</strong><small>Disque 2</small></span></div><p class="tiny">C'est l'idée du RAID 1 : utiliser davantage de capacité pour garder une copie.</p></div></div>
+<section class="chapter" id="comprendre"><div class="chapter-head"><span class="chapter-index">02</span><div><h2>Répartir ou copier ?</h2><p>Avant les noms compliqués, comprends ces deux idées.</p></div></div>
+<div class="two"><div class="panel"><span class="tag">Répartition</span><h3>Une partie sur chaque disque</h3><p>Un fichier est coupé en petits morceaux. Les morceaux vont sur plusieurs disques. Si un disque casse, il manque des morceaux.</p><div class="flowline"><span class="flow-unit"><strong>A1 • A3</strong><small>Disque 1</small></span><span class="flow-unit"><strong>A2 • A4</strong><small>Disque 2</small></span></div><p class="tiny">C'est le RAID 0. Il peut aller plus vite, mais il ne protège pas contre une panne.</p></div>
+<div class="panel"><span class="tag">Miroir</span><h3>Une copie sur chaque disque</h3><p>Les disques gardent les mêmes fichiers. Si un disque casse, l'autre a encore une copie.</p><div class="flowline"><span class="flow-unit"><strong>A1 • A2</strong><small>Disque 1</small></span><span class="flow-unit"><strong>A1 • A2</strong><small>Disque 2</small></span></div><p class="tiny">C'est le RAID 1. On utilise de la place pour garder une copie.</p></div></div>
 <div class="quiz" data-question="mirror"><span class="tag">Mini-défi 02</span><h3>Deux disques contiennent exactement les mêmes données. Quel principe est utilisé ?</h3><div class="choices"><button data-answer="oui">Le miroir</button><button data-answer="non">La répartition sans copie</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="simulateur"><div class="chapter-head"><span class="chapter-index">03</span><div><h2>Un RAID, bloc par bloc</h2><p>Choisis un RAID, observe les disques, puis provoque une panne.</p></div></div>
-<div class="panel"><div class="sim-top"><div><span class="tag">Manipulation</span><h3>Le serveur de test</h3><p>Chaque case représente un bloc de données simplifié. Ce schéma explique la logique, pas le détail d'un contrôleur réel.</p></div><span class="sim-led">● Simulation locale</span></div>
+<section class="chapter" id="simulateur"><div class="chapter-head"><span class="chapter-index">03</span><div><h2>Un RAID, bloc par bloc</h2><p>Choisis un RAID. Puis fais tomber un disque en panne.</p></div></div>
+<div class="panel"><div class="sim-top"><div><span class="tag">Manipulation</span><h3>Le serveur de test</h3><p>Chaque case représente un petit morceau de fichier. Ce dessin est simplifié.</p></div><span class="sim-led">● Simulation locale</span></div>
 <div class="level-grid" id="levels" aria-label="Niveau RAID à visualiser"></div>
 <div class="sim-grid" id="sim-disks"></div><p id="sim-description" class="sim-note"></p>
-<h3>Et si un disque tombe en panne ?</h3><div id="failure-actions" class="failure-actions"></div>
+<h3>Teste une panne</h3><div id="failure-actions" class="failure-actions"></div>
 <div id="sim-feedback" class="sim-feedback" aria-live="polite">Sélectionne un disque en panne pour observer les conséquences.</div>
-<p class="tiny">La panne est analysée par notre moteur RAID autonome. La simulation ne reconstruit pas les données et n'active pas automatiquement un disque de secours.</p></div></section>
+<p class="tiny">Ici, tu testes les pannes. Le simulateur ne répare pas les disques et ne lance pas de réparation automatique.</p></div></section>
 
-<section class="chapter" id="parite"><div class="chapter-head"><span class="chapter-index">04</span><div><h2>La parité, sans formule compliquée</h2><p>Comment protéger des données sans recopier tout le volume ?</p></div></div>
-<div class="panel"><h3>Trois disques, deux blocs de données et un bloc de parité</h3><p>En RAID 5, le système calcule une information supplémentaire, appelée <strong>parité</strong>. Si un seul disque tombe en panne, les blocs restants et la parité permettent de retrouver le bloc manquant.</p>
+<section class="chapter" id="parite"><div class="chapter-head"><span class="chapter-index">04</span><div><h2>La parité, sans formule compliquée</h2><p>Comment protéger des fichiers sans tout copier ?</p></div></div>
+<div class="panel"><h3>Trois disques : des fichiers et une protection</h3><p>En RAID 5, les disques gardent aussi une information de protection. Son nom : <strong>parité</strong>. Si un disque casse, cette information aide à retrouver ce qui manque.</p>
 <div class="three"><div class="concept"><strong>Disque 1</strong><p>Bloc A</p></div><div class="concept"><strong>Disque 2</strong><p>Bloc B</p></div><div class="concept"><strong>Disque 3</strong><p>Parité P</p></div></div>
-<p>La parité change de disque au fil des groupes de blocs. Il n'existe donc pas, en RAID 5 classique, un disque entier réservé uniquement à la parité.</p>
-<div class="aside"><strong>RAID 5 :</strong> une panne de disque tolérée. <strong>RAID 6 :</strong> deux ensembles d'informations de parité, permettant de tolérer deux pannes de disques.</div>
-<p class="tiny">Notre calculateur exprime cette protection comme une capacité équivalente à un disque pour RAID 5, ou deux disques pour RAID 6. C'est un bilan de capacité, pas l'emplacement physique de tous les blocs de parité.</p></div>
+<p>La parité n'est pas toujours sur le même disque. Elle est répartie entre les disques.</p>
+<div class="aside"><strong>RAID 5 :</strong> il peut continuer avec un disque en panne. <strong>RAID 6 :</strong> il peut continuer avec deux disques en panne.</div>
+<p class="tiny">Pour calculer la place disponible, on compte l'équivalent d'un disque de protection en RAID 5 et de deux disques en RAID 6.</p></div>
 <div class="quiz" data-question="parity"><span class="tag">Mini-défi 03</span><h3>Quatre disques de 2 To en RAID 5 : quelle capacité utile ?</h3><div class="choices"><button data-answer="non">8 To</button><button data-answer="oui">6 To</button><button data-answer="non">4 To</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="pannes"><div class="chapter-head"><span class="chapter-index">05</span><div><h2>La panne n'est pas toujours la catastrophe</h2><p>Mais attention, le RAID n'est pas une sauvegarde.</p></div></div>
-<div class="panel"><h3>RAID 10 et RAID 01 : mêmes capacités, risques différents</h3><p>Les deux combinent répartition et miroir. En RAID 10, les données sont réparties entre plusieurs paires en miroir. En RAID 01, deux groupes répartis sont mis en miroir.</p>
-<p>Avec quatre disques, une panne sur chaque paire peut être tolérée en RAID 10 si chaque paire conserve un disque. En RAID 01, une panne dans chaque groupe RAID 0 suffit à perdre le volume. Reviens au simulateur du chapitre 3 pour le constater.</p></div>
-<div class="two"><div class="panel"><h3>Un disque tombe en panne</h3><p>Un RAID redondant peut maintenir l'accès aux données, selon le niveau RAID et les disques concernés. Il faut intervenir avant d'autres pannes.</p></div>
-<div class="panel"><h3>Un dossier est supprimé</h3><p>Le RAID recopie aussi les suppressions ou modifications. Il ne permet pas à lui seul de retrouver les fichiers effacés.</p></div></div>
-<div class="aside warn"><strong>Phrase à retenir :</strong> le RAID aide à maintenir la disponibilité face à certaines pannes matérielles. La sauvegarde permet de restaurer des données perdues, effacées ou corrompues. Les deux sont complémentaires.</div>
+<section class="chapter" id="pannes"><div class="chapter-head"><span class="chapter-index">05</span><div><h2>Un disque casse : que se passe-t-il ?</h2><p>Attention : le RAID ne remplace pas une sauvegarde.</p></div></div>
+<div class="panel"><h3>RAID 10 et RAID 01 : pas les mêmes pannes</h3><p>Les deux utilisent des copies et des morceaux de fichiers. En RAID 10, les disques fonctionnent par paires. En RAID 01, ils fonctionnent en deux grands groupes.</p>
+<p>En RAID 10, un disque peut casser dans chaque paire : ça marche encore. En RAID 01, si un disque casse dans chaque groupe, ça ne marche plus. Essaie au chapitre 3.</p></div>
+<div class="two"><div class="panel"><h3>Un disque tombe en panne</h3><p>Certains RAID continuent à fonctionner. Mais il faut changer le disque en panne rapidement.</p></div>
+<div class="panel"><h3>Un dossier est supprimé</h3><p>Si tu supprimes un fichier, il disparaît aussi des copies du RAID.</p></div></div>
+<div class="aside warn"><strong>À retenir :</strong> le RAID aide quand un disque casse. La sauvegarde aide à retrouver des fichiers supprimés ou perdus. Il faut les deux.</div>
 <div class="quiz" data-question="backup"><span class="tag">Mini-défi 04</span><h3>Un salarié supprime par erreur un dossier partagé. Qu'est-ce qui permet de le récupérer ?</h3><div class="choices"><button data-answer="non">Le RAID 1, automatiquement</button><button data-answer="oui">Une sauvegarde exploitable</button><button data-answer="non">Le disque de secours</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="atelier"><div class="chapter-head"><span class="chapter-index">06</span><div><h2>À toi de construire le RAID</h2><p>Le calculateur utilise le moteur validé pour les TP R2D3.</p></div></div>
+<section class="chapter" id="atelier"><div class="chapter-head"><span class="chapter-index">06</span><div><h2>À toi de construire le RAID</h2><p>Choisis tes disques. Regarde la place disponible.</p></div></div>
 <div class="panel"><div class="tool-controls"><label>Niveau RAID<select id="tool-level"><option value="0">RAID 0</option><option value="1">RAID 1</option><option value="5" selected>RAID 5</option><option value="6">RAID 6</option><option value="10">RAID 10</option><option value="01">RAID 01</option></select></label><button id="tool-add" type="button">+ Ajouter un disque</button><button id="tool-reset" type="button">Recommencer</button></div>
-<div id="tool-disks" class="tool-disks"></div><p id="tool-status" class="status" role="status" aria-live="polite"></p>
+<p class="tiny">Clique sur un tiroir pour changer sa taille ou le mettre en secours.</p>
+<div id="tool-disks" class="tool-disks" aria-label="NAS et disques installés"></div>
+<div id="tool-editor" class="tool-editor" aria-live="off"></div><p id="tool-status" class="status" role="status" aria-live="polite"></p>
 <div id="tool-metrics" class="metrics"></div><div id="tool-bar" class="capacity-bar" aria-label="Répartition de la capacité"></div>
-<div class="legend"><span><b class="usable"></b>Données</span><span><b class="redundancy"></b>Parité ou copies</span><span><b class="unused"></b>Inutilisé</span><span><b class="sparebar"></b>Secours</span></div>
+<div class="legend"><span><b class="usable"></b>Fichiers</span><span><b class="redundancy"></b>Protection</span><span><b class="unused"></b>Non utilisé</span><span><b class="sparebar"></b>Secours</span></div>
 <p id="tool-tolerance" class="mini"></p>
-<div class="aside"><strong>Attention aux unités :</strong> les calculs sont théoriques, en To décimaux. Le formatage, les métadonnées et l'affichage en Tio peuvent produire des valeurs différentes dans Windows. Un disque de secours n'augmente pas la capacité utilisable.</div></div>
+<div class="aside"><strong>Pourquoi Windows affiche parfois moins ?</strong> Le NAS calcule ici en To. Windows peut afficher en Tio. Le formatage prend aussi un peu de place. Le disque de secours ne donne pas plus de place pour tes fichiers.</div></div>
 <div class="quiz" data-question="spare"><span class="tag">Mini-défi 05</span><h3>Un serveur possède 3 disques actifs de 2 To en RAID 5. Tu ajoutes un disque de secours de 2 To. Quelle capacité utile ?</h3><div class="choices"><button data-answer="non">6 To</button><button data-answer="oui">4 To</button><button data-answer="non">8 To</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="choix"><div class="chapter-head"><span class="chapter-index">07</span><div><h2>Quel RAID pour quel besoin ?</h2><p>Le bon choix dépend du contexte, pas seulement du nombre de téraoctets.</p></div></div>
-<div class="panel comparison"><table><thead><tr><th>RAID</th><th>Disques actifs min.</th><th>Protection</th><th>Idée principale</th></tr></thead><tbody>
-<tr><td><strong>0</strong></td><td>2</td><td>Aucune panne tolérée</td><td>Répartition, sans redondance</td></tr>
-<tr><td><strong>1</strong></td><td>2</td><td>Le miroir garde une copie</td><td>Copie intégrale des données</td></tr>
-<tr><td><strong>5</strong></td><td>3</td><td>1 panne</td><td>Parité répartie</td></tr>
-<tr><td><strong>6</strong></td><td>4</td><td>2 pannes</td><td>Double parité</td></tr>
-<tr><td><strong>10</strong></td><td>4</td><td>Selon les paires touchées</td><td>Répartition sur miroirs</td></tr>
-<tr><td><strong>01</strong></td><td>4</td><td>Selon les groupes touchés</td><td>Miroir de deux groupes répartis</td></tr></tbody></table></div>
-<div class="quiz" data-question="case"><span class="tag">Situation professionnelle</span><h3>Le service dispose de quatre disques de 2 To. Il veut conserver l'accès aux données même si deux disques tombent en panne, quels qu'ils soient. Quel RAID choisir parmi ces trois options ?</h3><div class="choices"><button data-answer="non">RAID 5</button><button data-answer="oui">RAID 6</button><button data-answer="non">RAID 10</button></div><p class="reply" aria-live="polite"></p></div></section>
+<section class="chapter" id="choix"><div class="chapter-head"><span class="chapter-index">07</span><div><h2>Quel RAID pour quel besoin ?</h2><p>Le bon RAID dépend des besoins de l'entreprise.</p></div></div>
+<div class="panel comparison"><table><thead><tr><th>RAID</th><th>Disques actifs min.</th><th>Panne</th><th>Idée principale</th></tr></thead><tbody>
+<tr><td><strong>0</strong></td><td>2</td><td>Aucune</td><td>Morceaux répartis, sans copie</td></tr>
+<tr><td><strong>1</strong></td><td>2</td><td>Une copie reste</td><td>Une copie des fichiers</td></tr>
+<tr><td><strong>5</strong></td><td>3</td><td>1 panne</td><td>Protection répartie</td></tr>
+<tr><td><strong>6</strong></td><td>4</td><td>2 pannes</td><td>Deux protections</td></tr>
+<tr><td><strong>10</strong></td><td>4</td><td>Selon la paire</td><td>Paires de disques</td></tr>
+<tr><td><strong>01</strong></td><td>4</td><td>Selon le groupe</td><td>Deux groupes de disques</td></tr></tbody></table></div>
+<div class="quiz" data-question="case"><span class="tag">Situation professionnelle</span><h3>Une entreprise a quatre disques de 2 To. Le NAS doit continuer à marcher même si deux disques cassent. Quel RAID choisir ?</h3><div class="choices"><button data-answer="non">RAID 5</button><button data-answer="oui">RAID 6</button><button data-answer="non">RAID 10</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="synthese"><div class="chapter-head"><span class="chapter-index">08</span><div><h2>Ce que tu dois savoir expliquer</h2><p>Pas besoin de réciter une liste de définitions.</p></div></div>
-<div class="panel"><div class="three"><div class="concept"><strong>1. Lire</strong><p>Identifier un disque physique, un volume, un fichier et un système de fichiers.</p></div><div class="concept"><strong>2. Calculer</strong><p>Déterminer la capacité utile d'un RAID classique avec des disques identiques.</p></div><div class="concept"><strong>3. Diagnostiquer</strong><p>Expliquer ce qui arrive lorsqu'un disque tombe en panne et pourquoi une sauvegarde reste nécessaire.</p></div></div>
-<p><strong>Dernier réflexe :</strong> avant de conseiller un RAID à un client, demande combien de données il stocke, quelles pannes il veut supporter, quelle performance il attend et comment ses sauvegardes sont organisées.</p>
-<p class="mini">Cours RAID V1.0, adapté aux smartphones. Schémas simplifiés à vocation pédagogique. Calculs RAID fournis par le moteur autonome R2D3.</p></div></section>
-</main><footer class="footer"><div class="footer-inner">CIEL • Technologies de stockage et cybersécurité. Ce cours peut être consulté sans compte et sans collecte de réponses. <a href="#depart">Retour au début</a>.</div></footer>
-<script type="module" src="./raid-course.js?v=1"></script>
+<section class="chapter" id="synthese"><div class="chapter-head"><span class="chapter-index">08</span><div><h2>Ce que tu dois savoir expliquer</h2><p>Voici ce que tu dois comprendre et savoir faire.</p></div></div>
+<div class="panel"><div class="three"><div class="concept"><strong>1. Lire</strong><p>Faire la différence entre disque, volume et fichier.</p></div><div class="concept"><strong>2. Calculer</strong><p>Calculer la place disponible pour les fichiers.</p></div><div class="concept"><strong>3. Diagnostiquer</strong><p>Dire ce qui se passe si un disque casse. Expliquer à quoi sert une sauvegarde.</p></div></div>
+<p><strong>Avant de choisir un RAID :</strong> demande combien de place il faut, combien de pannes le NAS doit supporter et où sont les sauvegardes.</p>
+<p class="mini">Cours RAID V1.0, adapté aux smartphones. Schémas simples pour apprendre. Calculs réalisés par notre moteur RAID.</p></div></section>
+</main><footer class="footer"><div class="footer-inner">CIEL • Technologies de stockage et cybersécurité. Tu peux utiliser ce cours sans compte. <a href="#depart">Retour au début</a>.</div></footer>
+<script type="module" src="./raid-course.js?v=2"></script>
 </body></html>

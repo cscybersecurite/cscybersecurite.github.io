@@ -13,3 +13,38 @@
 @media(max-width:770px){.hero-inner{grid-template-columns:1fr;padding-top:39px}.hero-device{max-width:450px;transform:none}.intro,.two{grid-template-columns:1fr}.three{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:repeat(2,1fr)}.level-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){body{font-size:16px}.hero{min-height:0}.hero-inner{padding:30px 16px}.hero h1{font-size:2.6rem}.bay{height:105px}.wrap{padding:25px 11px 65px}.panel{padding:15px}.roadmap{gap:6px}.roadmap a{font-size:.78rem;padding:7px 9px}.three,.quiz .choices{grid-template-columns:1fr}.flow-unit{min-width:95px;padding:9px}.sim-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:9px}.metric b{font-size:1.15rem}.level-btn{min-height:70px}.chapter-head h2{font-size:1.6rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+
+/* V2 : vue de face du NAS. Les tiroirs sont de vrais boutons, les réglages restent séparés. */
+.tool-disks{display:block;margin:17px auto 12px;max-width:790px}
+.nas-chassis{position:relative;background:linear-gradient(140deg,#343d45 0%,#151b20 42%,#343940 100%);color:#ecf0f1;border:3px solid #11191e;border-radius:21px;padding:14px clamp(10px,2.4vw,27px) 13px;box-shadow:inset 0 2px 2px #67717a,inset 0 -4px 8px #06080a,0 11px 23px #0003}
+.nas-chassis:before,.nas-chassis:after{content:"";position:absolute;bottom:-10px;background:#171b1f;width:36px;height:9px;border-radius:0 0 7px 7px}
+.nas-chassis:before{left:8%}.nas-chassis:after{right:8%}
+.nas-header,.nas-footer{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:.72rem;letter-spacing:.08em;font-weight:750}
+.nas-header{min-height:36px;margin-bottom:10px;padding:0 5px}
+.nas-brand{color:#c1ced7}.nas-power{color:#86dd9e;text-shadow:0 0 8px #21ab59}
+.nas-footer{color:#acbec7;min-height:29px;justify-content:center}
+.nas-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(5px,1.2vw,12px);border:9px solid #10171c;border-radius:14px;padding:8px;background:#060a0e;box-shadow:inset 0 4px 14px #000,0 1px 0 #647078}
+.nas-tray{position:relative;display:flex;align-items:center;justify-content:flex-start;flex-direction:column;min-width:0;min-height:177px;padding:13px 4px 8px;border:1px solid #4a535d;border-radius:8px;background:linear-gradient(100deg,#272f35 0%,#3d4750 38%,#242c33 95%);color:#e4ecf1;box-shadow:inset 2px 0 2px #59636b,inset -3px 0 5px #13171a,0 3px 3px #0007;text-align:center;transition:transform .12s,border-color .12s}
+.nas-tray:hover{border-color:#9ab6c8;transform:translateY(-2px)}
+.nas-tray.is-selected{outline:3px solid #80cde5;outline-offset:1px;border-color:#bddfeb}
+.nas-tray.is-spare{border-color:#d9aa57}
+.nas-tray.is-spare .nas-led{background:#f1bd57;box-shadow:0 0 7px #f1bd57}
+.nas-tray .nas-led{width:8px;height:8px;border-radius:50%;background:#61d887;box-shadow:0 0 8px #4bd275;align-self:flex-start;margin-left:5px;margin-bottom:23px}
+.nas-tray strong{font-size:1.06rem;letter-spacing:.07em}
+.nas-cap{font-variant-numeric:tabular-nums;font-weight:700;font-size:.92rem;color:#d0e4ee}
+.nas-keyhole{width:17px;height:17px;border:3px solid #14191d;border-radius:50%;box-shadow:0 0 0 1px #707980,inset 0 0 0 2px #444f58;margin-top:auto;margin-bottom:12px;position:relative}
+.nas-keyhole:after{content:"";position:absolute;top:3px;left:5px;width:2px;height:5px;background:#8a939b;transform:rotate(25deg)}
+.nas-tray small{font-size:.65rem;font-weight:850;color:#abc7d4;letter-spacing:.09em}
+.nas-tray.is-spare small{color:#f2cc83}
+.nas-empty{border:1px dashed #465057;background:#161c21;box-shadow:none;color:#77848f;justify-content:center;letter-spacing:.1em;font-size:.75rem}
+.nas-empty:hover{transform:none;border-color:#465057}
+.tool-editor{background:var(--pale);border:1px solid var(--edge);border-radius:12px;padding:16px;max-width:790px;margin:0 auto 18px}
+.tool-editor strong{display:block}.tool-editor p{margin:3px 0 12px}
+.disk-controls{display:flex;flex-wrap:wrap;align-items:end;gap:10px}
+.disk-controls label{display:grid;gap:4px;font-size:.86rem;font-weight:750;flex:1 1 135px}
+.disk-controls input,.disk-controls select{background:var(--paper);color:var(--ink);border:1px solid var(--edge);border-radius:8px;min-height:44px;padding:8px;width:100%}
+.disk-controls button{background:var(--paper);color:var(--ink);border:1px solid var(--edge);border-radius:8px;min-height:44px;padding:8px 12px}
+.disk-controls button:hover{border-color:var(--danger)}
+@media(max-width:560px){.nas-chassis{padding:11px 9px;border-radius:16px}.nas-slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:7px;border-width:7px}.nas-tray{min-height:158px}.nas-header{margin-bottom:4px}.nas-tray .nas-led{margin-bottom:17px}.tool-editor{padding:12px}}
+@media(prefers-color-scheme:dark){.tool-editor{background:var(--pale)}.nas-chassis{box-shadow:inset 0 2px 2px #67717a,inset 0 -4px 8px #06080a,0 10px 20px #0008}}
