@@ -76,7 +76,8 @@ function bindQuizzes(){
     for(const x of root.querySelectorAll("button"))x.setAttribute("aria-pressed",String(x===b));
     const good=b.dataset.answer==="oui";
     reply.className="reply "+(good?"good":"bad");
-    reply.textContent=(good?"Bonne réponse. ":"Pas encore. ")+explanations[root.dataset.question];
+    reply.textContent=good?"Bonne réponse. "+explanations[root.dataset.question]:"Pas encore. Essaie une autre réponse.";
+    if(good){for(const x of root.querySelectorAll("button"))x.disabled=true;}
    });
   }
  }
@@ -91,7 +92,7 @@ function renderTool(){
  const status=document.createElement("span");status.className="nas-power";status.textContent="● ON";
  header.append(brand,status);
  const grid=document.createElement("div");grid.className="nas-slots";
- const slots=disks.length<=4?4:disks.length<=6?6:disks.length<=8?8:disks.length;
+ const slots=disks.length<=4?4:disks.length<=6?6:disks.length<=8?8:disks.length<=10?10:12;
  for(let i=0;i<slots;i++){
   const d=disks[i];
   if(!d){
@@ -105,7 +106,7 @@ function renderTool(){
   tray.setAttribute("aria-pressed",String(d.id===editingId));
   tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To, "+(d.role==="spare"?"secours":"actif")+". Voir ses réglages");
   const led=document.createElement("span");led.className="nas-led";led.setAttribute("aria-hidden","true");
-  const title=document.createElement("strong");title.textContent=d.id.toUpperCase();
+  const title=document.createElement("strong");title.textContent=d.id;
   const cap=document.createElement("span");cap.className="nas-cap";cap.textContent=d.capacityTB+" To";
   const keyhole=document.createElement("span");keyhole.className="nas-keyhole";keyhole.setAttribute("aria-hidden","true");
   const role=document.createElement("small");role.textContent=d.role==="spare"?"SECOURS":"ACTIF";
@@ -114,8 +115,11 @@ function renderTool(){
   grid.append(tray);
  }
  chassis.append(header,grid);
- const footer=document.createElement("div");footer.className="nas-footer";footer.textContent=disks.length+" disque"+(disks.length>1?"s":"")+" installé"+(disks.length>1?"s":"");
+ const footer=document.createElement("div");footer.className="nas-footer";footer.textContent=disks.length+" / 12 places occupées";
  chassis.append(footer);area.append(chassis);
+ const add=$("tool-add");add.disabled=disks.length>=12;
+ add.setAttribute("aria-disabled",String(add.disabled));
+ add.title=add.disabled?"Les 12 places du NAS sont occupées.":"Ajouter un disque";
  renderEditor();calculateTool();
 }
 function renderEditor(){
@@ -131,7 +135,7 @@ function renderEditor(){
  const label=document.createElement("label");label.textContent="Taille (To)";
  const capacity=document.createElement("input");capacity.type="number";capacity.min="0.01";capacity.max="1000000";capacity.step="0.25";capacity.value=d.capacityTB;
  capacity.setAttribute("aria-label","Taille du disque "+d.id);
- capacity.addEventListener("input",()=>{d.capacityTB=capacity.value===""?0:Number(capacity.value);const tray=[...document.querySelectorAll(".nas-tray")].find(x=>x.querySelector("strong")?.textContent===d.id.toUpperCase());if(tray){tray.querySelector(".nas-cap").textContent=d.capacityTB+" To";tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To")}calculateTool()});
+ capacity.addEventListener("input",()=>{d.capacityTB=capacity.value===""?0:Number(capacity.value);const tray=[...document.querySelectorAll(".nas-tray")].find(x=>x.querySelector("strong")?.textContent===d.id);if(tray){tray.querySelector(".nas-cap").textContent=d.capacityTB+" To";tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To")}calculateTool()});
  label.append(capacity);
  const roleLabel=document.createElement("label");roleLabel.textContent="Rôle";
  const role=document.createElement("select");role.setAttribute("aria-label","Rôle du disque "+d.id);
@@ -169,7 +173,7 @@ function calculateTool(){
   : "Le RAID peut continuer avec "+tolerance.guaranteed+" disque"+(tolerance.guaranteed>1?"s":"")+" en panne. Pour RAID 10 et RAID 01, cela dépend aussi des disques touchés.";
 }
 $("tool-level").addEventListener("change",renderTool);
-$("tool-add").addEventListener("click",()=>{if(disks.length>=128)return;const d={id:"d"+counter++,capacityTB:2,role:"active"};disks.push(d);editingId=d.id;renderTool()});
+$("tool-add").addEventListener("click",()=>{if(disks.length>=12)return;const d={id:"d"+counter++,capacityTB:2,role:"active"};disks.push(d);editingId=d.id;renderTool()});
 $("tool-reset").addEventListener("click",()=>{counter=4;disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));editingId="d1";$("tool-level").value="5";renderTool()});
 
 renderLevels();renderSimulation();bindQuizzes();renderTool();

@@ -51,3 +51,38 @@ test("messages simples à l'écran",()=>{
  assert.doesNotMatch(js,/Volume indisponible|Volume toujours disponible|La redondance peut être diminuée/);
  assert.match(html,/Clique sur un tiroir/);
 });
+
+test("V3 : quatre choix au défi RAID 5",()=>{
+ const block=html.match(/data-question="parity"[\s\S]*?<\/div><p class="reply"/)?.[0];
+ assert.ok(block,"défi 03 présent");
+ assert.equal((block.match(/data-answer=/g)||[]).length,4);
+});
+test("V3 : bases du stockage et types de disques illustrés",()=>{
+ for(const id of ["storage-stages","disk-drawing","partition-drawing","volume-drawing","files-drawing","hardware-grid","hdd-art","sata-art","nvme-art"])
+  assert.ok(html.includes('class="'+id)||html.includes(' '+id+'"')||html.includes(' '+id+' '),id);
+ assert.match(css,/\.storage-stages/);
+ assert.match(css,/\.hardware-grid/);
+});
+test("V3 : le spare est expliqué avant le mini-défi",()=>{
+ assert.match(html,/Le disque de secours : le remplaçant prêt à aider/);
+ assert.ok(html.indexOf("spare-lesson")<html.indexOf('data-question="spare"'));
+ assert.match(html,/ne simulons pas le remplacement automatique/);
+});
+test("V3 : NAS limité à 12 disques, tiroirs compacts et noms uniformes",()=>{
+ assert.match(js,/if\(disks.length>=12\)return/);
+ assert.match(js,/add.disabled=disks.length>=12/);
+ assert.match(js,/const slots=disks.length<=4\?4/);
+ assert.match(js,/title.textContent=d.id;/);
+ assert.doesNotMatch(js,/d.id.toUpperCase\(\)/);
+ assert.match(css,/\.nas-tray\{min-height:114px/);
+ assert.match(css,/@media\(max-width:560px\)\{\.nas-slots/);
+});
+test("V3 : erreur aux mini-défis sans révéler la réponse",()=>{
+ assert.match(js,/Pas encore\. Essaie une autre réponse\./);
+ assert.match(js,/reply.textContent=good\?/);
+ assert.match(js,/if\(good\)\{for\(const x/);
+});
+test("V3 : choix professionnels équilibrés",()=>{
+ for(const term of ["Petit NAS","RAID 5 + secours","RAID 6 + secours","RAID 10","RAID 01"])
+  assert.ok(html.includes(term),term);
+});

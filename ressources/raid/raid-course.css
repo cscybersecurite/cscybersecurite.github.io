@@ -48,3 +48,53 @@
 .disk-controls button:hover{border-color:var(--danger)}
 @media(max-width:560px){.nas-chassis{padding:11px 9px;border-radius:16px}.nas-slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:7px;border-width:7px}.nas-tray{min-height:158px}.nas-header{margin-bottom:4px}.nas-tray .nas-led{margin-bottom:17px}.tool-editor{padding:12px}}
 @media(prefers-color-scheme:dark){.tool-editor{background:var(--pale)}.nas-chassis{box-shadow:inset 0 2px 2px #67717a,inset 0 -4px 8px #06080a,0 10px 20px #0008}}
+
+/* V3 : schémas courts pour comprendre le matériel avant le RAID. */
+.storage-figure{margin:17px 0;padding:16px;background:var(--pale);border:1px solid var(--edge);border-radius:12px}
+.storage-stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.storage-stage{position:relative;display:flex;align-items:center;flex-direction:column;gap:4px;min-width:0;padding:12px 8px;background:var(--paper);border:1px solid var(--edge);border-radius:10px;text-align:center}
+.storage-stage strong{font-size:.94rem}.storage-stage small{font-size:.75rem;line-height:1.3;color:var(--muted)}
+.stage-number{position:absolute;top:5px;left:8px;color:var(--muted);font-size:.75rem;font-weight:800}
+.storage-figure figcaption{text-align:center;font-size:.82rem;color:var(--muted);margin-top:12px}
+.disk-drawing{margin-top:16px;width:84px;height:78px;background:#344856;border:4px solid #647988;border-radius:7px;position:relative;box-shadow:inset 0 0 0 3px #1b323f}
+.disk-platter{position:absolute;left:12px;top:9px;width:48px;height:48px;background:repeating-radial-gradient(circle,#7d99ab 0 3px,#c0d0d8 4px 5px,#536f82 6px 8px);border-radius:50%}
+.disk-arm{position:absolute;left:39px;top:42px;height:5px;width:30px;transform:rotate(-31deg);background:#e9b75b;border-radius:4px}
+.partition-drawing{margin-top:16px;display:flex;width:94%;height:78px;background:#243d4d;border:4px solid #426779;border-radius:7px;gap:3px;padding:6px;align-items:stretch}
+.partition-drawing span{display:grid;place-items:center;font-size:.62rem;line-height:1.1;overflow-wrap:anywhere;background:#90c5da;color:#102b3c;border-radius:3px;padding:2px}
+.partition-drawing span:first-child{flex:3}.partition-drawing span:last-child{flex:2;background:#e9be78}
+.volume-drawing{margin-top:16px;width:94%;height:78px;padding:12px;background:var(--tile);border:1px solid var(--edge);border-radius:7px;display:grid;align-content:center;gap:9px;text-align:left}
+.drive-letter{font-size:1.5rem;font-weight:900;color:var(--accent)}.drive-meter{height:11px;background:var(--edge);border-radius:4px;overflow:hidden}.drive-meter i{display:block;width:64%;height:100%;background:#4c97b9}
+.files-drawing{margin-top:16px;height:78px;display:flex;align-items:center;justify-content:center;gap:3px}
+.file-folder{font-size:2.6rem}.file-sheet{align-self:end;margin-bottom:12px;font-size:.65rem;font-weight:800;color:#185478;background:#d8e9f4;border:1px solid #9fc1d8;border-radius:3px;padding:5px 3px}
+.hardware-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+.hardware-card{margin:0;display:flex;flex-direction:column;gap:10px;border:1px solid var(--edge);border-radius:12px;background:var(--pale);padding:14px;min-width:0}
+.hardware-card figcaption strong{display:block;margin:0 0 4px}.hardware-card figcaption span{display:block;color:var(--muted);font-size:.85rem}
+.hardware-art{height:145px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hdd-art{max-width:164px;width:90%;margin:auto;height:125px;background:linear-gradient(145deg,#b6c2c9,#687b89);border:7px solid #3b505c;border-radius:11px;box-shadow:inset 0 0 0 3px #d7e3e8}
+.hdd-ring{position:absolute;width:77px;height:77px;border-radius:50%;background:repeating-radial-gradient(circle,#cad6dc 0 6px,#869eab 7px 8px,#c9d8df 9px 11px);border:4px solid #536a79}
+.hdd-head{width:75px;height:9px;background:#e0a948;transform:rotate(-34deg);position:absolute;left:52%;top:64%;border-radius:5px;transform-origin:left center}
+.sata-art{max-width:155px;width:85%;height:110px;margin:auto;flex-direction:column;color:#e3edf4;background:linear-gradient(125deg,#263b4a,#0f212e);border:6px solid #405563;border-radius:12px;box-shadow:inset 0 1px 0 #8394a1}
+.sata-art span{font-size:2rem;font-weight:850;letter-spacing:.12em}.sata-art small{font-size:.9rem;color:#acc8d9}.sata-art i{position:absolute;bottom:2px;width:65px;height:4px;background:#d9af66}
+.nvme-art{height:125px}.nvme-board{width:95%;max-width:194px;height:51px;border:3px solid #3f7b55;background:#185037;display:flex;gap:7px;align-items:center;padding:5px 11px;border-radius:4px;transform:rotate(-8deg);box-shadow:8px 9px 12px #0002;position:relative}
+.nvme-board i{height:31px;flex:1;background:#192b2f;border:1px solid #749987;border-radius:3px}.nvme-board b{position:absolute;top:2px;left:10px;font-size:.56rem;color:#e8efeb}.nvme-board:after{content:"";position:absolute;right:4px;width:5px;height:6px;border:1px solid #c2c8bd;border-radius:50%}
+.spare-lesson{margin-top:14px}.spare-explainer{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(140px,1fr);gap:14px;align-items:center;background:var(--pale);border-radius:11px;padding:15px;margin:12px 0}
+.spare-mini-nas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;background:#182229;border:8px solid #303e46;border-radius:11px;padding:10px;min-height:103px}
+.spare-mini-tray{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:75px;border:1px solid #71818a;border-radius:5px;background:linear-gradient(100deg,#364550,#202d37);color:#f1f6f8;font-size:.85rem;font-weight:800}
+.spare-mini-tray small{font-size:.55rem;letter-spacing:.02em;color:#91e4b2}
+.spare-mini-wait{border-color:#e9b760}.spare-mini-wait small{color:#f9d18a}
+.spare-key{font-size:.9rem;line-height:1.45}.spare-key strong{display:block}.spare-key span{display:block;margin-top:6px}
+.usecase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 14px}
+.usecase{background:var(--paper);border:1px solid var(--edge);border-radius:12px;padding:18px}
+.usecase h3{font-size:1.12rem;margin:10px 0}.usecase p{margin:7px 0}
+.raid-reference{margin:14px 0;border:1px solid var(--edge);border-radius:10px;background:var(--paper);overflow:hidden}
+.raid-reference>summary{cursor:pointer;padding:14px 17px;font-weight:800}.raid-reference>.comparison{padding:8px 15px 15px}
+.tool-controls button:disabled{opacity:.5;cursor:not-allowed}
+.nas-slots{grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;border-width:7px}
+.nas-tray{min-height:114px;padding:8px 3px 6px}
+.nas-tray .nas-led{margin-bottom:10px;width:7px;height:7px}
+.nas-tray strong{font-size:.91rem}.nas-cap{font-size:.82rem}
+.nas-keyhole{width:12px;height:12px;border-width:2px;margin-bottom:7px}.nas-keyhole:after{left:3px;top:2px;height:4px}
+.nas-tray small{font-size:.58rem}
+.nas-empty{min-height:114px}
+@media(max-width:780px){.storage-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.hardware-grid,.usecase-grid{grid-template-columns:1fr}.hardware-card{display:grid;grid-template-columns:minmax(110px,160px) 1fr;align-items:center}.hardware-art{max-height:115px}.nas-slots{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:560px){.nas-slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:5px;border-width:6px}.nas-tray{min-height:90px;padding:6px 3px 5px}.nas-empty{min-height:90px}.nas-tray .nas-led{margin-bottom:5px}.nas-keyhole{margin-bottom:4px}.storage-figure{padding:9px}.storage-stages{gap:7px}.storage-stage{padding:10px 4px 9px}.disk-drawing,.partition-drawing,.volume-drawing,.files-drawing{margin-top:18px}.storage-stage small{font-size:.7rem}.hardware-card{grid-template-columns:minmax(100px,126px) 1fr;gap:10px;padding:10px}.hardware-card figcaption span{font-size:.81rem}.spare-explainer{grid-template-columns:1fr;padding:9px}.spare-mini-nas{padding:7px;gap:5px}.usecase{padding:14px}}
