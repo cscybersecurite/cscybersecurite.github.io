@@ -11,3 +11,7 @@ header{background:#102b51;color:#fff;padding:9px 12px}
 .chapter{margin-bottom:12px}
 .chapter>summary{font-size:clamp(19px,2.5vw,25px);padding:16px 19px}
 @media(max-width:600px){.bar{grid-template-columns:76px minmax(0,1fr) 76px;gap:4px}.bar h1{font-size:18px}.chapter>summary{font-size:clamp(19px,2.5vw,25px)}}
+
+/* Bandeau illustré : même implantation responsive que DHCP. */
+.bandeau-cours{max-width:1000px;margin:0 auto 16px}
+.bandeau-cours img{display:block;width:100%;height:auto;border-radius:12px}
