@@ -86,3 +86,9 @@ test("V3 : choix professionnels équilibrés",()=>{
  for(const term of ["Petit NAS","RAID 5 + secours","RAID 6 + secours","RAID 10","RAID 01"])
   assert.ok(html.includes(term),term);
 });
+
+test("V3 : quatre choix au mini-défi 01",()=>{
+ const block=html.match(/data-question="base"[\s\S]*?<\/div><p class="reply"/)?.[0];
+ assert.ok(block,"défi 01 présent");
+ assert.equal((block.match(/data-answer=/g)||[]).length,4);
+});
