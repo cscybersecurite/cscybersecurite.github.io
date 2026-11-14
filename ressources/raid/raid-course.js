@@ -286,6 +286,21 @@ function initFileRaidLab(){
   '<path d="M702 355L744 251L780 357Z" fill="#317e61"/>'+
   '<path d="M68 410L98 264L126 410Z" fill="#2b765a"/>'+
   '<rect x="91" y="359" width="10" height="71" fill="#785642"/>'+
+  '<path d="M0 188Q43 126 95 175Q137 127 191 173" fill="none" stroke="#fff" stroke-width="16" opacity=".85"/>'+
+  '<path d="M226 184l28 -23 28 23 -28 -8z" fill="#fff"/>'+
+  '<path d="M516 140l28 -24 28 24 -28 -10z" fill="#fff"/>'+
+  '<rect x="574" y="245" width="19" height="70" fill="#fff7df" stroke="#344f63" stroke-width="4"/>'+
+  '<path d="M567 247l17 -38 17 38z" fill="#ed4e3a"/>'+
+  '<rect x="578" y="266" width="11" height="17" fill="#3d83aa"/>'+
+  '<path d="M175 476l82 0 -17 17 -52 0z" fill="#693f2a"/>'+
+  '<path d="M213 468v-93l-44 92z" fill="#f8fafc" stroke="#8aa0af" stroke-width="2"/>'+
+  '<path d="M217 468v-73l39 73z" fill="#ec8f4f"/>'+
+  '<path d="M430 503l62 0 -14 13 -38 0z" fill="#704732"/>'+
+  '<path d="M462 499v-77l-36 76z" fill="#f6e6a1"/>'+
+  '<path d="M465 499v-61l28 61z" fill="#e65b4f"/>'+
+  '<path d="M700 470l40 -11 31 16 -44 12z" fill="#eac797"/>'+
+  '<circle cx="729" cy="466" r="9" fill="#d45e37"/>'+
+  '<path d="M311 385l22 -22 22 22 -22 -10z" fill="#fff" opacity=".9"/>'+
   '<path d="M90 329l-25 66h62z" fill="#1b6449"/>'+
   '</svg>';
  root.style.setProperty("--file-raid-photo",'url("data:image/svg+xml,'+encodeURIComponent(photoSvg)+'")');
