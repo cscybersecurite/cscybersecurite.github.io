@@ -2,7 +2,7 @@
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Comprendre le RAID avec des disques interactifs, des pannes simulées et un calculateur.">
 <title>RAID : les données sous protection | CIEL</title>
-<link rel="stylesheet" href="./raid-course.css?v=7"></head>
+<link rel="stylesheet" href="./raid-course.css?v=9"></head>
 <body><header class="top"><div class="top-inner"><div class="brand">CIEL / Stockage & sécurité</div><a class="home" href="/" aria-label="Retour au portail">Retour au portail</a></div></header>
 <section class="hero"><div class="hero-inner"><div><span class="eyebrow">Cours interactif • 01 / Stockage</span><h1>Un disque lâche.<br><em>Et après ?</em></h1>
 <p>Une entreprise garde ses fichiers sur des disques. Mais que se passe-t-il si un disque casse ? Tu vas essayer plusieurs RAID et découvrir lesquels continuent à marcher.</p>
@@ -62,12 +62,28 @@
 <div id="sim-feedback" class="sim-feedback" aria-live="polite">Sélectionne un disque en panne pour observer les conséquences.</div><div id="sim-spare-actions" class="sim-spare-actions"></div>
 <p class="tiny">Il s'agit d'une démonstration pédagogique : la reconstruction du spare est représentée étape par étape, sans durée réelle ni échange de données avec un serveur.</p></div></section>
 
-<section class="chapter" id="parite"><div class="chapter-head"><span class="chapter-index">04</span><div><h2>La parité, sans formule compliquée</h2><p>Comment protéger des fichiers sans tout copier ?</p></div></div>
-<div class="panel"><h3>Trois disques : des fichiers et une protection</h3><p>En RAID 5, les disques gardent aussi une information de protection. Son nom : <strong>parité</strong>. Si un disque casse, cette information aide à retrouver ce qui manque.</p>
-<div class="three"><div class="concept"><strong>Disque 1</strong><p>Bloc A</p></div><div class="concept"><strong>Disque 2</strong><p>Bloc B</p></div><div class="concept"><strong>Disque 3</strong><p>Parité P</p></div></div>
-<p>La parité n'est pas toujours sur le même disque. Elle est répartie entre les disques.</p>
-<div class="aside"><strong>RAID 5 :</strong> il peut continuer avec un disque en panne. <strong>RAID 6 :</strong> il peut continuer avec deux disques en panne.</div>
-<p class="tiny">Pour calculer la place disponible, on compte l'équivalent d'un disque de protection en RAID 5 et de deux disques en RAID 6.</p></div>
+<section class="chapter" id="parite"><div class="chapter-head"><span class="chapter-index">04</span><div><h2>Le parcours d'un fichier en RAID 5 et RAID 6</h2><p>Un seul fichier, des morceaux, puis une panne. Que se passe-t-il ?</p></div></div>
+<div class="panel">
+<p>Nous allons suivre <strong>photo.jpg</strong>, un fichier enregistré sur le serveur. Nous observerons comment le RAID le protège, même si des disques tombent en panne.</p>
+<div class="file-raid-lab" id="file-raid-lab" aria-label="Animation du parcours d'un fichier en RAID">
+<div class="file-raid-top">
+<div class="file-raid-switch" role="group" aria-label="Choisir le RAID"><button type="button" id="file-raid-5" aria-pressed="true">RAID 5</button><button type="button" id="file-raid-6" aria-pressed="false">RAID 6</button></div>
+<span class="file-raid-count" id="file-raid-count">Étape 1 sur 5</span>
+</div>
+<h3 id="file-raid-title">1. Un fichier à enregistrer</h3>
+<p class="file-raid-explanation" id="file-raid-explanation" aria-live="polite">Voici notre fichier photo.jpg. Il doit être enregistré sur le RAID.</p>
+<div class="file-raid-workspace">
+<div class="file-raid-original" id="file-raid-original"><span aria-hidden="true">🖼️</span><strong>photo.jpg</strong><small>Le fichier entier</small></div>
+<div class="file-raid-pieces" id="file-raid-pieces" hidden></div>
+<div class="file-raid-drives" id="file-raid-drives" hidden aria-label="Répartition des données et des parités sur les disques"></div>
+<div class="file-raid-result" id="file-raid-result" hidden><span aria-hidden="true">✓</span><strong>photo.jpg reste accessible</strong><small id="file-raid-result-detail">Le RAID retrouve les morceaux qui manquent grâce aux informations encore présentes.</small></div>
+</div>
+<div class="file-raid-legend"><span><i class="file-swatch file-swatch-data"></i> Morceau du fichier</span><span><i class="file-swatch file-swatch-p"></i> Parité P</span><span><i class="file-swatch file-swatch-q"></i> Parité Q</span><span><i class="file-swatch file-swatch-failed"></i> Disque en panne</span></div>
+<div class="file-raid-controls"><button type="button" id="file-raid-prev" disabled>Retour</button><div id="file-raid-steps" class="file-raid-dots" role="group" aria-label="Choisir une étape"><button type="button" data-file-raid-step="1" aria-pressed="true">1</button><button type="button" data-file-raid-step="2" aria-pressed="false">2</button><button type="button" data-file-raid-step="3" aria-pressed="false">3</button><button type="button" data-file-raid-step="4" aria-pressed="false">4</button><button type="button" data-file-raid-step="5" aria-pressed="false">5</button></div><button type="button" id="file-raid-next">Suivant</button></div>
+</div>
+<div class="aside"><strong>À retenir :</strong> en RAID 5, le fichier reste accessible après la panne d'un disque. En RAID 6, il reste accessible après la panne de deux disques. Les informations de parité sont réparties entre les disques : aucun disque n'est réservé uniquement à la parité. <strong>Le RAID ne remplace pas une sauvegarde.</strong></div>
+<p class="tiny">Schéma pédagogique : les morceaux et les informations de parité représentent le fonctionnement du RAID, sans montrer les calculs binaires. Les disques en panne restent en panne : retrouver un fichier ne répare pas le matériel.</p>
+</div>
 <div class="quiz" data-question="parity"><span class="tag">Mini-défi 03</span><h3>Quatre disques de 2 To en RAID 5 : quelle capacité utile ?</h3><div class="choices"><button data-answer="non">8 To</button><button data-answer="oui">6 To</button><button data-answer="non">4 To</button><button data-answer="non">2 To</button></div><p class="reply" aria-live="polite"></p></div></section>
 
 <section class="chapter" id="pannes"><div class="chapter-head"><span class="chapter-index">05</span><div><h2>Un disque casse : que se passe-t-il ?</h2><p>Attention : le RAID ne remplace pas une sauvegarde.</p></div></div>
@@ -123,5 +139,5 @@
 <p><strong>Avant de choisir un RAID :</strong> demande combien de place il faut, combien de pannes le NAS doit supporter et où sont les sauvegardes.</p>
 <p class="mini">Cours RAID V5.0, adapté aux smartphones. Schémas simples pour apprendre. Calculs réalisés par notre moteur RAID.</p></div></section>
 </main><footer class="footer"><div class="footer-inner">CIEL • Technologies de stockage et cybersécurité. Tu peux utiliser ce cours sans compte. <a href="#depart">Retour au début</a>.</div></footer>
-<script type="module" src="./raid-course.js?v=8"></script>
+<script type="module" src="./raid-course.js?v=9"></script>
 </body></html>
