@@ -163,3 +163,28 @@ test("Simulateur : 4 disques RAID 5, 5 disques RAID 6 et parités tournantes",()
  assert.match(js,/minimum : trois/);
  assert.match(js,/minimum : quatre/);
 });
+
+test("Chapitre 4 : suivre un seul fichier du RAID 5 au RAID 6",()=>{
+ assert.match(html,/Le parcours d'un fichier en RAID 5 et RAID 6/);
+ assert.match(html,/id="file-raid-lab"/);
+ for(const id of ["file-raid-5","file-raid-6","file-raid-drives","file-raid-original","file-raid-pieces","file-raid-result","file-raid-prev","file-raid-next"]){
+  assert.ok(html.includes('id="'+id+'"'),id);
+ }
+ assert.equal((html.match(/data-file-raid-step="[1-5]"/g)||[]).length,5);
+ assert.match(js,/function initFileRaidLab\(/);
+ assert.match(js,/initFileRaidLab\(\)/);
+ assert.match(js,/Array\.from\(\{length:12\}/);
+ assert.match(js,/const n=mode==="5"\?4:5/);
+ assert.match(js,/const q=mode==="6"/);
+ assert.match(js,/const p=\(n-1-stripe\+n\)%n/);
+ assert.match(js,/breakdowns=mode==="5"\?\[1\]:\[1,3\]/);
+ assert.match(css,/\.file-raid-drives/);
+ assert.match(css,/@media\(max-width:640px\)/);
+});
+test("Chapitre 4 : pas de parité dédiée à un disque ni d'affirmation de réparation",()=>{
+ const intro=html.slice(html.indexOf('id="parite"'),html.indexOf('id="pannes"'));
+ assert.doesNotMatch(intro,/Trois disques : des fichiers et une protection/);
+ assert.match(intro,/aucun disque n'est réservé uniquement à la parité/);
+ assert.match(intro,/Le RAID ne remplace pas une sauvegarde/);
+ assert.match(js,/les disques en panne ne sont pas réparés/);
+});
