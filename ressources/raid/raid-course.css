@@ -275,3 +275,31 @@
 .file-raid-recovered{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:4px 0}
 .file-raid-recovered .file-raid-block{min-width:43px}
 .file-raid-recovered .file-raid-rebuilt{outline:2px solid #36ad70;outline-offset:2px}
+
+/* Photo continue : la même illustration reste lisible aux cinq étapes du chapitre 4. */
+#file-raid-lab .file-raid-workspace{align-items:center}
+#file-raid-lab .file-raid-photo-shell{width:min(100%,530px);display:flex;flex-direction:column;align-items:center;gap:7px}
+#file-raid-lab .file-raid-original,#file-raid-lab .file-raid-pieces{width:100%;aspect-ratio:4/3;max-height:390px;border-radius:10px;overflow:hidden;border:3px solid #6c9bad;box-shadow:0 5px 13px #0002}
+#file-raid-lab .file-raid-original{background-image:var(--file-raid-photo);background-size:cover;background-position:center}
+#file-raid-lab .file-raid-pieces{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:0}
+#file-raid-lab .file-raid-photo-tile{display:grid;place-items:center;position:relative;min-width:0;min-height:0;background-image:var(--file-raid-photo);background-size:400% 300%;background-repeat:no-repeat;border:1px solid #ffffffc9;transition:filter .2s}
+#file-raid-lab .file-raid-photo-tile b{font-size:clamp(.67rem,1.6vw,.9rem);line-height:1.3;color:#fff;background:#0c3147d9;border-radius:5px;padding:2px 6px;text-shadow:0 1px 2px #000}
+#file-raid-lab .file-raid-photo-tile.is-missing{background-image:none;background-color:#6b7280;border-color:#f3bbc2}
+#file-raid-lab .file-raid-photo-tile.is-missing b{font-size:1.15rem;background:#4e5963}
+#file-raid-lab .file-raid-photo-tile.is-restored{outline:3px solid #29bd73;outline-offset:-4px;z-index:1}
+#file-raid-lab .file-raid-photo-caption{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;justify-content:center;text-align:center}
+#file-raid-lab .file-raid-photo-caption strong{font-weight:850}
+#file-raid-lab .file-raid-photo-caption small{color:var(--muted);font-size:.8rem}
+#file-raid-lab .file-raid-photo-shell.is-compact{width:min(100%,330px)}
+#file-raid-lab .file-raid-photo-shell.is-compact .file-raid-original,#file-raid-lab .file-raid-photo-shell.is-compact .file-raid-pieces{max-height:248px}
+#file-raid-lab .file-raid-drive .file-raid-data{display:flex;align-items:center;flex-direction:column;justify-content:center;gap:3px;min-height:52px}
+#file-raid-lab .file-raid-mini-photo{width:min(100%,53px);height:30px;border-radius:3px;border:1px solid #ffffffc9;display:block;background-image:var(--file-raid-photo);background-size:400% 300%;background-repeat:no-repeat}
+#file-raid-lab .file-raid-recovered .file-raid-mini-photo{height:23px;width:38px}
+@media(max-width:640px){
+ #file-raid-lab .file-raid-photo-shell{width:min(100%,410px)}
+ #file-raid-lab .file-raid-photo-shell.is-compact{width:min(100%,245px)}
+ #file-raid-lab .file-raid-drive .file-raid-data{min-height:41px;padding:3px 1px;gap:2px}
+ #file-raid-lab .file-raid-mini-photo{height:18px;max-width:35px}
+ #file-raid-lab .file-raid-photo-tile b{font-size:.65rem;padding:1px 4px}
+}
+@media(prefers-reduced-motion:reduce){#file-raid-lab .file-raid-photo-tile{transition:none}}
