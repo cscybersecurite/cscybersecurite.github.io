@@ -330,6 +330,15 @@ function initFileRaidLab(){
    }
   }
   $("file-raid-result").hidden=step!==5;
+  const recovered=$("file-raid-recovered");recovered.replaceChildren();
+  if(step===5){
+   const missing=breakdowns.flatMap(index=>matrix[index].filter(block=>block.startsWith("M")));
+   for(const name of missing){
+    const tile=drawBlock(name);tile.classList.add("file-raid-rebuilt");
+    tile.setAttribute("aria-label","Morceau "+name.slice(1)+" retrouvé par le RAID");
+    recovered.append(tile);
+   }
+  }
   $("file-raid-result-detail").textContent=mode==="5"?"Un disque en panne. Le fichier est retrouvé grâce aux blocs encore disponibles.":"Deux disques en panne. Les deux parités permettent de retrouver les morceaux manquants.";
   $("file-raid-prev").disabled=step===1;
   $("file-raid-next").textContent=step===5?"Recommencer":"Suivant";
