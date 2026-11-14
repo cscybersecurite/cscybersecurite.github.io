@@ -145,8 +145,21 @@ test("Simulateur : spare facultatif et reconstruction pédagogique",()=>{
  assert.match(js,/assessRaidFailures\(cfg\(selected,physical\)/);
  assert.match(html,/reconstruction du spare est représentée étape par étape/);
 });
-test("Simulateur : une parité P par rangée RAID 5, P et Q par rangée RAID 6",()=>{
- const part=js.slice(js.indexOf("const layouts="),js.indexOf("const explanations="));
- assert.match(part,/"5":\[\["A1","B1","P"\],\["A2","P","C1"\],\["P","B2","C2"\]\]/);
- assert.match(part,/"6":\[\["A1","B1","P","Q"\],\["A2","P","Q","D1"\],\["P","Q","C1","D2"\],\["Q","B2","C2","P"\]\]/);
+test("Simulateur : 4 disques RAID 5, 5 disques RAID 6 et parités tournantes",()=>{
+ const source=js.match(/const layouts=(\{[\s\S]*?\});/)?.[1];
+ assert.ok(source,"schémas RAID présents");
+ const layouts=JSON.parse(source);
+ assert.equal(layouts["1"].length,2);
+ assert.equal(layouts["5"].length,4);
+ assert.equal(layouts["6"].length,5);
+ for(const [level,rows,expectedP,expectedQ] of [["5",layouts["5"],1,0],["6",layouts["6"],1,1]]){
+  assert.ok(rows.every(row=>row.length===4),"quatre bandes de données RAID "+level);
+  for(let stripe=0;stripe<4;stripe++){
+   const blocks=rows.map(row=>row[stripe]);
+   assert.equal(blocks.filter(block=>block==="P").length,expectedP,"parité P bande "+stripe);
+   assert.equal(blocks.filter(block=>block==="Q").length,expectedQ,"parité Q bande "+stripe);
+  }
+ }
+ assert.match(js,/minimum : trois/);
+ assert.match(js,/minimum : quatre/);
 });
