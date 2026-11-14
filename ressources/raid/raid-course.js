@@ -263,4 +263,86 @@ function initStorageLab(){
  for(const b of buttons)b.addEventListener("click",()=>show(Number(b.dataset.storageStep)));
  show(1);
 }
-renderLevels();initSimSpare();renderSimulation();bindQuizzes();initStorageLab();renderTool();
+
+/* Un seul fichier, sur des bandes de RAID. P/Q ne sont jamais stockés sur un disque dédié. */
+function initFileRaidLab(){
+ const root=$("file-raid-lab");if(!root)return;
+ let mode="5",step=1;
+ const titles=["Un fichier à enregistrer","Le fichier est découpé","Les disques enregistrent les morceaux","Un disque tombe en panne","Le fichier reste accessible"];
+ const pieces=Array.from({length:12},(_,i)=>"M"+(i+1));
+ const drawBlock=(name)=>{
+  const block=document.createElement("span");
+  block.className="file-raid-block "+(name.startsWith("P")?"file-raid-p":name.startsWith("Q")?"file-raid-q":"file-raid-data");
+  block.textContent=name;
+  block.setAttribute("aria-label",name.startsWith("P")?"Parité P, bande "+name.slice(1):name.startsWith("Q")?"Parité Q, bande "+name.slice(1):"Morceau "+name.slice(1)+" du fichier");
+  return block;
+ };
+ function stripes(){
+  const n=mode==="5"?4:5;
+  const matrix=Array.from({length:n},()=>[]);
+  for(let stripe=0;stripe<4;stripe++){
+   // Pour une bande : une parité tournante en RAID 5, deux parités distinctes en RAID 6.
+   const p=(n-1-stripe+n)%n;
+   const q=mode==="6"?(p-1+n)%n:-1;
+   let data=0;
+   for(let disk=0;disk<n;disk++){
+    const block=disk===p?"P"+(stripe+1):disk===q?"Q"+(stripe+1):pieces[stripe*3+data++];
+    matrix[disk].push(block);
+   }
+  }
+  return matrix;
+ }
+ function render(){
+  const n=mode==="5"?4:5,breakdowns=mode==="5"?[1]:[1,3],matrix=stripes(),failed=step>=4;
+  $("file-raid-5").setAttribute("aria-pressed",String(mode==="5"));
+  $("file-raid-6").setAttribute("aria-pressed",String(mode==="6"));
+  $("file-raid-count").textContent="Étape "+step+" sur 5";
+  $("file-raid-title").textContent=step+". "+titles[step-1];
+  const words=[
+   "Voici notre fichier photo.jpg. Nous allons voir comment il est enregistré.",
+   "Le RAID découpe le fichier en petits morceaux. Nous les appelons M1, M2, M3... jusqu'à M12.",
+   "Le fichier est réparti sur "+n+" disques. Les blocs orange P"+(mode==="6"?" et verts Q":"")+" servent à retrouver les morceaux manquants. La parité change de disque à chaque bande.",
+   mode==="5"?"Le disque 2 tombe en panne. Plusieurs morceaux et informations de parité deviennent indisponibles.":"Les disques 2 et 4 tombent en panne. Il manque des morceaux et des informations de parité.",
+   "Le RAID utilise les autres morceaux et les parités pour recalculer ce qui manque. photo.jpg reste accessible, mais les disques en panne ne sont pas réparés."
+  ];
+  $("file-raid-explanation").textContent=words[step-1];
+  $("file-raid-original").hidden=step!==1;
+  const pieceRoot=$("file-raid-pieces");
+  pieceRoot.hidden=step!==2;pieceRoot.replaceChildren();
+  if(step===2)for(const piece of pieces)pieceRoot.append(drawBlock(piece));
+  const drives=$("file-raid-drives");drives.hidden=step<3;drives.replaceChildren();
+  if(step>=3){
+   for(let d=0;d<n;d++){
+    const dead=failed&&breakdowns.includes(d);
+    const drive=document.createElement("div");drive.className="file-raid-drive"+(dead?" is-failed":"");
+    const heading=document.createElement("strong");heading.textContent="Disque "+(d+1)+(dead?" • panne":"");
+    drive.append(heading);
+    for(const block of matrix[d]){
+     const el=drawBlock(block);
+     if(dead){
+      el.className="file-raid-block file-raid-lost";
+      el.textContent="?";
+      el.setAttribute("aria-label","Bloc indisponible : "+block);
+     }
+     drive.append(el);
+    }
+    drives.append(drive);
+   }
+  }
+  $("file-raid-result").hidden=step!==5;
+  $("file-raid-result-detail").textContent=mode==="5"?"Un disque en panne. Le fichier est retrouvé grâce aux blocs encore disponibles.":"Deux disques en panne. Les deux parités permettent de retrouver les morceaux manquants.";
+  $("file-raid-prev").disabled=step===1;
+  $("file-raid-next").textContent=step===5?"Recommencer":"Suivant";
+  for(const button of root.querySelectorAll("[data-file-raid-step]"))button.setAttribute("aria-pressed",String(Number(button.dataset.fileRaidStep)===step));
+ }
+ $("file-raid-5").addEventListener("click",()=>{mode="5";step=1;render()});
+ $("file-raid-6").addEventListener("click",()=>{mode="6";step=1;render()});
+ $("file-raid-prev").addEventListener("click",()=>{step=Math.max(1,step-1);render()});
+ $("file-raid-next").addEventListener("click",()=>{step=step===5?1:step+1;render()});
+ for(const button of root.querySelectorAll("[data-file-raid-step]")){
+  button.addEventListener("click",()=>{step=Number(button.dataset.fileRaidStep);render()});
+ }
+ render();
+}
+
+renderLevels();initSimSpare();renderSimulation();bindQuizzes();initStorageLab();initFileRaidLab();renderTool();
