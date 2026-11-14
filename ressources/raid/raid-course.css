@@ -230,3 +230,44 @@
 #simulateur .spare-action{border:1px solid var(--accent);background:var(--pale);color:var(--ink);border-radius:8px;padding:11px 14px;margin-top:10px;font-weight:800;min-height:44px;cursor:pointer}
 #simulateur .spare-action:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media(max-width:550px){#simulateur .level-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}#simulateur .level-btn{padding:9px 7px;min-height:64px}#simulateur .level-btn strong{font-size:1rem}#simulateur .level-btn small{font-size:.7rem}#simulateur .sim-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#simulateur .sim-legend{gap:9px}}
+
+/* Le parcours d'un fichier : démonstration de parité distribuée, responsive. */
+.file-raid-lab{border:1px solid var(--edge);border-radius:15px;padding:clamp(12px,2.5vw,20px);background:var(--pale);margin:18px 0}
+.file-raid-top{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap}
+.file-raid-switch{display:flex;gap:7px}
+.file-raid-switch button,.file-raid-controls button{border:1px solid var(--edge);border-radius:9px;min-height:44px;background:var(--paper);color:var(--ink);padding:8px 13px;font-weight:800;cursor:pointer}
+.file-raid-switch button[aria-pressed=true],.file-raid-dots button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.file-raid-count{font-size:.82rem;color:var(--muted);font-weight:750}
+.file-raid-lab h3{margin:14px 0 4px;font-size:1.13rem}
+.file-raid-explanation{min-height:65px;margin:4px 0 12px}
+.file-raid-workspace{background:var(--paper);border:1px solid var(--edge);border-radius:12px;padding:15px;min-height:220px;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:13px}
+.file-raid-workspace [hidden]{display:none!important}
+.file-raid-original{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;min-height:175px}
+.file-raid-original span{font-size:3.3rem}
+.file-raid-original strong{font-size:1.25rem}
+.file-raid-original small{font-size:.83rem;color:var(--muted)}
+.file-raid-pieces{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+.file-raid-drives{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;align-items:stretch}
+.file-raid-drives:has(> :nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+.file-raid-drive{display:flex;flex-direction:column;gap:6px;padding:9px 6px;border-radius:13px;background:#173748;border:2px solid #5d8da1;color:#fff;min-width:0}
+.file-raid-drive>strong{font-size:.78rem;text-align:center;min-height:38px;display:grid;place-items:center}
+.file-raid-drive.is-failed{border-color:#ff9292;background:#55424a}
+.file-raid-block{display:grid;place-items:center;min-width:0;min-height:37px;padding:4px;border-radius:20px / 10px;font-size:clamp(.75rem,2vw,.95rem);font-weight:800;text-align:center;background:linear-gradient(#48b5ff,#0561db 55%,#08429c);border:1px solid #a1d5ff;color:#fff;box-shadow:inset 0 3px 0 #ffffff44}
+.file-raid-p{background:linear-gradient(#ffcd6b,#ff8920 55%,#bb560a);border-color:#ffdd98;color:#241404}
+.file-raid-q{background:linear-gradient(#79f0a0,#23b966 55%,#08763b);border-color:#a8f4be;color:#092b17}
+.file-raid-lost{background:#707982;color:#fff;border:2px dashed #ecb2b7;box-shadow:none;font-size:1.1rem}
+.file-raid-result{border:1px solid #5bba81;border-radius:10px;padding:13px;background:var(--pale);display:flex;align-items:center;justify-content:center;gap:6px;flex-direction:column;text-align:center}
+.file-raid-result>span{font-weight:900;font-size:1.3rem;color:var(--green)}
+.file-raid-result small{color:var(--muted)}
+.file-raid-legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.8rem;color:var(--muted);margin:11px 0}
+.file-raid-legend span{display:flex;gap:5px;align-items:center}
+.file-swatch{width:15px;height:15px;border-radius:5px;display:inline-block;background:#1469de;border:1px solid #8cbbee}
+.file-swatch-p{background:#ff8b23;border-color:#bb600e}
+.file-swatch-q{background:#25b968;border-color:#127541}
+.file-swatch-failed{background:#707982;border:2px dashed #e3afb2}
+.file-raid-controls{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap}
+.file-raid-controls button:disabled{opacity:.45;cursor:not-allowed}
+.file-raid-dots{display:flex;gap:5px}
+.file-raid-dots button{min-width:42px;padding:7px;min-height:44px}
+.file-raid-switch button:focus-visible,.file-raid-controls button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:640px){.file-raid-drives{gap:4px}.file-raid-drive{padding:7px 3px;border-width:1px}.file-raid-drive>strong{font-size:.66rem;min-height:34px}.file-raid-block{min-height:32px;padding:3px 1px;font-size:.75rem}.file-raid-workspace{padding:8px;min-height:225px}.file-raid-pieces{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.file-raid-controls>.file-raid-dots{order:-1;justify-content:center;width:100%}.file-raid-controls>button{flex:1}}
