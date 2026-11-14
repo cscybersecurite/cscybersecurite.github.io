@@ -2,7 +2,7 @@
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Comprendre le RAID avec des disques interactifs, des pannes simulées et un calculateur.">
 <title>RAID : les données sous protection | CIEL</title>
-<link rel="stylesheet" href="./raid-course.css?v=5"></head>
+<link rel="stylesheet" href="./raid-course.css?v=6"></head>
 <body><header class="top"><div class="top-inner"><div class="brand">CIEL / Stockage & sécurité</div><a class="home" href="/" aria-label="Retour au portail">Retour au portail</a></div></header>
 <section class="hero"><div class="hero-inner"><div><span class="eyebrow">Cours interactif • 01 / Stockage</span><h1>Un disque lâche.<br><em>Et après ?</em></h1>
 <p>Une entreprise garde ses fichiers sur des disques. Mais que se passe-t-il si un disque casse ? Tu vas essayer plusieurs RAID et découvrir lesquels continuent à marcher.</p>
@@ -38,42 +38,13 @@
 <p>Un <strong>système de fichiers</strong>, comme NTFS, aide Windows à ranger et retrouver les données. PDF, JPG et MP4 sont des <strong>formats de fichiers</strong>. Ce n'est pas la même chose.</p>
 <div class="aside"><strong>À retenir :</strong> dans cet exemple, chaque partition contient un volume. Une clé USB est un autre support, avec sa propre lettre. Plus tard, le RAID montrera aussi comment plusieurs disques peuvent former un seul volume.</div>
 </div>
-<div class="panel"><h3>HDD, SSD SATA, SSD NVMe : reconnais les connecteurs</h3>
-<p>Observe le matériel. Les connecteurs servent à relier le disque à l'ordinateur.</p>
-<div class="hardware-grid hardware-detailed">
-<figure class="hardware-card"><div class="hardware-art hardware-svg" role="img" aria-label="Dessin d'un disque dur 3,5 pouces avec plateau mécanique, connecteurs SATA de données et d'alimentation à l'arrière">
-<svg viewBox="0 0 320 220" aria-hidden="true">
-<defs><linearGradient id="hddmetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8eef2"/><stop offset=".6" stop-color="#879cac"/><stop offset="1" stop-color="#43596a"/></linearGradient></defs>
-<path d="M51 31 L235 24 L277 48 L273 160 L233 183 L48 167 Z" fill="#334958" stroke="#1b2b33" stroke-width="4"/>
-<path d="M51 31 L235 24 L233 158 L48 167 Z" fill="url(#hddmetal)" stroke="#486171" stroke-width="3"/>
-<circle cx="141" cy="95" r="55" fill="#7b94a3" stroke="#dce7ee" stroke-width="6"/><circle cx="141" cy="95" r="40" fill="none" stroke="#c4d6de" stroke-width="3"/><circle cx="141" cy="95" r="9" fill="#324a5b" stroke="#e6eef1" stroke-width="3"/>
-<path d="M225 140 L168 108" stroke="#ca953f" stroke-width="10" stroke-linecap="round"/><circle cx="225" cy="140" r="10" fill="#465e6b" stroke="#efcf91" stroke-width="3"/>
-<g fill="#202b34" stroke="#e4c584" stroke-width="2"><rect x="92" y="169" width="91" height="16" rx="2"/><rect x="189" y="167" width="51" height="16" rx="2"/></g>
-<g stroke="#e4c584" stroke-width="2"><path d="M101 174v7m10-7v7m10-7v7m10-7v7m10-7v7m10-7v7m10-7v7"/><path d="M199 172v8m9-8v8m9-8v8m9-8v8"/></g>
-<path d="M116 189v11m96-12v12" stroke="#d3a55c" stroke-width="2"/><text x="116" y="212" fill="currentColor" font-size="12" text-anchor="middle">Alim.</text><text x="212" y="212" fill="currentColor" font-size="12" text-anchor="middle">Données</text>
-</svg></div><figcaption><strong>HDD SATA</strong><span>Des pièces tournent à l'intérieur. Deux connecteurs SATA : alimentation et données.</span></figcaption></figure>
-<figure class="hardware-card"><div class="hardware-art hardware-svg" role="img" aria-label="Dessin d'un SSD SATA 2,5 pouces avec deux connecteurs à l'arrière, un grand pour l'alimentation, un plus petit pour les données">
-<svg viewBox="0 0 320 220" aria-hidden="true">
-<defs><linearGradient id="ssdbody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#526779"/><stop offset=".5" stop-color="#263b4b"/><stop offset="1" stop-color="#132735"/></linearGradient></defs>
-<path d="M56 41 L236 34 L270 56 L265 155 L231 177 L51 161 Z" fill="#142630" stroke="#5c7687" stroke-width="4"/>
-<path d="M56 41 L236 34 L231 155 L51 161 Z" fill="url(#ssdbody)" stroke="#7b9bad" stroke-width="3"/>
-<rect x="86" y="73" width="124" height="61" rx="7" fill="#1b3142" stroke="#a6c6d7" stroke-width="2"/>
-<text x="148" y="102" font-size="28" fill="#f4f8fa" font-weight="800" text-anchor="middle">SSD</text><text x="148" y="121" font-size="13" fill="#bad0da" text-anchor="middle">SATA 2,5"</text>
-<g fill="#101e27" stroke="#e8c179" stroke-width="2"><rect x="91" y="164" width="95" height="18" rx="2"/><rect x="193" y="163" width="48" height="18" rx="2"/></g>
-<g stroke="#e8c179" stroke-width="2"><path d="M103 169v9m11-9v9m11-9v9m11-9v9m11-9v9m11-9v9m11-9v9"/><path d="M202 169v9m9-9v9m9-9v9m9-9v9"/></g>
-<path d="M127 185v14m91-14v14" stroke="#d3a55c" stroke-width="2"/><text x="127" y="212" fill="currentColor" font-size="12" text-anchor="middle">Alim.</text><text x="218" y="212" fill="currentColor" font-size="12" text-anchor="middle">Données</text>
-</svg></div><figcaption><strong>SSD SATA 2,5"</strong><span>Pas de pièce mobile. Deux connecteurs SATA, comme sur un HDD SATA.</span></figcaption></figure>
-<figure class="hardware-card"><div class="hardware-art hardware-svg" role="img" aria-label="Dessin d'un SSD M.2 NVMe avec ses puces et son connecteur à contacts dorés présentant une encoche M">
-<svg viewBox="0 0 320 220" aria-hidden="true">
-<g transform="rotate(-7 160 103)"><path d="M28 74H273V63H291V139H273V128H28Z" fill="#236543" stroke="#66ad7a" stroke-width="4"/>
-<rect x="42" y="84" width="55" height="36" rx="4" fill="#162b32" stroke="#8aafa8" stroke-width="2"/><rect x="107" y="84" width="55" height="36" rx="4" fill="#162b32" stroke="#8aafa8" stroke-width="2"/><rect x="172" y="84" width="55" height="36" rx="4" fill="#162b32" stroke="#8aafa8" stroke-width="2"/>
-<text x="70" y="104" font-size="10" fill="#d5ecdf" text-anchor="middle">NAND</text><text x="134" y="104" font-size="10" fill="#d5ecdf" text-anchor="middle">NAND</text><text x="199" y="104" font-size="10" fill="#d5ecdf" text-anchor="middle">NVMe</text>
-<g fill="#e9c36e"><rect x="272" y="79" width="17" height="7"/><rect x="272" y="90" width="17" height="7"/><rect x="272" y="101" width="17" height="7"/><rect x="272" y="112" width="17" height="7"/></g>
-<rect x="272" y="97" width="19" height="4" fill="#236543"/><circle cx="33" cy="100" r="6" fill="#b9c8c5" stroke="#173b2b" stroke-width="2"/>
-</g><path d="M283 129L273 161" stroke="#d4a956" stroke-width="2"/><text x="240" y="180" fill="currentColor" font-size="13" text-anchor="middle">Contacts dorés</text><text x="240" y="197" fill="currentColor" font-size="11" text-anchor="middle">Connecteur M.2</text>
-</svg></div><figcaption><strong>SSD M.2 NVMe</strong><span>Une barrette avec des contacts dorés à une extrémité. Elle se branche directement sur un connecteur M.2 adapté.</span></figcaption></figure>
+<div class="panel"><h3>HDD, SSD SATA, SSD NVMe : à quoi ça ressemble ?</h3>
+<div class="hardware-grid">
+<figure class="hardware-card"><div class="hardware-art hdd-art" role="img" aria-label="Disque dur mécanique rectangulaire, avec un plateau rond et un bras de lecture"><span class="hdd-ring"></span><span class="hdd-head"></span></div><figcaption><strong>HDD</strong><span>Disque avec des pièces qui tournent.</span></figcaption></figure>
+<figure class="hardware-card"><div class="hardware-art sata-art" role="img" aria-label="SSD SATA de 2,5 pouces dans un boîtier rectangulaire"><span>SSD</span><small>SATA 2,5"</small><i></i></div><figcaption><strong>SSD SATA</strong><span>Sans pièces mobiles. Souvent plus rapide qu'un HDD.</span></figcaption></figure>
+<figure class="hardware-card"><div class="hardware-art nvme-art" role="img" aria-label="Barrette SSD M.2 avec plusieurs puces de mémoire"><span class="nvme-board"><i></i><i></i><i></i><b>NVMe</b></span></div><figcaption><strong>SSD M.2 NVMe</strong><span>Petit format, connexion très rapide.</span></figcaption></figure>
 </div>
-<div class="aside warn"><strong>À retenir :</strong> SATA sert à relier des disques. NVMe est un protocole utilisé par des SSD. Tous les SSD M.2 ne sont pas forcément NVMe.</div></div>
+<div class="aside warn"><strong>À retenir :</strong> HDD et SSD parlent du matériel. RAID explique comment plusieurs disques travaillent ensemble.</div></div>
 <div class="quiz" data-question="base"><span class="tag">Mini-défi 01</span><h3>Dans Windows, à quoi correspond souvent C: ?</h3><div class="choices"><button data-answer="non">À un format de fichier</button><button data-answer="oui">À un volume de stockage</button><button data-answer="non">À une marque de disque</button><button data-answer="non">À un dossier Windows</button></div><p class="reply" aria-live="polite"></p></div></section>
 
 <section class="chapter" id="comprendre"><div class="chapter-head"><span class="chapter-index">02</span><div><h2>Répartir ou copier ?</h2><p>Avant les noms compliqués, comprends ces deux idées.</p></div></div>

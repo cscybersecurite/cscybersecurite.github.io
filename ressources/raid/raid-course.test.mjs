@@ -68,13 +68,14 @@ test("Chapitre 1 : animations de stockage progressives et accessibles",()=>{
  assert.match(css,/\.storage-lab\[data-step="5"\] \.storage-usb/);
  assert.match(css,/@media\(max-width:520px\)/);
 });
-test("Chapitre 1 : les trois connectiques sont représentées",()=>{
- for(const id of ["hardware-detailed","hardware-svg","HDD SATA","SSD SATA 2,5","SSD M.2 NVMe","Contacts dorés","Connecteur M.2","Alim.","Données"])
+test("Chapitre 1 : illustrations précédentes restaurées",()=>{
+ for(const id of ["hardware-grid","hdd-art","sata-art","nvme-art","hdd-ring","nvme-board"])
   assert.ok(html.includes(id),id);
- assert.match(html,/aria-label="Dessin d'un disque dur/);
- assert.match(html,/aria-label="Dessin d'un SSD SATA/);
- assert.match(html,/aria-label="Dessin d'un SSD M\.2/);
- assert.match(css,/\.hardware-detailed/);
+ assert.doesNotMatch(html,/class="hardware-art hardware-svg"/);
+ assert.match(html,/Disque avec des pièces qui tournent/);
+ assert.match(css,/\.hdd-art/);
+ assert.match(css,/\.sata-art/);
+ assert.match(css,/\.nvme-art/);
 });
 test("Chapitre 1 : pas de métaphore de l'armoire",()=>{
  assert.doesNotMatch(html,/le disque est une armoire|Imagine une armoire/);
