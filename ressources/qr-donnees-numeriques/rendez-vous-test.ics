@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Cours CIEL//Prototype agenda//FR
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261203T130000Z-test-ciel@example.com
+DTSTAMP:20261114T084500Z
+DTSTART:20261203T130000Z
+DTEND:20261203T140000Z
+SUMMARY:Intervention reseau - exercice CIEL
+LOCATION:Salle technique - entreprise fictive
+DESCRIPTION:Tester l'importation d'un rendez-vous depuis un fichier ICS.
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR

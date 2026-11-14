@@ -1,0 +1,1 @@
+WIFI:T:WPA;S:CIEL-LAB-EXEMPLE;P:MotDePasseFictif2026!;H:false;;

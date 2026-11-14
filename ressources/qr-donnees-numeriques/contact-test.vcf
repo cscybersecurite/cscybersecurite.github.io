@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Martin;Julie;;;
+FN:Julie Martin
+ORG:CyberNet;Service technique
+TITLE:Technicienne réseau
+TEL;TYPE=WORK,VOICE:+33123456789
+EMAIL;TYPE=WORK:julie.martin@example.com
+END:VCARD
