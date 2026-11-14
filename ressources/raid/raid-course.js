@@ -320,13 +320,7 @@ function initFileRaidLab(){
   }
   const label=document.createElement("b");label.textContent=name;block.append(label);
   block.setAttribute("aria-label",name.startsWith("P")?"Parité P, bande "+name.slice(1):name.startsWith("Q")?"Parité Q, bande "+name.slice(1):"Morceau "+name.slice(1)+" du fichier");
-  if(name.startsWith("M")){
-   const thumbnail=document.createElement("i");
-   thumbnail.className="file-raid-mini-photo";
-   thumbnail.setAttribute("aria-hidden","true");
-   setPhotoCrop(thumbnail,name);
-   block.prepend(thumbnail);
-  }
+  if(isData) setPhotoCrop(block,name);
   return block;
  };
  function stripes(){
