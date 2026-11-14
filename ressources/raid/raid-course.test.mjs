@@ -178,7 +178,7 @@ test("Chapitre 4 : suivre un seul fichier du RAID 5 au RAID 6",()=>{
  assert.match(js,/encodeURIComponent\(photoSvg\)/);
  assert.match(js,/function initFileRaidLab\(/);
  assert.match(js,/setPhotoCrop\(tile,name\)/);
- assert.match(js,/setPhotoCrop\(thumbnail,name\)/);
+ assert.match(js,/if\(isData\) setPhotoCrop\(block,name\)/);
  assert.match(js,/const missing=missingFor\(matrix,breakdowns\)/);
  assert.match(css,/background-size:400% 300%/);
  assert.match(css,/grid-template-rows:repeat\(3,minmax\(0,1fr\)\)/);
@@ -211,4 +211,12 @@ test("Chapitre 4 : morceau visible en grand et repérable sur disque",()=>{
  assert.match(css,/#file-raid-lab \.file-raid-photo-tile\.is-matched/);
  assert.match(css,/#file-raid-lab \.file-raid-data\.is-matched/);
  assert.match(css,/#file-raid-lab \.file-raid-selection\[hidden\]/);
+});
+
+test("Chapitre 4 : image entière sans bande bleue dans les blocs",()=>{
+ assert.match(css,/#file-raid-lab \.file-raid-drive \.file-raid-data,\s*#file-raid-lab \.file-raid-recovered \.file-raid-data/);
+ assert.match(css,/background-image:var\(--file-raid-photo\);background-size:400% 300%/);
+ assert.match(css,/aspect-ratio:1\/1/);
+ assert.match(css,/position:absolute;right:3px;bottom:3px/);
+ assert.doesNotMatch(js,/block\.prepend\(thumbnail\)/);
 });
