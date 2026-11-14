@@ -46,8 +46,8 @@ test("NAS interactif V2 et réglage séparé",()=>{
  assert.match(css,/grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
 });
 test("messages simples à l'écran",()=>{
- assert.match(js,/Ça marche encore/);
- assert.match(js,/Ça ne marche plus/);
+ assert.match(js,/Le RAID fonctionne encore/);
+ assert.match(js,/RAID indisponible/);
  assert.doesNotMatch(js,/Volume indisponible|Volume toujours disponible|La redondance peut être diminuée/);
  assert.match(html,/Clique sur un tiroir/);
 });
@@ -144,4 +144,9 @@ test("Simulateur : spare facultatif et reconstruction pédagogique",()=>{
  assert.match(js,/sparePhase="done"/);
  assert.match(js,/assessRaidFailures\(cfg\(selected,physical\)/);
  assert.match(html,/reconstruction du spare est représentée étape par étape/);
+});
+test("Simulateur : une parité P par rangée RAID 5, P et Q par rangée RAID 6",()=>{
+ const part=js.slice(js.indexOf("const layouts="),js.indexOf("const explanations="));
+ assert.match(part,/"5":\[\["A1","B1","P"\],\["A2","P","C1"\],\["P","B2","C2"\]\]/);
+ assert.match(part,/"6":\[\["A1","B1","P","Q"\],\["A2","P","Q","D1"\],\["P","Q","C1","D2"\],\["Q","B2","C2","P"\]\]/);
 });
