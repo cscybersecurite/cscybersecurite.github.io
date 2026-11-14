@@ -6,13 +6,13 @@ const levels=[["1","Miroir"],["5","Parité simple"],["6","Double parité"]];
 let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"})),counter=4;
 const layouts={
  "1":[["A1","B1","C1"],["A1","B1","C1"]],
- "5":[["A1","B1","P"],["A2","P","C1"],["P","B2","C2"]],
- "6":[["A1","B1","P","Q"],["A2","P","Q","D1"],["P","Q","C1","D2"],["Q","B2","C2","P"]]
+ "5":[["A1","A2","A3","P"],["B1","B2","P","A4"],["C1","P","B3","B4"],["P","C2","C3","C4"]],
+ "6":[["A1","A2","A3","P"],["B1","B2","P","Q"],["C1","P","Q","A4"],["P","Q","B3","B4"],["Q","C2","C3","C4"]]
 };
 const explanations={
  "1":"Les deux disques contiennent exactement les mêmes blocs. Ils forment un miroir.",
- "5":"Les données sont réparties sur trois disques. Les blocs orange P servent à retrouver les données après une panne.",
- "6":"Quatre disques, avec deux parités P (orange) et Q (verte). Le RAID peut supporter deux pannes de disques."
+ "5":"Exemple avec quatre disques actifs (minimum : trois). Les blocs orange P servent à retrouver les données après une panne.",
+ "6":"Exemple avec cinq disques actifs (minimum : quatre). Les parités P (orange) et Q (verte) permettent de supporter deux pannes de disques."
 };
 function renderLevels(){
  $("levels").replaceChildren();
