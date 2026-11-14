@@ -198,3 +198,17 @@ test("Chapitre 4 : pas de parité dédiée à un disque ni d'affirmation de rép
  assert.match(intro,/Le RAID ne remplace pas une sauvegarde/);
  assert.match(js,/les disques en panne ne sont pas réparés/);
 });
+
+test("Chapitre 4 : morceau visible en grand et repérable sur disque",()=>{
+ assert.match(html,/id="file-raid-selection"/);
+ assert.match(js,/const block=document.createElement\(isData\?"button":"span"\)/);
+ assert.match(js,/block\.dataset\.piece=name/);
+ assert.match(js,/tile\.dataset\.piece=name/);
+ assert.match(js,/selectedPiece=selectedPiece===control\.dataset\.piece\?null:control\.dataset\.piece/);
+ assert.match(js,/el\.classList\.toggle\("is-matched",matched\)/);
+ assert.match(css,/#file-raid-lab \.file-raid-drive \.file-raid-mini-photo/);
+ assert.match(css,/aspect-ratio:1\/1/);
+ assert.match(css,/#file-raid-lab \.file-raid-photo-tile\.is-matched/);
+ assert.match(css,/#file-raid-lab \.file-raid-data\.is-matched/);
+ assert.match(css,/#file-raid-lab \.file-raid-selection\[hidden\]/);
+});
