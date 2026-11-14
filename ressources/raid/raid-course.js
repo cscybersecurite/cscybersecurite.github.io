@@ -2,23 +2,17 @@ import {calculateRaid,assessRaidFailures} from "./raid-core.js";
 const $=id=>document.getElementById(id);
 const cfg=(level,disks)=>({format:"raid-configuration",schemaVersion:1,level,disks});
 const fmt=n=>new Intl.NumberFormat("fr-FR",{maximumFractionDigits:4}).format(n)+" To";
-const levels=[["0","Répartir, sans copie"],["1","Copier chaque bloc"],["5","Parité simple"],["6","Double parité"],["10","Miroirs répartis"],["01","Groupes répartis en miroir"]];
-let selected="5",failed=new Set(),disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"})),counter=4;
+const levels=[["1","Miroir"],["5","Parité simple"],["6","Double parité"]];
+let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"})),counter=4;
 const layouts={
- "0":[["A1","A4","A7"],["A2","A5","A8"],["A3","A6","A9"]],
- "1":[["A1","A2","A3"],["A1","A2","A3"],["A1","A2","A3"]],
- "5":[["A1","A2","P"],["A3","P","A4"],["P","A5","A6"]],
- "6":[["A1","A2","P","Q"],["A3","P","Q","A4"],["P","Q","A5","A6"],["Q","A7","A8","P"]],
- "10":[["A1","A2","A3"],["A1","A2","A3"],["A4","A5","A6"],["A4","A5","A6"]],
- "01":[["A1","A3","A5"],["A2","A4","A6"],["A1","A3","A5"],["A2","A4","A6"]]
+ "1":[["A1","B1","C1"],["A1","B1","C1"]],
+ "5":[["A1","B1","C1","P"],["A2","B2","P","C2"],["A3","P","C3","B3"]],
+ "6":[["A1","B1","P","Q"],["A2","P","Q","B2"],["P","Q","A3","B3"],["Q","A4","B4","P"]]
 };
 const explanations={
- "0":"Les blocs sont répartis. Si un disque casse, le RAID ne fonctionne plus.",
- "1":"Chaque disque garde les mêmes données. Un disque peut tomber en panne : l'autre garde les fichiers.",
- "5":"La parité P sert à retrouver les données si un disque casse. Mais pas deux.",
- "6":"Il y a deux protections : P et Q. Le RAID peut continuer même si deux disques tombent en panne.",
- "10":"Les disques travaillent par paires. Dans chaque paire, les données sont copiées. Si les deux disques d'une paire cassent, le RAID ne marche plus.",
- "01":"Il y a deux groupes de disques. Chaque groupe garde les mêmes fichiers. Si un disque casse dans chaque groupe, le RAID ne marche plus."
+ "1":"Les deux disques contiennent exactement les mêmes blocs. Ils forment un miroir.",
+ "5":"Les données sont réparties sur trois disques. Les blocs orange P servent à retrouver les données après une panne.",
+ "6":"Quatre disques, avec deux parités P (orange) et Q (verte). Le RAID peut supporter deux pannes de disques."
 };
 function renderLevels(){
  $("levels").replaceChildren();
@@ -27,37 +21,92 @@ function renderLevels(){
   b.setAttribute("aria-pressed",String(id===selected));
   const name=document.createElement("strong");name.textContent="RAID "+id;
   const small=document.createElement("small");small.textContent=subtitle;
-  b.append(name,small);b.addEventListener("click",()=>{selected=id;failed.clear();renderLevels();renderSimulation()});
+  b.append(name,small);
+  b.addEventListener("click",()=>{selected=id;failed.clear();withSpare=false;sparePhase="standby";renderLevels();renderSimulation()});
   $("levels").append(b);
  }
 }
 function renderSimulation(){
  const rows=layouts[selected],result=$("sim-disks");result.replaceChildren();
  const active=rows.map((_,i)=>({id:"d"+(i+1),capacityTB:2,role:"active"}));
- for(let i=0;i<rows.length;i++){
-  const disk=document.createElement("article");disk.className="sim-disk"+(failed.has("d"+(i+1))?" off":"");
-  const title=document.createElement("h4");title.textContent="Disque "+(i+1)+(failed.has("d"+(i+1))?" • En panne":"");
+ const spareId="secours",oneFailure=failed.size===1;
+ const spareRebuilt=withSpare&&sparePhase==="done"&&oneFailure;
+ const physical=active.concat(withSpare?[{id:spareId,capacityTB:2,role:"spare"}]:[]);
+ for(let i=0;i<physical.length;i++){
+  const d=physical[i],isSpare=d.id===spareId,isFailed=failed.has(d.id);
+  const disk=document.createElement("article");
+  disk.className="sim-disk"+(isFailed?" off":"")+(isSpare?" spare-disk":"");
+  const title=document.createElement("h4");
+  title.textContent=isSpare?"Disque de secours":("Disque "+(i+1)+(isFailed?" • En panne":""));
   disk.append(title);
-  for(const block of rows[i]){
-   const tile=document.createElement("div");tile.className="block"+(["P","Q"].includes(block)?" parity":selected==="1"?" mirror":"");tile.textContent=block==="P"?"P • parité":block==="Q"?"Q • parité":block;disk.append(tile);
+  const diskBlocks=isSpare?(sparePhase==="rebuilding"||sparePhase==="done"?rows[Number([...failed][0].slice(1))-1]:[]):rows[i];
+  if(isSpare){
+   const status=document.createElement("p");status.className="spare-label";
+   status.textContent=sparePhase==="done"?"Reconstruction terminée":sparePhase==="rebuilding"?"Reconstruction simulée": "En attente";
+   disk.append(status);
+  }
+  for(const block of diskBlocks){
+   const tile=document.createElement("div");
+   tile.className="block"+(block==="P"?" parity-p":block==="Q"?" parity-q":" data-block")+(isSpare?" copied-block":"");
+   tile.textContent=block==="P"?"P":block==="Q"?"Q":block;
+   disk.append(tile);
+  }
+  if(isSpare&&sparePhase==="standby"){
+    const empty=document.createElement("div");empty.className="spare-empty";
+    empty.textContent="Aucune donnée du RAID";disk.append(empty);
   }
   result.append(disk);
  }
  $("sim-description").textContent=explanations[selected];
+ $("sim-spare-controls").hidden=selected==="1";
+ const spareToggle=$("sim-spare-toggle");
+ spareToggle.checked=withSpare;
+ $("sim-spare-caption").textContent=withSpare?"Disque de secours ajouté. Il ne stocke pas encore les données du RAID.":"Ajoute un disque de secours pour observer son rôle après une panne.";
  const buttons=$("failure-actions");buttons.replaceChildren();
  for(const d of active){
   const b=document.createElement("button");b.type="button";b.className="failure-btn";
   b.setAttribute("aria-pressed",String(failed.has(d.id)));
   b.textContent=failed.has(d.id)?"Remettre disque "+d.id.slice(1):"Panne disque "+d.id.slice(1);
-  b.addEventListener("click",()=>{failed.has(d.id)?failed.delete(d.id):failed.add(d.id);renderSimulation()});buttons.append(b);
+  b.addEventListener("click",()=>{
+   failed.has(d.id)?failed.delete(d.id):failed.add(d.id);
+   sparePhase="standby";renderSimulation();
+  });buttons.append(b);
  }
- const state=assessRaidFailures(cfg(selected,active),[...failed]);
- const message=$("sim-feedback");
+ const state=assessRaidFailures(cfg(selected,physical),[...failed]);
+ const message=$("sim-feedback"),spareActions=$("sim-spare-actions");
+ spareActions.replaceChildren();
  if(!state.ok){message.textContent=state.errors[0].message;return}
- if(!failed.size){message.textContent="Tout marche. Clique sur « Panne disque » pour faire un essai.";return}
- message.textContent=state.value.available
-  ? "Ça marche encore. "+failed.size+" disque"+(failed.size>1?"s":"")+" en panne. Il faut réparer."
-  : "Ça ne marche plus. Trop de disques sont en panne. Le RAID ne peut plus retrouver les fichiers.";
+ if(!failed.size){message.textContent="Tout fonctionne. Choisis un disque à mettre en panne.";return}
+ if(!state.value.available){
+  message.textContent="RAID indisponible. Le disque de secours ne peut pas remplacer les données perdues lorsqu'il y a trop de pannes.";
+  return;
+ }
+ if(withSpare&&oneFailure){
+  if(sparePhase==="standby"){
+   message.textContent="Le RAID fonctionne encore, mais un disque est en panne. Le disque de secours peut prendre sa place.";
+   const start=document.createElement("button");start.type="button";start.className="spare-action";
+   start.textContent="Lancer la reconstruction (simulation)";
+   start.addEventListener("click",()=>{sparePhase="rebuilding";renderSimulation()});spareActions.append(start);
+   return;
+  }
+  if(sparePhase==="rebuilding"){
+   message.textContent="Reconstruction simulée : les blocs du disque en panne sont recopiés ou recalculés sur le disque de secours.";
+   const finish=document.createElement("button");finish.type="button";finish.className="spare-action";
+   finish.textContent="Terminer la reconstruction";
+   finish.addEventListener("click",()=>{sparePhase="done";renderSimulation()});spareActions.append(finish);
+   return;
+  }
+  if(spareRebuilt){
+   message.textContent="Reconstruction terminée dans cette démonstration. Le disque de secours remplace maintenant le disque en panne. Une autre panne n'est plus protégée par ce même disque de secours.";
+   return;
+  }
+ }
+ message.textContent="Le RAID fonctionne encore malgré "+failed.size+" disque"+(failed.size>1?"s":"")+" en panne. Il faut remplacer les disques défectueux.";
+}
+function initSimSpare(){
+ const toggle=$("sim-spare-toggle");
+ if(!toggle)return;
+ toggle.addEventListener("change",()=>{withSpare=toggle.checked;failed.clear();sparePhase="standby";renderSimulation()});
 }
 function bindQuizzes(){
  const explanations={
@@ -214,4 +263,4 @@ function initStorageLab(){
  for(const b of buttons)b.addEventListener("click",()=>show(Number(b.dataset.storageStep)));
  show(1);
 }
-renderLevels();renderSimulation();bindQuizzes();initStorageLab();renderTool();
+renderLevels();initSimSpare();renderSimulation();bindQuizzes();initStorageLab();renderTool();
