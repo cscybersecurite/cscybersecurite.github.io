@@ -2,7 +2,7 @@
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Comprendre le RAID avec des disques interactifs, des pannes simulées et un calculateur.">
 <title>RAID : les données sous protection | CIEL</title>
-<link rel="stylesheet" href="./raid-course.css?v=6"></head>
+<link rel="stylesheet" href="./raid-course.css?v=7"></head>
 <body><header class="top"><div class="top-inner"><div class="brand">CIEL / Stockage & sécurité</div><a class="home" href="/" aria-label="Retour au portail">Retour au portail</a></div></header>
 <section class="hero"><div class="hero-inner"><div><span class="eyebrow">Cours interactif • 01 / Stockage</span><h1>Un disque lâche.<br><em>Et après ?</em></h1>
 <p>Une entreprise garde ses fichiers sur des disques. Mais que se passe-t-il si un disque casse ? Tu vas essayer plusieurs RAID et découvrir lesquels continuent à marcher.</p>
@@ -52,13 +52,15 @@
 <div class="panel"><span class="tag">Miroir</span><h3>Une copie sur chaque disque</h3><p>Les disques gardent les mêmes fichiers. Si un disque casse, l'autre a encore une copie.</p><div class="flowline"><span class="flow-unit"><strong>A1 • A2</strong><small>Disque 1</small></span><span class="flow-unit"><strong>A1 • A2</strong><small>Disque 2</small></span></div><p class="tiny">C'est le RAID 1. On utilise de la place pour garder une copie.</p></div></div>
 <div class="quiz" data-question="mirror"><span class="tag">Mini-défi 02</span><h3>Deux disques contiennent exactement les mêmes données. Quel principe est utilisé ?</h3><div class="choices"><button data-answer="oui">Le miroir</button><button data-answer="non">La répartition sans copie</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="simulateur"><div class="chapter-head"><span class="chapter-index">03</span><div><h2>Un RAID, bloc par bloc</h2><p>Choisis un RAID. Puis fais tomber un disque en panne.</p></div></div>
-<div class="panel"><div class="sim-top"><div><span class="tag">Manipulation</span><h3>Le serveur de test</h3><p>Chaque case représente un petit morceau de fichier. Ce dessin est simplifié.</p></div><span class="sim-led">● Simulation locale</span></div>
+<section class="chapter" id="simulateur"><div class="chapter-head"><span class="chapter-index">03</span><div><h2>Un RAID, bloc par bloc</h2><p>Compare RAID 1, RAID 5 et RAID 6, puis teste une panne.</p></div></div>
+<div class="panel"><div class="sim-top"><div><span class="tag">Manipulation</span><h3>Le serveur de test</h3><p>Chaque disque contient des blocs de données. Les lettres A, B et C représentent des groupes de données ; les blocs P et Q représentent les parités.</p></div><span class="sim-led">● Simulation locale</span></div>
 <div class="level-grid" id="levels" aria-label="Niveau RAID à visualiser"></div>
+<div class="sim-legend" aria-label="Légende des couleurs"><span><i class="sim-swatch swatch-data"></i> Données (bleu)</span><span><i class="sim-swatch swatch-p"></i> Parité P (orange)</span><span><i class="sim-swatch swatch-q"></i> Parité Q (vert)</span></div>
+<div class="sim-spare-controls" id="sim-spare-controls"><label class="sim-spare-option"><input type="checkbox" id="sim-spare-toggle"> Ajouter un disque de secours (spare)</label><p id="sim-spare-caption" class="tiny">Ajoute un disque de secours pour observer son rôle après une panne.</p></div>
 <div class="sim-grid" id="sim-disks"></div><p id="sim-description" class="sim-note"></p>
 <h3>Teste une panne</h3><div id="failure-actions" class="failure-actions"></div>
-<div id="sim-feedback" class="sim-feedback" aria-live="polite">Sélectionne un disque en panne pour observer les conséquences.</div>
-<p class="tiny">Ici, tu testes les pannes. Le simulateur ne répare pas les disques et ne lance pas de réparation automatique.</p></div></section>
+<div id="sim-feedback" class="sim-feedback" aria-live="polite">Sélectionne un disque en panne pour observer les conséquences.</div><div id="sim-spare-actions" class="sim-spare-actions"></div>
+<p class="tiny">Il s'agit d'une démonstration pédagogique : la reconstruction du spare est représentée étape par étape, sans durée réelle ni échange de données avec un serveur.</p></div></section>
 
 <section class="chapter" id="parite"><div class="chapter-head"><span class="chapter-index">04</span><div><h2>La parité, sans formule compliquée</h2><p>Comment protéger des fichiers sans tout copier ?</p></div></div>
 <div class="panel"><h3>Trois disques : des fichiers et une protection</h3><p>En RAID 5, les disques gardent aussi une information de protection. Son nom : <strong>parité</strong>. Si un disque casse, cette information aide à retrouver ce qui manque.</p>
@@ -121,5 +123,5 @@
 <p><strong>Avant de choisir un RAID :</strong> demande combien de place il faut, combien de pannes le NAS doit supporter et où sont les sauvegardes.</p>
 <p class="mini">Cours RAID V5.0, adapté aux smartphones. Schémas simples pour apprendre. Calculs réalisés par notre moteur RAID.</p></div></section>
 </main><footer class="footer"><div class="footer-inner">CIEL • Technologies de stockage et cybersécurité. Tu peux utiliser ce cours sans compte. <a href="#depart">Retour au début</a>.</div></footer>
-<script type="module" src="./raid-course.js?v=5"></script>
+<script type="module" src="./raid-course.js?v=7"></script>
 </body></html>
