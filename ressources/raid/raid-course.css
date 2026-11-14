@@ -303,3 +303,47 @@
  #file-raid-lab .file-raid-photo-tile b{font-size:.65rem;padding:1px 4px}
 }
 @media(prefers-reduced-motion:reduce){#file-raid-lab .file-raid-photo-tile{transition:none}}
+
+/* Photo RAID : vignettes intégrales, sans boîtes bleues qui masquent les morceaux. */
+#file-raid-lab .file-raid-workspace{gap:12px}
+#file-raid-lab .file-raid-drives{width:100%;gap:8px}
+#file-raid-lab .file-raid-drive{padding:9px 7px;gap:7px}
+#file-raid-lab .file-raid-drive .file-raid-data{
+ appearance:none;cursor:pointer;display:flex;flex-direction:column;gap:0;align-items:stretch;
+ justify-content:flex-start;padding:2px;min-width:0;min-height:0;width:100%;
+ border:2px solid #88c5e0;border-radius:8px;background:#0e2836;overflow:hidden;box-shadow:none;color:white;
+}
+#file-raid-lab .file-raid-drive .file-raid-mini-photo{
+ display:block;width:100%;height:auto;max-width:none;aspect-ratio:1/1;
+ background-image:var(--file-raid-photo);background-size:400% 300%;background-repeat:no-repeat;
+ border:0;border-radius:4px 4px 0 0;flex:none;
+}
+#file-raid-lab .file-raid-drive .file-raid-data>b{
+ display:block;font-size:.83rem;line-height:1.4;padding:2px 3px;min-width:0;
+ color:#fff;background:#153c53;text-align:center;border-radius:0 0 4px 4px;
+}
+#file-raid-lab .file-raid-recovered .file-raid-mini-photo{
+ width:100%;height:auto;aspect-ratio:1/1;max-width:none;
+}
+#file-raid-lab .file-raid-recovered .file-raid-data{width:72px;padding:2px;background:#153c53;border-radius:7px;overflow:hidden;color:#fff}
+#file-raid-lab .file-raid-recovered .file-raid-data>b{display:block;text-align:center}
+#file-raid-lab .file-raid-photo-tile{appearance:none;cursor:pointer;padding:0;border-radius:0;font:inherit}
+#file-raid-lab .file-raid-photo-tile:focus-visible,
+#file-raid-lab .file-raid-data:focus-visible{outline:3px solid #ffd34c;outline-offset:2px;z-index:3}
+#file-raid-lab .file-raid-photo-tile.is-matched{outline:4px solid #ffd34c;outline-offset:-4px;z-index:2}
+#file-raid-lab .file-raid-data.is-matched{border-color:#ffd34c;box-shadow:0 0 0 3px #ffd34c}
+#file-raid-lab .file-raid-photo-tile.is-matched b,
+#file-raid-lab .file-raid-data.is-matched b{background:#66500a;color:#fff}
+#file-raid-lab .file-raid-selection{
+ margin:0;width:100%;border:1px solid var(--edge);border-radius:8px;
+ padding:9px 12px;background:var(--pale);font-size:.85rem;text-align:center;color:var(--ink);
+}
+#file-raid-lab .file-raid-selection[hidden]{display:none!important}
+@media(max-width:640px){
+ #file-raid-lab .file-raid-drives{gap:4px}
+ #file-raid-lab .file-raid-drive{gap:5px;padding:7px 3px}
+ #file-raid-lab .file-raid-drive .file-raid-data{padding:1px;border-width:1px}
+ #file-raid-lab .file-raid-drive .file-raid-data>b{font-size:.72rem}
+ #file-raid-lab .file-raid-photo-tile.is-matched{outline-width:3px}
+ #file-raid-lab .file-raid-recovered .file-raid-data{width:59px}
+}
