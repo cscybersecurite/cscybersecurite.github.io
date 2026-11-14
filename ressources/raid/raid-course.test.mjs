@@ -174,6 +174,16 @@ test("Chapitre 4 : suivre un seul fichier du RAID 5 au RAID 6",()=>{
  assert.match(js,/function initFileRaidLab\(/);
  assert.match(js,/initFileRaidLab\(\)/);
  assert.match(js,/Array\.from\(\{length:12\}/);
+ assert.match(js,/const photoSvg=/);
+ assert.match(js,/encodeURIComponent\(photoSvg\)/);
+ assert.match(js,/function initFileRaidLab\(/);
+ assert.match(js,/setPhotoCrop\(tile,name\)/);
+ assert.match(js,/setPhotoCrop\(thumbnail,name\)/);
+ assert.match(js,/const missing=missingFor\(matrix,breakdowns\)/);
+ assert.match(css,/background-size:400% 300%/);
+ assert.match(css,/grid-template-rows:repeat\(3,minmax\(0,1fr\)\)/);
+ assert.match(css,/\.file-raid-photo-tile\.is-restored/);
+ assert.match(html,/id="file-raid-photo-shell"/);
  assert.match(js,/const n=mode==="5"\?4:5/);
  assert.match(js,/const q=mode==="6"/);
  assert.match(js,/const p=\(n-1-stripe\+n\)%n/);
