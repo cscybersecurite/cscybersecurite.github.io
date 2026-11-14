@@ -271,3 +271,7 @@
 .file-raid-dots button{min-width:42px;padding:7px;min-height:44px}
 .file-raid-switch button:focus-visible,.file-raid-controls button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media(max-width:640px){.file-raid-drives{gap:4px}.file-raid-drive{padding:7px 3px;border-width:1px}.file-raid-drive>strong{font-size:.66rem;min-height:34px}.file-raid-block{min-height:32px;padding:3px 1px;font-size:.75rem}.file-raid-workspace{padding:8px;min-height:225px}.file-raid-pieces{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.file-raid-controls>.file-raid-dots{order:-1;justify-content:center;width:100%}.file-raid-controls>button{flex:1}}
+
+.file-raid-recovered{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:4px 0}
+.file-raid-recovered .file-raid-block{min-width:43px}
+.file-raid-recovered .file-raid-rebuilt{outline:2px solid #36ad70;outline-offset:2px}
