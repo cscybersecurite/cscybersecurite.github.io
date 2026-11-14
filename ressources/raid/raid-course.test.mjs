@@ -123,3 +123,25 @@ test("V4 : façade NAS identifiable sans retirer les tiroirs interactifs",()=>{
  assert.match(css,/\.nas-feet i/);
  assert.match(css,/@media\(max-width:480px\)/);
 });
+
+test("Simulateur bloc par bloc : RAID 1, 5 et 6 uniquement",()=>{
+ const levels=js.match(/const levels=\[([\s\S]*?)\];/)?.[1];
+ assert.ok(levels);
+ assert.match(levels,/\["1","Miroir"\]/);
+ assert.match(levels,/\["5","Parité simple"\]/);
+ assert.match(levels,/\["6","Double parité"\]/);
+ assert.doesNotMatch(levels,/\["0"|\["10"|\["01"/);
+ assert.match(js,/const layouts=/);
+ assert.match(css,/\.swatch-data\{background:#1469de/);
+ assert.match(css,/\.swatch-p\{background:#ff8b23/);
+ assert.match(css,/\.swatch-q\{background:#25b968/);
+});
+test("Simulateur : spare facultatif et reconstruction pédagogique",()=>{
+ for(const id of ["sim-spare-controls","sim-spare-toggle","sim-spare-caption","sim-spare-actions"])
+  assert.ok(html.includes('id="'+id+'"'),id);
+ assert.match(js,/function initSimSpare\(/);
+ assert.match(js,/sparePhase="rebuilding"/);
+ assert.match(js,/sparePhase="done"/);
+ assert.match(js,/assessRaidFailures\(cfg\(selected,physical\)/);
+ assert.match(html,/reconstruction du spare est représentée étape par étape/);
+});
