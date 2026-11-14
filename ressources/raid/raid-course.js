@@ -6,8 +6,8 @@ const levels=[["1","Miroir"],["5","Parité simple"],["6","Double parité"]];
 let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"})),counter=4;
 const layouts={
  "1":[["A1","B1","C1"],["A1","B1","C1"]],
- "5":[["A1","B1","C1","P"],["A2","B2","P","C2"],["A3","P","C3","B3"]],
- "6":[["A1","B1","P","Q"],["A2","P","Q","B2"],["P","Q","A3","B3"],["Q","A4","B4","P"]]
+ "5":[["A1","B1","P"],["A2","P","C1"],["P","B2","C2"]],
+ "6":[["A1","B1","P","Q"],["A2","P","Q","D1"],["P","Q","C1","D2"],["Q","B2","C2","P"]]
 };
 const explanations={
  "1":"Les deux disques contiennent exactement les mêmes blocs. Ils forment un miroir.",
