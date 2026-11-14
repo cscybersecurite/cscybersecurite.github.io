@@ -202,3 +202,31 @@
 @media(max-width:770px){.hardware-detailed .hardware-card{display:grid;grid-template-columns:minmax(128px,44%) 1fr}.hardware-detailed .hardware-art{min-height:100px}.hardware-detailed .hardware-card figcaption{align-self:center}}
 @media(max-width:520px){.storage-lab-scene{grid-template-columns:minmax(0,1fr) 49px;gap:7px}.storage-machine{padding:9px 6px;border-width:3px;min-height:166px}.storage-partitions{gap:3px;min-height:122px}.storage-partition{padding:6px 2px;border-width:1px;gap:5px}.storage-partition>small{font-size:9px}.storage-volume{min-height:79px}.storage-volume>b{font-size:21px}.storage-docs{gap:2px}.storage-docs>i{font-size:8px;padding:3px 2px}.storage-usb-device{width:33px;height:83px;font-size:.52rem}.storage-usb-tip{width:22px;height:21px;top:-18px}.storage-usb small{font-size:.61rem}.storage-step-picks{order:-1;width:100%;justify-content:center}.storage-lab-controls>button{flex:1}.storage-lab-top strong{font-size:.96rem}.storage-lab-top>span{font-size:.75rem}.hardware-detailed .hardware-card{grid-template-columns:minmax(105px,42%) 1fr;gap:8px;padding:9px}.hardware-detailed .hardware-art{min-height:0;padding:2px}.hardware-detailed .hardware-card figcaption span{font-size:.81rem}}
 @media(prefers-reduced-motion:reduce){.storage-usb{transition:none}}
+
+/* Simulateur bloc par bloc : bleu données, orange P, vert Q comme le schéma du professeur. */
+#simulateur .level-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#simulateur .level-btn{min-height:74px}
+#simulateur .sim-legend{display:flex;gap:15px;flex-wrap:wrap;margin:14px 0 8px;font-size:.84rem}
+#simulateur .sim-legend>span{display:inline-flex;align-items:center;gap:6px}
+#simulateur .sim-swatch{display:inline-block;width:16px;height:16px;border-radius:4px;border:1px solid #164d73}
+#simulateur .swatch-data{background:#1469de}
+#simulateur .swatch-p{background:#ff8b23;border-color:#a9520d}
+#simulateur .swatch-q{background:#25b968;border-color:#127541}
+#simulateur .sim-grid{grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:9px}
+#simulateur .sim-disk{background:#14384b;border:2px solid #31728b;border-radius:13px;padding:10px;color:#f4faff}
+#simulateur .sim-disk h4{color:#f4faff}
+#simulateur .sim-disk .block{border-radius:16px / 9px;min-height:34px;padding:8px 4px;margin:5px 0;background:linear-gradient(180deg,#34a1ff 0%,#1167dd 45%,#0645b5 100%);color:#fff;border:1px solid #5ab5ff;box-shadow:inset 0 3px 0 #9bd4ff88,0 2px 2px #0003;font-size:.82rem}
+#simulateur .sim-disk .block.parity-p{background:linear-gradient(180deg,#ffbd57,#ff8618 46%,#d85504);border-color:#ffd195;box-shadow:inset 0 3px 0 #ffe3a488,0 2px 2px #0003;color:#281607}
+#simulateur .sim-disk .block.parity-q{background:linear-gradient(180deg,#70eb9c,#23b560 46%,#0d7b42);border-color:#9bf3b9;box-shadow:inset 0 3px 0 #b4ffd288,0 2px 2px #0003;color:#082815}
+#simulateur .sim-disk.off{opacity:.48;border-color:#ed6b6b;filter:grayscale(.72)}
+#simulateur .sim-disk.spare-disk{background:#394a56;border-color:#9baeb8}
+#simulateur .spare-label{font-size:.76rem;color:#e1ebf0;margin:0 0 8px;font-weight:750}
+#simulateur .spare-empty{border:2px dashed #b4c2ca;border-radius:10px;min-height:105px;display:grid;place-items:center;padding:12px 6px;text-align:center;color:#e4eef2;font-size:.78rem}
+#simulateur .sim-spare-controls{background:var(--pale);border:1px solid var(--edge);border-radius:10px;padding:10px 13px;margin-top:12px}
+#simulateur .sim-spare-controls[hidden]{display:none}
+#simulateur .sim-spare-option{font-weight:800;display:flex;gap:10px;align-items:center;cursor:pointer}
+#simulateur .sim-spare-option input{width:20px;height:20px;accent-color:#2376bc}
+#simulateur .sim-spare-controls p{margin:4px 0 0}
+#simulateur .spare-action{border:1px solid var(--accent);background:var(--pale);color:var(--ink);border-radius:8px;padding:11px 14px;margin-top:10px;font-weight:800;min-height:44px;cursor:pointer}
+#simulateur .spare-action:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:550px){#simulateur .level-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}#simulateur .level-btn{padding:9px 7px;min-height:64px}#simulateur .level-btn strong{font-size:1rem}#simulateur .level-btn small{font-size:.7rem}#simulateur .sim-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#simulateur .sim-legend{gap:9px}}
