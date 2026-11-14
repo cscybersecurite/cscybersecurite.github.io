@@ -268,20 +268,50 @@ function initStorageLab(){
 function initFileRaidLab(){
  const root=$("file-raid-lab");if(!root)return;
  let mode="5",step=1;
- const titles=["Un fichier à enregistrer","Le fichier est découpé","Les disques enregistrent les morceaux","Un disque tombe en panne","Le fichier reste accessible"];
+ const titles=["Un fichier à enregistrer","La même photo, découpée en 12 morceaux","Les morceaux sont répartis sur les disques","Un disque tombe en panne","La photo est reconstituée"];
  const pieces=Array.from({length:12},(_,i)=>"M"+(i+1));
+ // Une seule illustration, réutilisée à l'identique pour la photo entière et les 12 fragments.
+ const photoSvg='<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">'+
+  '<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#4ca7de"/><stop offset="1" stop-color="#d9eef5"/></linearGradient><linearGradient id="water" x2="0" y2="1"><stop stop-color="#4789ac"/><stop offset="1" stop-color="#164967"/></linearGradient></defs>'+
+  '<rect width="800" height="600" fill="url(#sky)"/>'+
+  '<circle cx="643" cy="120" r="59" fill="#ffe2a3"/>'+
+  '<path d="M0 350L146 172L240 269L382 95L532 298L655 189L800 350Z" fill="#627c9a"/>'+
+  '<path d="M250 264L382 95L507 265L435 230L394 241L350 191L307 261Z" fill="#e2edf0"/>'+
+  '<path d="M0 345L155 243L279 337L452 240L600 320L800 247V460H0Z" fill="#3f8d72"/>'+
+  '<path d="M0 395Q195 350 405 393T800 379V600H0Z" fill="url(#water)"/>'+
+  '<path d="M0 468Q195 425 405 476T800 448" fill="none" stroke="#aad0db" stroke-width="10" opacity=".75"/>'+
+  '<path d="M0 528Q200 496 430 534T800 510" fill="none" stroke="#9bc5d6" stroke-width="6" opacity=".7"/>'+
+  '<path d="M0 367L90 289L135 374Z" fill="#245d4f"/>'+
+  '<path d="M670 400L744 251L800 395Z" fill="#286957"/>'+
+  '<path d="M702 355L744 251L780 357Z" fill="#317e61"/>'+
+  '<path d="M68 410L98 264L126 410Z" fill="#2b765a"/>'+
+  '<rect x="91" y="359" width="10" height="71" fill="#785642"/>'+
+  '<path d="M90 329l-25 66h62z" fill="#1b6449"/>'+
+  '</svg>';
+ root.style.setProperty("--file-raid-photo",'url("data:image/svg+xml,'+encodeURIComponent(photoSvg)+'")');
+ const missingFor=(matrix,failures)=>new Set(failures.flatMap(index=>matrix[index].filter(block=>block.startsWith("M"))));
+ const setPhotoCrop=(el,name)=>{
+  const index=Number(name.slice(1))-1,col=index%4,row=Math.floor(index/4);
+  el.style.backgroundPosition=(col*100/3)+"% "+(row*100/2)+"%";
+ };
  const drawBlock=(name)=>{
   const block=document.createElement("span");
   block.className="file-raid-block "+(name.startsWith("P")?"file-raid-p":name.startsWith("Q")?"file-raid-q":"file-raid-data");
   block.textContent=name;
   block.setAttribute("aria-label",name.startsWith("P")?"Parité P, bande "+name.slice(1):name.startsWith("Q")?"Parité Q, bande "+name.slice(1):"Morceau "+name.slice(1)+" du fichier");
+  if(name.startsWith("M")){
+   const thumbnail=document.createElement("i");
+   thumbnail.className="file-raid-mini-photo";
+   thumbnail.setAttribute("aria-hidden","true");
+   setPhotoCrop(thumbnail,name);
+   block.prepend(thumbnail);
+  }
   return block;
  };
  function stripes(){
   const n=mode==="5"?4:5;
   const matrix=Array.from({length:n},()=>[]);
   for(let stripe=0;stripe<4;stripe++){
-   // Pour une bande : une parité tournante en RAID 5, deux parités distinctes en RAID 6.
    const p=(n-1-stripe+n)%n;
    const q=mode==="6"?(p-1+n)%n:-1;
    let data=0;
@@ -294,22 +324,40 @@ function initFileRaidLab(){
  }
  function render(){
   const n=mode==="5"?4:5,breakdowns=mode==="5"?[1]:[1,3],matrix=stripes(),failed=step>=4;
+  const missing=missingFor(matrix,breakdowns);
   $("file-raid-5").setAttribute("aria-pressed",String(mode==="5"));
   $("file-raid-6").setAttribute("aria-pressed",String(mode==="6"));
   $("file-raid-count").textContent="Étape "+step+" sur 5";
   $("file-raid-title").textContent=step+". "+titles[step-1];
   const words=[
-   "Voici notre fichier photo.jpg. Nous allons voir comment il est enregistré.",
-   "Le RAID découpe le fichier en petits morceaux. Nous les appelons M1, M2, M3... jusqu'à M12.",
-   "Le fichier est réparti sur "+n+" disques. Les blocs orange P"+(mode==="6"?" et verts Q":"")+" servent à retrouver les morceaux manquants. La parité change de disque à chaque bande.",
-   mode==="5"?"Le disque 2 tombe en panne. Plusieurs morceaux et informations de parité deviennent indisponibles.":"Les disques 2 et 4 tombent en panne. Il manque des morceaux et des informations de parité.",
-   "Le RAID utilise les autres morceaux et les parités pour recalculer ce qui manque. photo.jpg reste accessible, mais les disques en panne ne sont pas réparés."
+   "Voici notre fichier photo.jpg. Regarde bien cette photo : nous allons toujours utiliser la même.",
+   "C'est toujours photo.jpg, mais elle est maintenant coupée en 12 morceaux, de M1 à M12.",
+   "Retrouve les mêmes morceaux M1 à M12 dans les "+n+" disques. Les blocs P"+(mode==="6"?" et Q":"")+" aident à retrouver ce qui manque après une panne. Les parités changent de disque.",
+   mode==="5"?"Le disque 2 tombe en panne. Les morceaux qu'il contenait disparaissent de notre photo.":"Les disques 2 et 4 tombent en panne. Les morceaux qu'ils contenaient disparaissent de notre photo.",
+   "Grâce aux morceaux et aux parités encore disponibles, le RAID retrouve les morceaux manquants. La photo redevient complète, mais les disques en panne ne sont pas réparés."
   ];
   $("file-raid-explanation").textContent=words[step-1];
+  const shell=$("file-raid-photo-shell");
+  shell.classList.toggle("is-compact",step>=3);
   $("file-raid-original").hidden=step!==1;
   const pieceRoot=$("file-raid-pieces");
-  pieceRoot.hidden=step!==2;pieceRoot.replaceChildren();
-  if(step===2)for(const piece of pieces)pieceRoot.append(drawBlock(piece));
+  pieceRoot.hidden=step===1;
+  pieceRoot.setAttribute("aria-label",step===2?"photo.jpg découpée en douze morceaux":step===4?"photo.jpg incomplète après panne":step===5?"photo.jpg reconstituée après panne":"photo.jpg découpée en douze morceaux et répartie sur les disques");
+  pieceRoot.replaceChildren();
+  if(step>=2){
+   for(const name of pieces){
+    const tile=document.createElement("span");
+    const absent=step===4&&missing.has(name);
+    const restored=step===5&&missing.has(name);
+    tile.className="file-raid-photo-tile"+(absent?" is-missing":"")+(restored?" is-restored":"");
+    tile.setAttribute("aria-label",absent?name+" indisponible":restored?name+" retrouvé":name);
+    setPhotoCrop(tile,name);
+    const caption=document.createElement("b");caption.textContent=absent?"?":name;
+    tile.append(caption);
+    pieceRoot.append(tile);
+   }
+  }
+  $("file-raid-photo-state").textContent=step===1?"Fichier entier":step===2?"Le même fichier en 12 morceaux":step===3?"Ces 12 morceaux sont aussi sur les disques":step===4?"Il manque les morceaux des disques en panne":"Les morceaux ont été retrouvés";
   const drives=$("file-raid-drives");drives.hidden=step<3;drives.replaceChildren();
   if(step>=3){
    for(let d=0;d<n;d++){
@@ -332,14 +380,13 @@ function initFileRaidLab(){
   $("file-raid-result").hidden=step!==5;
   const recovered=$("file-raid-recovered");recovered.replaceChildren();
   if(step===5){
-   const missing=breakdowns.flatMap(index=>matrix[index].filter(block=>block.startsWith("M")));
-   for(const name of missing){
+   for(const name of pieces.filter(piece=>missing.has(piece))){
     const tile=drawBlock(name);tile.classList.add("file-raid-rebuilt");
     tile.setAttribute("aria-label","Morceau "+name.slice(1)+" retrouvé par le RAID");
     recovered.append(tile);
    }
   }
-  $("file-raid-result-detail").textContent=mode==="5"?"Un disque en panne. Le fichier est retrouvé grâce aux blocs encore disponibles.":"Deux disques en panne. Les deux parités permettent de retrouver les morceaux manquants.";
+  $("file-raid-result-detail").textContent=mode==="5"?"Un disque en panne. La photo reste accessible grâce aux blocs encore disponibles.":"Deux disques en panne. Les parités permettent de retrouver les morceaux manquants.";
   $("file-raid-prev").disabled=step===1;
   $("file-raid-next").textContent=step===5?"Recommencer":"Suivant";
   for(const button of root.querySelectorAll("[data-file-raid-step]"))button.setAttribute("aria-pressed",String(Number(button.dataset.fileRaidStep)===step));
