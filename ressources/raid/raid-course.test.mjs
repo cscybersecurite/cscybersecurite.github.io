@@ -57,11 +57,27 @@ test("V3 : quatre choix au défi RAID 5",()=>{
  assert.ok(block,"défi 03 présent");
  assert.equal((block.match(/data-answer=/g)||[]).length,4);
 });
-test("V3 : bases du stockage et types de disques illustrés",()=>{
- for(const id of ["storage-stages","disk-drawing","partition-drawing","volume-drawing","files-drawing","hardware-grid","hdd-art","sata-art","nvme-art"])
-  assert.ok(html.includes('class="'+id)||html.includes(' '+id+'"')||html.includes(' '+id+' '),id);
- assert.match(css,/\.storage-stages/);
- assert.match(css,/\.hardware-grid/);
+test("Chapitre 1 : animations de stockage progressives et accessibles",()=>{
+ for(const id of ["storage-lab","storage-stage-name","storage-stage-counter","storage-stage-message","storage-prev","storage-next"])
+  assert.ok(html.includes('id="'+id+'"'),id);
+ assert.equal((html.match(/data-storage-step="[1-5]"/g)||[]).length,5);
+ for(const letter of ["C:","D:","E:","F:"])assert.ok(html.includes(letter),letter);
+ assert.match(js,/function initStorageLab\(/);
+ assert.match(js,/root\.dataset\.step=String\(step\)/);
+ assert.match(js,/\$\("storage-next"\)\.addEventListener/);
+ assert.match(css,/\.storage-lab\[data-step="5"\] \.storage-usb/);
+ assert.match(css,/@media\(max-width:520px\)/);
+});
+test("Chapitre 1 : les trois connectiques sont représentées",()=>{
+ for(const id of ["hardware-detailed","hardware-svg","HDD SATA","SSD SATA 2,5","SSD M.2 NVMe","Contacts dorés","Connecteur M.2","Alim.","Données"])
+  assert.ok(html.includes(id),id);
+ assert.match(html,/aria-label="Dessin d'un disque dur/);
+ assert.match(html,/aria-label="Dessin d'un SSD SATA/);
+ assert.match(html,/aria-label="Dessin d'un SSD M\.2/);
+ assert.match(css,/\.hardware-detailed/);
+});
+test("Chapitre 1 : pas de métaphore de l'armoire",()=>{
+ assert.doesNotMatch(html,/le disque est une armoire|Imagine une armoire/);
 });
 test("V3 : le spare est expliqué avant le mini-défi",()=>{
  assert.match(html,/Le disque de secours : le remplaçant prêt à aider/);

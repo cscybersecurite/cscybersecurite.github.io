@@ -154,3 +154,51 @@
 .nas-feet{position:absolute;inset:auto 6% -15px;display:flex;justify-content:space-between;pointer-events:none}
 .nas-feet i{display:block;width:clamp(25px,6vw,42px);height:11px;border-radius:0 0 8px 8px;background:linear-gradient(#1c2226,#080b0e);box-shadow:0 3px 5px #0005}
 @media(max-width:480px){.nas-feet{bottom:-11px}.nas-feet i{width:24px;height:8px}}
+
+/* Chapitre 1 : laboratoire progressif, sans dessin jetable entre les etapes. */
+.storage-lab{border:1px solid var(--edge);border-radius:14px;background:var(--pale);padding:clamp(12px,2.4vw,21px);margin:16px 0}
+.storage-lab-top{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:13px}
+.storage-lab-top strong{font-size:1.06rem}.storage-lab-top>span{color:var(--muted);font-size:.82rem;white-space:nowrap}
+.storage-lab-scene{display:grid;grid-template-columns:minmax(0,1fr) 90px;gap:16px;align-items:center;max-width:760px;margin:auto}
+.storage-machine{position:relative;padding:14px;background:linear-gradient(145deg,#334957,#172c38);border:4px solid #7896a6;border-radius:15px;min-width:0;min-height:188px;box-shadow:inset 0 0 0 3px #1b3541,0 9px 15px #0002;color:#f4fbff}
+.storage-machine-head{display:flex;justify-content:space-between;align-items:center;font-size:.76rem;font-weight:850;letter-spacing:.11em;margin-bottom:12px}
+.storage-machine-dot{width:8px;height:8px;background:#7cdda9;border-radius:50%;box-shadow:0 0 8px #63d9a1}
+.storage-platter{height:136px;display:grid;place-items:center;position:relative}
+.storage-platter-circle{width:120px;height:120px;border-radius:50%;background:repeating-radial-gradient(circle,#cadde5 0 5px,#718fa2 6px 9px,#bdd3df 10px 12px);border:6px solid #54738a;box-shadow:0 0 0 3px #d0e2ea}
+.storage-platter-circle:after{content:"";display:block;width:19px;height:19px;border-radius:50%;background:#344e60;position:relative;top:calc(50% - 9px);left:calc(50% - 9px);border:3px solid #c4d9e2}
+.storage-platter-arm{width:70px;height:9px;border-radius:9px;background:#e4b864;transform:rotate(-36deg);position:absolute;left:50%;top:75%;transform-origin:left center}
+.storage-partitions{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;min-height:136px}
+.storage-partition{min-width:0;padding:8px 5px;border-radius:7px;background:#326d9a;border:2px solid #89b8d5;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:7px}
+.storage-partition:nth-child(2){background:#32796b;border-color:#a3dbc6}
+.storage-partition:nth-child(3){background:#735e93;border-color:#d1b6e3}
+.storage-partition>small{font-size:clamp(10px,1.2vw,13px);font-weight:800;text-align:center;color:#fff}
+.storage-volume{display:none;align-items:center;flex-direction:column;justify-content:center;gap:8px;min-height:83px;border:2px solid #f1f6fc;border-radius:6px;background:#e5f2f7;color:#143f57;padding:5px 2px}
+.storage-volume>b{font-size:clamp(20px,3vw,28px);line-height:1}
+.storage-docs{display:none;justify-content:center;gap:4px;flex-wrap:wrap}
+.storage-docs>i{background:#fff;border:1px solid #7cabc1;border-radius:3px;padding:4px 3px;font-size:clamp(8px,1vw,11px);font-weight:750;font-style:normal}
+.storage-usb{opacity:0;visibility:hidden;display:flex;align-items:center;flex-direction:column;gap:4px;color:var(--ink);font-size:.9rem;transition:opacity .25s}
+.storage-usb-device{position:relative;width:48px;height:108px;background:linear-gradient(110deg,#598ea4,#23546b);border:3px solid #1e485c;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#f1f8fa;font-size:.68rem;font-weight:750}
+.storage-usb-tip{position:absolute;top:-22px;width:28px;height:26px;border-radius:3px 3px 0 0;border:3px solid #8197a6;background:linear-gradient(#d1dbe2,#8aabbc)}
+.storage-usb strong{font-size:1.2rem;color:var(--accent)}
+.storage-usb small{font-size:.76rem;color:var(--muted);text-align:center}
+.storage-lab[data-step="2"] .storage-partitions,.storage-lab[data-step="3"] .storage-partitions,.storage-lab[data-step="4"] .storage-partitions,.storage-lab[data-step="5"] .storage-partitions{display:grid}
+.storage-lab[data-step="2"] .storage-platter,.storage-lab[data-step="3"] .storage-platter,.storage-lab[data-step="4"] .storage-platter,.storage-lab[data-step="5"] .storage-platter{display:none}
+.storage-lab[data-step="3"] .storage-volume,.storage-lab[data-step="4"] .storage-volume,.storage-lab[data-step="5"] .storage-volume{display:flex}
+.storage-lab[data-step="4"] .storage-docs,.storage-lab[data-step="5"] .storage-docs{display:flex}
+.storage-lab[data-step="4"] .storage-volume,.storage-lab[data-step="5"] .storage-volume{gap:5px}
+.storage-lab[data-step="5"] .storage-usb{opacity:1;visibility:visible}
+.storage-lab-message{min-height:53px;margin:14px 0 7px;padding:10px 13px;background:var(--paper);border-radius:9px;border-left:4px solid var(--accent)}
+.storage-lab-controls{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.storage-lab-controls>button,.storage-step-picks button{border:1px solid var(--edge);background:var(--paper);color:var(--ink);border-radius:8px;min-width:44px;min-height:44px;font-weight:750}
+.storage-lab-controls>button{padding:8px 13px}
+.storage-lab-controls button:disabled{opacity:.4;cursor:not-allowed}
+.storage-step-picks{display:flex;gap:5px;justify-content:center}
+.storage-step-picks button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.storage-lab-legend{font-size:.8rem;color:var(--muted);margin-top:10px}
+.hardware-detailed .hardware-card{min-width:0}
+.hardware-detailed .hardware-art{height:auto;min-height:155px;max-height:none;overflow:visible;padding:6px;background:var(--paper);border-radius:10px}
+.hardware-detailed .hardware-svg svg{display:block;width:100%;max-width:320px;height:auto;aspect-ratio:320/220;overflow:visible;color:var(--ink)}
+.hardware-detailed .hardware-card figcaption span{line-height:1.4}
+@media(max-width:770px){.hardware-detailed .hardware-card{display:grid;grid-template-columns:minmax(128px,44%) 1fr}.hardware-detailed .hardware-art{min-height:100px}.hardware-detailed .hardware-card figcaption{align-self:center}}
+@media(max-width:520px){.storage-lab-scene{grid-template-columns:minmax(0,1fr) 49px;gap:7px}.storage-machine{padding:9px 6px;border-width:3px;min-height:166px}.storage-partitions{gap:3px;min-height:122px}.storage-partition{padding:6px 2px;border-width:1px;gap:5px}.storage-partition>small{font-size:9px}.storage-volume{min-height:79px}.storage-volume>b{font-size:21px}.storage-docs{gap:2px}.storage-docs>i{font-size:8px;padding:3px 2px}.storage-usb-device{width:33px;height:83px;font-size:.52rem}.storage-usb-tip{width:22px;height:21px;top:-18px}.storage-usb small{font-size:.61rem}.storage-step-picks{order:-1;width:100%;justify-content:center}.storage-lab-controls>button{flex:1}.storage-lab-top strong{font-size:.96rem}.storage-lab-top>span{font-size:.75rem}.hardware-detailed .hardware-card{grid-template-columns:minmax(105px,42%) 1fr;gap:8px;padding:9px}.hardware-detailed .hardware-art{min-height:0;padding:2px}.hardware-detailed .hardware-card figcaption span{font-size:.81rem}}
+@media(prefers-reduced-motion:reduce){.storage-usb{transition:none}}

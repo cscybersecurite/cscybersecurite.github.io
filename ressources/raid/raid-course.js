@@ -187,4 +187,31 @@ $("tool-level").addEventListener("change",renderTool);
 $("tool-add").addEventListener("click",()=>{if(disks.length>=12)return;const d={id:"d"+counter++,capacityTB:2,role:"active"};disks.push(d);editingId=d.id;renderTool()});
 $("tool-reset").addEventListener("click",()=>{counter=4;disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));editingId="d1";$("tool-level").value="5";renderTool()});
 
-renderLevels();renderSimulation();bindQuizzes();renderTool();
+function initStorageLab(){
+ const root=$("storage-lab");
+ if(!root)return;
+ const stages=[
+  ["Le disque","Voici un disque. C'est le matériel qui garde les données."],
+  ["Les partitions","On découpe le même disque en trois parties. Ce sont les partitions."],
+  ["Les volumes","Chaque partition contient ici un volume : C:, D: et E:. Un seul disque suffit pour avoir trois lettres."],
+  ["Les fichiers","Dans les volumes, tu peux ranger des fichiers : PDF, JPG, DOC ou MP4."],
+  ["La clé USB","On branche une clé USB. C'est un deuxième support. Windows lui donne ici la lettre F:."]
+ ];
+ let step=1;
+ const buttons=[...root.querySelectorAll("[data-storage-step]")];
+ function show(next){
+  step=Math.min(stages.length,Math.max(1,next));
+  root.dataset.step=String(step);
+  $("storage-stage-name").textContent=step+". "+stages[step-1][0];
+  $("storage-stage-counter").textContent="Étape "+step+" sur "+stages.length;
+  $("storage-stage-message").textContent=stages[step-1][1];
+  $("storage-prev").disabled=step===1;
+  $("storage-next").textContent=step===stages.length?"Recommencer":"Suivant";
+  for(const b of buttons){b.setAttribute("aria-pressed",String(Number(b.dataset.storageStep)===step));}
+ }
+ $("storage-prev").addEventListener("click",()=>show(step-1));
+ $("storage-next").addEventListener("click",()=>show(step===stages.length?1:step+1));
+ for(const b of buttons)b.addEventListener("click",()=>show(Number(b.dataset.storageStep)));
+ show(1);
+}
+renderLevels();renderSimulation();bindQuizzes();initStorageLab();renderTool();
