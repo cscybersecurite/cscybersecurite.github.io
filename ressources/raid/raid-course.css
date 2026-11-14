@@ -347,3 +347,25 @@
  #file-raid-lab .file-raid-photo-tile.is-matched{outline-width:3px}
  #file-raid-lab .file-raid-recovered .file-raid-data{width:59px}
 }
+
+/* Correction: le morceau de photo occupe 100% du carre, sans bande bleue. */
+#file-raid-lab .file-raid-drive .file-raid-data,
+#file-raid-lab .file-raid-recovered .file-raid-data{
+ position:relative;display:block;flex:none;align-self:stretch;
+ padding:0;margin:0;min-height:0;height:auto;aspect-ratio:1/1;
+ background-image:var(--file-raid-photo);background-size:400% 300%;background-repeat:no-repeat;
+ border:2px solid #88c5e0;border-radius:6px;overflow:hidden;
+}
+#file-raid-lab .file-raid-drive .file-raid-data>b,
+#file-raid-lab .file-raid-recovered .file-raid-data>b{
+ position:absolute;right:3px;bottom:3px;left:auto;top:auto;
+ display:block;width:auto;min-width:0;margin:0;padding:1px 4px;
+ font-size:.72rem;line-height:1.15;font-weight:850;
+ color:#fff;background:#14354bd9;border-radius:4px;
+}
+#file-raid-lab .file-raid-drive .file-raid-data.is-matched>b,
+#file-raid-lab .file-raid-recovered .file-raid-data.is-matched>b{background:#66500a}
+@media(max-width:640px){
+ #file-raid-lab .file-raid-drive .file-raid-data>b,
+ #file-raid-lab .file-raid-recovered .file-raid-data>b{right:1px;bottom:1px;padding:0 3px;font-size:.65rem}
+}
