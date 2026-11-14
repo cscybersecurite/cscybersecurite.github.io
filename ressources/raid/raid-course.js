@@ -267,7 +267,7 @@ function initStorageLab(){
 /* Un seul fichier, sur des bandes de RAID. P/Q ne sont jamais stockés sur un disque dédié. */
 function initFileRaidLab(){
  const root=$("file-raid-lab");if(!root)return;
- let mode="5",step=1;
+ let mode="5",step=1,selectedPiece=null;
  const titles=["Un fichier à enregistrer","La même photo, découpée en 12 morceaux","Les morceaux sont répartis sur les disques","Un disque tombe en panne","La photo est reconstituée"];
  const pieces=Array.from({length:12},(_,i)=>"M"+(i+1));
  // Une seule illustration, réutilisée à l'identique pour la photo entière et les 12 fragments.
@@ -310,9 +310,15 @@ function initFileRaidLab(){
   el.style.backgroundPosition=(col*100/3)+"% "+(row*100/2)+"%";
  };
  const drawBlock=(name)=>{
-  const block=document.createElement("span");
+  const isData=name.startsWith("M");
+  const block=document.createElement(isData?"button":"span");
   block.className="file-raid-block "+(name.startsWith("P")?"file-raid-p":name.startsWith("Q")?"file-raid-q":"file-raid-data");
-  block.textContent=name;
+  if(isData){
+   block.type="button";
+   block.dataset.piece=name;
+   block.setAttribute("aria-pressed",String(selectedPiece===name));
+  }
+  const label=document.createElement("b");label.textContent=name;block.append(label);
   block.setAttribute("aria-label",name.startsWith("P")?"Parité P, bande "+name.slice(1):name.startsWith("Q")?"Parité Q, bande "+name.slice(1):"Morceau "+name.slice(1)+" du fichier");
   if(name.startsWith("M")){
    const thumbnail=document.createElement("i");
@@ -361,7 +367,9 @@ function initFileRaidLab(){
   pieceRoot.replaceChildren();
   if(step>=2){
    for(const name of pieces){
-    const tile=document.createElement("span");
+    const tile=document.createElement("button");
+    tile.type="button";tile.dataset.piece=name;
+    tile.setAttribute("aria-pressed",String(selectedPiece===name));
     const absent=step===4&&missing.has(name);
     const restored=step===5&&missing.has(name);
     tile.className="file-raid-photo-tile"+(absent?" is-missing":"")+(restored?" is-restored":"");
@@ -401,13 +409,30 @@ function initFileRaidLab(){
     recovered.append(tile);
    }
   }
+  const location=matrix.findIndex(row=>row.includes(selectedPiece));
+  const selectedLabel=$("file-raid-selection");
+  selectedLabel.hidden=step<2;
+  selectedLabel.textContent=selectedPiece
+   ?selectedPiece+(step>=3?" : disque "+(location+1)+(failed&&breakdowns.includes(location)?" (en panne)":""):" : cherche ce même morceau sur les disques à l'étape suivante.")
+   :"Clique sur un morceau M1 à M12 dans la photo ou sur un disque pour retrouver le même morceau.";
+  for(const el of root.querySelectorAll("[data-piece]")){
+   const matched=el.dataset.piece===selectedPiece&&selectedPiece!==null;
+   el.classList.toggle("is-matched",matched);
+   el.setAttribute("aria-pressed",String(matched));
+  }
   $("file-raid-result-detail").textContent=mode==="5"?"Un disque en panne. La photo reste accessible grâce aux blocs encore disponibles.":"Deux disques en panne. Les parités permettent de retrouver les morceaux manquants.";
   $("file-raid-prev").disabled=step===1;
   $("file-raid-next").textContent=step===5?"Recommencer":"Suivant";
   for(const button of root.querySelectorAll("[data-file-raid-step]"))button.setAttribute("aria-pressed",String(Number(button.dataset.fileRaidStep)===step));
  }
- $("file-raid-5").addEventListener("click",()=>{mode="5";step=1;render()});
- $("file-raid-6").addEventListener("click",()=>{mode="6";step=1;render()});
+ root.addEventListener("click",event=>{
+  const control=event.target.closest("[data-piece]");
+  if(!control||!root.contains(control))return;
+  selectedPiece=selectedPiece===control.dataset.piece?null:control.dataset.piece;
+  render();
+ });
+ $("file-raid-5").addEventListener("click",()=>{mode="5";step=1;selectedPiece=null;render()});
+ $("file-raid-6").addEventListener("click",()=>{mode="6";step=1;selectedPiece=null;render()});
  $("file-raid-prev").addEventListener("click",()=>{step=Math.max(1,step-1);render()});
  $("file-raid-next").addEventListener("click",()=>{step=step===5?1:step+1;render()});
  for(const button of root.querySelectorAll("[data-file-raid-step]")){
