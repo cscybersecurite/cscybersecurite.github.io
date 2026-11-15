@@ -26,7 +26,9 @@ note.textContent="Le technicien effectue les manipulations. Le client décrit so
 dialogue.append(heading,mount,note);
 inside.insertBefore(layout,incident);
 layout.append(technical,dialogue);
-technical.append(incident,diag,smtp,actions);
+technical.append(diag,smtp,actions);
+// Le dialogue ChatCore remplace la demande initiale, uniquement dans ce laboratoire.
+incident.hidden=true;
 const sheet=document.createElement('link');sheet.rel='stylesheet';
 sheet.href='https://chaoli22000bzh.github.io/chatcore/v0.1/chatcore.css';
 document.head.append(sheet);
