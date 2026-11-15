@@ -21,6 +21,16 @@ small,.note{font-size:13px}
 .note{margin:0 0 10px}
 #outlook-host{min-height:630px}
 #chat-host{min-height:320px}
+#chat-host[hidden],#completion[hidden]{display:none}
+#completion{padding:18px 12px;max-width:440px;margin:10px auto;color:var(--text)}
+#completion .finish-icon{font-size:38px;line-height:1;display:block;text-align:center;color:light-dark(#167346,#88dfa7);margin-bottom:10px}
+#completion h3{text-align:center;font-size:21px;margin:0 0 5px}
+#completion .finish-subtitle{text-align:center;margin:0 0 20px;color:var(--text)}
+#completion h4{font-size:16px;margin:0 0 10px}
+#completion ul{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:12px}
+#completion li{display:flex;align-items:flex-start;gap:10px}
+#completion li::before{content:'✓';font-weight:bold;color:light-dark(#167346,#88dfa7)}
+#completion .finish-message{text-align:center;border-top:1px solid var(--line);padding-top:15px;font-weight:bold}
 #status{font-size:13px;margin:6px 0 0;line-height:1.5}
 #status[role=alert]{color:#c75a33}
 #outlook-host .ou-app{min-height:625px}
@@ -61,11 +71,23 @@ small,.note{font-size:13px}
 <div id="outlook-host"></div>
 </section>
 <section aria-label="Conversation avec le client">
-<h2>Échanger avec le client</h2>
+<h2 id="chat-title">Échanger avec le client</h2>
 <div id="chat-host"></div>
+<div id="completion" role="region" aria-label="Bilan de l'intervention" hidden>
+  <span class="finish-icon" aria-hidden="true">✓</span>
+  <h3>Incident résolu</h3>
+  <p class="finish-subtitle">Demande d'assistance clôturée</p>
+  <h4>Bilan de votre intervention</h4>
+  <ul>
+    <li>Configuration SMTP corrigée</li>
+    <li>Courriel de test envoyé avec succès</li>
+    <li>Accord du client obtenu</li>
+  </ul>
+  <p class="finish-message">Intervention terminée. Bravo !</p>
+</div>
 <p id="status" role="status" aria-live="polite">Initialisation des moteurs…</p>
 </section>
 </main>
-<script type="module" src="./messagerie-outlook.js?v=20261115-3"></script>
+<script type="module" src="./messagerie-outlook.js?v=20261115-4"></script>
 </body>
 </html>
