@@ -34,11 +34,13 @@
 #mail-smtp-result.mail-result--success{display:block;border-color:#39dc70;box-shadow:0 0 0 2px #39dc7040}
 #mail-smtp-result.mail-result--error{display:block;border-color:#ffa92b;box-shadow:0 0 0 2px #ffa92b40}
 @media(max-width:650px){.mail-smtp-form{grid-template-columns:1fr}#mail-search.diagcore--vertical .diagcore__equipment{font-size:14px;min-height:58px;padding:10px 6px}}
+.mail-chatcore-chapter{width:min(1400px,calc(100vw - 24px));max-width:none;position:relative;left:50%;transform:translateX(-50%)}
 .mail-chatcore-exercise{min-width:0}
-.mail-chatcore-exercise iframe{display:block;width:100%;height:1370px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.mail-chatcore-exercise iframe{display:block;width:100%;height:950px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
 .mail-chatcore-fullscreen{margin:0 0 12px;text-align:right;font-size:15px}
 .mail-chatcore-fullscreen a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-@media(max-width:650px){.mail-chatcore-exercise iframe{height:1650px}}
+@media(max-width:1150px){.mail-chatcore-exercise iframe{height:1550px}}
+@media(max-width:650px){.mail-chatcore-chapter{width:calc(100vw - 12px)}.mail-chatcore-chapter>.inside{padding:10px}.mail-chatcore-exercise iframe{height:1650px}}
 </style><link rel="stylesheet" href="./exercices/pop-imap.css?v=1"><link rel="stylesheet" href="https://chaoli22000bzh.github.io/diagcore/v1.3/diagcore.css"><link rel="stylesheet" href="../qcmcore/v1/qcmcore.css?v=101"><link rel="stylesheet" href="../coursprint/v1/coursprint.css?v=200"><link rel="stylesheet" href="https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/outlook.css">
 <style>
 .mail-admin-principle{display:flex;gap:15px;justify-content:center;align-items:center;margin:15px 0;padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--soft);text-align:center}
@@ -110,7 +112,7 @@ IMAPS : TCP 993 (TLS implicite)</pre></div><h3>Et les messages envoyés ?</h3><p
 <p class="mail-admin-hint">Cette activité est une simulation : aucun vrai courriel n'est envoyé. « Recommencer » efface les boîtes et messages de cet exercice uniquement.</p>
 </div>
 </section>
-</div></details><details class="chapter"><summary>9. Diagnostic professionnel <svg class="diagnostic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 1.4 1.4l2.2-2.2a6 6 0 0 1-7.9 7.9l-6.6 6.6a2 2 0 0 1-2.8-2.8l6.6-6.6a6 6 0 0 1 7.9-7.9z"/></svg></summary><div class="inside">
+</div></details><details class="chapter mail-chatcore-chapter"><summary>9. Diagnostic professionnel <svg class="diagnostic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 1.4 1.4l2.2-2.2a6 6 0 0 1-7.9 7.9l-6.6 6.6a2 2 0 0 1-2.8-2.8l6.6-6.6a6 6 0 0 1 7.9-7.9z"/></svg></summary><div class="inside">
 <div class="mail-chatcore-exercise">
 <p class="mail-chatcore-fullscreen"><a href="../chatcore/messagerie-outlook.html" target="_blank" rel="noopener">Ouvrir l'exercice en plein écran</a></p>
 <iframe src="../chatcore/messagerie-outlook.html" title="Diagnostic professionnel : Outlook et dialogue avec le client" loading="lazy" allow="clipboard-write"></iframe>
