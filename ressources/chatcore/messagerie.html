@@ -35,7 +35,7 @@ frame.addEventListener('load',()=>{
   if(!chapter)throw Error('Chapitre 9 introuvable');
   chapter.open=true;
   const script=doc.createElement('script');
-  script.src=new URL('./messagerie-adapter.js?v=20261115-6',location.href).href;
+  script.src=new URL('./messagerie-adapter.js?v=20261115-7',location.href).href;
   script.onload=()=>{
    status.textContent='Laboratoire actif : le cours original reste inchangé';
    frame.contentWindow.scrollTo({top:Math.max(0,chapter.getBoundingClientRect().top+frame.contentWindow.scrollY-10),behavior:'instant'});
