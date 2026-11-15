@@ -27,44 +27,80 @@ dialogue.append(heading,mount,note);
 inside.insertBefore(layout,incident);
 layout.append(technical,dialogue);
 technical.append(diag,smtp,actions);
-// Navigation propre au laboratoire : l'historique DiagCore peut masquer
-// le formulaire après son ouverture. Cet accès ne déverrouille rien.
+// Le laboratoire propose une commande d'accès à la véritable intervention
+// DiagCore, mais ne modifie jamais son état ni le verrouillage Outlook.
 const goToSettings=document.createElement('button');
 goToSettings.type='button';
 goToSettings.id='mail-chatcore-open-settings';
 goToSettings.className='mail-chatcore-open-settings';
-goToSettings.textContent='Accéder aux paramètres Outlook';
 goToSettings.hidden=true;
+const stepStatus=document.createElement('p');
+stepStatus.className='mail-chatcore-step-status';
+stepStatus.setAttribute('role','status');
+stepStatus.setAttribute('aria-live','polite');
+technical.insertBefore(stepStatus,diag);
 technical.insertBefore(goToSettings,diag);
+const required=['Tester l’envoi d’un message','Configuration du serveur sortant','Documentation Orange'];
+function completedChecks(){
+ return [...diag.querySelectorAll('.diagcore__entry--observation h3')]
+  .map(el=>el.textContent.trim());
+}
+function realIntervention(){
+ return [...diag.querySelectorAll('.diagcore__next button')]
+  .find(button=>button.textContent.includes('Ouvrir les paramètres SMTP du compte')&&!button.disabled);
+}
 function settingsUnlocked(){
  return !smtp.hidden&&smtp.style.display!=='none'&&
   !form.querySelector('.mail-smtp-guard:not([hidden])');
 }
 function scrollToSettings(){
- if(!settingsUnlocked())return;
- smtp.scrollIntoView({behavior:'instant',block:'start'});
+ if(settingsUnlocked())smtp.scrollIntoView({behavior:'instant',block:'start'});
 }
-function updateSettingsAccess(){
+function updateStep(){
  const unlocked=settingsUnlocked();
- goToSettings.hidden=!unlocked;
+ const intervene=realIntervention();
+ const missing=required.filter(label=>!completedChecks().includes(label));
+ const diagnosed=Boolean(diag.querySelector('.diagcore__entry--hypothesis-correct'));
+ if(unlocked){
+  goToSettings.hidden=false;
+  goToSettings.textContent='Accéder aux paramètres Outlook';
+  stepStatus.textContent='Intervention effectuée : les paramètres Outlook sont modifiables.';
+ }else if(intervene){
+  goToSettings.hidden=false;
+  goToSettings.textContent='Ouvrir les paramètres SMTP du compte';
+  stepStatus.textContent='Diagnostic validé : l’intervention est maintenant disponible.';
+ }else{
+  goToSettings.hidden=true;
+  stepStatus.textContent=missing.length
+   ? 'Contrôles encore nécessaires : '+missing.join(' ; ')+'.'
+   :diagnosed
+    ? 'Diagnostic validé. Recherche l’intervention dans DiagCore.'
+    : 'Contrôles terminés. Clique sur Mon diagnostic, puis sélectionne la cause SMTP.';
+ }
  return unlocked;
 }
-goToSettings.addEventListener('click',scrollToSettings);
+goToSettings.addEventListener('click',()=>{
+ if(settingsUnlocked()){scrollToSettings();return;}
+ const action=realIntervention();
+ if(!action){updateStep();return;}
+ action.click(); // Déclenche l'intervention réelle et ses règles, sans déverrouillage forcé.
+ setTimeout(()=>{updateStep();scrollToSettings();},500);
+});
 let wasUnlocked=false;
 const settingsObserver=new MutationObserver(()=>{
- const unlocked=updateSettingsAccess();
+ const unlocked=updateStep();
  if(unlocked&&!wasUnlocked){
-  // Laisser DiagCore terminer le défilement de son historique.
   setTimeout(scrollToSettings,500);
   setTimeout(scrollToSettings,1000);
  }
  wasUnlocked=unlocked;
 });
+settingsObserver.observe(diag,{childList:true,subtree:true});
 settingsObserver.observe(smtp,{attributes:true,attributeFilter:['hidden','style']});
 for(const guard of form.querySelectorAll('.mail-smtp-guard')){
  settingsObserver.observe(guard,{attributes:true,attributeFilter:['hidden']});
 }
-updateSettingsAccess();
+updateStep();
 // Le dialogue ChatCore remplace la demande initiale, uniquement dans ce laboratoire.
 incident.hidden=true;
 const sheet=document.createElement('link');sheet.rel='stylesheet';
@@ -76,7 +112,7 @@ localStyle.textContent=`
 .mail-chatcore-technical,.mail-chatcore-dialogue{min-width:0}
 .mail-chatcore-open-settings{display:block;width:100%;margin-bottom:12px;border:1px solid #176bb1;border-radius:9px;background:#176bb1;color:#fff;padding:12px;font:700 16px Arial,sans-serif;cursor:pointer}
 .mail-chatcore-open-settings[hidden]{display:none}
-.mail-chatcore-open-settings:focus-visible{outline:3px solid #f6a51b;outline-offset:2px}
+.mail-chatcore-step-status{margin:0 0 10px;font-size:14px;line-height:1.4;color:var(--ink,#234)}\n.mail-chatcore-open-settings:focus-visible{outline:3px solid #f6a51b;outline-offset:2px}
 .mail-chatcore-dialogue{position:sticky;top:12px;border:1px solid var(--line,#b5c8d9);border-radius:12px;padding:13px;background:var(--panel,#fff)}
 .mail-chatcore-dialogue h3{margin:0 0 12px;font-size:19px}
 .mail-chatcore-hint{font-size:13px;line-height:1.45;color:var(--muted,#50647b);margin:10px 0 0}
@@ -134,21 +170,12 @@ async function begin(){
     ui.setFacts({testAttempted:true,testPassed:passed});
    });
   });
-  // Aide propre au laboratoire : le verrou d'Outlook ne se libère
-  // qu'après l'action DiagCore, pas après les seuls contrôles.
+  // Aide cohérente avec l'état réellement affiché par DiagCore.
   form.addEventListener('click',event=>{
    if(!event.target.closest('.mail-smtp-guard'))return;
+   updateStep();
    const hint=document.getElementById('mail-smtp-lock-message');
-   const correct=Boolean(diag.querySelector('.diagcore__entry--hypothesis-correct'));
-   const observations=[...diag.querySelectorAll('.diagcore__entry--observation h3')].map(el=>el.textContent.trim());
-   const required=['Tester l’envoi d’un message','Configuration du serveur sortant','Documentation Orange'];
-   const missing=required.filter(label=>!observations.includes(label));
-   const message=missing.length
-    ? 'Dans DiagCore, termine ces contrôles : '+missing.join(' ; ')+'. Puis clique sur Mon diagnostic.'
-    :correct
-      ? 'Diagnostic validé. Dans DiagCore, clique sur « Ouvrir les paramètres SMTP du compte » sous « Interventions possibles ».'
-      : 'Les trois contrôles sont effectués. Dans DiagCore, clique sur « Mon diagnostic », puis choisis « Les paramètres SMTP correspondent encore à l’ancien prestataire ».';
-   if(hint){hint.hidden=false;hint.textContent=message;}
+   if(hint){hint.hidden=false;hint.textContent=stepStatus.textContent;}
    diag.querySelector('.diagcore__next')?.scrollIntoView({behavior:'smooth',block:'start'});
   });
   restart.addEventListener('click',()=>ui.restart());
