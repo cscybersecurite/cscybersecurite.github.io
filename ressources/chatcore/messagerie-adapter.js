@@ -77,7 +77,7 @@ async function begin(){
   // Un changement de paramètres invalide un ancien test réussi.
   form.addEventListener('change',event=>{
    if(!event.target.matches('select'))return;
-   ui.setFacts({testPassed:false});
+   ui.setFacts({testAttempted:false,testPassed:false});
   });
   // Observer UNIQUEMENT le résultat affiché par le véritable formulaire,
   // après son gestionnaire existant. Aucun résultat n'est inventé par ChatCore.
