@@ -15,6 +15,7 @@ body>header a{color:inherit}
 body>header button{border-radius:7px;border:1px solid var(--line);padding:7px 12px;cursor:pointer;background:var(--bg);color:inherit}
 main{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,.85fr);gap:14px;padding:14px;align-items:start}
 section{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px}
+main>.intro{grid-column:1/-1;margin:0;line-height:1.5}
 h2{font-size:19px;margin:0 0 9px}
 small,.note{font-size:13px}
 .note{margin:0 0 10px}
@@ -53,6 +54,7 @@ small,.note{font-size:13px}
 <button type="button" id="reset">Recommencer</button>
 </header>
 <main>
+<p class="intro">À gauche, l'environnement informatique pour diagnostiquer et résoudre l'incident. À droite, le dialogue avec le client pour comprendre le problème, échanger pendant l'intervention et clôturer sa demande.</p>
 <section aria-label="Outlook">
 <h2>Outlook : poste du client</h2>
 
