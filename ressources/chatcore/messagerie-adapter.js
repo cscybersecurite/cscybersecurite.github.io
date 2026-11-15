@@ -50,13 +50,13 @@ const scenario={
   {id:'receive',text:"Est-ce que vous recevez toujours les courriels ?",answer:"Oui, la réception fonctionne. C'est uniquement l'envoi qui pose problème."},
   {id:'account',text:"Quelle adresse de messagerie est concernée ?",answer:"Il s'agit de contact@atelier-kerwen.fr. Notre nom de domaine n'a pas changé."},
   {id:'permission',text:"Je vais contrôler les paramètres d'envoi dans Outlook. Est-ce que je peux intervenir ?",answer:"Oui, bien sûr. Vous pouvez vérifier les paramètres, merci."},
-  {id:'status',text:"Pouvez-vous me confirmer si le problème d'envoi est résolu ?",once:false,
+  {id:'status',text:"Pouvez-vous me confirmer si le problème d'envoi est résolu ?",answer:"Aucun test concluant n'a encore été effectué.",once:false,
    resolve:({facts})=>{
     if(facts.testPassed)return "Oui, après votre correction, le test d'envoi est réussi. L'envoi fonctionne maintenant, merci !";
     if(facts.testAttempted)return "Non, le dernier test d'envoi a échoué. Je ne peux pas encore confirmer la résolution.";
     return "Pas encore. Vous n'avez pas effectué de test d'envoi concluant sur mon compte.";
    }},
-  {id:'closing',text:"Puis-je clôturer votre demande d'assistance ?",once:false,
+  {id:'closing',text:"Puis-je clôturer votre demande d'assistance ?",answer:"Vérifiez d'abord l'envoi d'un message.",once:false,
    resolve:({facts})=>facts.testPassed?
      "Oui, vous avez vérifié le rétablissement de l'envoi. Merci pour votre aide, bonne journée !":
      "Je préfère que vous vérifiiez d'abord l'envoi d'un message avant de clôturer ma demande."}
