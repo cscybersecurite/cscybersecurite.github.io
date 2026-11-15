@@ -27,6 +27,44 @@ dialogue.append(heading,mount,note);
 inside.insertBefore(layout,incident);
 layout.append(technical,dialogue);
 technical.append(diag,smtp,actions);
+// Navigation propre au laboratoire : l'historique DiagCore peut masquer
+// le formulaire après son ouverture. Cet accès ne déverrouille rien.
+const goToSettings=document.createElement('button');
+goToSettings.type='button';
+goToSettings.id='mail-chatcore-open-settings';
+goToSettings.className='mail-chatcore-open-settings';
+goToSettings.textContent='Accéder aux paramètres Outlook';
+goToSettings.hidden=true;
+technical.insertBefore(goToSettings,diag);
+function settingsUnlocked(){
+ return !smtp.hidden&&smtp.style.display!=='none'&&
+  !form.querySelector('.mail-smtp-guard:not([hidden])');
+}
+function scrollToSettings(){
+ if(!settingsUnlocked())return;
+ smtp.scrollIntoView({behavior:'instant',block:'start'});
+}
+function updateSettingsAccess(){
+ const unlocked=settingsUnlocked();
+ goToSettings.hidden=!unlocked;
+ return unlocked;
+}
+goToSettings.addEventListener('click',scrollToSettings);
+let wasUnlocked=false;
+const settingsObserver=new MutationObserver(()=>{
+ const unlocked=updateSettingsAccess();
+ if(unlocked&&!wasUnlocked){
+  // Laisser DiagCore terminer le défilement de son historique.
+  setTimeout(scrollToSettings,500);
+  setTimeout(scrollToSettings,1000);
+ }
+ wasUnlocked=unlocked;
+});
+settingsObserver.observe(smtp,{attributes:true,attributeFilter:['hidden','style']});
+for(const guard of form.querySelectorAll('.mail-smtp-guard')){
+ settingsObserver.observe(guard,{attributes:true,attributeFilter:['hidden']});
+}
+updateSettingsAccess();
 // Le dialogue ChatCore remplace la demande initiale, uniquement dans ce laboratoire.
 incident.hidden=true;
 const sheet=document.createElement('link');sheet.rel='stylesheet';
@@ -36,6 +74,9 @@ const localStyle=document.createElement('style');
 localStyle.textContent=`
 .mail-chatcore-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(310px,.8fr);gap:18px;align-items:start}
 .mail-chatcore-technical,.mail-chatcore-dialogue{min-width:0}
+.mail-chatcore-open-settings{display:block;width:100%;margin-bottom:12px;border:1px solid #176bb1;border-radius:9px;background:#176bb1;color:#fff;padding:12px;font:700 16px Arial,sans-serif;cursor:pointer}
+.mail-chatcore-open-settings[hidden]{display:none}
+.mail-chatcore-open-settings:focus-visible{outline:3px solid #f6a51b;outline-offset:2px}
 .mail-chatcore-dialogue{position:sticky;top:12px;border:1px solid var(--line,#b5c8d9);border-radius:12px;padding:13px;background:var(--panel,#fff)}
 .mail-chatcore-dialogue h3{margin:0 0 12px;font-size:19px}
 .mail-chatcore-hint{font-size:13px;line-height:1.45;color:var(--muted,#50647b);margin:10px 0 0}
