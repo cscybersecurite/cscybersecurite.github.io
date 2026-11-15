@@ -50,7 +50,8 @@ function facts(){
 }
 function inspectedOutgoingSettings(){
  if(state.inspected)return;
- // La vérification porte sur les paramètres réellement affichés par Outlook.
+ // On ne valide la consultation que lorsque la configuration SMTP
+ // existante est effectivement visible dans les paramètres Outlook.
  const field=outlookHost.querySelector('.ou-settings #ou-account [name="outgoingHost"]');
  if(!field||field.value.trim().toLowerCase()!=='smtp.novamail.fr')return;
  const form=field.form;
@@ -60,10 +61,29 @@ function inspectedOutgoingSettings(){
  facts();
  inform('Ancienne configuration SMTP consultée. Tu peux maintenant demander au client les paramètres Orange.');
 }
+let watchedOutgoingField=null;
+let outgoingVisibilityObserver=null;
+function watchOutgoingSettings(){
+ if(state.inspected)return;
+ const settings=outlookHost.querySelector('.ou-settings');
+ const field=settings?.querySelector('#ou-account [name="outgoingHost"]');
+ if(!settings||!field||watchedOutgoingField===field)return;
+ outgoingVisibilityObserver?.disconnect();
+ watchedOutgoingField=field;
+ // Un champ réellement affiché dans le panneau des paramètres est une
+ // preuve de consultation, sans exiger de clic ou de double vérification.
+ outgoingVisibilityObserver=new IntersectionObserver(entries=>{
+  if(entries.some(entry=>entry.isIntersecting&&entry.intersectionRatio>=0.5)){
+   inspectedOutgoingSettings();
+   if(state.inspected)outgoingVisibilityObserver?.disconnect();
+  }
+ },{root:settings,threshold:[0.5]});
+ outgoingVisibilityObserver.observe(field);
+}
+const settingsChanges=new MutationObserver(watchOutgoingSettings);
+settingsChanges.observe(outlookHost,{subtree:true,childList:true});
 outlookHost.addEventListener('focusin',event=>{
- if(event.target.matches('.ou-settings #ou-account [name="outgoingHost"]')||
-    event.target.matches('.ou-settings #ou-account [name="outgoingPort"]')||
-    event.target.matches('.ou-settings #ou-account [name="outgoingSecurity"]'))
+ if(event.target.matches('.ou-settings #ou-account [name="outgoingHost"],.ou-settings #ou-account [name="outgoingPort"],.ou-settings #ou-account [name="outgoingSecurity"]'))
   inspectedOutgoingSettings();
 });
 function makeChatScenario(){
@@ -128,6 +148,8 @@ async function begin(){
  }
 }
 reset.addEventListener('click',()=>{
+ outgoingVisibilityObserver?.disconnect();outgoingVisibilityObserver=null;
+ watchedOutgoingField=null;
  bridge?.destroy();bridge=null;
  chat?.destroy?.();chat=null;
  chatHost.replaceChildren();
