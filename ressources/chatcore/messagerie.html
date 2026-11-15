@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Laboratoire ChatCore + DiagCore | Messagerie</title>
+<style>
+:root{color-scheme:light dark;font:16px/1.45 Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:light-dark(#edf3f9,#111c29);color:light-dark(#193a54,#edf4fa)}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:11px 17px;background:light-dark(#fff,#1b2a3c);border-bottom:1px solid light-dark(#c7d5e2,#40546a)}
+h1{font-size:clamp(18px,2.5vw,23px);margin:0}
+a{color:light-dark(#185b91,#b2d4fc)}
+main{height:calc(100dvh - 66px);min-height:650px}
+iframe{width:100%;height:100%;border:0;display:block;background:#fff}
+#status{font-size:13px;font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+<h1>ChatCore + DiagCore : incident SMTP</h1>
+<a href="./">Retour au laboratoire PDF</a>
+<span id="status" role="status" aria-live="polite">Chargement du cours existant…</span>
+</header>
+<main><iframe id="course" src="../messagerie/" title="Exercice Messagerie existant, chapitre 9" loading="eager"></iframe></main>
+<script>
+'use strict';
+const frame=document.getElementById('course'),status=document.getElementById('status');
+frame.addEventListener('load',()=>{
+ try{
+  const doc=frame.contentDocument;
+  if(!doc)throw Error('Page non accessible');
+  const diagnostic=doc.getElementById('mail-search');
+  const chapter=diagnostic?.closest('details.chapter');
+  if(!chapter)throw Error('Chapitre 9 introuvable');
+  chapter.open=true;
+  const script=doc.createElement('script');
+  script.src=new URL('./messagerie-adapter.js',location.href).href;
+  script.onload=()=>{
+   status.textContent='Laboratoire actif : le cours original reste inchangé';
+   frame.contentWindow.scrollTo({top:Math.max(0,chapter.getBoundingClientRect().top+frame.contentWindow.scrollY-10),behavior:'instant'});
+  };
+  script.onerror=()=>{status.textContent='Impossible de charger l’adaptateur ChatCore';};
+  doc.head.append(script);
+ }catch(error){
+  status.textContent='Laboratoire indisponible : '+error.message;
+ }
+});
+</script>
+</body>
+</html>
