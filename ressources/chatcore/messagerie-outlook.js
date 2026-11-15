@@ -8,6 +8,8 @@ const outlookHost=document.getElementById('outlook-host');
 const chatHost=document.getElementById('chat-host');
 const status=document.getElementById('status');
 const reset=document.getElementById('reset');
+const completion=document.getElementById('completion');
+const chatTitle=document.getElementById('chat-title');
 const email='contact@atelier-kerwen.fr';
 const secret='AtelierKerwenDemo';
 const orange={
@@ -33,8 +35,8 @@ const scenario={
   body:'La réception fonctionne, mais les messages ne partent plus depuis la migration de prestataire.',minutesAgo:90
  }]
 };
-let bridge=null,chat=null;
-let state={inspected:false,testAttempted:false,testPassed:false,detailsShown:false};
+let bridge=null,chat=null,unsubscribeClosure=null,closureTimer=null;
+let state={inspected:false,testAttempted:false,testPassed:false,detailsShown:false,closed:false};
 function inform(message,error=false){
  status.textContent=message;
  status.setAttribute('role',error?'alert':'status');
@@ -47,6 +49,26 @@ function loadScript(src){
 }
 function facts(){
  chat?.setFacts({inspected:state.inspected,testAttempted:state.testAttempted,testPassed:state.testPassed});
+}
+// La clôture est une décision du client, distincte de la réussite technique.
+function watchClosure(snapshot){
+ if(state.closed||!state.testPassed)return;
+ const history=snapshot.history;
+ const last=history.at(-1);
+ const before=history.at(-2);
+ if(!last||!before||before.role!=='me'||before.id!=='close'||
+    last.role!=='client'||last.id!=='close'||
+    last.text!=='Oui, l’envoi fonctionne à nouveau. Merci pour votre intervention !')return;
+ state.closed=true;
+ clearTimeout(closureTimer);
+ // Laisser apparaître la réponse positive du client avant le bilan.
+ closureTimer=setTimeout(()=>{
+  if(!state.closed)return;
+  chatHost.hidden=true;
+  completion.hidden=false;
+  chatTitle.textContent='Intervention terminée';
+  inform('Demande d’assistance clôturée avec l’accord du client.');
+ },2400);
 }
 function inspectedOutgoingSettings(){
  if(state.inspected)return;
@@ -137,18 +159,23 @@ async function begin(){
    }
   });
   chat=window.ChatCoreUI.mount(chatHost,makeChatScenario());
+  unsubscribeClosure=chat.chat.subscribe(watchClosure);
   inform('Laboratoire prêt. Le dialogue et Outlook sont deux interfaces distinctes.');
  }catch(error){
   inform('Laboratoire indisponible : '+error.message,true);
  }
 }
 reset.addEventListener('click',()=>{
+ clearTimeout(closureTimer);closureTimer=null;
+ unsubscribeClosure?.();unsubscribeClosure=null;
+ completion.hidden=true;chatHost.hidden=false;
+ chatTitle.textContent='Échanger avec le client';
  outgoingVisibilityObserver?.disconnect();outgoingVisibilityObserver=null;
  watchedOutgoingField=null;
  bridge?.destroy();bridge=null;
  chat?.destroy?.();chat=null;
  chatHost.replaceChildren();
- state={inspected:false,testAttempted:false,testPassed:false,detailsShown:false};
+ state={inspected:false,testAttempted:false,testPassed:false,detailsShown:false,closed:false};
  begin();
 });
 begin();
