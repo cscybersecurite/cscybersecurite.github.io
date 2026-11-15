@@ -93,6 +93,23 @@ async function begin(){
     ui.setFacts({testAttempted:true,testPassed:passed});
    });
   });
+  // Aide propre au laboratoire : le verrou d'Outlook ne se libère
+  // qu'après l'action DiagCore, pas après les seuls contrôles.
+  form.addEventListener('click',event=>{
+   if(!event.target.closest('.mail-smtp-guard'))return;
+   const hint=document.getElementById('mail-smtp-lock-message');
+   const correct=Boolean(diag.querySelector('.diagcore__entry--hypothesis-correct'));
+   const observations=[...diag.querySelectorAll('.diagcore__entry--observation h3')].map(el=>el.textContent.trim());
+   const required=['Tester l’envoi d’un message','Configuration du serveur sortant','Documentation Orange'];
+   const missing=required.filter(label=>!observations.includes(label));
+   const message=missing.length
+    ? 'Dans DiagCore, termine ces contrôles : '+missing.join(' ; ')+'. Puis clique sur Mon diagnostic.'
+    :correct
+      ? 'Diagnostic validé. Dans DiagCore, clique sur « Ouvrir les paramètres SMTP du compte » sous « Interventions possibles ».'
+      : 'Les trois contrôles sont effectués. Dans DiagCore, clique sur « Mon diagnostic », puis choisis « Les paramètres SMTP correspondent encore à l’ancien prestataire ».';
+   if(hint){hint.hidden=false;hint.textContent=message;}
+   diag.querySelector('.diagcore__next')?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
   restart.addEventListener('click',()=>ui.restart());
  }catch(error){mount.textContent='ChatCore indisponible : '+error.message;}
 }
