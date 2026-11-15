@@ -56,35 +56,79 @@ function settingsUnlocked(){
 function scrollToSettings(){
  if(settingsUnlocked())smtp.scrollIntoView({behavior:'instant',block:'start'});
 }
-function updateStep(){
- const unlocked=settingsUnlocked();
- const intervene=realIntervention();
- const missing=required.filter(label=>!completedChecks().includes(label));
- const diagnosed=Boolean(diag.querySelector('.diagcore__entry--hypothesis-correct'));
- if(unlocked){
-  goToSettings.hidden=false;
-  goToSettings.textContent='Accéder aux paramètres Outlook';
-  stepStatus.textContent='Intervention effectuée : les paramètres Outlook sont modifiables.';
- }else if(intervene){
-  goToSettings.hidden=false;
-  goToSettings.textContent='Ouvrir les paramètres SMTP du compte';
-  stepStatus.textContent='Diagnostic validé : l’intervention est maintenant disponible.';
- }else{
-  goToSettings.hidden=true;
-  stepStatus.textContent=missing.length
-   ? 'Contrôles encore nécessaires : '+missing.join(' ; ')+'.'
-   :diagnosed
-    ? 'Diagnostic validé. Recherche l’intervention dans DiagCore.'
-    : 'Contrôles terminés. Clique sur Mon diagnostic, puis sélectionne la cause SMTP.';
+const groupsForChecks={
+ 'Tester l’envoi d’un message':'E-mail',
+ 'Configuration du serveur sortant':'Paramètres',
+ 'Documentation Orange':'Nouveau prestataire'
+};
+function availableButton(label){
+ return [...diag.querySelectorAll('.diagcore__next button')]
+  .find(button=>button.textContent.trim()===label&&!button.disabled);
+}
+function missingChecks(){
+ return required.filter(label=>!completedChecks().includes(label));
+}
+function nextTask(){
+ if(settingsUnlocked())return {label:'Accéder aux paramètres Outlook',kind:'settings'};
+ if(realIntervention())return {label:'Ouvrir les paramètres SMTP du compte',kind:'intervention'};
+ const missing=missingChecks();
+ if(missing.length){
+  const label=missing[0];
+  return {label:'Effectuer : '+label,kind:'check',check:label,group:groupsForChecks[label]};
  }
- return unlocked;
+ if(availableButton('Mon diagnostic'))return {label:'Ouvrir Mon diagnostic',kind:'diagnostic'};
+ if(availableButton('Les paramètres SMTP correspondent encore à l’ancien prestataire'))
+  return {label:"Valider l'hypothèse SMTP",kind:'hypothesis'};
+ if(availableButton('Continuer mes vérifications'))
+  return {label:'Revenir aux vérifications',kind:'back'};
+ return {label:'Poursuivre le diagnostic dans DiagCore',kind:'unknown'};
+}
+function updateStep(){
+ const task=nextTask();
+ const checked=required.filter(label=>!missingChecks().includes(label));
+ const diagnosed=Boolean(diag.querySelector('.diagcore__entry--hypothesis-correct'));
+ const prefix='Contrôles obligatoires : '+checked.length+'/3. ';
+ if(task.kind==='settings'){
+  stepStatus.textContent=prefix+'Intervention effectuée : paramètres Outlook déverrouillés.';
+ }else if(task.kind==='intervention'){
+  stepStatus.textContent=prefix+'Hypothèse validée. Il faut maintenant effectuer l’intervention SMTP.';
+ }else if(task.kind==='check'){
+  stepStatus.textContent=prefix+'Il manque le contrôle « '+task.check+' » : les autres contrôles ne le remplacent pas.';
+ }else if(task.kind==='diagnostic'||task.kind==='hypothesis'){
+  stepStatus.textContent=prefix+'Les trois contrôles requis sont présents. Il reste à valider l’hypothèse SMTP.';
+ }else{
+  stepStatus.textContent=prefix+(diagnosed?'Hypothèse validée. ':'Hypothèse non validée. ')+
+    'Poursuis la démarche dans DiagCore.';
+ }
+ goToSettings.hidden=task.kind==='unknown';
+ goToSettings.textContent=task.label;
+ return settingsUnlocked();
 }
 goToSettings.addEventListener('click',()=>{
- if(settingsUnlocked()){scrollToSettings();return;}
- const action=realIntervention();
- if(!action){updateStep();return;}
- action.click(); // Déclenche l'intervention réelle et ses règles, sans déverrouillage forcé.
- setTimeout(()=>{updateStep();scrollToSettings();},500);
+ const task=nextTask();
+ if(task.kind==='settings'){scrollToSettings();return;}
+ if(task.kind==='intervention'){
+  realIntervention()?.click();
+  setTimeout(()=>{updateStep();scrollToSettings();},500);
+  return;
+ }
+ if(task.kind==='check'){
+  // N'accomplir aucune vérification artificiellement :
+  // l'élève déclenche le vrai contrôle DiagCore.
+  const back=availableButton('Continuer mes vérifications');
+  if(back){back.click();}
+  let button=availableButton(task.check);
+  if(!button){availableButton(task.group)?.click();button=availableButton(task.check);}
+  if(button){button.click();}
+  updateStep();
+  return;
+ }
+ if(task.kind==='diagnostic'){availableButton('Mon diagnostic')?.click();}
+ if(task.kind==='hypothesis'){
+  availableButton('Les paramètres SMTP correspondent encore à l’ancien prestataire')?.click();
+ }
+ if(task.kind==='back'){availableButton('Continuer mes vérifications')?.click();}
+ updateStep();
 });
 let wasUnlocked=false;
 const settingsObserver=new MutationObserver(()=>{
