@@ -100,13 +100,8 @@ function makeChatScenario(){
     resolve:({facts})=>facts.inspected?
      'Oui, voici les informations reçues d’Orange : serveur SMTP smtp.orange.fr, port 465, sécurité SSL/TLS et authentification SMTP activée.':
      'J’ai le document Orange, mais pouvez-vous d’abord contrôler les paramètres SMTP actuellement enregistrés dans Outlook ?'},
-   {id:'test',text:"Pouvez-vous confirmer que l'envoi fonctionne maintenant ?",once:false,
-    answer:'Le test d’envoi n’a pas encore réussi.',
-    resolve:({facts})=>facts.testPassed?
-      'Oui, le test d’envoi a réussi. Mes messages peuvent de nouveau partir, merci !':
-      facts.testAttempted?
-      "Non, le dernier envoi a échoué. Je ne peux pas confirmer la résolution.":
-      "Pas encore. Il faut d’abord effectuer un envoi de test dans Outlook."},
+   {id:'test',text:"Puis-je effectuer un test d'envoi depuis votre messagerie ?",once:false,
+    answer:'Oui, bien sûr. Vous pouvez effectuer le test.'},
    {id:'close',text:'Puis-je clôturer votre demande ?',once:false,
     answer:'Je préfère attendre un test d’envoi réussi.',
     resolve:({facts})=>facts.testPassed?
