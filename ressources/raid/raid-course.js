@@ -321,6 +321,32 @@ function initFileRaidLab(){
   const label=document.createElement("b");label.textContent=name;block.append(label);
   block.setAttribute("aria-label",name.startsWith("P")?"Parité P, bande "+name.slice(1):name.startsWith("Q")?"Parité Q, bande "+name.slice(1):"Morceau "+name.slice(1)+" du fichier");
   if(isData) setPhotoCrop(block,name);
+  else{
+   const stripe=Number(name.slice(1));
+   const related=pieces.slice((stripe-1)*3,stripe*3);
+   block.classList.add("file-raid-parity");
+   block.dataset.related=related.join(",");
+   block.setAttribute("aria-label","Parité "+name+" calculée à partir des morceaux "+related.join(", ")+". Ce ne sont pas des copies.");
+   const explanation=document.createElement("small");
+   explanation.className="file-raid-parity-caption";
+   explanation.textContent="Calculée avec";
+   block.append(explanation);
+   const thumbnails=document.createElement("span");
+   thumbnails.className="file-raid-parity-sources";
+   thumbnails.setAttribute("aria-hidden","true");
+   for(const piece of related){
+    const source=document.createElement("span");
+    source.className="file-raid-parity-source";
+    const image=document.createElement("i");
+    image.className="file-raid-parity-mini";
+    setPhotoCrop(image,piece);
+    const nameTag=document.createElement("em");
+    nameTag.textContent=piece;
+    source.append(image,nameTag);
+    thumbnails.append(source);
+   }
+   block.append(thumbnails);
+  }
   return block;
  };
  function stripes(){
@@ -347,7 +373,7 @@ function initFileRaidLab(){
   const words=[
    "Voici notre fichier photo.jpg. Regarde bien cette photo : nous allons toujours utiliser la même.",
    "C'est toujours photo.jpg, mais elle est maintenant coupée en 12 morceaux, de M1 à M12.",
-   "Retrouve les mêmes morceaux M1 à M12 dans les "+n+" disques. Les blocs P"+(mode==="6"?" et Q":"")+" aident à retrouver ce qui manque après une panne. Les parités changent de disque.",
+   "Retrouve les mêmes morceaux M1 à M12 dans les "+n+" disques. Les miniatures des blocs P"+(mode==="6"?" et Q":"")+" montrent quelles données servent au calcul des parités : ce ne sont pas des copies. Les parités changent de disque.",
    mode==="5"?"Le disque 2 tombe en panne. Les morceaux qu'il contenait disparaissent de notre photo.":"Les disques 2 et 4 tombent en panne. Les morceaux qu'ils contenaient disparaissent de notre photo.",
    "Grâce aux morceaux et aux parités encore disponibles, le RAID retrouve les morceaux manquants. La photo redevient complète, mais les disques en panne ne sont pas réparés."
   ];
@@ -413,6 +439,9 @@ function initFileRaidLab(){
    const matched=el.dataset.piece===selectedPiece&&selectedPiece!==null;
    el.classList.toggle("is-matched",matched);
    el.setAttribute("aria-pressed",String(matched));
+  }
+  for(const parity of root.querySelectorAll(".file-raid-parity")){
+   parity.classList.toggle("is-related",Boolean(selectedPiece&&parity.dataset.related.split(",").includes(selectedPiece)));
   }
   $("file-raid-result-detail").textContent=mode==="5"?"Un disque en panne. La photo reste accessible grâce aux blocs encore disponibles.":"Deux disques en panne. Les parités permettent de retrouver les morceaux manquants.";
   $("file-raid-prev").disabled=step===1;
