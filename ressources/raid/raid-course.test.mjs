@@ -31,7 +31,7 @@ test("calculs partagés cohérents",()=>{
  const p=assessRaidFailures(c,["d1","d2"]);assert.equal(p.ok,true);assert.equal(p.value.available,true);
 });
 test("présence des mini-défis et contenus de base",()=>{
- assert.equal((html.match(/class="quiz" data-question=/g)||[]).length,5);
+ assert.equal((html.match(/class="quiz" data-question=/g)||[]).length,6);
  for(const phrase of ["partition","volume","système de fichiers","NVMe","sauvegarde","RAID 01"])
   assert.ok(html.includes(phrase),phrase);
 });
@@ -231,8 +231,8 @@ test("Chapitre 4 : chaque parité explique ses trois morceaux sources",()=>{
  assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
  assert.match(css,/\.file-raid-parity-mini/);
  assert.match(html,/Elles ne représentent pas des copies enregistrées/);
- assert.match(html,/raid-course\.js\?v=14/);
- assert.match(html,/raid-course\.css\?v=15/);
+ assert.match(html,/raid-course\.js\?v=15/);
+ assert.match(html,/raid-course\.css\?v=16/);
 });
 
 test("Chapitre 2 : parcours photo avant le simulateur de blocs",()=>{
@@ -241,5 +241,30 @@ test("Chapitre 2 : parcours photo avant le simulateur de blocs",()=>{
  assert.deepEqual(order,[["depart","01"],["parite","02"],["simulateur","03"],["pannes","04"],["atelier","05"],["choix","06"],["synthese","07"]]);
  assert.ok(html.indexOf('id="parite"')<html.indexOf('id="simulateur"'));
  assert.doesNotMatch(html,/id="comprendre"/);
- assert.match(html,/Version 5\.3/);
+ assert.match(html,/Version 5\.4/);
+});
+
+test("Mini-défis : une question cohérente avec chaque chapitre de 1 à 6",()=>{
+ const names=["base","parity","compare","backup","spare","case"];
+ for(const [i,name] of names.entries()){
+  const chapterStart=html.indexOf('<span class="chapter-index">'+String(i+1).padStart(2,"0")+'</span>');
+  const quiz=html.indexOf('data-question="'+name+'"');
+  const next=html.indexOf('<section class="chapter"',chapterStart+1);
+  assert.ok(chapterStart>=0 && quiz>chapterStart && (next<0 || quiz<next),name);
+ }
+ assert.match(html,/Dans le parcours de photo\.jpg, à quoi sert le bloc P/);
+ assert.match(html,/Quel RAID écrit les mêmes blocs de données sur deux disques/);
+ assert.match(html,/4 disques actifs de 2 To en RAID 5/);
+ assert.match(js,/compare:"RAID 1 conserve les mêmes blocs/);
+ assert.match(js,/parity:"La parité P permet de recalculer/);
+});
+test("Spare et groupes RAID professionnels présentés explicitement",()=>{
+ assert.match(html,/Ajouter un spare \(disque de secours\)/);
+ assert.match(html,/RAID 1 \+ RAID 5 \+ spare/);
+ assert.match(html,/RAID 1 \+ RAID 6 \+ spare/);
+ assert.match(html,/Deux RAID 1 indépendants/);
+ assert.match(html,/deux groupes RAID séparés/);
+ assert.match(html,/serveur de virtualisation/);
+ assert.match(js,/Spare \(disque de secours\)/);
+ assert.match(js,/\["spare","Spare \(disque de secours\)"\]/);
 });
