@@ -9,7 +9,7 @@ test("cours sans tirets longs",()=>{
   assert.doesNotMatch(source,/[—–]/,name);
 });
 test("parcours et ancres présents",()=>{
- for(const id of ["depart","comprendre","simulateur","parite","pannes","atelier","choix","synthese"])
+ for(const id of ["depart","parite","simulateur","pannes","atelier","choix","synthese"])
   assert.ok(html.includes('id="'+id+'"'),id);
  assert.match(html,/viewport/);
 });
@@ -31,7 +31,7 @@ test("calculs partagés cohérents",()=>{
  const p=assessRaidFailures(c,["d1","d2"]);assert.equal(p.ok,true);assert.equal(p.value.available,true);
 });
 test("présence des mini-défis et contenus de base",()=>{
- assert.equal((html.match(/class="quiz" data-question=/g)||[]).length,6);
+ assert.equal((html.match(/class="quiz" data-question=/g)||[]).length,5);
  for(const phrase of ["partition","volume","système de fichiers","NVMe","sauvegarde","RAID 01"])
   assert.ok(html.includes(phrase),phrase);
 });
@@ -231,6 +231,15 @@ test("Chapitre 4 : chaque parité explique ses trois morceaux sources",()=>{
  assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
  assert.match(css,/\.file-raid-parity-mini/);
  assert.match(html,/Elles ne représentent pas des copies enregistrées/);
- assert.match(html,/raid-course\.js\?v=13/);
- assert.match(html,/raid-course\.css\?v=13/);
+ assert.match(html,/raid-course\\.js\\?v=14/);
+ assert.match(html,/raid-course\\.css\\?v=15/);
+});
+
+test("Chapitre 2 : parcours photo avant le simulateur de blocs",()=>{
+ const order=[...html.matchAll(/<section class="chapter" id="([^"]+)"><div class="chapter-head"><span class="chapter-index">([^<]+)<\/span>/g)]
+  .map(match=>[match[1],match[2]]);
+ assert.deepEqual(order,[["depart","01"],["parite","02"],["simulateur","03"],["pannes","04"],["atelier","05"],["choix","06"],["synthese","07"]]);
+ assert.ok(html.indexOf('id="parite"')<html.indexOf('id="simulateur"'));
+ assert.doesNotMatch(html,/id="comprendre"/);
+ assert.match(html,/Version 5\.3/);
 });
