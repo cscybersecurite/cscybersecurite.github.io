@@ -423,3 +423,7 @@
  #file-raid-lab .file-raid-parity-mini{border-width:1px;border-radius:2px}
  #file-raid-lab .file-raid-parity-source em{font-size:.48rem}
 }
+
+/* Version du cours, discrète et visible dans le bandeau inférieur. */
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap}
+.footer .course-version{font-size:.8rem;font-weight:700;color:#d6e5ed;white-space:nowrap}
