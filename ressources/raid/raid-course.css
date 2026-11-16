@@ -428,73 +428,29 @@
 .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap}
 .footer .course-version{font-size:.8rem;font-weight:700;color:#d6e5ed;white-space:nowrap}
 
-/* Chapitre 2 : comparer des configurations RAID sur des disques réalistes. */
-.raid-choice-panel{padding:clamp(12px,2vw,22px);overflow:hidden}
-.raid-choice-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:22px}
-.raid-choice-tab{display:flex;flex-direction:column;align-items:flex-start;text-align:left;justify-content:center;gap:4px;min-height:84px;padding:13px 17px;background:var(--pale);border:1px solid var(--edge);border-radius:12px;color:var(--ink)}
-.raid-choice-tab strong{font-size:1.15rem}
-.raid-choice-tab small{font-size:.79rem;color:var(--muted);line-height:1.25}
-.raid-choice-tab[aria-pressed=true]{background:#123c53;color:#fff;border-color:#55b4e4;box-shadow:inset 0 0 0 2px #55b4e4}
-.raid-choice-tab[aria-pressed=true] small{color:#d4edf6}
-.raid-choice-header{display:grid;grid-template-columns:minmax(0,1fr) 165px;gap:15px;align-items:center}
-.raid-choice-header h3{font-size:clamp(1.3rem,2.5vw,1.65rem);margin:8px 0}
-.raid-choice-header p{margin:0;color:var(--muted);max-width:640px}
-.raid-choice-failure{background:var(--pale);border:1px solid var(--edge);padding:13px;border-radius:12px;text-align:center;display:flex;flex-direction:column;gap:4px}
-.raid-choice-failure span{font-size:.77rem;line-height:1.25;color:var(--muted)}
-.raid-choice-failure strong{font-size:2.8rem;color:var(--green);line-height:1}
-.raid-choice-failure small{color:var(--muted)}
-.raid-choice-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:18px}
-.raid-choice-metrics>div{padding:12px 14px;background:var(--pale);border:1px solid var(--edge);border-radius:10px;display:flex;flex-direction:column;gap:4px}
-.raid-choice-metrics small{font-size:.78rem;color:var(--muted)}
-.raid-choice-metrics strong{font-size:clamp(1.35rem,3vw,2.05rem);line-height:1.15}
-.raid-choice-metrics .raid-choice-metric-useful{border-color:#54a8c8}
-.raid-choice-metric-useful strong{color:var(--accent)}
-.raid-choice-capacity{margin:13px 0 22px}
-.raid-choice-capacity-bar{height:14px;display:flex;overflow:hidden;border-radius:99px;background:var(--track);border:1px solid var(--edge)}
-.raid-choice-capacity-data{background:#278ccc}
-.raid-choice-capacity-protection{background:#ed9a36}
-.raid-choice-capacity-labels{display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;font-size:.74rem;color:var(--muted);margin-top:6px}
-.raid-choice-example{border:1px solid var(--edge);background:var(--pale);border-radius:13px;padding:14px}
-.raid-choice-example>strong{font-size:1rem}
-.raid-choice-example>p{font-size:.86rem;color:var(--muted);margin:4px 0 12px}
-.raid-choice-disks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;max-width:790px;margin:0 auto}
-.raid-choice-disks-1{grid-template-columns:repeat(2,minmax(0,155px));justify-content:center}
-.raid-choice-disks-5{grid-template-columns:repeat(4,minmax(0,1fr))}
-.raid-choice-disks-6{grid-template-columns:repeat(5,minmax(0,1fr))}
-.raid-choice-disk{background:#18374a;border:2px solid #6e9bb1;color:#fff;border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:5px;min-width:0;box-shadow:inset 0 1px 0 #ffffff26}
-.raid-choice-disk>strong{text-align:center;font-size:.82rem}
-.raid-choice-disk>small{text-align:center;color:#b7d8e7;font-size:.69rem}
-.raid-choice-disk-chunks{display:grid;grid-template-rows:repeat(4,1fr);gap:5px}
-.raid-choice-chunk{display:grid;place-items:center;min-height:39px;border-radius:6px;font-weight:850;border:1px solid #b3dff4}
-.raid-choice-chunk.is-data{background:#267eaf;color:#fff}
-.raid-choice-chunk.is-p{background:#f5a43d;color:#251500;border-color:#fbd2a0}
-.raid-choice-chunk.is-q{background:#46c882;color:#092715;border-color:#a4f2c4}
-.raid-choice-example>p.raid-choice-diagram-note{margin:12px 0 0;font-size:.78rem}
-.raid-choice-bottom{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}
-.raid-choice-bottom>div{border-left:3px solid var(--edge);padding:6px 10px}
-.raid-choice-bottom strong{font-size:.91rem}
-.raid-choice-bottom p{font-size:.85rem;color:var(--muted);margin:4px 0 0}
-@media(max-width:640px){
- .raid-choice-tabs{gap:5px;margin-bottom:16px}
- .raid-choice-tab{min-height:72px;padding:8px 7px;border-radius:8px}
- .raid-choice-tab strong{font-size:.97rem}
- .raid-choice-tab small{font-size:.67rem}
- .raid-choice-header{grid-template-columns:minmax(0,1fr) 112px;gap:8px}
- .raid-choice-failure{padding:9px 5px}
- .raid-choice-failure strong{font-size:2rem}
- .raid-choice-failure span{font-size:.69rem}
- .raid-choice-failure small{font-size:.7rem}
- .raid-choice-metrics{gap:5px}
- .raid-choice-metrics>div{padding:8px 6px}
- .raid-choice-metrics small{font-size:.68rem;line-height:1.2}
- .raid-choice-metrics strong{font-size:1.25rem}
- .raid-choice-example{padding:9px 6px}
- .raid-choice-disks{gap:4px}
- .raid-choice-disk{padding:5px 2px;border-width:1px;border-radius:6px;gap:3px}
- .raid-choice-disk>strong{font-size:.66rem}
- .raid-choice-disk>small{font-size:.62rem}
- .raid-choice-disk-chunks{gap:4px}
- .raid-choice-chunk{min-height:31px;font-size:.75rem}
- .raid-choice-bottom{grid-template-columns:1fr;gap:8px}
- .raid-choice-bottom>div{padding:4px 10px}
-}
+
+/* Chapitre 2 : aide au choix, sans doublonner le simulateur du chapitre 3. */
+.raid-choice-intro{margin:0 0 16px;padding:14px 17px;border:1px solid var(--edge);border-radius:12px;background:var(--pale)}
+.raid-choice-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;align-items:stretch}
+.raid-choice-card{min-width:0;display:flex;flex-direction:column;gap:10px;padding:17px 15px 14px;border-radius:14px;border:1px solid var(--edge);background:var(--paper);box-shadow:var(--shadow)}
+.raid-choice-card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.raid-choice-badge{display:inline-block;color:#fff;background:#173c51;border-radius:7px;padding:5px 10px;font-weight:850;font-size:1.03rem}
+.raid-choice-purpose{font-size:.77rem;color:var(--muted);font-weight:750}
+.raid-choice-card h3{font-size:1.08rem;line-height:1.25;margin:3px 0 0}
+.raid-choice-card>p{font-size:.88rem;line-height:1.45;margin:0;color:var(--ink)}
+.raid-choice-numbers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:auto;padding-top:10px}
+.raid-choice-numbers>div{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:space-between;gap:6px;padding:9px 3px;border-radius:8px;background:var(--pale)}
+.raid-choice-numbers small{font-size:.69rem;line-height:1.2;color:var(--muted)}
+.raid-choice-numbers strong{font-size:clamp(.89rem,1.5vw,1.1rem);white-space:nowrap}
+.raid-choice-space{display:flex;width:100%;height:13px;overflow:hidden;border-radius:50px;border:1px solid var(--edge);background:var(--track)}
+.raid-choice-space-data{display:block;background:#248aca}
+.raid-choice-space-protection{display:block;background:#ef9f40}
+.raid-choice-card>p.raid-choice-pro{border-top:1px solid var(--edge);padding-top:10px}
+.raid-choice-card>p.raid-choice-con{color:var(--muted)}
+.raid-choice-key{display:flex;flex-wrap:wrap;gap:10px 22px;margin:12px 0 18px;font-size:.79rem;color:var(--muted)}
+.raid-choice-key>span{display:flex;align-items:center;gap:7px}
+.raid-choice-key i{display:inline-block;width:17px;height:13px;border-radius:4px}
+.raid-choice-key-data{background:#248aca}
+.raid-choice-key-protection{background:#ef9f40}
+@media(max-width:850px){.raid-choice-cards{grid-template-columns:1fr}.raid-choice-card{gap:9px}.raid-choice-card h3{font-size:1.12rem}.raid-choice-numbers{margin-top:0;gap:8px}.raid-choice-numbers small{font-size:.77rem}.raid-choice-numbers strong{font-size:1.22rem}}
+@media(max-width:480px){.raid-choice-card{padding:13px}.raid-choice-numbers{gap:5px}.raid-choice-numbers strong{font-size:1.02rem}.raid-choice-numbers small{font-size:.69rem}}
