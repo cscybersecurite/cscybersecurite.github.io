@@ -54,7 +54,7 @@ test("messages simples à l'écran",()=>{
 
 test("V3 : quatre choix au défi RAID 5",()=>{
  const block=html.match(/data-question="parity"[\s\S]*?<\/div><p class="reply"/)?.[0];
- assert.ok(block,"défi 03 présent");
+ assert.ok(block,"défi 02 présent");
  assert.equal((block.match(/data-answer=/g)||[]).length,4);
 });
 test("Chapitre 1 : animations de stockage progressives et accessibles",()=>{
@@ -81,7 +81,7 @@ test("Chapitre 1 : pas de métaphore de l'armoire",()=>{
  assert.doesNotMatch(html,/le disque est une armoire|Imagine une armoire/);
 });
 test("V3 : le spare est expliqué avant le mini-défi",()=>{
- assert.match(html,/Le disque de secours : le remplaçant prêt à aider/);
+ assert.match(html,/Le spare \(disque de secours\) : prêt à remplacer un disque en panne/);
  assert.ok(html.indexOf("spare-lesson")<html.indexOf('data-question="spare"'));
  assert.match(html,/ne simulons pas le remplacement automatique/);
 });
@@ -100,7 +100,7 @@ test("V3 : erreur aux mini-défis sans révéler la réponse",()=>{
  assert.match(js,/if\(good\)\{for\(const x/);
 });
 test("V3 : choix professionnels équilibrés",()=>{
- for(const term of ["Petit NAS","RAID 5 + secours","RAID 6 + secours","RAID 10","RAID 01"])
+ for(const term of ["Petit serveur ou NAS","RAID 1 + RAID 5 + spare","RAID 1 + RAID 6 + spare","RAID 10","RAID 01"])
   assert.ok(html.includes(term),term);
 });
 
@@ -164,7 +164,7 @@ test("Simulateur : 4 disques RAID 5, 5 disques RAID 6 et parités tournantes",()
  assert.match(js,/minimum : quatre/);
 });
 
-test("Chapitre 4 : suivre un seul fichier du RAID 5 au RAID 6",()=>{
+test("Chapitre 2 : suivre un seul fichier du RAID 5 au RAID 6",()=>{
  assert.match(html,/Le parcours d'un fichier en RAID 5 et RAID 6/);
  assert.match(html,/id="file-raid-lab"/);
  for(const id of ["file-raid-5","file-raid-6","file-raid-drives","file-raid-original","file-raid-pieces","file-raid-result","file-raid-prev","file-raid-next"]){
@@ -199,7 +199,7 @@ test("Chapitre 4 : pas de parité dédiée à un disque ni d'affirmation de rép
  assert.match(js,/les disques en panne ne sont pas réparés/);
 });
 
-test("Chapitre 4 : morceau visible en grand et repérable sur disque",()=>{
+test("Chapitre 2 : morceau visible en grand et repérable sur disque",()=>{
  assert.match(html,/id="file-raid-selection"/);
  assert.match(js,/const block=document.createElement\(isData\?"button":"span"\)/);
  assert.match(js,/block\.dataset\.piece=name/);
@@ -213,7 +213,7 @@ test("Chapitre 4 : morceau visible en grand et repérable sur disque",()=>{
  assert.match(css,/#file-raid-lab \.file-raid-selection\[hidden\]/);
 });
 
-test("Chapitre 4 : image entière sans bande bleue dans les blocs",()=>{
+test("Chapitre 2 : image entière sans bande bleue dans les blocs",()=>{
  assert.match(css,/#file-raid-lab \.file-raid-drive \.file-raid-data,\s*#file-raid-lab \.file-raid-recovered \.file-raid-data/);
  assert.match(css,/background-image:var\(--file-raid-photo\);background-size:400% 300%/);
  assert.match(css,/aspect-ratio:1\/1/);
@@ -221,7 +221,7 @@ test("Chapitre 4 : image entière sans bande bleue dans les blocs",()=>{
  assert.doesNotMatch(js,/block\.prepend\(thumbnail\)/);
 });
 
-test("Chapitre 4 : chaque parité explique ses trois morceaux sources",()=>{
+test("Chapitre 2 : chaque parité explique ses trois morceaux sources",()=>{
  assert.match(js,/const related=pieces\.slice\(\(stripe-1\)\*3,stripe\*3\)/);
  assert.match(js,/block\.dataset\.related=related\.join\(","\)/);
  assert.match(js,/explanation\.textContent="Calculée avec"/);
