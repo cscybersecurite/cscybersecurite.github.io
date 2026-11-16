@@ -78,7 +78,7 @@ function renderSimulation(){
  if(!state.ok){message.textContent=state.errors[0].message;return}
  if(!failed.size){message.textContent="Tout fonctionne. Choisis un disque à mettre en panne.";return}
  if(!state.value.available){
-  message.textContent="RAID indisponible. Le disque de secours ne peut pas remplacer les données perdues lorsqu'il y a trop de pannes.";
+  message.textContent="RAID indisponible. Le spare ne peut pas retrouver les données perdues lorsqu'il y a trop de pannes.";
   return;
  }
  if(withSpare&&oneFailure){
@@ -97,7 +97,7 @@ function renderSimulation(){
    return;
   }
   if(spareRebuilt){
-   message.textContent="Reconstruction terminée dans cette démonstration. Le disque de secours remplace maintenant le disque en panne. Une autre panne n'est plus protégée par ce même disque de secours.";
+   message.textContent="Reconstruction terminée dans cette démonstration. Le spare remplace maintenant le disque en panne. Il n'est plus disponible comme disque de réserve.";
    return;
   }
  }
@@ -205,7 +205,7 @@ function renderEditor(){
  remove.addEventListener("click",()=>{disks=disks.filter(x=>x!==d);editingId=disks[0]?.id??null;renderTool()});
  controls.append(label,roleLabel,remove);area.append(h,hint,controls);
 }
-const simpleError={INVALID_CAPACITY:"Entre une taille supérieure à 0 To.",TOO_FEW_ACTIVE_DISKS:"Il manque des disques actifs pour ce RAID.",EVEN_ACTIVE_DISKS:"Ce RAID demande un nombre pair de disques actifs.",SPARE_TOO_SMALL:"Le disque de secours est trop petit.",INVALID_DISKS:"Il y a trop de disques."};
+const simpleError={INVALID_CAPACITY:"Entre une taille supérieure à 0 To.",TOO_FEW_ACTIVE_DISKS:"Il manque des disques actifs pour ce RAID.",EVEN_ACTIVE_DISKS:"Ce RAID demande un nombre pair de disques actifs.",SPARE_TOO_SMALL:"Le spare (disque de secours) est trop petit.",INVALID_DISKS:"Il y a trop de disques."};
 function calculateTool(){
  const result=calculateRaid(toolConfiguration()),metrics=$("tool-metrics"),bar=$("tool-bar");
  metrics.replaceChildren();bar.replaceChildren();
@@ -220,7 +220,7 @@ function calculateTool(){
  }
  status.className="status";status.textContent="Le RAID est prêt.";
  const r=result.value,c=r.capacitiesTB;
- for(const [label,value] of [["Total des disques",c.rawTotal],["Pour les fichiers",c.usable],["Pour la protection",c.redundancy],["Place non utilisée",c.unused],["Disques de secours",c.spare]]){
+ for(const [label,value] of [["Total des disques",c.rawTotal],["Pour les fichiers",c.usable],["Pour la protection",c.redundancy],["Place non utilisée",c.unused],["Spare (disque de secours)",c.spare]]){
   const tile=document.createElement("div");tile.className="metric";const strong=document.createElement("b");strong.textContent=fmt(value);
   const caption=document.createElement("span");caption.textContent=label;tile.append(strong,caption);metrics.append(tile);
  }
