@@ -29,7 +29,7 @@ function renderLevels(){
 function renderSimulation(){
  const rows=layouts[selected],result=$("sim-disks");result.replaceChildren();
  const active=rows.map((_,i)=>({id:"d"+(i+1),capacityTB:2,role:"active"}));
- const spareId="secours",oneFailure=failed.size===1;
+ const spareId="spare",oneFailure=failed.size===1;
  const spareRebuilt=withSpare&&sparePhase==="done"&&oneFailure;
  const physical=active.concat(withSpare?[{id:spareId,capacityTB:2,role:"spare"}]:[]);
  for(let i=0;i<physical.length;i++){
@@ -37,7 +37,7 @@ function renderSimulation(){
   const disk=document.createElement("article");
   disk.className="sim-disk"+(isFailed?" off":"")+(isSpare?" spare-disk":"");
   const title=document.createElement("h4");
-  title.textContent=isSpare?"Disque de secours":("Disque "+(i+1)+(isFailed?" • En panne":""));
+  title.textContent=isSpare?"Spare (disque de secours)":("Disque "+(i+1)+(isFailed?" • En panne":""));
   disk.append(title);
   const diskBlocks=isSpare?(sparePhase==="rebuilding"||sparePhase==="done"?rows[Number([...failed][0].slice(1))-1]:[]):rows[i];
   if(isSpare){
@@ -61,7 +61,7 @@ function renderSimulation(){
  $("sim-spare-controls").hidden=selected==="1";
  const spareToggle=$("sim-spare-toggle");
  spareToggle.checked=withSpare;
- $("sim-spare-caption").textContent=withSpare?"Disque de secours ajouté. Il ne stocke pas encore les données du RAID.":"Ajoute un disque de secours pour observer son rôle après une panne.";
+ $("sim-spare-caption").textContent=withSpare?"Spare ajouté. Il ne stocke pas encore les données du RAID.":"Ajoute un spare (disque de secours) pour observer son rôle après une panne.";
  const buttons=$("failure-actions");buttons.replaceChildren();
  for(const d of active){
   const b=document.createElement("button");b.type="button";b.className="failure-btn";
@@ -83,14 +83,14 @@ function renderSimulation(){
  }
  if(withSpare&&oneFailure){
   if(sparePhase==="standby"){
-   message.textContent="Le RAID fonctionne encore, mais un disque est en panne. Le disque de secours peut prendre sa place.";
+   message.textContent="Le RAID fonctionne encore, mais un disque est en panne. Le spare peut prendre sa place.";
    const start=document.createElement("button");start.type="button";start.className="spare-action";
    start.textContent="Lancer la reconstruction (simulation)";
    start.addEventListener("click",()=>{sparePhase="rebuilding";renderSimulation()});spareActions.append(start);
    return;
   }
   if(sparePhase==="rebuilding"){
-   message.textContent="Reconstruction simulée : les blocs du disque en panne sont recopiés ou recalculés sur le disque de secours.";
+   message.textContent="Reconstruction simulée : les blocs du disque en panne sont recopiés ou recalculés sur le spare.";
    const finish=document.createElement("button");finish.type="button";finish.className="spare-action";
    finish.textContent="Terminer la reconstruction";
    finish.addEventListener("click",()=>{sparePhase="done";renderSimulation()});spareActions.append(finish);
@@ -111,11 +111,11 @@ function initSimSpare(){
 function bindQuizzes(){
  const explanations={
  base:"C: est souvent le nom du stockage affiché dans Windows. On appelle ça un volume.",
- mirror:"Le miroir copie les mêmes fichiers sur plusieurs disques.",
- parity:"Un disque de 2 To sert à la protection. Il reste 6 To pour les fichiers.",
+ compare:"RAID 1 conserve les mêmes blocs sur deux disques : c\'est le principe du miroir.",
+ parity:"La parité P permet de recalculer un morceau manquant après la panne d\'un disque. Ce n\'est pas une copie de la photo.",
  backup:"Avec une sauvegarde, tu peux retrouver un fichier supprimé.",
- spare:"Le disque de secours attend. Il ne donne pas de place en plus pour les fichiers. Il reste 4 To.",
- case:"Le RAID 6 peut continuer si deux disques cassent. En RAID 10, cela dépend des deux disques touchés."
+ spare:"Le spare attend une panne. Il ne donne pas de capacité utile supplémentaire. Il reste 4 To.",
+ case:"On sépare le RAID 1 du système du RAID 6 des données. Le spare attend une panne du groupe auquel il est affecté."
  };
  for(const root of document.querySelectorAll(".quiz")){
   const reply=root.querySelector(".reply");
@@ -164,12 +164,12 @@ function renderTool(){
   const tray=document.createElement("button");tray.type="button";
   tray.className="nas-tray"+(d.role==="spare"?" is-spare":"")+(d.id===editingId?" is-selected":"");
   tray.setAttribute("aria-pressed",String(d.id===editingId));
-  tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To, "+(d.role==="spare"?"secours":"actif")+". Voir ses réglages");
+  tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To, "+(d.role==="spare"?"spare (disque de secours)":"actif")+". Voir ses réglages");
   const led=document.createElement("span");led.className="nas-led";led.setAttribute("aria-hidden","true");
   const title=document.createElement("strong");title.textContent=d.id;
   const cap=document.createElement("span");cap.className="nas-cap";cap.textContent=d.capacityTB+" To";
   const keyhole=document.createElement("span");keyhole.className="nas-keyhole";keyhole.setAttribute("aria-hidden","true");
-  const role=document.createElement("small");role.textContent=d.role==="spare"?"SECOURS":"ACTIF";
+  const role=document.createElement("small");role.textContent=d.role==="spare"?"SPARE":"ACTIF";
   tray.append(led,title,cap,keyhole,role);
   tray.addEventListener("click",()=>{editingId=d.id;renderTool();$("tool-editor").scrollIntoView({block:"nearest",behavior:"auto"})});
   grid.append(tray);
@@ -199,7 +199,7 @@ function renderEditor(){
  label.append(capacity);
  const roleLabel=document.createElement("label");roleLabel.textContent="Rôle";
  const role=document.createElement("select");role.setAttribute("aria-label","Rôle du disque "+d.id);
- for(const [v,t] of [["active","Actif"],["spare","De secours"]])role.add(new Option(t,v));
+ for(const [v,t] of [["active","Actif"],["spare","Spare (disque de secours)"]])role.add(new Option(t,v));
  role.value=d.role;role.addEventListener("change",()=>{d.role=role.value;renderTool()});roleLabel.append(role);
  const remove=document.createElement("button");remove.type="button";remove.textContent="Retirer ce disque";
  remove.addEventListener("click",()=>{disks=disks.filter(x=>x!==d);editingId=disks[0]?.id??null;renderTool()});
