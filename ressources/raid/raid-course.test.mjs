@@ -231,8 +231,8 @@ test("Chapitre 4 : chaque parité explique ses trois morceaux sources",()=>{
  assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
  assert.match(css,/\.file-raid-parity-mini/);
  assert.match(html,/Elles ne représentent pas des copies enregistrées/);
- assert.match(html,/raid-course\\.js\\?v=14/);
- assert.match(html,/raid-course\\.css\\?v=15/);
+ assert.match(html,/raid-course\.js\?v=14/);
+ assert.match(html,/raid-course\.css\?v=15/);
 });
 
 test("Chapitre 2 : parcours photo avant le simulateur de blocs",()=>{
