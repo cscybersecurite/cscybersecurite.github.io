@@ -114,7 +114,7 @@ function bindQuizzes(){
  compare:"RAID 1 conserve les mêmes blocs sur deux disques : c\'est le principe du miroir.",
  parity:"La parité P permet de recalculer un morceau manquant après la panne d\'un disque. Ce n\'est pas une copie de la photo.",
  backup:"Avec une sauvegarde, tu peux retrouver un fichier supprimé.",
- spare:"Le spare attend une panne. Il ne donne pas de capacité utile supplémentaire. Il reste 4 To.",
+ spare:"Le spare attend une panne. Il ne donne pas de capacité utile supplémentaire : les quatre disques actifs en RAID 5 offrent toujours 6 To.",
  case:"On sépare le RAID 1 du système du RAID 6 des données. Le spare attend une panne du groupe auquel il est affecté."
  };
  for(const root of document.querySelectorAll(".quiz")){
