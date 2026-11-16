@@ -220,3 +220,17 @@ test("Chapitre 4 : image entière sans bande bleue dans les blocs",()=>{
  assert.match(css,/position:absolute;right:3px;bottom:3px/);
  assert.doesNotMatch(js,/block\.prepend\(thumbnail\)/);
 });
+
+test("Chapitre 4 : chaque parité explique ses trois morceaux sources",()=>{
+ assert.match(js,/const related=pieces\.slice\(\(stripe-1\)\*3,stripe\*3\)/);
+ assert.match(js,/block\.dataset\.related=related\.join\(","\)/);
+ assert.match(js,/explanation\.textContent="Calculée avec"/);
+ assert.match(js,/setPhotoCrop\(image,piece\)/);
+ assert.match(js,/parity\.classList\.toggle\("is-related"/);
+ assert.match(css,/\.file-raid-parity-sources/);
+ assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+ assert.match(css,/\.file-raid-parity-mini/);
+ assert.match(html,/Elles ne représentent pas des copies enregistrées/);
+ assert.match(html,/raid-course\.js\?v=13/);
+ assert.match(html,/raid-course\.css\?v=13/);
+});
