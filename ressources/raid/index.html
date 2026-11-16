@@ -47,28 +47,25 @@
 <div class="aside warn"><strong>À retenir :</strong> HDD et SSD parlent du matériel. RAID explique comment plusieurs disques travaillent ensemble.</div></div>
 <div class="quiz" data-question="base"><span class="tag">Mini-défi 01</span><h3>Dans Windows, à quoi correspond souvent C: ?</h3><div class="choices"><button data-answer="non">À un format de fichier</button><button data-answer="oui">À un volume de stockage</button><button data-answer="non">À une marque de disque</button><button data-answer="non">À un dossier Windows</button></div><p class="reply" aria-live="polite"></p></div></section>
 
-<section class="chapter" id="comprendre"><div class="chapter-head"><span class="chapter-index">02</span><div><h2>Comprendre et choisir son RAID</h2><p>Trois besoins d'entreprise. Trois choix possibles. Le chapitre 3 te permettra ensuite de manipuler les disques.</p></div></div>
-<div class="raid-choice-intro"><strong>Le défi :</strong> tu dois équiper un NAS. Avant de choisir un RAID, pose-toi trois questions : combien de place faut-il, combien de disques peuvent tomber en panne et où sont les sauvegardes ?</div>
+<section class="chapter" id="comprendre"><div class="chapter-head"><span class="chapter-index">02</span><div><h2>Comprendre et choisir son RAID</h2><p>Trois besoins professionnels, trois façons de protéger les données. À toi de choisir la plus adaptée.</p></div></div>
+<div class="raid-choice-intro"><strong>Ta mission :</strong> tu dois équiper un serveur. Commence par identifier le besoin de protection. Nous manipulerons les disques au chapitre 3 et nous calculerons les capacités au chapitre 6.</div>
 <div class="raid-choice-cards">
 <article class="raid-choice-card"><div class="raid-choice-card-head"><span class="raid-choice-badge">RAID 1</span><span class="raid-choice-purpose">Faire une copie</span></div>
 <h3>Protéger le système du serveur</h3><p>Le système doit continuer à fonctionner si un disque casse. Deux disques contiennent les mêmes données.</p>
-<div class="raid-choice-numbers"><div><small>Disques installés</small><strong>2 × 2 To</strong></div><div><small>Place pour les fichiers</small><strong>2 To</strong></div><div><small>Pannes supportées</small><strong>1</strong></div></div>
-<div class="raid-choice-space" role="img" aria-label="2 To pour les fichiers, 2 To pour une copie"><span class="raid-choice-space-data" style="width:50%"></span><span class="raid-choice-space-protection" style="width:50%"></span></div>
-<p class="raid-choice-pro"><strong>Atout :</strong> simple à utiliser et à remplacer après une panne.</p><p class="raid-choice-con"><strong>Limite :</strong> la moitié de la capacité est utilisée pour la copie.</p></article>
+
+<p class="raid-choice-pro"><strong>Atout :</strong> simple à utiliser et à remplacer après une panne.</p><p class="raid-choice-con"><strong>Limite :</strong> chaque donnée doit être écrite deux fois.</p></article>
 <article class="raid-choice-card"><div class="raid-choice-card-head"><span class="raid-choice-badge">RAID 5</span><span class="raid-choice-purpose">Supporter une panne</span></div>
 <h3>Stocker les dossiers de l'entreprise</h3><p>Les données et la parité sont réparties entre les disques. La parité permet de retrouver les morceaux d'un disque en panne.</p>
-<div class="raid-choice-numbers"><div><small>Disques installés</small><strong>4 × 2 To</strong></div><div><small>Place pour les fichiers</small><strong>6 To</strong></div><div><small>Pannes supportées</small><strong>1</strong></div></div>
-<div class="raid-choice-space" role="img" aria-label="6 To pour les fichiers, 2 To utilisés par la parité"><span class="raid-choice-space-data" style="width:75%"></span><span class="raid-choice-space-protection" style="width:25%"></span></div>
+
 <p class="raid-choice-pro"><strong>Atout :</strong> davantage de place disponible avec quatre disques.</p><p class="raid-choice-con"><strong>Limite :</strong> une deuxième panne pendant la réparation peut rendre les fichiers inaccessibles.</p></article>
 <article class="raid-choice-card"><div class="raid-choice-card-head"><span class="raid-choice-badge">RAID 6</span><span class="raid-choice-purpose">Supporter deux pannes</span></div>
 <h3>Protéger les données importantes</h3><p>Deux informations de parité différentes, P et Q, protègent les données réparties entre les disques.</p>
-<div class="raid-choice-numbers"><div><small>Disques installés</small><strong>5 × 2 To</strong></div><div><small>Place pour les fichiers</small><strong>6 To</strong></div><div><small>Pannes supportées</small><strong>2</strong></div></div>
-<div class="raid-choice-space" role="img" aria-label="6 To pour les fichiers, 4 To utilisés par les deux parités"><span class="raid-choice-space-data" style="width:60%"></span><span class="raid-choice-space-protection" style="width:40%"></span></div>
-<p class="raid-choice-pro"><strong>Atout :</strong> deux disques peuvent tomber en panne sans rendre les fichiers inaccessibles.</p><p class="raid-choice-con"><strong>Limite :</strong> la protection utilise plus de capacité et les écritures demandent plus de calculs.</p></article>
+
+<p class="raid-choice-pro"><strong>Atout :</strong> deux disques peuvent tomber en panne sans rendre les fichiers inaccessibles.</p><p class="raid-choice-con"><strong>Limite :</strong> les deux parités demandent davantage de calculs et de disques.</p></article>
 </div>
-<div class="raid-choice-key"><span><i class="raid-choice-key-data"></i> Espace disponible pour les fichiers</span><span><i class="raid-choice-key-protection"></i> Espace utilisé pour la protection</span></div>
-<div class="aside"><strong>À retenir :</strong> RAID 1 copie les données. RAID 5 utilise une parité. RAID 6 utilise deux parités différentes. <strong>Le RAID ne remplace pas une sauvegarde.</strong> Le chapitre 3 montre comment les blocs sont placés sur les disques.</div>
-<div class="quiz" data-question="mirror"><span class="tag">Mini-défi 02</span><h3>Un NAS possède cinq disques de 2 To. Il doit conserver ses fichiers malgré la panne de deux disques. Quel RAID choisir ?</h3><div class="choices"><button data-answer="non">RAID 1 avec deux disques</button><button data-answer="non">RAID 5 avec quatre disques</button><button data-answer="oui">RAID 6 avec cinq disques</button><button data-answer="non">RAID 0 avec cinq disques</button></div><p class="reply" aria-live="polite"></p></div>
+
+<div class="aside"><strong>À retenir :</strong> RAID 1 copie les données. RAID 5 utilise une parité. RAID 6 utilise deux parités différentes. <strong>Le RAID ne remplace pas une sauvegarde.</strong> Le chapitre 3 montre la répartition des blocs. Le chapitre 6 permet de calculer la capacité.</div>
+<div class="quiz" data-question="mirror"><span class="tag">Mini-défi 02</span><h3>Un NAS doit conserver ses fichiers malgré la panne de deux disques. Quel RAID choisir ?</h3><div class="choices"><button data-answer="non">RAID 1</button><button data-answer="non">RAID 5</button><button data-answer="oui">RAID 6</button><button data-answer="non">RAID 0</button></div><p class="reply" aria-live="polite"></p></div>
 </section>
 
 <section class="chapter" id="simulateur"><div class="chapter-head"><span class="chapter-index">03</span><div><h2>Un RAID, bloc par bloc</h2><p>Compare RAID 1, RAID 5 et RAID 6, puis teste une panne.</p></div></div>
