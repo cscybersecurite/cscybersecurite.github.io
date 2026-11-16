@@ -454,3 +454,24 @@
 .raid-choice-key-protection{background:#ef9f40}
 @media(max-width:850px){.raid-choice-cards{grid-template-columns:1fr}.raid-choice-card{gap:9px}.raid-choice-card h3{font-size:1.12rem}.raid-choice-numbers{margin-top:0;gap:8px}.raid-choice-numbers small{font-size:.77rem}.raid-choice-numbers strong{font-size:1.22rem}}
 @media(max-width:480px){.raid-choice-card{padding:13px}.raid-choice-numbers{gap:5px}.raid-choice-numbers strong{font-size:1.02rem}.raid-choice-numbers small{font-size:.69rem}}
+
+/* Chapitre 6 : exemples de configurations RAID dans les machines professionnelles. */
+.raid-pro-roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.raid-pro-roles>div{padding:12px 13px;border:1px solid var(--edge);border-radius:10px;background:var(--pale)}
+.raid-pro-roles strong{font-size:.94rem}
+.raid-pro-roles p{font-size:.83rem;line-height:1.45;margin:5px 0 0;color:var(--muted)}
+.raid-pro-cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 20px}
+.raid-pro-case{display:flex;flex-direction:column;gap:9px;min-width:0}
+.raid-pro-case h3{font-size:1.13rem;margin:0}
+.raid-pro-case p{margin:0;font-size:.88rem;line-height:1.48}
+.raid-pro-case .tiny{margin-top:auto;color:var(--muted)}
+.raid-pro-arrangement{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:5px;padding:12px 7px;border:1px solid var(--edge);border-radius:10px;background:var(--pale)}
+.raid-pro-set{min-width:80px;max-width:125px;flex:1 1 80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:#174663;border:1px solid #6db5d4;border-radius:8px;padding:10px 6px;text-align:center;color:#fff}
+.raid-pro-set strong{font-size:1rem;line-height:1.1}
+.raid-pro-set small{font-size:.76rem;color:#d2ebf9}
+.raid-pro-set em{font-size:.73rem;font-style:normal;font-weight:750;color:#fff}
+.raid-pro-data{background:#1d6b55;border-color:#74d0a7}
+.raid-pro-spare{background:#744a16;border-color:#e3ad58}
+.raid-pro-plus{align-self:center;font-size:1.28rem;font-weight:800;color:var(--ink)}
+@media(max-width:740px){.raid-pro-cases{grid-template-columns:1fr}.raid-pro-roles{grid-template-columns:1fr}.raid-pro-roles>div{padding:10px 12px}}
+@media(max-width:410px){.raid-pro-arrangement{padding:9px 4px;gap:4px}.raid-pro-set{min-width:66px;flex-basis:66px;padding:8px 3px}.raid-pro-set strong{font-size:.91rem}.raid-pro-set small,.raid-pro-set em{font-size:.66rem}.raid-pro-plus{font-size:1rem}}
