@@ -464,4 +464,72 @@ function initFileRaidLab(){
  render();
 }
 
-renderLevels();initSimSpare();renderSimulation();bindQuizzes();initStorageLab();initFileRaidLab();renderTool();
+
+function initRaidChoiceChapter(){
+ const root=$("raid-choice-lab");if(!root)return;
+ const models={
+  "1":{tag:"Copie des données",title:"RAID 1 : deux disques identiques",summary:"Les deux disques contiennent exactement les mêmes données. Si un disque tombe en panne, l'autre conserve les fichiers.",n:2,fail:1,usable:2,intro:"Les blocs A, B, C et D sont copiés à l'identique sur les deux disques.",note:"RAID 1 : les deux disques stockent les mêmes données.",advantage:"Simple : un disque peut tomber en panne sans faire disparaître les fichiers.",limit:"Sur 4 To installés, seuls 2 To servent à stocker les fichiers.",usecase:"Protéger les disques du système d'un serveur."},
+  "5":{tag:"Données + parité P",title:"RAID 5 : la protection répartie",summary:"Les fichiers sont répartis sur quatre disques. Des blocs de parité P permettent de retrouver les données après la panne d'un disque.",n:4,fail:1,usable:6,intro:"Chaque ligne est une bande : trois blocs de données et une parité P. La parité change de disque à chaque ligne.",note:"RAID 5 : P est calculée à partir des données de sa bande. P n'est pas une copie des photos.",advantage:"Avec quatre disques, on garde une bonne place pour les fichiers.",limit:"Deux disques en panne en même temps : les données ne sont plus garanties.",usecase:"Stocker les dossiers partagés d'une petite entreprise."},
+  "6":{tag:"Données + parités P et Q",title:"RAID 6 : deux protections",summary:"Les fichiers sont répartis sur cinq disques. Les parités P et Q permettent de continuer même si deux disques tombent en panne.",n:5,fail:2,usable:6,intro:"Chaque ligne contient trois blocs de données, une parité P et une parité Q, répartis sur les cinq disques.",note:"RAID 6 : P et Q sont deux calculs différents, pas deux copies du fichier.",advantage:"Deux disques peuvent tomber en panne sans rendre les fichiers indisponibles.",limit:"Deux disques sur cinq sont nécessaires à la protection, et les écritures demandent plus de calculs.",usecase:"Protéger les données d'un NAS qui doit supporter deux pannes."}
+ };
+ const diskRows=level=>{
+  const n=models[level].n;
+  if(level==="1")return Array.from({length:n},()=>["A","B","C","D"]);
+  const rows=Array.from({length:n},()=>[]);
+  for(let stripe=0;stripe<4;stripe++){
+   const p=(n-1-stripe+n)%n,q=level==="6"?(p-1+n)%n:-1;
+   let data=0;
+   for(let disk=0;disk<n;disk++){
+    const label=disk===p?"P":disk===q?"Q":String.fromCharCode(65+stripe*3+data++);
+    rows[disk].push(label);
+   }
+  }
+  return rows;
+ };
+ const draw=level=>{
+  const model=models[level],total=model.n*2;
+  for(const tab of root.querySelectorAll("[data-choice-raid]")){
+   tab.setAttribute("aria-pressed",String(tab.dataset.choiceRaid===level));
+  }
+  $("raid-choice-tag").textContent=model.tag;
+  $("raid-choice-title").textContent=model.title;
+  $("raid-choice-summary").textContent=model.summary;
+  $("raid-choice-disks").textContent=String(model.n);
+  $("raid-choice-total").textContent=total+" To";
+  $("raid-choice-usable").textContent=model.usable+" To";
+  $("raid-choice-failures").textContent=String(model.fail);
+  $("raid-choice-failure-detail").textContent="sur "+model.n+" disques";
+  $("raid-choice-capacity-data").style.width=(model.usable/total*100)+"%";
+  $("raid-choice-capacity-protection").style.width=((total-model.usable)/total*100)+"%";
+  $("raid-choice-diagram-intro").textContent=model.intro;
+  $("raid-choice-diagram-note").textContent=model.note;
+  $("raid-choice-advantage").textContent=model.advantage;
+  $("raid-choice-limit").textContent=model.limit;
+  $("raid-choice-usecase").textContent=model.usecase;
+  const diagram=$("raid-choice-diagram");
+  diagram.className="raid-choice-disks raid-choice-disks-"+level;
+  diagram.setAttribute("aria-label","Exemple de répartition en RAID "+level+" sur "+model.n+" disques");
+  diagram.replaceChildren();
+  for(const [i,rows] of diskRows(level).entries()){
+   const disk=document.createElement("div");disk.className="raid-choice-disk";
+   const heading=document.createElement("strong");heading.textContent="Disque "+(i+1);
+   const capacity=document.createElement("small");capacity.textContent="2 To";
+   const chunks=document.createElement("div");chunks.className="raid-choice-disk-chunks";
+   for(const name of rows){
+    const chunk=document.createElement("span");
+    chunk.className="raid-choice-chunk "+(name==="P"?"is-p":name==="Q"?"is-q":"is-data");
+    chunk.textContent=name;
+    chunk.setAttribute("aria-label",name==="P"?"Parité P":name==="Q"?"Parité Q":"Bloc de données "+name);
+    chunks.append(chunk);
+   }
+   disk.append(heading,capacity,chunks);diagram.append(disk);
+  }
+ };
+ root.addEventListener("click",event=>{
+  const tab=event.target.closest("[data-choice-raid]");
+  if(tab&&root.contains(tab))draw(tab.dataset.choiceRaid);
+ });
+ draw("1");
+}
+
+renderLevels();initSimSpare();renderSimulation();bindQuizzes();initStorageLab();initRaidChoiceChapter();initFileRaidLab();renderTool();
