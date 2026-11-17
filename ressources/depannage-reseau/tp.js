@@ -73,7 +73,7 @@ function renderReport(){
  "Continuité physique : "+(state.continuity?"vérifiée":"non vérifiée"),
  "Adresse IPv4 : "+(state.ip||"aucune"),
  "Configuration IP : "+(state.lease?"réparée":"à réparer"),
- "Ping IP / DNS : "+(state.ipPingPassed?"OK":"à vérifier")+" / "+(state.dnsPingPassed?"OK":"à vérifier"),
+ "Ping : "+(state.ipPingPassed||state.dnsPingPassed?"réussi":"à vérifier"),
  "Navigateur final : "+(state.finalBrowserPassed?"validé":"non vérifié")].join("\n");
  $("report").textContent=text;
  const checks=[state.miniDone,state.mainDone,state.continuity,state.browser,state.apipaSeen,state.lease,state.ipPingPassed||state.dnsPingPassed,!$("final-browser-section").hidden,state.finalBrowserPassed];
@@ -238,6 +238,7 @@ async function playFinalPath(){
  track.querySelectorAll("[hidden]").forEach(node=>node.hidden=false);
  rail.replaceChildren(track);panel.hidden=false;
  const stops=Array.from(track.querySelectorAll("[data-path-stop]")),wires=Array.from(track.querySelectorAll("[data-path-wire]"));
+ stops.forEach((node,i)=>node.dataset.pathNumber=String(i+1));
  stops.forEach(node=>node.classList.remove("active","reached"));wires.forEach(node=>node.classList.remove("active","reached"));
  const words=["PC portable","Prise murale F","Mini-baie n°5","Grande baie D5","Switch, port 23","Internet"];
  for(let i=0;i<stops.length;i++){
@@ -263,9 +264,12 @@ $("final-open-web").addEventListener("click",()=>{
 });
 $("export").addEventListener("click",()=>{
  if(!state.finalBrowserPassed)return;
- const doc={format:"ci-el-depannage-reseau",version:"1.15",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Pronote",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.ipPingPassed||state.dnsPingPassed,navigateurFinalValide:state.finalBrowserPassed,pingIPValide:state.ipPingPassed,pingDNSValide:state.dnsPingPassed},historique:events};
+ const doc={format:"ci-el-depannage-reseau",version:"1.16",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Pronote",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.ipPingPassed||state.dnsPingPassed,navigateurFinalValide:state.finalBrowserPassed,pingIPValide:state.ipPingPassed,pingDNSValide:state.dnsPingPassed},historique:events};
  const blob=new Blob([JSON.stringify(doc,null,2)],{type:"application/json;charset=utf-8"});
- const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="depannage-reseau-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
+ const url=URL.createObjectURL(blob),a=document.createElement("a");
+ const now=new Date(),pad=n=>String(n).padStart(2,"0");
+ const stamp=String(now.getFullYear())+pad(now.getMonth()+1)+pad(now.getDate())+"_"+pad(now.getHours())+pad(now.getMinutes());
+ a.href=url;a.download=stamp+"_Depannage_Reseau.json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 });
 async function init(){
  try{
