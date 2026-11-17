@@ -63,10 +63,23 @@
 .path-caption{min-height:48px;margin-top:2px;font-weight:600}
 .path-animation .path-legend{font-size:12px;color:var(--ink);opacity:.82}
 @media(prefers-reduced-motion:reduce){.path-stop,.path-wire::before{transition:none}.path-stop.active{transform:none}.path-wire.active .path-packet{animation:none;left:calc(50% - 11px)}.path-rail{scroll-behavior:auto}}
+
+/* Progression en bas, toujours visible sans cacher les boutons sur smartphone. */
+body{padding-bottom:106px}
+#progress-dock{position:fixed;z-index:30;bottom:0;left:0;right:0;margin:0 auto;max-width:940px;padding:9px 16px 7px;background:var(--panel);border:1px solid var(--line);border-bottom:0;border-radius:12px 12px 0 0;box-shadow:0 -5px 22px light-dark(#15344b25,#0008)}
+#progress-dock .row{font-size:13px}#progress-dock .steps{margin:6px 0 4px}#progress-dock .steps span{height:7px}
+#progress-label{font-size:12px;margin:3px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#diagnosis-panel{margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:11px;background:light-dark(#f4f8fc,#243549)}
+#diagnosis-panel h3{font-size:17px;margin:0 0 8px}
+#diagnosis-choices{border:0;padding:0;margin:10px 0;display:grid;gap:8px}
+#diagnosis-choices label{display:flex;align-items:flex-start;gap:9px;cursor:pointer;padding:9px;border:1px solid var(--line);border-radius:8px}
+#diagnosis-choices input{margin-top:5px;accent-color:var(--accent);flex:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:480px){body{padding-bottom:102px}#progress-dock{padding:8px 12px 6px}#progress-dock .row{font-size:12px}}
 </style><link rel="stylesheet" href="https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/cabling-frontpanel.css?v=1.5"></head><body>
 <header><h1>Dépannage réseau</h1><a href="/">Accueil</a></header><main>
 <section><h2>Situation professionnelle</h2><p>Vous êtes technicien informatique dans une entreprise.</p><p>Un salarié vous contacte car il n'arrive pas à accéder à Internet depuis son PC portable. Il vient de s'installer dans un nouveau bureau.</p><p><strong>Votre mission :</strong> rétablir sa connexion à Internet.</p></section>
-<section><div class="row" style="justify-content:space-between"><strong>Progression de l'intervention</strong><span id="progress-text">0 / 9 étapes</span></div><div class="steps" id="progress"></div><p class="muted hint" id="progress-label">Réparer le brassage réseau</p></section>
+<aside id="progress-dock" aria-label="Progression de l’intervention"><div class="row" style="justify-content:space-between"><strong>Progression de l’intervention</strong><span id="progress-text">0 / 9 étapes</span></div><div class="steps" id="progress"></div><p class="muted hint" id="progress-label">Réparer le brassage réseau</p></aside>
 <section id="cabling-section"><h2>1. Réparer le brassage réseau</h2>
 <div class="guide"><strong>Votre mission :</strong> réparer les branchements dans les deux baies, puis vérifier la continuité jusqu'au switch.</div>
 <div class="existing-installation">
@@ -133,7 +146,16 @@
 <div class="browser-toolbar"><div class="browser-nav" aria-hidden="true"><span>←</span><span>→</span><span>↻</span></div><div class="browser-address"><span class="browser-lock" aria-hidden="true">🌐</span>www.google.fr</div></div>
 <div class="browser-body" id="browser-result" aria-live="polite"><div class="browser-empty">Le navigateur est ouvert. Clique sur « Accéder au site » pour charger la page.</div></div>
 </div><button class="primary" id="open-web" type="button" style="margin-top:10px">Accéder au site</button></section>
-<section id="console-section" hidden><h2>3. Outils du technicien</h2><div class="guide" id="technician" aria-live="polite"></div><p class="muted">Choisissez le contrôle ou l’action utile. La commande se lance directement.</p><div class="command-list" id="command-list" aria-label="Commandes du technicien"><button class="command-choice" type="button" data-command="ipconfig /all"><strong>Afficher toutes les informations réseau</strong><code>ipconfig /all</code></button><button class="command-choice" type="button" data-command="ipconfig /release"><strong>Enlever l’adresse IP actuelle</strong><code>ipconfig /release</code></button><button class="command-choice" type="button" data-command="ipconfig /renew"><strong>Demander une nouvelle adresse IP</strong><code>ipconfig /renew</code></button><button class="command-choice" type="button" data-command="ping 8.8.8.8"><strong>Tester la connexion vers une adresse IP</strong><code>ping 8.8.8.8</code></button><button class="command-choice" type="button" data-command="ping google.fr"><strong>Tester la connexion vers un nom de site</strong><code>ping google.fr</code></button></div><div class="terminal" id="terminal-output" aria-label="Résultats de l’invite de commandes" role="log">Microsoft Windows [simulation pédagogique]\nC:\\Users\\technicien&gt;</div></section>
+<section id="console-section" hidden><h2>3. Outils du technicien</h2><div class="guide" id="technician" aria-live="polite">Explore les commandes, observe les résultats et identifie la panne avant d’intervenir.</div><p class="muted">Choisis librement les commandes de diagnostic. Les actions de réparation seront autorisées après ton diagnostic.</p><div class="command-list" id="command-list" aria-label="Commandes du technicien"><button class="command-choice" type="button" data-command="ipconfig /all"><strong>Afficher toutes les informations réseau</strong><code>ipconfig /all</code></button><button class="command-choice" type="button" data-command="ipconfig /release"><strong>Enlever l’adresse IP actuelle</strong><code>ipconfig /release</code></button><button class="command-choice" type="button" data-command="ipconfig /renew"><strong>Demander une nouvelle adresse IP</strong><code>ipconfig /renew</code></button><button class="command-choice" type="button" data-command="ping 8.8.8.8"><strong>Tester la connexion vers une adresse IP</strong><code>ping 8.8.8.8</code></button><button class="command-choice" type="button" data-command="ping google.fr"><strong>Tester la connexion vers un nom de site</strong><code>ping google.fr</code></button></div><div id="diagnosis-panel" class="diagnosis-panel" hidden>
+<h3>Ton diagnostic</h3><p>Le PC possède une adresse IPv4 commençant par 169.254. Qu’en déduis-tu ?</p>
+<fieldset id="diagnosis-choices"><legend class="sr-only">Choisis une explication</legend>
+<label><input type="radio" name="diagnosis" value="dhcp-ok"> Le PC a reçu une adresse du serveur DHCP.</label>
+<label><input type="radio" name="diagnosis" value="apipa"> Le PC n’a pas obtenu d’adresse IPv4 du serveur DHCP.</label>
+<label><input type="radio" name="diagnosis" value="dns"> Le serveur DNS est obligatoirement en panne.</label>
+<label><input type="radio" name="diagnosis" value="cable"> Le câble Ethernet est forcément débranché.</label>
+</fieldset><button id="validate-diagnosis" class="primary" type="button">Valider mon diagnostic</button>
+<p id="diagnosis-result" class="state" role="status">Analyse les informations réseau avant de répondre.</p></div>
+<div class="terminal" id="terminal-output" aria-label="Résultats de l’invite de commandes" role="log">Microsoft Windows [simulation pédagogique]\nC:\\Users\\technicien&gt;</div></section>
 <section id="final-browser-section" hidden>
 <h2>4. Vérifier que la réparation fonctionne</h2>
 <p>Les tests réseau sont réussis. Vérifiez maintenant que le navigateur peut accéder au site.</p>
@@ -145,5 +167,5 @@
 <button class="primary" id="final-open-web" type="button" style="margin-top:10px">Accéder au site</button>
 <p id="final-browser-status" class="state" role="status">Vérification finale non effectuée.</p>
 </section>
-<section><h2>5. Remettre mon travail</h2><p>Le fichier conserve les commandes exécutées, le câblage, les vérifications et les résultats. Vous pouvez aussi rendre un travail incomplet.</p><div id="report" class="state">Aucune manipulation enregistrée pour le moment.</div><button class="primary export" id="export" type="button">Exporter mon travail à rendre à mon professeur</button><p class="muted hint">Déposez le fichier JSON téléchargé dans Pronote.</p></section></main><footer>Première CIEL · Dépannage réseau · V1.13 · Simulation pédagogique R2D3</footer>
-<script type="module" src="./tp.js?v=1.13"></script></body></html>
+<section><h2>5. Remettre mon travail</h2><p>Le fichier conserve les commandes exécutées, le câblage, les vérifications et les résultats. Termine le dépannage et vérifie l’accès au site pour débloquer l’export.</p><div id="report" class="state">Aucune manipulation enregistrée pour le moment.</div><button class="primary export" id="export" type="button" disabled>Exporter mon travail à rendre à mon professeur</button><p class="muted hint" id="export-hint">🔒 Vérification finale du navigateur nécessaire avant l’export.</p><p class="muted hint">Déposez le fichier JSON téléchargé dans Pronote.</p></section></main><footer>Première CIEL · Dépannage réseau · V1.14 · Simulation pédagogique R2D3</footer>
+<script type="module" src="./tp.js?v=1.14"></script></body></html>
