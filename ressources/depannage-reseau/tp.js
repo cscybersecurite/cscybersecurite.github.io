@@ -147,10 +147,10 @@ $("continuity").addEventListener("click",()=>{
 $("open-web").addEventListener("click",()=>{
  if(!state.continuity)return;
  state.browser=true;
- $("browser-result").innerHTML="<strong>Impossible d'accéder à ce site</strong><p>Vérifiez votre connexion Internet.</p><small>ERR_INTERNET_DISCONNECTED</small>";
+ $("browser-result").innerHTML='<div class="browser-error"><span class="browser-error-icon" aria-hidden="true">🌐</span><div><h3>Ce site est inaccessible</h3><p>Impossible de se connecter à <strong>www.google.fr</strong>.</p><p>Vérifiez la connexion Internet de cet ordinateur.</p><small class="browser-error-code">ERR_INTERNET_DISCONNECTED</small></div></div>';
  $("open-web").disabled=true;$("console-section").hidden=false;updateHint();
  log("navigateur",{adresse:"https://www.google.fr",success:false});
- $("console-section").scrollIntoView({behavior:"smooth",block:"start"});
+ // Le navigateur reste à la même position ; l’élève descend ensuite vers les outils.
 });
 function updateHint(){$("technician").textContent=hints[state.phase];}
 function print(s){$("terminal-output").textContent+="\n\nC:\\Users\\technicien>"+s;$("terminal-output").scrollTop=$("terminal-output").scrollHeight;}
@@ -223,7 +223,7 @@ $("command-list").addEventListener("click",event=>{
  runCommand(btn.dataset.command);
 });
 $("export").addEventListener("click",()=>{
- const doc={format:"ci-el-depannage-reseau",version:"1.8",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
+ const doc={format:"ci-el-depannage-reseau",version:"1.9",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
  const blob=new Blob([JSON.stringify(doc,null,2)],{type:"application/json;charset=utf-8"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="depannage-reseau-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 });
