@@ -1,8 +1,9 @@
 import {createAssetRegistry} from 'https://chaoli22000bzh.github.io/C2-Lab/r2d3-v1/asset-profiles.js';
 import {createEngine} from 'https://chaoli22000bzh.github.io/C2-Lab/r2d3-v1/r2d3-core.js';
+import {mountCablingFrontpanel} from 'https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/cabling-frontpanel.js?v=1.5';
 const $=id=>document.getElementById(id);
-const events=[],state={pc:false,sw:false,continuity:false,browser:false,stage:0,phase:0,lease:false,ip:"169.254.32.18",cableId:null};
-const labels=["Raccorder le PC au switch","Tester la continuité","Ouvrir le navigateur","Tester la connexion avec un ping","Observer l'adresse APIPA","Libérer puis renouveler l'adresse IPv4","Vérifier la configuration et les deux pings"];
+const events=[],state={pc:false,sw:false,miniDone:false,mainDone:false,continuity:false,browser:false,stage:0,phase:0,lease:false,ip:"169.254.32.18",cableId:null};
+const labels=["Brasser la mini-baie","Brasser la grande baie","Tester la continuité","Ouvrir le navigateur","Tester la connexion avec un ping","Observer l'adresse APIPA","Libérer puis renouveler l'adresse IPv4","Vérifier la configuration et les deux pings"];
 const hints=[
 "Le câble est bien branché, mais Internet ne fonctionne toujours pas. Je vais vérifier si mon PC peut communiquer avec Internet.",
 "Le test de connexion a échoué. Je vais regarder les informations réseau de mon PC.",
@@ -15,47 +16,83 @@ const hints=[
 ];
 const expected=["ping 8.8.8.8","ipconfig /all","ipconfig /release","ipconfig /renew","ipconfig /all","ping 8.8.8.8","ping google.fr"];
 const log=(type,data={})=>{events.push({date:new Date().toISOString(),type,...data});renderReport();};
-let registry,pcPort,switchPort,engine,baseScenario;
+let registry,pcPort,switchPort,miniPanel,mainPanel,miniView,mainView,engine,baseScenario;
 function must(r){if(!r.success)throw Error(r.message||r.code||"R2D3 : opération refusée");return r;}
+function patchCable(a,b){
+ const c=must(registry.createCable({connectors:["rj45-male","rj45-male"]})).cable;
+ must(registry.connectCableEnd(c.id,0,a));
+ must(registry.connectCableEnd(c.id,1,b));
+ return c.id;
+}
+function isLinked(a,b){
+ return registry.listCables().some(c=>c.ends.some(e=>e?.portId===a)&&c.ends.some(e=>e?.portId===b));
+}
 function makePhysical(){
  registry=createAssetRegistry();
- const loc=must(registry.createPlace({name:"Bureau de passage"})).place.id;
+ const site=must(registry.createPlace({name:"Entreprise"})).place.id;
+ const bureau=must(registry.createPlace({name:"Bureau de passage",parentId:site})).place.id;
+ const miniPlace=must(registry.createPlace({name:"Mini-baie n°5",parentId:site})).place.id;
+ const mainPlace=must(registry.createPlace({name:"Grande baie",parentId:site})).place.id;
+ miniPanel=must(registry.createPanel({name:"Mini-Baie N° 5",placeId:miniPlace,count:10,prefix:"",start:1})).panel;
+ mainPanel=must(registry.createPanel({name:"Panneau grande baie",placeId:mainPlace,count:28,prefix:"",start:1})).panel;
+ const outlet=must(registry.createWallOutlet({name:"F",location:"Bureau de passage"})).outlet;
  const pcProfile=must(registry.createProfile("PC portable")).profile.id;
  must(registry.addPortGroup(pcProfile,{type:"ethernet-rj45",prefix:"LAN",start:1,count:1,digits:2}));
- const swProfile=must(registry.createProfile("Switch de bureau")).profile.id;
- must(registry.addPortGroup(swProfile,{type:"ethernet-rj45",prefix:"LAN",start:1,count:4,digits:2}));
- const pc=must(registry.createAsset(pcProfile,{name:"Portable salarié"})).asset;
+ const swProfile=must(registry.createProfile("Switch 24 ports")).profile.id;
+ must(registry.addPortGroup(swProfile,{type:"ethernet-rj45",prefix:"LAN",start:1,count:24,digits:2}));
+ const pc=must(registry.createAsset(pcProfile,{name:"PC portable"})).asset;
  const sw=must(registry.createAsset(swProfile,{name:"SW01"})).asset;
- must(registry.moveAssetToPlace(pc.id,loc));must(registry.moveAssetToPlace(sw.id,loc));
- pcPort=pc.ports[0].id;switchPort=sw.ports[0].id;
- state.cableId=must(registry.createCable({connectors:["rj45-male","rj45-male"]})).cable.id;
+ must(registry.moveAssetToPlace(pc.id,bureau));must(registry.moveAssetToPlace(sw.id,mainPlace));
+ pcPort=pc.ports[0].id;switchPort=sw.ports[22].id;
+ // Raccordements permanents : poste F et liaisons inter-baies.
+ patchCable(pcPort,outlet.ports[0].front.id);
+ patchCable(outlet.ports[0].back.id,miniPanel.ports[5].back.id);
+ for(let i=0;i<4;i++)patchCable(miniPanel.ports[6+i].back.id,mainPanel.ports[16+i].back.id);
+ // Quelques branchements déjà présents, distincts du port 23 cible.
+ patchCable(mainPanel.ports[0].front.id,sw.ports[2].id);
+ patchCable(mainPanel.ports[5].front.id,sw.ports[4].id);
+ const internetProfile=must(registry.createProfile("Liaison montante")).profile.id;
+ must(registry.addPortGroup(internetProfile,{type:"ethernet-rj45",prefix:"WAN",start:1,count:1,digits:2}));
+ const internet=must(registry.createAsset(internetProfile,{name:"Sortie Internet"})).asset;
+ patchCable(sw.ports[0].id,internet.ports[0].id);
+ miniView=mountCablingFrontpanel({
+  root:$("mini-panel"),registry,devices:["Mini-Baie N° 5"],showCableList:false,
+  layout:{"Mini-Baie N° 5":{columns:12,slots:["1","2","3","4","5","6",null,null,"7","8","9","10"],labels:["A","B","C","D","E","F","A","B","C","D"]}}
+ });
+ mainView=mountCablingFrontpanel({
+  root:$("main-panel"),registry,devices:["Panneau grande baie","SW01"],showCableList:false,
+  layout:{"Panneau grande baie":{columns:12,labels:Array.from({length:28},(_,i)=>"ABCD"[i%4]+(Math.floor(i/4)+1))},
+          "SW01":{columns:12,switchPairs:true,switchGroups:true,kindLabel:"Switch"}}
+ });
 }
+$("validate-mini").addEventListener("click",()=>{
+ const ok=isLinked(miniPanel.ports[5].front.id,miniPanel.ports[9].front.id);
+ $("mini-result").textContent=ok?"Mini-baie correctement brassée. Passez à la grande baie.":"Le panneau doit relier F au départ D situé à droite.";
+ log("validation_mini_baie",{success:ok,liaison:"F vers D"});
+ if(ok){state.miniDone=true;state.pc=true;$("main-step").hidden=false;$("validate-mini").disabled=true;$("main-step").scrollIntoView({behavior:"smooth",block:"start"});}
+});
+$("validate-main").addEventListener("click",()=>{
+ const ok=isLinked(mainPanel.ports[19].front.id,switchPort);
+ $("main-result").textContent=ok?"Grande baie correctement brassée. Vérifiez la continuité physique.":"Raccordez D5 au port 23 du switch.";
+ log("validation_grande_baie",{success:ok,liaison:"D5 vers 23"});
+ if(ok){state.mainDone=true;state.sw=true;$("continuity-step").hidden=false;$("validate-main").disabled=true;$("continuity-step").scrollIntoView({behavior:"smooth",block:"start"});}
+});
 function renderReport(){
- const text=["Câble PC : "+(state.pc?"branché":"libre"),"Câble switch : "+(state.sw?"branché":"libre"),"Continuité : "+(state.continuity?"vérifiée":"non vérifiée"),"Adresse IPv4 : "+state.ip,"Commandes réussies : "+events.filter(e=>e.type==="commande"&&e.success).length].join("\n");
+ const text=["Mini-baie F → D : "+(state.miniDone?"validée":"à réaliser"),
+ "Grande baie D5 → 23 : "+(state.mainDone?"validée":"à réaliser"),
+ "Continuité physique : "+(state.continuity?"vérifiée":"non vérifiée"),
+ "Adresse IPv4 : "+state.ip,
+ "Commandes réussies : "+events.filter(e=>e.type==="commande"&&e.success).length].join("\\n");
  $("report").textContent=text;
- const n=[state.pc&&state.sw,state.continuity,state.browser,state.phase>=1,state.phase>=3,state.phase>=5,state.phase===7].filter(Boolean).length;
- $("progress-text").textContent=n+" / 7 étapes";
- $("progress").replaceChildren(...Array.from({length:7},(_,i)=>{const s=document.createElement("span");if(i<n)s.className="done";return s;}));
- $("progress-label").textContent=n===7?"Intervention terminée":labels[n];
+ const n=[state.miniDone,state.mainDone,state.continuity,state.browser,state.phase>=1,state.phase>=3,state.phase>=5,state.phase===7].filter(Boolean).length;
+ $("progress-text").textContent=n+" / 8 étapes";
+ $("progress").replaceChildren(...Array.from({length:8},(_,i)=>{const item=document.createElement("span");if(i<n)item.className="done";return item;}));
+ $("progress-label").textContent=n===8?"Intervention terminée":labels[n]||"Poursuivre le diagnostic";
 }
-function showCable(){
- $("pc-port").classList.toggle("selected",state.pc);$("sw-port").classList.toggle("selected",state.sw);
- $("pc-port").textContent=state.pc?"✓ RJ45 branché":"Brancher le port RJ45";
- $("sw-port").textContent=state.sw?"✓ LAN01 branché":"Brancher le port LAN01";
- $("pc-port").disabled=state.pc;$("sw-port").disabled=state.sw;
- $("cable-status").textContent=state.pc&&state.sw?"Les deux extrémités du câble sont branchées.":state.pc||state.sw?"Une extrémité est branchée. Branchez l'autre extrémité.":"Câble disponible : aucune extrémité branchée.";
-}
-function attach(which){
- if(state.continuity||state[which])return;
- try{must(registry.connectCableEnd(state.cableId,which==="pc"?0:1,which==="pc"?pcPort:switchPort));state[which]=true;log("raccordement",{equipement:which==="pc"?"PC portable":"Switch",success:true});showCable();}
- catch(e){$("cable-status").textContent="Raccordement impossible : "+e.message;log("raccordement",{success:false,erreur:e.message});}
-}
-$("pc-port").addEventListener("click",()=>attach("pc"));
-$("sw-port").addEventListener("click",()=>attach("sw"));
 $("continuity").addEventListener("click",()=>{
  let continuous=false,details="";
  try{
-  const r=registry.explorePhysicalPath(pcPort,switchPort);
+  const r=(state.miniDone&&state.mainDone)?registry.explorePhysicalPath(pcPort,switchPort):{success:false,connected:false};
   continuous=Boolean(r.success&&r.connected);
   details=continuous?"Liaison correcte.":"Liaison interrompue. Vérifiez les branchements.";
  }catch(e){details="Contrôle indisponible : "+e.message;}
@@ -142,13 +179,13 @@ $("command-list").addEventListener("click",event=>{
  runCommand(btn.dataset.command);
 });
 $("export").addEventListener("click",()=>{
- const doc={format:"ci-el-depannage-reseau",version:"1.1",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
+ const doc={format:"ci-el-depannage-reseau",version:"1.2",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
  const blob=new Blob([JSON.stringify(doc,null,2)],{type:"application/json;charset=utf-8"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="depannage-reseau-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 });
 async function init(){
  try{
-  makePhysical();showCable();
+  makePhysical();
   const response=await fetch("../dhcp/exercices/apipa/scenario.json");
   if(!response.ok)throw Error("Scénario réseau introuvable");
   baseScenario=await response.json();
@@ -156,8 +193,8 @@ async function init(){
   state.ip=engine.getSnapshot().objectsById.portable.config.ipv4.address;
   renderReport();
  }catch(error){
-  $("cable-status").textContent="Initialisation impossible : "+error.message;
-  ["pc-port","sw-port","continuity"].forEach(id=>$(id).disabled=true);
+  $("mini-result").textContent="Initialisation impossible : "+error.message;
+  ["validate-mini","validate-main","continuity"].forEach(id=>$(id).disabled=true);
  }
 }
 init();
