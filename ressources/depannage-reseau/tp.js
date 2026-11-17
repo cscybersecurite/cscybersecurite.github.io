@@ -103,8 +103,8 @@ async function playPhysicalPath(){
  if(pathPlaying)return;
  pathPlaying=true;
  const panel=$("path-animation"),rail=$("path-rail"),caption=$("path-caption");
- const stops=Array.from(rail.querySelectorAll("[data-path-stop]"));
- const wires=Array.from(rail.querySelectorAll("[data-path-wire]"));
+ const stops=Array.from(rail.querySelectorAll("[data-path-stop]:not([hidden])"));
+ const wires=Array.from(rail.querySelectorAll("[data-path-wire]:not([hidden])"));
  panel.hidden=false;
  stops.forEach(el=>el.classList.remove("active","reached"));
  wires.forEach(el=>el.classList.remove("active","reached"));
@@ -223,7 +223,7 @@ $("command-list").addEventListener("click",event=>{
  runCommand(btn.dataset.command);
 });
 $("export").addEventListener("click",()=>{
- const doc={format:"ci-el-depannage-reseau",version:"1.7",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
+ const doc={format:"ci-el-depannage-reseau",version:"1.8",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
  const blob=new Blob([JSON.stringify(doc,null,2)],{type:"application/json;charset=utf-8"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="depannage-reseau-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 });
