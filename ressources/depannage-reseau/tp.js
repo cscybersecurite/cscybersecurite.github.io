@@ -1,6 +1,7 @@
 import {createAssetRegistry} from 'https://chaoli22000bzh.github.io/C2-Lab/r2d3-v1/asset-profiles.js';
 import {createEngine} from 'https://chaoli22000bzh.github.io/C2-Lab/r2d3-v1/r2d3-core.js';
 import {mountCablingFrontpanel} from 'https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/cabling-frontpanel.js?v=1.5';
+import {createPingAnimator} from 'https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/ping-animation.js';
 const $=id=>document.getElementById(id);
 const events=[],state={pc:false,sw:false,miniDone:false,mainDone:false,continuity:false,browser:false,stage:0,phase:0,lease:false,ip:"169.254.32.18",cableId:null};
 const labels=["Brasser la mini-baie","Brasser la grande baie","Tester la continuité","Ouvrir le navigateur","Tester la connexion avec un ping","Observer l'adresse APIPA","Libérer puis renouveler l'adresse IPv4","Vérifier la configuration et les deux pings"];
@@ -153,7 +154,7 @@ $("open-web").addEventListener("click",()=>{
  // Le navigateur reste à la même position ; l’élève descend ensuite vers les outils.
 });
 function updateHint(){$("technician").textContent=hints[state.phase];}
-function print(s){$("terminal-output").textContent+="\n\nC:\\Users\\technicien>"+s;$("terminal-output").scrollTop=$("terminal-output").scrollHeight;}
+function print(s){$("terminal-output").append(document.createTextNode("\n\nC:\\Users\\technicien>"+s));$("terminal-output").scrollTop=$("terminal-output").scrollHeight;}
 function config(all){return [
  "Configuration IP de Windows","",
  "Carte Ethernet :",
@@ -166,18 +167,41 @@ function networkReady(){
  if(!state.continuity||!state.lease)return false;
  try{return !!engine.query({type:"network.ping",sourceId:"portable",targetId:"serveur"}).success;}catch{return false;}
 }
-function ping(target){
- const ok=networkReady(),host=target==="google.fr"?"142.250.179.195":"8.8.8.8";
- return (target==="google.fr"?"Envoi d'une requête 'ping' sur google.fr ["+host+"]\n":"")+
- (ok?Array(4).fill("Réponse de "+host+" : octets=32 temps=14 ms TTL=115").join("\n"):"Délai d'attente de la demande dépassé.")+
- "\n\nPaquets : envoyés = 4, reçus = "+(ok?4:0)+", perdus = "+(ok?0:4)+".";
+// Affichage partagé R2D3/C2-Lab : quatre réponses progressives, sans moteur Ping local.
+let pingRunning=false;
+function animatePing(entered){
+ if(pingRunning)return;
+ pingRunning=true;
+ const terminal=$("terminal-output");
+ const result=document.createElement("div");
+ result.className="ping-session";
+ terminal.append(document.createTextNode("\n\n"),result);
+ const targetInput=entered==="ping google.fr"?"google.fr":"8.8.8.8";
+ const targetAddress=targetInput==="google.fr"?"142.250.179.195":targetInput;
+ const outcome={success:networkReady()};
+ const animator=createPingAnimator(result);
+ const buttons=Array.from($("command-list").querySelectorAll("button[data-command]"));
+ buttons.forEach(button=>button.disabled=true);
+ const followOutput=()=>{terminal.scrollTop=terminal.scrollHeight;};
+ animator.run({
+  sourceName:"PC portable",sourceAddress:state.ip,targetInput,targetAddress,outcome,
+  onProgress:followOutput,
+  onComplete:({success})=>{
+   pingRunning=false;
+   buttons.forEach(button=>button.disabled=false);
+   followOutput();
+   finishCommand(entered,success,result.textContent);
+  }
+ });
+ followOutput();
 }
 function action(type){
  const snap=engine.getSnapshot();
  return engine.dispatch({commandVersion:1,id:"depannage-"+events.length+"-"+type,type,targetId:"portable",params:{},expectedRevision:snap.revision});
 }
 function runCommand(entered){
- if(!state.browser||!engine)return;
+ if(!state.browser||!engine||pingRunning)return;
+ if(entered==="ping 8.8.8.8"||entered==="ping google.fr"){animatePing(entered);return;}
  let output="",success=false;
  try{
   if(entered==="ipconfig /all"){
@@ -197,15 +221,16 @@ function runCommand(entered){
     state.ip=newIp||"";state.lease=Boolean(obj.config.ipv4.lease);
     output=success?"Nouvelle adresse IPv4 obtenue : "+state.ip:r.message||"Impossible d'obtenir une adresse.";
    }
-  }else if(entered==="ping 8.8.8.8"||entered==="ping google.fr"){
-   output=ping(entered==="ping google.fr"?"google.fr":"8.8.8.8");success=networkReady();
   }else{
    output="Commande non reconnue dans cet exercice.";
   }
  }catch(error){output="Erreur technique : "+error.message;success=false;}
  // L'historique garde toutes les commandes, y compris les choix inadaptés.
  print(entered+"\n"+output);
- const validAtStep=(
+ finishCommand(entered,success,output);
+}
+function finishCommand(entered,success,output){
+const validAtStep=(
   (state.phase===0&&entered==="ping 8.8.8.8"&&!success)||
   (state.phase===1&&entered==="ipconfig /all"&&state.ip.startsWith("169.254."))||
   (state.phase===2&&entered==="ipconfig /release"&&success)||
@@ -223,7 +248,7 @@ $("command-list").addEventListener("click",event=>{
  runCommand(btn.dataset.command);
 });
 $("export").addEventListener("click",()=>{
- const doc={format:"ci-el-depannage-reseau",version:"1.10",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
+ const doc={format:"ci-el-depannage-reseau",version:"1.11",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
  const blob=new Blob([JSON.stringify(doc,null,2)],{type:"application/json;charset=utf-8"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="depannage-reseau-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 });
