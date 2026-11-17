@@ -64,6 +64,20 @@
 .path-animation .path-legend{font-size:12px;color:var(--ink);opacity:.82}
 @media(prefers-reduced-motion:reduce){.path-stop,.path-wire::before{transition:none}.path-stop.active{transform:none}.path-wire.active .path-packet{animation:none;left:calc(50% - 11px)}.path-rail{scroll-behavior:auto}}
 
+/* Parcours final complet : six équipements visibles, sans défilement horizontal. */
+#final-path-rail>.path-rail{width:100%;overflow:visible;min-width:0}
+#final-path-rail .path-stop{flex:1 1 0;min-width:0;padding:6px 2px}
+#final-path-rail .path-stop strong{font-size:clamp(10px,1.4vw,12px);overflow-wrap:anywhere}
+#final-path-rail .path-stop small{font-size:10px}
+#final-path-rail .path-wire{flex:0 0 14px}
+#final-path-rail .path-wire.active .path-packet{width:13px;height:13px;top:calc(50% - 6px)}
+@media(max-width:600px){
+ #final-path-rail>.path-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ #final-path-rail .path-stop{width:100%;min-height:84px}
+ #final-path-rail .path-stop strong{font-size:11px}
+ #final-path-rail .path-wire{display:none}
+ #final-path-rail .path-stop::before{content:attr(data-path-number);position:absolute;top:3px;left:5px;font-size:10px;color:var(--ink);opacity:.8}
+}
 /* Progression en bas, toujours visible sans cacher les boutons sur smartphone. */
 body{padding-bottom:106px}
 #progress-dock{position:fixed;z-index:30;bottom:0;left:0;right:0;margin:0 auto;max-width:940px;padding:9px 16px 7px;background:var(--panel);border:1px solid var(--line);border-bottom:0;border-radius:12px 12px 0 0;box-shadow:0 -5px 22px light-dark(#15344b25,#0008)}
@@ -159,5 +173,5 @@ body{padding-bottom:106px}
 <button class="primary" id="final-open-web" type="button" style="margin-top:10px">Accéder au site</button>
 <p id="final-browser-status" class="state" role="status">Vérification finale non effectuée.</p><div id="final-path-animation" class="path-animation" hidden><h3>Le trajet du PC jusqu’à Internet</h3><div id="final-path-rail" class="path-rail" aria-label="Parcours du PC vers Internet"></div><p id="final-path-caption" class="path-caption" role="status" aria-live="polite"></p><p class="path-legend">Schéma pédagogique de la connexion rétablie après correction TCP/IP.</p></div>
 </section>
-<section><h2>5. Remettre mon travail</h2><p>Le fichier conserve les commandes exécutées, le câblage, les vérifications et les résultats. Termine le dépannage et vérifie l’accès au site pour débloquer l’export.</p><div id="report" class="state">Aucune manipulation enregistrée pour le moment.</div><button class="primary export" id="export" type="button" disabled>Exporter mon travail à rendre à mon professeur</button><p class="muted hint" id="export-hint">🔒 Vérification finale du navigateur nécessaire avant l’export.</p><p class="muted hint">Déposez le fichier JSON téléchargé dans Pronote.</p></section></main><footer>Première CIEL · Dépannage réseau · V1.15 · Simulation pédagogique R2D3</footer>
-<script type="module" src="./tp.js?v=1.15"></script></body></html>
+<section><h2>5. Remettre mon travail</h2><p>Le fichier conserve les commandes exécutées, le câblage, les vérifications et les résultats. Termine le dépannage et vérifie l’accès au site pour débloquer l’export.</p><div id="report" class="state">Aucune manipulation enregistrée pour le moment.</div><button class="primary export" id="export" type="button" disabled>Exporter mon travail à rendre à mon professeur</button><p class="muted hint" id="export-hint">🔒 Vérification finale du navigateur nécessaire avant l’export.</p><p class="muted hint">Déposez le fichier JSON téléchargé dans Pronote.</p></section></main><footer>Première CIEL · Dépannage réseau · V1.16 · Simulation pédagogique R2D3</footer>
+<script type="module" src="./tp.js?v=1.16"></script></body></html>
