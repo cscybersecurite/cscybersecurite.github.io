@@ -141,6 +141,7 @@ async function init(){
   if(!response.ok)throw Error("Scénario réseau introuvable");
   baseScenario=await response.json();
   engine=createEngine(baseScenario);
+  state.ip=engine.getSnapshot().objectsById.portable.config.ipv4.address;
   renderReport();
  }catch(error){
   $("cable-status").textContent="Initialisation impossible : "+error.message;
