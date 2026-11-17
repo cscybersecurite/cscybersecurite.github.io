@@ -82,7 +82,7 @@ function renderReport(){
  "Grande baie D5 → 23 : "+(state.mainDone?"validée":"à réaliser"),
  "Continuité physique : "+(state.continuity?"vérifiée":"non vérifiée"),
  "Adresse IPv4 : "+state.ip,
- "Commandes réussies : "+events.filter(e=>e.type==="commande"&&e.success).length].join("\\n");
+ "Commandes réussies : "+events.filter(e=>e.type==="commande"&&e.success).length].join("\n");
  $("report").textContent=text;
  const n=[state.miniDone,state.mainDone,state.continuity,state.browser,state.phase>=1,state.phase>=3,state.phase>=5,state.phase===7].filter(Boolean).length;
  $("progress-text").textContent=n+" / 8 étapes";
