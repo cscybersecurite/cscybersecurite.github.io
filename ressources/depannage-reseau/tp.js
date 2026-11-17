@@ -3,19 +3,8 @@ import {createEngine} from 'https://chaoli22000bzh.github.io/C2-Lab/r2d3-v1/r2d3
 import {mountCablingFrontpanel} from 'https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/cabling-frontpanel.js?v=1.5';
 import {createPingAnimator} from 'https://chaoli22000bzh.github.io/C2-Lab/shared-ui/v1/ping-animation.js';
 const $=id=>document.getElementById(id);
-const events=[],state={pc:false,sw:false,miniDone:false,mainDone:false,continuity:false,browser:false,stage:0,phase:0,lease:false,finalBrowserPassed:false,ip:"169.254.32.18",cableId:null};
-const labels=["Brasser la mini-baie","Brasser la grande baie","Tester la continuité","Ouvrir le navigateur","Tester la connexion avec un ping","Observer l'adresse APIPA","Libérer puis renouveler l'adresse IPv4","Vérifier la configuration et les deux pings","Contrôler le navigateur après la réparation"];
-const hints=[
-"Le câble est bien branché, mais Internet ne fonctionne toujours pas. Je vais vérifier si mon PC peut communiquer avec Internet.",
-"Le test de connexion a échoué. Je vais regarder les informations réseau de mon PC.",
-"Je reconnais cette adresse qui commence par 169.254. C'est une adresse APIPA. Mon PC s'est donné cette adresse tout seul parce qu'il n'a pas réussi à obtenir une adresse du réseau. Je vais d'abord enlever mon ancienne adresse IP APIPA.",
-"Maintenant que les câbles sont bien branchés, je vais demander une nouvelle adresse IP au réseau.",
-"Mon PC a maintenant une nouvelle adresse IP. Je vais vérifier qu'il l'a bien reçue.",
-"Mon PC a maintenant une bonne adresse IP. Je vais vérifier qu'il peut communiquer avec un ordinateur sur Internet.",
-"Le premier ping fonctionne. Je vais maintenant essayer avec le nom d'un site Internet.",
-"Les deux pings fonctionnent. Mon PC peut maintenant accéder à Internet. Le problème est résolu !"
-];
-const expected=["ping 8.8.8.8","ipconfig /all","ipconfig /release","ipconfig /renew","ipconfig /all","ping 8.8.8.8","ping google.fr"];
+const events=[],state={pc:false,sw:false,miniDone:false,mainDone:false,continuity:false,browser:false,stage:0,phase:0,lease:false,finalBrowserPassed:false,ipPingPassed:false,dnsPingPassed:false,apipaSeen:false,diagnosisPassed:false,ip:"169.254.32.18",cableId:null};
+const labels=["Brasser la mini-baie","Brasser la grande baie","Tester la continuité","Ouvrir le navigateur","Observer l'adresse APIPA","Identifier le problème APIPA","Réparer la configuration DHCP","Vérifier les deux pings","Vérifier Internet dans le navigateur"];
 const log=(type,data={})=>{events.push({date:new Date().toISOString(),type,...data});renderReport();};
 let registry,pcPort,switchPort,miniPanel,mainPanel,miniView,mainView,engine,baseScenario;
 function must(r){if(!r.success)throw Error(r.message||r.code||"R2D3 : opération refusée");return r;}
@@ -82,13 +71,18 @@ function renderReport(){
  const text=["Mini-baie F → D : "+(state.miniDone?"validée":"à réaliser"),
  "Grande baie D5 → 23 : "+(state.mainDone?"validée":"à réaliser"),
  "Continuité physique : "+(state.continuity?"vérifiée":"non vérifiée"),
- "Adresse IPv4 : "+state.ip,
- "Commandes réussies : "+events.filter(e=>e.type==="commande"&&e.success).length].join("\n");
+ "Adresse IPv4 : "+(state.ip||"aucune"),
+ "Diagnostic APIPA : "+(state.diagnosisPassed?"validé":"non validé"),
+ "Ping IP / DNS : "+(state.ipPingPassed?"OK":"à vérifier")+" / "+(state.dnsPingPassed?"OK":"à vérifier"),
+ "Navigateur final : "+(state.finalBrowserPassed?"validé":"non vérifié")].join("\n");
  $("report").textContent=text;
- const n=[state.miniDone,state.mainDone,state.continuity,state.browser,state.phase>=1,state.phase>=3,state.phase>=5,state.phase===7,state.finalBrowserPassed].filter(Boolean).length;
+ const checks=[state.miniDone,state.mainDone,state.continuity,state.browser,state.apipaSeen,state.diagnosisPassed,state.lease,state.ipPingPassed&&state.dnsPingPassed,state.finalBrowserPassed];
+ const n=checks.filter(Boolean).length;
  $("progress-text").textContent=n+" / 9 étapes";
- $("progress").replaceChildren(...Array.from({length:9},(_,i)=>{const item=document.createElement("span");if(i<n)item.className="done";return item;}));
- $("progress-label").textContent=n===9?"Intervention terminée":labels[n]||"Poursuivre le diagnostic";
+ $("progress").replaceChildren(...checks.map(ok=>{const item=document.createElement("span");if(ok)item.className="done";return item;}));
+ $("progress-label").textContent=n===9?"Intervention terminée":labels[checks.findIndex(ok=>!ok)]||"Poursuivre le diagnostic";
+ $("export").disabled=!state.finalBrowserPassed;
+ $("export-hint").textContent=state.finalBrowserPassed?"✓ Intervention terminée. Tu peux exporter ton travail.":"🔒 Vérifie Internet dans le navigateur final pour débloquer l’export.";
 }
 // Une représentation pédagogique de la liaison physique, pas un moteur de paquets.
 const pathDescriptions=[
@@ -153,7 +147,17 @@ $("open-web").addEventListener("click",()=>{
  log("navigateur",{adresse:"https://www.google.fr",success:false});
  // Le navigateur reste à la même position ; l’élève descend ensuite vers les outils.
 });
-function updateHint(){$("technician").textContent=hints[state.phase];}
+function updateHint(){
+ $("technician").textContent=!state.apipaSeen
+  ?"Internet ne fonctionne pas. Quelles informations techniques peux-tu recueillir sur le PC ?"
+  :!state.diagnosisPassed
+   ?"Tu as repéré une adresse 169.254. Interprète ce résultat dans « Ton diagnostic » avant de modifier la configuration."
+   :!state.lease
+    ?"Diagnostic validé. Choisis les commandes utiles pour remettre la configuration IPv4 en état."
+    :!(state.ipPingPassed&&state.dnsPingPassed)
+     ?"Le PC possède une adresse réseau. Vérifie la communication avec une adresse IP et avec un nom de domaine."
+     :"Les deux Pings ont réussi. Vérifie l’accès au site dans le navigateur final.";
+}
 function print(s){$("terminal-output").append(document.createTextNode("\n\nC:\\Users\\technicien>"+s));$("terminal-output").scrollTop=$("terminal-output").scrollHeight;}
 function config(all){return [
  "Configuration IP de Windows","",
@@ -167,95 +171,86 @@ function networkReady(){
  if(!state.continuity||!state.lease)return false;
  try{return !!engine.query({type:"network.ping",sourceId:"portable",targetId:"serveur"}).success;}catch{return false;}
 }
-// Affichage partagé R2D3/C2-Lab : quatre réponses progressives, sans moteur Ping local.
+// Composant Ping partagé C2-Lab, inchangé. Résultat issu du moteur R2D3.
 let pingRunning=false;
 function animatePing(entered){
  if(pingRunning)return;
  pingRunning=true;
- const terminal=$("terminal-output");
- const result=document.createElement("div");
- result.className="ping-session";
- terminal.append(document.createTextNode("\n\n"),result);
+ const terminal=$("terminal-output"),result=document.createElement("div");
+ result.className="ping-session";terminal.append(document.createTextNode("\n\n"),result);
  const targetInput=entered==="ping google.fr"?"google.fr":"8.8.8.8";
  const targetAddress=targetInput==="google.fr"?"142.250.179.195":targetInput;
- const outcome={success:networkReady()};
  const animator=createPingAnimator(result);
  const buttons=Array.from($("command-list").querySelectorAll("button[data-command]"));
  buttons.forEach(button=>button.disabled=true);
- const followOutput=()=>{terminal.scrollTop=terminal.scrollHeight;};
- animator.run({
-  sourceName:"PC portable",sourceAddress:state.ip,targetInput,targetAddress,outcome,
-  onProgress:followOutput,
-  onComplete:({success})=>{
-   pingRunning=false;
-   buttons.forEach(button=>button.disabled=false);
-   followOutput();
-   finishCommand(entered,success,result.textContent);
-  }
- });
- followOutput();
+ const follow=()=>{terminal.scrollTop=terminal.scrollHeight;};
+ animator.run({sourceName:"PC portable",sourceAddress:state.ip,targetInput,targetAddress,outcome:{success:networkReady()},
+  onProgress:follow,onComplete:({success})=>{pingRunning=false;buttons.forEach(button=>button.disabled=false);follow();finishCommand(entered,success,result.textContent);}
+ });follow();
 }
 function action(type){
  const snap=engine.getSnapshot();
  return engine.dispatch({commandVersion:1,id:"depannage-"+events.length+"-"+type,type,targetId:"portable",params:{},expectedRevision:snap.revision});
+}
+function refreshFinalBrowser(){
+ $("final-browser-section").hidden=!(state.diagnosisPassed&&state.lease&&state.ipPingPassed&&state.dnsPingPassed);
+}
+function finishCommand(entered,success,output){
+ if(entered==="ipconfig /all"&&state.ip.startsWith("169.254.")){state.apipaSeen=true;$("diagnosis-panel").hidden=false;}
+ if(state.diagnosisPassed&&state.lease&&success){
+  if(entered==="ping 8.8.8.8")state.ipPingPassed=true;
+  if(entered==="ping google.fr")state.dnsPingPassed=true;
+ }
+ if(!state.lease){state.ipPingPassed=false;state.dnsPingPassed=false;}
+ refreshFinalBrowser();
+ log("commande",{commande:entered,success,resultat:output,etapeValidee:success});
+ updateHint();
+ if(state.ipPingPassed&&state.dnsPingPassed){$("final-browser-section").scrollIntoView({behavior:"smooth",block:"nearest"});}
 }
 function runCommand(entered){
  if(!state.browser||!engine||pingRunning)return;
  if(entered==="ping 8.8.8.8"||entered==="ping google.fr"){animatePing(entered);return;}
  let output="",success=false;
  try{
-  if(entered==="ipconfig /all"){
-   output=config(true);success=true;
-  }else if(entered==="ipconfig /release"){
-   const r=action("dhcp.release");success=r.status==="applied";
-   if(success){state.ip="";state.lease=false;}
-   output=success?"Configuration IPv4 libérée.":r.message||"Échec de la commande.";
-  }else if(entered==="ipconfig /renew"){
-   if(!state.continuity){
-    output="Pas de liaison réseau. Vérifiez le câble.";success=false;
-   }else{
+  if(entered==="ipconfig /all"){output=config(true);success=true;}
+  else if(entered==="ipconfig /release"||entered==="ipconfig /renew"){
+   if(!state.diagnosisPassed){output="Intervention non autorisée : examine la configuration et valide d'abord ton diagnostic.";}
+   else if(entered==="ipconfig /release"){
+    const r=action("dhcp.release");success=r.status==="applied";
+    if(success){state.ip="";state.lease=false;state.ipPingPassed=false;state.dnsPingPassed=false;}
+    output=success?"Configuration IPv4 libérée.":r.message||"Échec de la commande.";
+   }else if(!state.continuity){output="Pas de liaison réseau. Vérifiez le câble.";}
+   else{
     const r=action("dhcp.request");success=r.status==="applied";
-    const obj=engine.getSnapshot().objectsById.portable;
-    const newIp=obj.config.ipv4.address;
+    const obj=engine.getSnapshot().objectsById.portable,newIp=obj.config.ipv4.address;
     success=success&&!!obj.config.ipv4.lease&&newIp?.startsWith("192.168.30.");
     state.ip=newIp||"";state.lease=Boolean(obj.config.ipv4.lease);
+    state.ipPingPassed=false;state.dnsPingPassed=false;
     output=success?"Nouvelle adresse IPv4 obtenue : "+state.ip:r.message||"Impossible d'obtenir une adresse.";
    }
-  }else{
-   output="Commande non reconnue dans cet exercice.";
-  }
- }catch(error){output="Erreur technique : "+error.message;success=false;}
- // L'historique garde toutes les commandes, y compris les choix inadaptés.
- print(entered+"\n"+output);
- finishCommand(entered,success,output);
+  }else{output="Commande non reconnue dans cet exercice.";}
+ }catch(error){output="Erreur technique : "+error.message;}
+ print(entered+"\n"+output);finishCommand(entered,success,output);
 }
-function finishCommand(entered,success,output){
-const validAtStep=(
-  (state.phase===0&&entered==="ping 8.8.8.8"&&!success)||
-  (state.phase===1&&entered==="ipconfig /all"&&state.ip.startsWith("169.254."))||
-  (state.phase===2&&entered==="ipconfig /release"&&success)||
-  (state.phase===3&&entered==="ipconfig /renew"&&success)||
-  (state.phase===4&&entered==="ipconfig /all"&&state.lease)||
-  (state.phase===5&&entered==="ping 8.8.8.8"&&success)||
-  (state.phase===6&&entered==="ping google.fr"&&success)
- );
- log("commande",{commande:entered,success,resultat:output,etapeValidee:validAtStep});
- if(validAtStep&&state.phase<7){
-  state.phase++;
-  updateHint();
-  if(state.phase===7){
-   $("final-browser-section").hidden=false;
-   $("final-browser-section").scrollIntoView({behavior:"smooth",block:"nearest"});
-  }
- }
-}
+$("validate-diagnosis").addEventListener("click",()=>{
+ const selected=document.querySelector('input[name="diagnosis"]:checked')?.value;
+ if(!selected){$("diagnosis-result").textContent="Choisis une réponse avant de valider.";return;}
+ const correct=selected==="apipa";
+ log("diagnostic_apipa",{reponse:selected,success:correct});
+ if(!correct){$("diagnosis-result").textContent="Ce diagnostic n'est pas correct. Observe l'adresse IPv4 et réessaie.";return;}
+ state.diagnosisPassed=true;
+ $("diagnosis-result").textContent="✓ Diagnostic correct : le PC n'a pas reçu d'adresse IPv4 du DHCP. Tu peux maintenant intervenir.";
+ document.querySelectorAll('input[name="diagnosis"]').forEach(input=>input.disabled=true);
+ $("validate-diagnosis").disabled=true;
+ updateHint();renderReport();
+});
 $("command-list").addEventListener("click",event=>{
  const btn=event.target.closest("button[data-command]");
  if(!btn)return;
  runCommand(btn.dataset.command);
 });
 $("final-open-web").addEventListener("click",()=>{
- if(state.phase!==7||!state.continuity)return;
+ if(!state.diagnosisPassed||!state.lease||!state.ipPingPassed||!state.dnsPingPassed||!state.continuity)return;
  const ok=networkReady();
  if(ok){
   $("final-browser-result").innerHTML='<div style="max-width:480px;margin:auto;text-align:center;padding:10px 0"><div style="font-size:43px" aria-hidden="true">🌐</div><h3 style="margin:8px 0;color:var(--ok)">Connexion Internet rétablie !</h3><p>La page de démonstration s’affiche correctement.</p><p>Bravo, vous avez terminé le dépannage du réseau.</p></div>';
@@ -269,7 +264,8 @@ $("final-open-web").addEventListener("click",()=>{
  log("navigateur_final",{adresse:"https://www.google.fr",success:ok});
 });
 $("export").addEventListener("click",()=>{
- const doc={format:"ci-el-depannage-reseau",version:"1.12",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7,navigateurFinalValide:state.finalBrowserPassed},historique:events};
+ if(!state.finalBrowserPassed)return;
+ const doc={format:"ci-el-depannage-reseau",version:"1.14",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Pronote",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.ipPingPassed&&state.dnsPingPassed,navigateurFinalValide:state.finalBrowserPassed,diagnosticAPIPAValide:state.diagnosisPassed,pingIPValide:state.ipPingPassed,pingDNSValide:state.dnsPingPassed},historique:events};
  const blob=new Blob([JSON.stringify(doc,null,2)],{type:"application/json;charset=utf-8"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="depannage-reseau-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 });
