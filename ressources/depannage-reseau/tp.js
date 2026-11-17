@@ -115,20 +115,20 @@ async function playPhysicalPath(){
   stop.classList.add("active");
   stop.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
   caption.textContent=pathDescriptions[i];
-  await pause(i===stops.length-1?850:650);
+  await pause(i===stops.length-1?280:190);
   stop.classList.remove("active");
   stop.classList.add("reached");
   if(i<wires.length){
    wires[i].classList.add("active");
-   await pause(650);
+   await pause(190);
    wires[i].classList.remove("active");
    wires[i].classList.add("reached");
   }
  }
- caption.textContent="✓ La liaison physique est rétablie du PC jusqu'au switch. Il reste à vérifier la connexion Internet.";
+ caption.textContent="✓ Liaison PC → switch validée ! Étape suivante : vérifier Internet dans le chapitre 2.";
  $("continuity-result").textContent="✓ Continuité physique validée : PC → switch.";
  $("browser-section").hidden=false;
- $("browser-section").scrollIntoView({behavior:"smooth",block:"start"});
+ $("browser-section").scrollIntoView({behavior:"smooth",block:"nearest"});
  pathPlaying=false;
 }
 $("continuity").addEventListener("click",()=>{
@@ -223,7 +223,7 @@ $("command-list").addEventListener("click",event=>{
  runCommand(btn.dataset.command);
 });
 $("export").addEventListener("click",()=>{
- const doc={format:"ci-el-depannage-reseau",version:"1.9",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
+ const doc={format:"ci-el-depannage-reseau",version:"1.10",dateExport:new Date().toISOString(),identite:"Dépôt nominatif dans Toutatice",scenario:"PC portable dans un nouveau bureau",etat:{brassage:{miniBaie:state.miniDone,grandeBaie:state.mainDone,cordons:registry?.listCables()},ports:{pc:state.pc,switch:state.sw},continuite:state.continuity,navigateurTeste:state.browser,adresseIPv4:state.ip,renouvellementReussi:state.lease,testsFinaux:state.phase===7},historique:events};
  const blob=new Blob([JSON.stringify(doc,null,2)],{type:"application/json;charset=utf-8"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="depannage-reseau-"+new Date().toISOString().slice(0,10)+".json";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 });
