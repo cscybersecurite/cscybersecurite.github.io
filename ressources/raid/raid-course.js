@@ -135,10 +135,10 @@ let editingId="d1",selectedConfig="1";
 function nextNasDiskId(){const used=new Set(disks.map(d=>d.id));let n=1;while(used.has("d"+n))n++;return "d"+n;}
 const raidOptions=[
  {id:"1",label:"RAID 1",level:"1",min:2,kind:"all",detail:"Tous les disques sont en miroir."},
- {id:"5",label:"RAID 5",level:"5",min:4,kind:"all",detail:"Un disque en panne peut être supporté."},
- {id:"5s",label:"RAID 5 + spare",level:"5",min:5,kind:"spare",detail:"Quatre disques actifs minimum et un spare en attente."},
- {id:"6",label:"RAID 6",level:"6",min:5,kind:"all",detail:"Deux disques en panne peuvent être supportés."},
- {id:"6s",label:"RAID 6 + spare",level:"6",min:6,kind:"spare",detail:"Cinq disques actifs minimum et un spare en attente."},
+ {id:"5",label:"RAID 5",level:"5",min:3,kind:"all",detail:"Un disque en panne peut être supporté."},
+ {id:"5s",label:"RAID 5 + spare",level:"5",min:4,kind:"spare",detail:"Trois disques actifs minimum et un spare en attente."},
+ {id:"6",label:"RAID 6",level:"6",min:4,kind:"all",detail:"Deux disques en panne peuvent être supportés."},
+ {id:"6s",label:"RAID 6 + spare",level:"6",min:5,kind:"spare",detail:"Quatre disques actifs minimum et un spare en attente."},
  {id:"10",label:"RAID 10",level:"10",min:4,kind:"even",detail:"Miroirs par paires. Les pannes supportées dépendent des paires touchées."},
  {id:"0",label:"RAID 0",level:"0",min:2,kind:"all",detail:"Aucune protection contre la panne d'un disque."},
  {id:"01",label:"RAID 01",level:"01",min:4,kind:"even",detail:"Deux groupes répartis, en miroir. Protection selon les disques en panne."}
