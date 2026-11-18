@@ -501,3 +501,12 @@
 .raid-compare-detail p{font-size:.88rem;margin:6px 0}
 .nas-tray.is-free:not(.is-selected){opacity:.68}
 @media(max-width:560px){.raid-compare-row{grid-template-columns:1fr;gap:7px;padding:10px;min-height:0}.raid-compare-row.is-active{padding:9px}.raid-compare-head{flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:5px}.raid-compare-head strong{font-size:.9rem}.raid-compare-head small{font-size:.7rem}.raid-compare-track{height:26px}.raid-compare-track>span:not(.raid-compare-impossible){font-size:.67rem}.raid-compare-detail{padding:12px}}
+
+/* Retour tactile et souris : chaque clic possède un état visible. */
+button:not(:disabled){transition:background-color .13s ease,border-color .13s ease,box-shadow .13s ease,transform .1s ease;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:not(:disabled):active{transform:scale(.975);filter:brightness(.91);box-shadow:inset 0 2px 7px #0002}
+button:not(:disabled):focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.raid-compare-row.is-active{box-shadow:inset 4px 0 0 var(--accent)}
+.nas-tray.is-selected{box-shadow:0 0 0 3px var(--sun)}
+@media(hover:hover){button:not(:disabled):hover{filter:brightness(.96)}}
+@media(prefers-reduced-motion:reduce){button:not(:disabled){transition:none}}
