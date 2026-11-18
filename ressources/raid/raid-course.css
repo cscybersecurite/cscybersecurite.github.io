@@ -510,3 +510,31 @@ button:not(:disabled):focus-visible{outline:3px solid var(--sun);outline-offset:
 .nas-tray.is-selected{box-shadow:0 0 0 3px var(--sun)}
 @media(hover:hover){button:not(:disabled):hover{filter:brightness(.96)}}
 @media(prefers-reduced-motion:reduce){button:not(:disabled){transition:none}}
+
+/* Chapitre 3 : familles de RAID, spare et duel. */
+.raid-family{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}
+.raid-family article{border:1px solid var(--edge);border-radius:11px;background:var(--pale);padding:13px;min-width:0}
+.raid-family article>strong{font-size:1.1rem;margin-right:8px}
+.raid-family-tag{display:inline-block;border-radius:5px;background:var(--paper);border:1px solid var(--edge);padding:2px 7px;font-size:.75rem;font-weight:700;color:var(--accent)}
+.raid-family p{font-size:.91rem;line-height:1.47}
+.raid-family small{font-size:.78rem;color:var(--muted)}
+.raid-spare-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0}
+.raid-spare-stages>div{border:1px solid var(--edge);border-radius:10px;background:var(--pale);padding:13px}
+.raid-stage-index{display:grid;place-items:center;border-radius:50%;width:26px;height:26px;background:var(--accent);color:var(--accent-ink);font-weight:800;margin-bottom:8px}
+.raid-spare-stages strong{display:block;font-size:.96rem}
+.raid-spare-stages p{font-size:.87rem;line-height:1.4}
+.raid-duel{margin:15px 0;border:1px solid var(--edge);border-radius:13px;background:var(--pale);padding:17px}
+.raid-duel-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;font-size:.86rem;color:var(--muted)}
+.raid-duel-top strong{color:var(--ink)}
+.raid-duel-question{font-size:1.12rem;font-weight:750;line-height:1.45;margin:18px 0!important}
+.raid-duel-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.raid-duel-choices button{min-height:54px;background:var(--paper);color:var(--ink);border:2px solid var(--edge);border-radius:10px;font-weight:800;padding:9px}
+.raid-duel-choices button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.raid-duel-feedback{min-height:48px;font-weight:650;line-height:1.45;margin:13px 0!important}
+.raid-duel-feedback.good{color:var(--green)}
+.raid-duel-feedback.bad{color:var(--danger)}
+.raid-duel-actions{display:flex;justify-content:flex-end}
+.raid-duel-actions button{border:1px solid var(--accent);border-radius:9px;background:var(--accent);color:var(--accent-ink);font-weight:750;min-height:44px;padding:9px 15px}
+.raid-duel-actions button:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:660px){.raid-spare-stages{grid-template-columns:1fr}.raid-spare-stages>div{padding:11px 13px}.raid-stage-index{float:left;margin:0 11px 0 0}.raid-spare-stages p{margin:5px 0 0}}
+@media(max-width:480px){.raid-family{grid-template-columns:1fr}.raid-duel{padding:12px}.raid-duel-question{font-size:1rem}}

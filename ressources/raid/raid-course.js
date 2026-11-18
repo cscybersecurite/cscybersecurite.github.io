@@ -2,111 +2,47 @@ import {calculateRaid,assessRaidFailures} from "./raid-core.js";
 const $=id=>document.getElementById(id);
 const cfg=(level,disks)=>({format:"raid-configuration",schemaVersion:1,level,disks});
 const fmt=n=>new Intl.NumberFormat("fr-FR",{maximumFractionDigits:4}).format(n)+" To";
-const levels=[["1","Miroir"],["5","Parité simple"],["6","Double parité"]];
-let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));
-const layouts={
- "1":[["A1","B1","C1"],["A1","B1","C1"]],
- "5":[["A1","A2","A3","P"],["B1","B2","P","A4"],["C1","P","B3","B4"],["P","C2","C3","C4"]],
- "6":[["A1","A2","A3","P"],["B1","B2","P","Q"],["C1","P","Q","A4"],["P","Q","B3","B4"],["Q","C2","C3","C4"]]
-};
-const explanations={
- "1":"Les deux disques contiennent exactement les mêmes blocs. Ils forment un miroir.",
- "5":"Exemple avec quatre disques actifs (minimum : trois). Les blocs orange P servent à retrouver les données après une panne.",
- "6":"Exemple avec cinq disques actifs (minimum : quatre). Les parités P (orange) et Q (verte) permettent de supporter deux pannes de disques."
-};
-function renderLevels(){
- $("levels").replaceChildren();
- for(const [id,subtitle] of levels){
-  const b=document.createElement("button");b.className="level-btn";b.type="button";
-  b.setAttribute("aria-pressed",String(id===selected));
-  const name=document.createElement("strong");name.textContent="RAID "+id;
-  const small=document.createElement("small");small.textContent=subtitle;
-  b.append(name,small);
-  b.addEventListener("click",()=>{selected=id;failed.clear();withSpare=false;sparePhase="standby";renderLevels();renderSimulation()});
-  $("levels").append(b);
+// Chapitre 3 : le duel RAID ou sauvegarde, sans seconde simulation des blocs.
+let disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));
+const duelSituations=[
+ {question:"Un serveur doit lire de gros fichiers plus rapidement grâce à plusieurs disques. Quelle technologie peut aider ?",answer:"raid",explain:"Certains RAID répartissent le travail entre les disques et peuvent améliorer les débits."},
+ {question:"Un disque d'un RAID 5 tombe en panne. Le serveur doit garder les fichiers accessibles.",answer:"raid",explain:"Le RAID 5 peut continuer à fonctionner après une panne de disque actif."},
+ {question:"Un salarié supprime par erreur un dossier important.",answer:"backup",explain:"Une sauvegarde exploitable, faite avant la suppression, permet de retrouver le dossier."},
+ {question:"Un rançongiciel chiffre les dossiers de l'entreprise. Il faut récupérer les fichiers d'avant l'attaque.",answer:"backup",explain:"Une sauvegarde saine et isolée de l'attaque peut permettre la restauration des fichiers."}
+];
+function initRaidDuel(){
+ const root=$("raid-duel");if(!root)return;
+ let index=0,score=0,chosen=null;
+ const count=$("raid-duel-count"),scoreText=$("raid-duel-score"),question=$("raid-duel-question");
+ const feedback=$("raid-duel-feedback"),next=$("raid-duel-next"),restart=$("raid-duel-restart");
+ const choices=[...root.querySelectorAll("[data-duel-answer]")];
+ function render(){
+  const item=duelSituations[index];
+  count.textContent="Situation "+(index+1)+" sur "+duelSituations.length;
+  scoreText.textContent=score+" bonne"+(score>1?"s":"")+" réponse"+(score>1?"s":"");
+  question.textContent=item.question;
+  feedback.textContent="";feedback.className="raid-duel-feedback";
+  for(const button of choices){button.disabled=false;button.setAttribute("aria-pressed","false");}
+  next.hidden=index===duelSituations.length-1;next.disabled=true;
+  restart.hidden=true;chosen=null;
  }
-}
-function renderSimulation(){
- const rows=layouts[selected],result=$("sim-disks");result.replaceChildren();
- const active=rows.map((_,i)=>({id:"d"+(i+1),capacityTB:2,role:"active"}));
- const spareId="spare",oneFailure=failed.size===1;
- const spareRebuilt=withSpare&&sparePhase==="done"&&oneFailure;
- const physical=active.concat(withSpare?[{id:spareId,capacityTB:2,role:"spare"}]:[]);
- for(let i=0;i<physical.length;i++){
-  const d=physical[i],isSpare=d.id===spareId,isFailed=failed.has(d.id);
-  const disk=document.createElement("article");
-  disk.className="sim-disk"+(isFailed?" off":"")+(isSpare?" spare-disk":"");
-  const title=document.createElement("h4");
-  title.textContent=isSpare?"Spare (disque de secours)":("Disque "+(i+1)+(isFailed?" • En panne":""));
-  disk.append(title);
-  const diskBlocks=isSpare?(sparePhase==="rebuilding"||sparePhase==="done"?rows[Number([...failed][0].slice(1))-1]:[]):rows[i];
-  if(isSpare){
-   const status=document.createElement("p");status.className="spare-label";
-   status.textContent=sparePhase==="done"?"Reconstruction terminée":sparePhase==="rebuilding"?"Reconstruction simulée": "En attente";
-   disk.append(status);
-  }
-  for(const block of diskBlocks){
-   const tile=document.createElement("div");
-   tile.className="block"+(block==="P"?" parity-p":block==="Q"?" parity-q":" data-block")+(isSpare?" copied-block":"");
-   tile.textContent=block==="P"?"P":block==="Q"?"Q":block;
-   disk.append(tile);
-  }
-  if(isSpare&&sparePhase==="standby"){
-    const empty=document.createElement("div");empty.className="spare-empty";
-    empty.textContent="Aucune donnée du RAID";disk.append(empty);
-  }
-  result.append(disk);
- }
- $("sim-description").textContent=explanations[selected];
- $("sim-spare-controls").hidden=selected==="1";
- const spareToggle=$("sim-spare-toggle");
- spareToggle.checked=withSpare;
- $("sim-spare-caption").textContent=withSpare?"Spare ajouté. Il ne stocke pas encore les données du RAID.":"Ajoute un spare (disque de secours) pour observer son rôle après une panne.";
- const buttons=$("failure-actions");buttons.replaceChildren();
- for(const d of active){
-  const b=document.createElement("button");b.type="button";b.className="failure-btn";
-  b.setAttribute("aria-pressed",String(failed.has(d.id)));
-  b.textContent=failed.has(d.id)?"Remettre disque "+d.id.slice(1):"Panne disque "+d.id.slice(1);
-  b.addEventListener("click",()=>{
-   failed.has(d.id)?failed.delete(d.id):failed.add(d.id);
-   sparePhase="standby";renderSimulation();
-  });buttons.append(b);
- }
- const state=assessRaidFailures(cfg(selected,physical),[...failed]);
- const message=$("sim-feedback"),spareActions=$("sim-spare-actions");
- spareActions.replaceChildren();
- if(!state.ok){message.textContent=state.errors[0].message;return}
- if(!failed.size){message.textContent="Tout fonctionne. Choisis un disque à mettre en panne.";return}
- if(!state.value.available){
-  message.textContent="RAID indisponible. Le spare ne peut pas retrouver les données perdues lorsqu'il y a trop de pannes.";
-  return;
- }
- if(withSpare&&oneFailure){
-  if(sparePhase==="standby"){
-   message.textContent="Le RAID fonctionne encore, mais un disque est en panne. Le spare peut prendre sa place.";
-   const start=document.createElement("button");start.type="button";start.className="spare-action";
-   start.textContent="Lancer la reconstruction (simulation)";
-   start.addEventListener("click",()=>{sparePhase="rebuilding";renderSimulation()});spareActions.append(start);
-   return;
-  }
-  if(sparePhase==="rebuilding"){
-   message.textContent="Reconstruction simulée : les blocs du disque en panne sont recopiés ou recalculés sur le spare.";
-   const finish=document.createElement("button");finish.type="button";finish.className="spare-action";
-   finish.textContent="Terminer la reconstruction";
-   finish.addEventListener("click",()=>{sparePhase="done";renderSimulation()});spareActions.append(finish);
-   return;
-  }
-  if(spareRebuilt){
-   message.textContent="Reconstruction terminée dans cette démonstration. Le spare remplace maintenant le disque en panne. Il n'est plus disponible comme disque de réserve.";
-   return;
-  }
- }
- message.textContent="Le RAID fonctionne encore malgré "+failed.size+" disque"+(failed.size>1?"s":"")+" en panne. Il faut remplacer les disques défectueux.";
-}
-function initSimSpare(){
- const toggle=$("sim-spare-toggle");
- if(!toggle)return;
- toggle.addEventListener("change",()=>{withSpare=toggle.checked;failed.clear();sparePhase="standby";renderSimulation()});
+ for(const button of choices)button.addEventListener("click",()=>{
+  if(chosen!==null)return;
+  chosen=button.dataset.duelAnswer;
+  const item=duelSituations[index],good=chosen===item.answer;
+  if(good)score++;
+  for(const option of choices){option.disabled=true;option.setAttribute("aria-pressed",String(option===button));}
+  feedback.className="raid-duel-feedback "+(good?"good":"bad");
+  feedback.textContent=(good?"Bonne réponse. ":"Pas tout à fait. ")+item.explain;
+  scoreText.textContent=score+" bonne"+(score>1?"s":"")+" réponse"+(score>1?"s":"");
+  if(index===duelSituations.length-1){
+   restart.hidden=false;
+   feedback.textContent+=" Duel terminé : "+score+" / "+duelSituations.length+". Le RAID et la sauvegarde sont complémentaires.";
+  }else next.disabled=false;
+ });
+ next.addEventListener("click",()=>{if(chosen===null||index>=duelSituations.length-1)return;index++;render();});
+ restart.addEventListener("click",()=>{index=0;score=0;render();});
+ render();
 }
 function bindQuizzes(){
  const explanations={
@@ -520,4 +456,4 @@ function initFileRaidLab(){
 }
 
 
-renderLevels();initSimSpare();renderSimulation();bindQuizzes();initStorageLab();initFileRaidLab();renderTool();
+bindQuizzes();initStorageLab();initFileRaidLab();initRaidDuel();renderTool();
