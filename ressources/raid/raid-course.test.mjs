@@ -81,9 +81,9 @@ test("Chapitre 1 : pas de métaphore de l'armoire",()=>{
  assert.doesNotMatch(html,/le disque est une armoire|Imagine une armoire/);
 });
 test("V3 : le spare est expliqué avant le mini-défi",()=>{
- assert.match(html,/Le spare \(disque de secours\) : prêt à remplacer un disque en panne/);
- assert.ok(html.indexOf("spare-lesson")<html.indexOf('data-question="spare"'));
- assert.match(html,/ne simulons pas le remplacement automatique/);
+ assert.match(html,/spare \(disque de secours\)/);
+ assert.ok(html.indexOf("raid-comparator")<html.indexOf('data-question="spare"'));
+ assert.match(html,/Le spare n\x27ajoute pas de capacité/);
 });
 test("V3 : NAS limité à 12 disques, tiroirs compacts et noms uniformes",()=>{
  assert.match(js,/if\(disks.length>=12\)return/);
@@ -99,7 +99,7 @@ test("V3 : erreur aux mini-défis sans révéler la réponse",()=>{
  assert.match(js,/reply.textContent=good\?/);
  assert.match(js,/if\(good\)\{for\(const x/);
 });
-test("V3 : choix professionnels équilibrés",()=>{
+test("Chapitre professionnel : configurations distinctes",()=>{
  for(const term of ["Petit serveur ou NAS","RAID 1 + RAID 5 + spare","RAID 1 + RAID 6 + spare","RAID 10","RAID 01"])
   assert.ok(html.includes(term),term);
 });
@@ -231,8 +231,8 @@ test("Chapitre 2 : chaque parité explique ses trois morceaux sources",()=>{
  assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
  assert.match(css,/\.file-raid-parity-mini/);
  assert.match(html,/Elles ne représentent pas des copies enregistrées/);
- assert.match(html,/raid-course\.js\?v=15/);
- assert.match(html,/raid-course\.css\?v=16/);
+ assert.match(html,/raid-course\.js\?v=16/);
+ assert.match(html,/raid-course\.css\?v=17/);
 });
 
 test("Chapitre 2 : parcours photo avant le simulateur de blocs",()=>{
@@ -241,7 +241,7 @@ test("Chapitre 2 : parcours photo avant le simulateur de blocs",()=>{
  assert.deepEqual(order,[["depart","01"],["parite","02"],["simulateur","03"],["pannes","04"],["atelier","05"],["choix","06"],["synthese","07"]]);
  assert.ok(html.indexOf('id="parite"')<html.indexOf('id="simulateur"'));
  assert.doesNotMatch(html,/id="comprendre"/);
- assert.match(html,/Version 5\.4/);
+ assert.match(html,/Version 5\.5/);
 });
 
 test("Mini-défis : une question cohérente avec chaque chapitre de 1 à 6",()=>{
@@ -254,17 +254,31 @@ test("Mini-défis : une question cohérente avec chaque chapitre de 1 à 6",()=>
  }
  assert.match(html,/Dans le parcours de photo\.jpg, à quoi sert le bloc P/);
  assert.match(html,/Quel RAID écrit les mêmes blocs de données sur deux disques/);
- assert.match(html,/4 disques actifs de 2 To en RAID 5/);
+ assert.match(html,/Un NAS contient 5 disques de 2 To/);
  assert.match(js,/compare:"RAID 1 conserve les mêmes blocs/);
  assert.match(js,/parity:"La parité P permet de recalculer/);
 });
 test("Spare et groupes RAID professionnels présentés explicitement",()=>{
- assert.match(html,/Ajouter un spare \(disque de secours\)/);
+ assert.match(html,/spare \(disque de secours\)/);
  assert.match(html,/RAID 1 \+ RAID 5 \+ spare/);
  assert.match(html,/RAID 1 \+ RAID 6 \+ spare/);
  assert.match(html,/Deux RAID 1 indépendants/);
  assert.match(html,/deux groupes RAID séparés/);
  assert.match(html,/serveur de virtualisation/);
  assert.match(js,/Spare \(disque de secours\)/);
- assert.match(js,/\["spare","Spare \(disque de secours\)"\]/);
+ assert.match(js,/kind:"spare"/);
+});
+
+test("Atelier central : NAS et comparateur pilotés par les disques",()=>{
+ assert.doesNotMatch(html,/id="tool-level"/);
+ assert.match(html,/id="raid-comparator"/);
+ assert.match(html,/id="raid-compare-detail"/);
+ assert.match(js,/function buildCandidate\(option\)/);
+ assert.match(js,/calculateRaid\(cfg\(option.level/);
+ assert.match(js,/function renderComparator\(/);
+ assert.match(js,/option.kind==="pair"/);
+ assert.match(js,/option.kind==="spare"/);
+ assert.match(js,/d.capacityTB=capacity.value/);
+ assert.match(css,/\.raid-compare-row/);
+ assert.match(css,/@media\(max-width:560px\)\{\.raid-compare-row/);
 });
