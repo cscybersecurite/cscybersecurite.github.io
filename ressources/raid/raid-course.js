@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id);
 const cfg=(level,disks)=>({format:"raid-configuration",schemaVersion:1,level,disks});
 const fmt=n=>new Intl.NumberFormat("fr-FR",{maximumFractionDigits:4}).format(n)+" To";
 const levels=[["1","Miroir"],["5","Parité simple"],["6","Double parité"]];
-let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3,4].map(i=>({id:"d"+i,capacityTB:2,role:"active"})),counter=5;
+let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));
 const layouts={
  "1":[["A1","B1","C1"],["A1","B1","C1"]],
  "5":[["A1","A2","A3","P"],["B1","B2","P","A4"],["C1","P","B3","B4"],["P","C2","C3","C4"]],
@@ -131,7 +131,8 @@ function bindQuizzes(){
   }
  }
 }
-let editingId="d1",selectedConfig="5";
+let editingId="d1",selectedConfig="1";
+function nextNasDiskId(){const used=new Set(disks.map(d=>d.id));let n=1;while(used.has("d"+n))n++;return "d"+n;}
 const raidOptions=[
  {id:"1",label:"RAID 1",level:"1",min:2,kind:"pair",detail:"Deux disques en miroir. Les autres restent libres."},
  {id:"5",label:"RAID 5",level:"5",min:4,kind:"all",detail:"Un disque en panne peut être supporté."},
@@ -287,10 +288,10 @@ function renderComparator(){
 }
 $("tool-add").addEventListener("click",()=>{
  if(disks.length>=12)return;
- const d={id:"d"+counter++,capacityTB:2,role:"active"};disks.push(d);editingId=d.id;renderTool();
+ const d={id:nextNasDiskId(),capacityTB:2,role:"active"};disks.push(d);editingId=d.id;renderTool();
 });
 $("tool-reset").addEventListener("click",()=>{
- counter=5;disks=[1,2,3,4].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));editingId="d1";selectedConfig="5";renderTool();
+ disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));editingId="d1";selectedConfig="1";renderTool();
 });
 
 function initStorageLab(){
