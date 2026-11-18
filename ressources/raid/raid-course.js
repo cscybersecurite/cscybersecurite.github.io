@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id);
 const cfg=(level,disks)=>({format:"raid-configuration",schemaVersion:1,level,disks});
 const fmt=n=>new Intl.NumberFormat("fr-FR",{maximumFractionDigits:4}).format(n)+" To";
 const levels=[["1","Miroir"],["5","Parité simple"],["6","Double parité"]];
-let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"})),counter=4;
+let selected="5",failed=new Set(),withSpare=false,sparePhase="standby",disks=[1,2,3,4].map(i=>({id:"d"+i,capacityTB:2,role:"active"})),counter=5;
 const layouts={
  "1":[["A1","B1","C1"],["A1","B1","C1"]],
  "5":[["A1","A2","A3","P"],["B1","B2","P","A4"],["C1","P","B3","B4"],["P","C2","C3","C4"]],
@@ -114,7 +114,7 @@ function bindQuizzes(){
  compare:"RAID 1 conserve les mêmes blocs sur deux disques : c\'est le principe du miroir.",
  parity:"La parité P permet de recalculer un morceau manquant après la panne d\'un disque. Ce n\'est pas une copie de la photo.",
  backup:"Avec une sauvegarde, tu peux retrouver un fichier supprimé.",
- spare:"Le spare attend une panne. Il ne donne pas de capacité utile supplémentaire : les quatre disques actifs en RAID 5 offrent toujours 6 To.",
+ spare:"Le spare est un disque en attente pour une reconstruction après une panne. Il ne sert pas à augmenter la place pour les fichiers.",
  case:"On sépare le RAID 1 du système du RAID 6 des données. Le spare attend une panne du groupe auquel il est affecté."
  };
  for(const root of document.querySelectorAll(".quiz")){
@@ -131,8 +131,36 @@ function bindQuizzes(){
   }
  }
 }
-let editingId="d1";
-function toolConfiguration(){return cfg($("tool-level").value,disks.map(d=>({...d})))}
+let editingId="d1",selectedConfig="5";
+const raidOptions=[
+ {id:"1",label:"RAID 1",level:"1",min:2,kind:"pair",detail:"Deux disques en miroir. Les autres restent libres."},
+ {id:"5",label:"RAID 5",level:"5",min:4,kind:"all",detail:"Un disque en panne peut être supporté."},
+ {id:"5s",label:"RAID 5 + spare",level:"5",min:5,kind:"spare",detail:"Quatre disques actifs minimum et un spare en attente."},
+ {id:"6",label:"RAID 6",level:"6",min:5,kind:"all",detail:"Deux disques en panne peuvent être supportés."},
+ {id:"6s",label:"RAID 6 + spare",level:"6",min:6,kind:"spare",detail:"Cinq disques actifs minimum et un spare en attente."},
+ {id:"10",label:"RAID 10",level:"10",min:4,kind:"even",detail:"Miroirs par paires. Les pannes supportées dépendent des paires touchées."},
+ {id:"0",label:"RAID 0",level:"0",min:2,kind:"all",detail:"Aucune protection contre la panne d'un disque."},
+ {id:"01",label:"RAID 01",level:"01",min:4,kind:"even",detail:"Deux groupes répartis, en miroir. Protection selon les disques en panne."}
+];
+function buildCandidate(option){
+ if(disks.length<option.min||disks.some(d=>!(d.capacityTB>0)))return null;
+ const sorted=[...disks].sort((a,b)=>b.capacityTB-a.capacityTB||a.id.localeCompare(b.id));
+ let active=sorted,spare=[];
+ if(option.kind==="pair")active=sorted.slice(0,2);
+ if(option.kind==="even")active=sorted.slice(0,sorted.length-(sorted.length%2));
+ if(option.kind==="spare"){spare=[sorted[0]];active=sorted.slice(1)}
+ if(active.length<option.min-(option.kind==="spare"?1:0))return null;
+ // Le moteur partagé reste seul responsable des capacités et de la tolérance.
+ const result=calculateRaid(cfg(option.level,[
+  ...active.map(d=>({...d,role:"active"})),
+  ...spare.map(d=>({...d,role:"spare"}))
+ ]));
+ if(!result.ok)return null;
+ const activeIds=new Set(active.map(d=>d.id)),spareIds=new Set(spare.map(d=>d.id));
+ const free=disks.filter(d=>!activeIds.has(d.id)&&!spareIds.has(d.id));
+ const unusedRaw=free.reduce((sum,d)=>sum+d.capacityTB,0);
+ return {option,result:result.value,active,spare,free,unusedRaw};
+}
 function renderTool(){
  const area=$("tool-disks");area.replaceChildren();
  const chassis=document.createElement("div");chassis.className="nas-chassis";
@@ -142,17 +170,17 @@ function renderTool(){
  const lights=document.createElement("div");lights.className="nas-indicators";
  const indicators=[["STATUS","on"],["ALERT","off"],["LAN 1","on"],["LAN 2","on"]];
  for(const [label,state] of indicators){
-  const light=document.createElement("span");light.className="nas-indicator";
-  const led=document.createElement("i");led.className="nas-indicator-led "+state;led.setAttribute("aria-hidden","true");
-  const caption=document.createElement("span");caption.textContent=label;
-  light.append(led,caption);lights.append(light);
+  const light=document.createElement("span");light.className="nas-indicator-led "+state;light.setAttribute("aria-label",label);lights.append(light);
  }
  const power=document.createElement("span");power.className="nas-power-button";
- power.setAttribute("role","img");power.setAttribute("aria-label","NAS allumé");
- power.textContent="⏻";
+ power.setAttribute("role","img");power.setAttribute("aria-label","NAS allumé");power.textContent="⏻";
  header.append(brand,lights,power);
  const grid=document.createElement("div");grid.className="nas-slots";
  const slots=disks.length<=4?4:disks.length<=6?6:disks.length<=8?8:disks.length<=10?10:12;
+ const choice=raidOptions.find(x=>x.id===selectedConfig);
+ const candidate=choice?buildCandidate(choice):null;
+ const activeIds=new Set(candidate?.active.map(d=>d.id)??[]);
+ const spareIds=new Set(candidate?.spare.map(d=>d.id)??[]);
  for(let i=0;i<slots;i++){
   const d=disks[i];
   if(!d){
@@ -161,80 +189,111 @@ function renderTool(){
    const label=document.createElement("span");label.textContent="VIDE";
    empty.append(label);grid.append(empty);continue;
   }
+  const state=candidate?(spareIds.has(d.id)?"spare":activeIds.has(d.id)?"active":"free"):"neutral";
   const tray=document.createElement("button");tray.type="button";
-  tray.className="nas-tray"+(d.role==="spare"?" is-spare":"")+(d.id===editingId?" is-selected":"");
+  tray.className="nas-tray"+(state==="spare"?" is-spare":"")+(state==="free"?" is-free":"")+(d.id===editingId?" is-selected":"");
   tray.setAttribute("aria-pressed",String(d.id===editingId));
-  tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To, "+(d.role==="spare"?"spare (disque de secours)":"actif")+". Voir ses réglages");
+  tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To, "+(state==="spare"?"spare (disque de secours)":state==="free"?"libre":state==="active"?"actif":"installé")+". Voir ses réglages");
   const led=document.createElement("span");led.className="nas-led";led.setAttribute("aria-hidden","true");
   const title=document.createElement("strong");title.textContent=d.id;
   const cap=document.createElement("span");cap.className="nas-cap";cap.textContent=d.capacityTB+" To";
   const keyhole=document.createElement("span");keyhole.className="nas-keyhole";keyhole.setAttribute("aria-hidden","true");
-  const role=document.createElement("small");role.textContent=d.role==="spare"?"SPARE":"ACTIF";
+  const role=document.createElement("small");role.textContent=state==="spare"?"SPARE":state==="free"?"LIBRE":state==="active"?"ACTIF":"INSTALLÉ";
   tray.append(led,title,cap,keyhole,role);
   tray.addEventListener("click",()=>{editingId=d.id;renderTool();$("tool-editor").scrollIntoView({block:"nearest",behavior:"auto"})});
   grid.append(tray);
  }
  chassis.append(header,grid);
  const footer=document.createElement("div");footer.className="nas-footer";footer.textContent=disks.length+" / 12 places occupées";
- chassis.append(footer);const feet=document.createElement("div");feet.className="nas-feet";feet.setAttribute("aria-hidden","true");feet.append(document.createElement("i"),document.createElement("i"));chassis.append(feet);area.append(chassis);
+ chassis.append(footer);const feet=document.createElement("div");feet.className="nas-feet";
+ feet.setAttribute("aria-hidden","true");feet.append(document.createElement("i"),document.createElement("i"));chassis.append(feet);area.append(chassis);
  const add=$("tool-add");add.disabled=disks.length>=12;
  add.setAttribute("aria-disabled",String(add.disabled));
  add.title=add.disabled?"Les 12 places du NAS sont occupées.":"Ajouter un disque";
- renderEditor();calculateTool();
+ renderEditor();
+ renderComparator();
 }
 function renderEditor(){
  const area=$("tool-editor");area.replaceChildren();
  let d=disks.find(x=>x.id===editingId);
  if(!d){d=disks[0];editingId=d?.id??null}
- if(!d){
-  const p=document.createElement("p");p.textContent="Aucun disque. Clique sur Ajouter un disque.";area.append(p);return;
- }
- const h=document.createElement("strong");h.textContent="Réglages du disque "+d.id;
- const hint=document.createElement("p");hint.className="tiny";hint.textContent="Choisis un disque sur le NAS pour le modifier.";
+ if(!d){const p=document.createElement("p");p.textContent="Ajoute un disque pour commencer.";area.append(p);return}
+ const h=document.createElement("strong");h.textContent="Disque "+d.id;
  const controls=document.createElement("div");controls.className="disk-controls";
- const label=document.createElement("label");label.textContent="Taille (To)";
- const capacity=document.createElement("input");capacity.type="number";capacity.min="0.01";capacity.max="1000000";capacity.step="0.25";capacity.value=d.capacityTB;
- capacity.setAttribute("aria-label","Taille du disque "+d.id);
- capacity.addEventListener("input",()=>{d.capacityTB=capacity.value===""?0:Number(capacity.value);const tray=[...document.querySelectorAll(".nas-tray")].find(x=>x.querySelector("strong")?.textContent===d.id);if(tray){tray.querySelector(".nas-cap").textContent=d.capacityTB+" To";tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To")}calculateTool()});
+ const label=document.createElement("label");label.textContent="Capacité du disque (To)";
+ const capacity=document.createElement("input");capacity.type="number";capacity.min="0.25";capacity.max="1000000";capacity.step="0.25";capacity.value=d.capacityTB;
+ capacity.setAttribute("aria-label","Capacité du disque "+d.id);
+ capacity.addEventListener("input",()=>{
+  d.capacityTB=capacity.value===""?0:Number(capacity.value);
+  const tray=[...document.querySelectorAll(".nas-tray")].find(x=>x.querySelector("strong")?.textContent===d.id);
+  if(tray){tray.querySelector(".nas-cap").textContent=d.capacityTB+" To"}
+  if(d.capacityTB>0)renderTool();else{
+   $("tool-status").textContent="Saisis une capacité supérieure à zéro.";
+   $("raid-comparator").replaceChildren();$("raid-compare-detail").replaceChildren();
+  }
+ });
  label.append(capacity);
- const roleLabel=document.createElement("label");roleLabel.textContent="Rôle";
- const role=document.createElement("select");role.setAttribute("aria-label","Rôle du disque "+d.id);
- for(const [v,t] of [["active","Actif"],["spare","Spare (disque de secours)"]])role.add(new Option(t,v));
- role.value=d.role;role.addEventListener("change",()=>{d.role=role.value;renderTool()});roleLabel.append(role);
  const remove=document.createElement("button");remove.type="button";remove.textContent="Retirer ce disque";
  remove.addEventListener("click",()=>{disks=disks.filter(x=>x!==d);editingId=disks[0]?.id??null;renderTool()});
- controls.append(label,roleLabel,remove);area.append(h,hint,controls);
+ controls.append(label,remove);area.append(h,controls);
 }
-const simpleError={INVALID_CAPACITY:"Entre une taille supérieure à 0 To.",TOO_FEW_ACTIVE_DISKS:"Il manque des disques actifs pour ce RAID.",EVEN_ACTIVE_DISKS:"Ce RAID demande un nombre pair de disques actifs.",SPARE_TOO_SMALL:"Le spare (disque de secours) est trop petit.",INVALID_DISKS:"Il y a trop de disques."};
-function calculateTool(){
- const result=calculateRaid(toolConfiguration()),metrics=$("tool-metrics"),bar=$("tool-bar");
- metrics.replaceChildren();bar.replaceChildren();
- const status=$("tool-status");$("tool-tolerance").textContent="";
- if(!result.ok){
-  status.className="status error";
-  const e=result.errors[0];
-  status.textContent=e.code==="TOO_FEW_ACTIVE_DISKS"
-   ?"Il faut au moins "+({"0":2,"1":2,"5":3,"6":4,"10":4,"01":4}[$("tool-level").value])+" disques actifs pour ce RAID."
-   :simpleError[e.code]??e.message;
-  return;
+function renderComparator(){
+ const root=$("raid-comparator");root.replaceChildren();
+ const raw=disks.reduce((sum,d)=>sum+d.capacityTB,0);
+ const valid=disks.every(d=>d.capacityTB>0);
+ const status=$("tool-status");status.className="status";
+ status.textContent=valid?disks.length+" disque"+(disks.length>1?"s":"")+" installé"+(disks.length>1?"s":"")+", "+fmt(raw)+" au total.":"Corrige la capacité du disque sélectionné.";
+ if(!valid)return;
+ const candidates=new Map(raidOptions.map(o=>[o.id,buildCandidate(o)]));
+ if(!candidates.get(selectedConfig)){selectedConfig=raidOptions.find(o=>candidates.get(o.id))?.id??""}
+ for(const option of raidOptions){
+  const candidate=candidates.get(option.id);
+  const row=document.createElement("button");row.type="button";
+  row.className="raid-compare-row"+(selectedConfig===option.id?" is-active":"");
+  row.disabled=!candidate;
+  row.setAttribute("aria-pressed",String(selectedConfig===option.id&&!!candidate));
+  const head=document.createElement("span");head.className="raid-compare-head";
+  const strong=document.createElement("strong");strong.textContent=option.label;
+  const subtitle=document.createElement("small");subtitle.textContent=candidate
+   ?candidate.active.length+" actifs"+(candidate.spare.length?", 1 spare":"")+(candidate.free.length?", "+candidate.free.length+" libres":"")
+   :"Minimum "+option.min+" disques"+(disks.length>=option.min?" ou configuration incompatible":"");
+  head.append(strong,subtitle);row.append(head);
+  const track=document.createElement("span");track.className="raid-compare-track";
+  if(candidate){
+   const c=candidate.result.capacitiesTB;
+   for(const [value,kind] of [[c.usable,"usable"],[c.redundancy,"redundancy"],[c.spare,"sparebar"],[c.unused+candidate.unusedRaw,"unused"]]){
+    if(!value)continue;
+    const segment=document.createElement("span");segment.className=kind;
+    segment.style.width=100*value/raw+"%";segment.textContent=fmt(value);
+    segment.title=(kind==="usable"?"Fichiers":kind==="redundancy"?"Protection":kind==="sparebar"?"Spare":"Libre ou non utilisé")+" : "+fmt(value);
+    track.append(segment);
+   }
+  }else{
+   const no=document.createElement("span");no.className="raid-compare-impossible";no.textContent="Non réalisable";track.append(no);
+  }
+  row.append(track);
+  if(candidate)row.addEventListener("click",()=>{selectedConfig=option.id;renderTool()});
+  root.append(row);
  }
- status.className="status";status.textContent="Le RAID est prêt.";
- const r=result.value,c=r.capacitiesTB;
- for(const [label,value] of [["Total des disques",c.rawTotal],["Pour les fichiers",c.usable],["Pour la protection",c.redundancy],["Place non utilisée",c.unused],["Spare (disque de secours)",c.spare]]){
-  const tile=document.createElement("div");tile.className="metric";const strong=document.createElement("b");strong.textContent=fmt(value);
-  const caption=document.createElement("span");caption.textContent=label;tile.append(strong,caption);metrics.append(tile);
- }
- for(const [value,style] of [[c.usable,"usable"],[c.redundancy,"redundancy"],[c.unused,"unused"],[c.spare,"sparebar"]]){
-  const segment=document.createElement("i");segment.className=style;segment.style.width=100*value/c.rawTotal+"%";bar.append(segment);
- }
- const tolerance=r.tolerance;
- $("tool-tolerance").textContent=tolerance.guaranteed===0
-  ?"Si un disque tombe en panne, le RAID ne marche plus."
-  : "Le RAID peut continuer avec "+tolerance.guaranteed+" disque"+(tolerance.guaranteed>1?"s":"")+" en panne. Pour RAID 10 et RAID 01, cela dépend aussi des disques touchés.";
+ const detail=$("raid-compare-detail");detail.replaceChildren();
+ const selected=raidOptions.find(o=>o.id===selectedConfig),item=selected?candidates.get(selected.id):null;
+ if(!item){detail.textContent="Ajoute des disques pour comparer les RAID.";return}
+ const title=document.createElement("strong");title.textContent=selected.label+" : "+fmt(item.result.capacitiesTB.usable)+" pour les fichiers";
+ const note=document.createElement("p");note.textContent=selected.detail+" "+item.active.length+" disques actifs"+
+  (item.spare.length?", "+item.spare.length+" spare":"")+(item.free.length?", "+item.free.length+" disques libres":"")+".";
+ const tolerance=document.createElement("p");tolerance.textContent=item.result.tolerance.description;
+ const mismatch=document.createElement("p");
+ const unused=item.result.capacitiesTB.unused+item.unusedRaw;
+ mismatch.textContent=unused?"Espace libre ou non exploité dans ce choix : "+fmt(unused)+".":"Tous les disques installés sont exploités dans cette configuration.";
+ detail.append(title,note,tolerance,mismatch);
 }
-$("tool-level").addEventListener("change",renderTool);
-$("tool-add").addEventListener("click",()=>{if(disks.length>=12)return;const d={id:"d"+counter++,capacityTB:2,role:"active"};disks.push(d);editingId=d.id;renderTool()});
-$("tool-reset").addEventListener("click",()=>{counter=4;disks=[1,2,3].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));editingId="d1";$("tool-level").value="5";renderTool()});
+$("tool-add").addEventListener("click",()=>{
+ if(disks.length>=12)return;
+ const d={id:"d"+counter++,capacityTB:2,role:"active"};disks.push(d);editingId=d.id;renderTool();
+});
+$("tool-reset").addEventListener("click",()=>{
+ counter=5;disks=[1,2,3,4].map(i=>({id:"d"+i,capacityTB:2,role:"active"}));editingId="d1";selectedConfig="5";renderTool();
+});
 
 function initStorageLab(){
  const root=$("storage-lab");
