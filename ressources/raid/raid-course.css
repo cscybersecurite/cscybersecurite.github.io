@@ -475,3 +475,29 @@
 .raid-pro-plus{align-self:center;font-size:1.28rem;font-weight:800;color:var(--ink)}
 @media(max-width:740px){.raid-pro-cases{grid-template-columns:1fr}.raid-pro-roles{grid-template-columns:1fr}.raid-pro-roles>div{padding:10px 12px}}
 @media(max-width:410px){.raid-pro-arrangement{padding:9px 4px;gap:4px}.raid-pro-set{min-width:66px;flex-basis:66px;padding:8px 3px}.raid-pro-set strong{font-size:.91rem}.raid-pro-set small,.raid-pro-set em{font-size:.66rem}.raid-pro-plus{font-size:1rem}}
+
+/* Atelier central RAID : comparaison des configurations du NAS physique. */
+.raid-workshop{padding-bottom:21px}
+.raid-compare-title{margin:24px 0 5px!important}
+.raid-compare-legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:12px 0;font-size:.78rem;color:var(--muted)}
+.raid-compare-legend span{display:inline-flex;align-items:center;gap:6px}
+.raid-compare-legend i{display:inline-block;width:13px;height:13px;border-radius:3px}
+.raid-comparator{display:grid;gap:8px}
+.raid-compare-row{width:100%;display:grid;grid-template-columns:minmax(130px,190px) minmax(0,1fr);gap:15px;align-items:center;text-align:left;border:1px solid var(--edge);background:var(--paper);color:var(--ink);border-radius:11px;padding:11px 13px;min-height:64px}
+.raid-compare-row:not(:disabled):hover{background:var(--pale)}
+.raid-compare-row.is-active{border:2px solid var(--accent);background:var(--pale);padding:10px 12px}
+.raid-compare-row:disabled{opacity:.6;cursor:not-allowed}
+.raid-compare-head{display:flex;flex-direction:column;gap:2px;min-width:0}
+.raid-compare-head strong{font-size:.96rem}
+.raid-compare-head small{font-size:.74rem;line-height:1.3;color:var(--muted)}
+.raid-compare-track{display:flex;overflow:hidden;align-items:stretch;border-radius:7px;background:var(--track);height:32px;width:100%}
+.raid-compare-track>span:not(.raid-compare-impossible){display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;white-space:nowrap;font-size:.73rem;font-weight:780;color:#152333}
+.raid-compare-track .usable,.raid-compare-legend .usable{background:#e8a43f}
+.raid-compare-track .redundancy,.raid-compare-legend .redundancy{background:#f2d6a0}
+.raid-compare-track .sparebar,.raid-compare-legend .sparebar{background:#8db4cc}
+.raid-compare-track .unused,.raid-compare-legend .unused{background:#c3d0d8}
+.raid-compare-impossible{font-size:.8rem;color:var(--muted);margin:auto}
+.raid-compare-detail{background:var(--pale);border:1px solid var(--edge);border-radius:12px;padding:15px 17px;margin-top:12px}
+.raid-compare-detail p{font-size:.88rem;margin:6px 0}
+.nas-tray.is-free:not(.is-selected){opacity:.68}
+@media(max-width:560px){.raid-compare-row{grid-template-columns:1fr;gap:7px;padding:10px;min-height:0}.raid-compare-row.is-active{padding:9px}.raid-compare-head{flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:5px}.raid-compare-head strong{font-size:.9rem}.raid-compare-head small{font-size:.7rem}.raid-compare-track{height:26px}.raid-compare-track>span:not(.raid-compare-impossible){font-size:.67rem}.raid-compare-detail{padding:12px}}
