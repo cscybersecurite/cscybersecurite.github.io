@@ -226,12 +226,10 @@ function renderEditor(){
  capacity.addEventListener("input",()=>{
   d.capacityTB=capacity.value===""?0:Number(capacity.value);
   const tray=[...document.querySelectorAll(".nas-tray")].find(x=>x.querySelector("strong")?.textContent===d.id);
-  if(tray){tray.querySelector(".nas-cap").textContent=d.capacityTB+" To"}
-  if(d.capacityTB>0)renderTool();else{
-   $("tool-status").textContent="Saisis une capacité supérieure à zéro.";
-   $("raid-comparator").replaceChildren();$("raid-compare-detail").replaceChildren();
-  }
+  if(tray)tray.querySelector(".nas-cap").textContent=d.capacityTB+" To";
+  renderComparator();
  });
+ capacity.addEventListener("change",renderTool);
  label.append(capacity);
  const remove=document.createElement("button");remove.type="button";remove.textContent="Retirer ce disque";
  remove.addEventListener("click",()=>{disks=disks.filter(x=>x!==d);editingId=disks[0]?.id??null;renderTool()});
