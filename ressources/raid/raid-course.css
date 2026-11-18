@@ -580,3 +580,40 @@ details.nested-test[open]>summary{border-bottom:1px solid var(--edge)}
 @media(max-width:800px){.raid-family{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.raid-family{grid-template-columns:1fr}.raid-family article{gap:5px}.raid-vignette-button{max-width:255px}details.chapter>summary.chapter-head{padding:13px 40px 13px 11px;gap:9px}details.chapter>.chapter-inside{padding:10px}details.chapter>summary.chapter-head::after{right:12px}}
 @media(prefers-reduced-motion:reduce){.raid-vignette-button{transition:none}.raid-vignette-button:hover{transform:none}}
+
+/* Barre de cours, comme les autres cours équipés de CoursPrint. */
+.course-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.course-actions .home{display:inline-flex;align-items:center;justify-content:center;min-height:42px}
+.projection-float{position:fixed;left:clamp(10px,2vw,22px);bottom:clamp(14px,3vh,27px);z-index:1000;display:flex;align-items:center;gap:9px;padding:11px 15px;border:2px solid #8bb7e3;border-radius:30px;background:#155b99;color:#fff;font:700 15px system-ui,sans-serif;box-shadow:0 4px 16px #0006;cursor:pointer}
+.projection-float svg{width:22px;height:22px;flex:none}
+.projection-float[aria-pressed="true"]{background:#96471e;border-color:#f2b27b}
+.projection-float:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+html.raid-presentation .hero,html.raid-presentation .footer{display:none}
+html.raid-presentation .wrap{max-width:100%;padding:12px clamp(10px,2vw,26px) 60px}
+html.raid-presentation main>details.chapter:not([open]){display:none}
+html.raid-presentation main>details.chapter[open]{width:100%;max-width:100%;margin:0}
+html.raid-presentation main>details.chapter[open]>.chapter-inside{font-size:clamp(23px,2.6vw,33px);line-height:1.48}
+html.raid-presentation main>details.chapter[open]>.chapter-inside p,
+html.raid-presentation main>details.chapter[open]>.chapter-inside li{font-size:inherit}
+html.raid-presentation main>details.chapter[open] summary.chapter-head h2{font-size:clamp(30px,3.6vw,46px)}
+html.raid-presentation main>details.chapter[open] .chapter-inside h3{font-size:clamp(27px,3vw,39px)}
+html.raid-presentation main>details.chapter[open] .tiny,
+html.raid-presentation main>details.chapter[open] .mini,
+html.raid-presentation main>details.chapter[open] small{font-size:clamp(17px,1.8vw,23px)}
+html.raid-presentation main>details.chapter[open] .raid-family{grid-template-columns:repeat(3,minmax(0,1fr))}
+html.raid-presentation main>details.chapter[open] .raid-family article p{font-size:clamp(18px,1.85vw,25px)}
+html.raid-presentation main>details.chapter[open] svg,
+html.raid-presentation main>details.chapter[open] img{max-width:100%}
+html.raid-presentation main>details.chapter[open] button{font-size:clamp(16px,1.6vw,23px)}
+@media(max-width:700px){html.raid-presentation main>details.chapter[open] .raid-family{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){html.raid-presentation main>details.chapter[open] .raid-family{grid-template-columns:1fr}.course-actions{gap:5px}.course-actions .home{font-size:.78rem;padding:7px}}
+/* Styles exploités aussi par le document isolé généré par CoursPrint. */
+@media print{
+ .hero,.intro,.roadmap,.projection-float,.course-actions,.nested-test,.raid-duel,
+ .raid-vignette-dialog,.course-version{display:none!important}
+ details.chapter>.chapter-inside{display:block!important;padding:5px 0 10px!important}
+ details.chapter>summary.chapter-head{display:flex!important;padding:9px 0!important}
+ details.chapter>summary.chapter-head::after{display:none!important}
+ .raid-vignette-button{display:none!important}
+ .raid-family{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}

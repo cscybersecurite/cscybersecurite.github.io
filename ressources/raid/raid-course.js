@@ -49,6 +49,38 @@ function initRaidDuel(){
 
 // Un lien direct ou le menu peut ouvrir le chapitre visé.
 // Sans fragment dans l'URL, tous les chapitres restent fermés au chargement.
+
+// Projection sur le chapitre ouvert, avec retour à la position de lecture.
+function initRaidProjection(){
+ const control=$("raid-projection");if(!control)return;
+ const chapters=[...document.querySelectorAll("main>details.chapter")];
+ chapters.forEach(chapter=>chapter.addEventListener("toggle",()=>{
+  if(!chapter.open)return;
+  for(const other of chapters)if(other!==chapter)other.open=false;
+  if(document.documentElement.classList.contains("raid-presentation")){
+   chapter.scrollIntoView({block:"start",behavior:"instant"});
+  }
+ }));
+ control.addEventListener("click",()=>{
+  const root=document.documentElement;
+  const wasActive=root.classList.contains("raid-presentation");
+  let open=chapters.find(ch=>ch.open);
+  if(!wasActive&&!open){
+   open=chapters.find(ch=>ch.getBoundingClientRect().bottom>100)||chapters[0];
+   if(open)open.open=true;
+  }
+  const candidates=[...(open?.querySelectorAll(".chapter-inside p,.chapter-inside figure,.chapter-inside table,.chapter-inside .panel,.chapter-inside .nested-test")||[])];
+  const anchor=candidates.find(node=>{const b=node.getBoundingClientRect();return b.bottom>90&&b.top<window.innerHeight-80})||open;
+  const top=anchor?.getBoundingClientRect().top??0;
+  root.classList.toggle("raid-presentation",!wasActive);
+  control.setAttribute("aria-pressed",String(!wasActive));
+  control.setAttribute("aria-label",wasActive?"Activer la projection":"Quitter la projection");
+  control.title=wasActive?"Activer la projection":"Quitter la projection";
+  control.querySelector(".projection-label").textContent=wasActive?"Projection":"Affichage normal";
+  if(anchor&&anchor.isConnected)window.scrollBy(0,anchor.getBoundingClientRect().top-top);
+ });
+}
+
 function initChapterNavigation(){
  function openTarget(){
   const hash=window.location.hash.slice(1);
@@ -543,4 +575,4 @@ function initFileRaidLab(){
 }
 
 
-bindQuizzes();initStorageLab();initFileRaidLab();initRaidDuel();initRaidVignettes();initChapterNavigation();renderTool();
+bindQuizzes();initStorageLab();initFileRaidLab();initRaidDuel();initRaidVignettes();initChapterNavigation();initRaidProjection();renderTool();
