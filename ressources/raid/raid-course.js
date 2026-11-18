@@ -134,7 +134,7 @@ function bindQuizzes(){
 let editingId="d1",selectedConfig="1";
 function nextNasDiskId(){const used=new Set(disks.map(d=>d.id));let n=1;while(used.has("d"+n))n++;return "d"+n;}
 const raidOptions=[
- {id:"1",label:"RAID 1",level:"1",min:2,kind:"pair",detail:"Deux disques en miroir. Les autres restent libres."},
+ {id:"1",label:"RAID 1",level:"1",min:2,kind:"all",detail:"Tous les disques sont en miroir."},
  {id:"5",label:"RAID 5",level:"5",min:4,kind:"all",detail:"Un disque en panne peut être supporté."},
  {id:"5s",label:"RAID 5 + spare",level:"5",min:5,kind:"spare",detail:"Quatre disques actifs minimum et un spare en attente."},
  {id:"6",label:"RAID 6",level:"6",min:5,kind:"all",detail:"Deux disques en panne peuvent être supportés."},
@@ -147,8 +147,7 @@ function buildCandidate(option){
  if(disks.length<option.min||disks.some(d=>!(d.capacityTB>0)))return null;
  const sorted=[...disks].sort((a,b)=>b.capacityTB-a.capacityTB||a.id.localeCompare(b.id));
  let active=sorted,spare=[];
- if(option.kind==="pair")active=sorted.slice(0,2);
- if(option.kind==="even")active=sorted.slice(0,sorted.length-(sorted.length%2));
+ if(option.kind==="even"&&sorted.length%2!==0)return null;
  if(option.kind==="spare"){spare=[sorted[0]];active=sorted.slice(1)}
  if(active.length<option.min-(option.kind==="spare"?1:0))return null;
  // Le moteur partagé reste seul responsable des capacités et de la tolérance.
@@ -157,10 +156,7 @@ function buildCandidate(option){
   ...spare.map(d=>({...d,role:"spare"}))
  ]));
  if(!result.ok)return null;
- const activeIds=new Set(active.map(d=>d.id)),spareIds=new Set(spare.map(d=>d.id));
- const free=disks.filter(d=>!activeIds.has(d.id)&&!spareIds.has(d.id));
- const unusedRaw=free.reduce((sum,d)=>sum+d.capacityTB,0);
- return {option,result:result.value,active,spare,free,unusedRaw};
+ return {option,result:result.value,active,spare};
 }
 function renderTool(){
  const area=$("tool-disks");area.replaceChildren();
@@ -178,6 +174,7 @@ function renderTool(){
  header.append(brand,lights,power);
  const grid=document.createElement("div");grid.className="nas-slots";
  const slots=disks.length<=4?4:disks.length<=6?6:disks.length<=8?8:disks.length<=10?10:12;
+ if(!raidOptions.some(o=>o.id===selectedConfig&&buildCandidate(o)))selectedConfig=raidOptions.find(o=>buildCandidate(o))?.id??"";
  const choice=raidOptions.find(x=>x.id===selectedConfig);
  const candidate=choice?buildCandidate(choice):null;
  const activeIds=new Set(candidate?.active.map(d=>d.id)??[]);
@@ -190,16 +187,16 @@ function renderTool(){
    const label=document.createElement("span");label.textContent="VIDE";
    empty.append(label);grid.append(empty);continue;
   }
-  const state=candidate?(spareIds.has(d.id)?"spare":activeIds.has(d.id)?"active":"free"):"neutral";
+  const state=candidate?(spareIds.has(d.id)?"spare":"active"):"neutral";
   const tray=document.createElement("button");tray.type="button";
-  tray.className="nas-tray"+(state==="spare"?" is-spare":"")+(state==="free"?" is-free":"")+(d.id===editingId?" is-selected":"");
+  tray.className="nas-tray"+(state==="spare"?" is-spare":"")+(d.id===editingId?" is-selected":"");
   tray.setAttribute("aria-pressed",String(d.id===editingId));
-  tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To, "+(state==="spare"?"spare (disque de secours)":state==="free"?"libre":state==="active"?"actif":"installé")+". Voir ses réglages");
+  tray.setAttribute("aria-label","Disque "+d.id+", "+d.capacityTB+" To, "+(state==="spare"?"spare (disque de secours)":state==="active"?"actif":"installé")+". Voir ses réglages");
   const led=document.createElement("span");led.className="nas-led";led.setAttribute("aria-hidden","true");
   const title=document.createElement("strong");title.textContent=d.id;
   const cap=document.createElement("span");cap.className="nas-cap";cap.textContent=d.capacityTB+" To";
   const keyhole=document.createElement("span");keyhole.className="nas-keyhole";keyhole.setAttribute("aria-hidden","true");
-  const role=document.createElement("small");role.textContent=state==="spare"?"SPARE":state==="free"?"LIBRE":state==="active"?"ACTIF":"INSTALLÉ";
+  const role=document.createElement("small");role.textContent=state==="spare"?"SPARE":state==="active"?"ACTIF":"INSTALLÉ";
   tray.append(led,title,cap,keyhole,role);
   tray.addEventListener("click",()=>{editingId=d.id;renderTool();$("tool-editor").scrollIntoView({block:"nearest",behavior:"auto"})});
   grid.append(tray);
@@ -254,17 +251,17 @@ function renderComparator(){
   const head=document.createElement("span");head.className="raid-compare-head";
   const strong=document.createElement("strong");strong.textContent=option.label;
   const subtitle=document.createElement("small");subtitle.textContent=candidate
-   ?candidate.active.length+" actifs"+(candidate.spare.length?", 1 spare":"")+(candidate.free.length?", "+candidate.free.length+" libres":"")
+   ?candidate.active.length+" actifs"+(candidate.spare.length?", 1 spare":"")
    :"Minimum "+option.min+" disques"+(disks.length>=option.min?" ou configuration incompatible":"");
   head.append(strong,subtitle);row.append(head);
   const track=document.createElement("span");track.className="raid-compare-track";
   if(candidate){
    const c=candidate.result.capacitiesTB;
-   for(const [value,kind] of [[c.usable,"usable"],[c.redundancy,"redundancy"],[c.spare,"sparebar"],[c.unused+candidate.unusedRaw,"unused"]]){
+   for(const [value,kind] of [[c.usable,"usable"],[c.redundancy,"redundancy"],[c.spare,"sparebar"],[c.unused,"unused"]]){
     if(!value)continue;
     const segment=document.createElement("span");segment.className=kind;
     segment.style.width=100*value/raw+"%";segment.textContent=fmt(value);
-    segment.title=(kind==="usable"?"Fichiers":kind==="redundancy"?"Protection":kind==="sparebar"?"Spare":"Libre ou non utilisé")+" : "+fmt(value);
+    segment.title=(kind==="usable"?"Fichiers":kind==="redundancy"?"Protection":kind==="sparebar"?"Spare":"Capacité inutilisée")+" : "+fmt(value);
     track.append(segment);
    }
   }else{
@@ -279,11 +276,11 @@ function renderComparator(){
  if(!item){detail.textContent="Ajoute des disques pour comparer les RAID.";return}
  const title=document.createElement("strong");title.textContent=selected.label+" : "+fmt(item.result.capacitiesTB.usable)+" pour les fichiers";
  const note=document.createElement("p");note.textContent=selected.detail+" "+item.active.length+" disques actifs"+
-  (item.spare.length?", "+item.spare.length+" spare":"")+(item.free.length?", "+item.free.length+" disques libres":"")+".";
+  (item.spare.length?", "+item.spare.length+" spare":"")+".";
  const tolerance=document.createElement("p");tolerance.textContent=item.result.tolerance.description;
  const mismatch=document.createElement("p");
- const unused=item.result.capacitiesTB.unused+item.unusedRaw;
- mismatch.textContent=unused?"Espace libre ou non exploité dans ce choix : "+fmt(unused)+".":"Tous les disques installés sont exploités dans cette configuration.";
+ const unused=item.result.capacitiesTB.unused;
+ mismatch.textContent=unused?"Capacité inutilisée à cause de la taille différente des disques : "+fmt(unused)+".":"Tous les disques installés participent à cette configuration.";
  detail.append(title,note,tolerance,mismatch);
 }
 $("tool-add").addEventListener("click",()=>{
