@@ -538,3 +538,45 @@ button:not(:disabled):focus-visible{outline:3px solid var(--sun);outline-offset:
 .raid-duel-actions button:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:660px){.raid-spare-stages{grid-template-columns:1fr}.raid-spare-stages>div{padding:11px 13px}.raid-stage-index{float:left;margin:0 11px 0 0}.raid-spare-stages p{margin:5px 0 0}}
 @media(max-width:480px){.raid-family{grid-template-columns:1fr}.raid-duel{padding:12px}.raid-duel-question{font-size:1rem}}
+
+/* Soufflets du cours, sur le modèle des cours DHCP et messagerie. */
+details.chapter{background:var(--paper);border:1px solid var(--edge);border-radius:14px;overflow:hidden;margin:0 0 13px;scroll-margin-top:14px}
+details.chapter>summary.chapter-head{display:flex;align-items:center;gap:13px;cursor:pointer;padding:16px 48px 16px 17px;margin:0;position:relative;list-style:none}
+details.chapter>summary.chapter-head::-webkit-details-marker{display:none}
+details.chapter>summary.chapter-head::after{content:"⌄";position:absolute;right:17px;top:50%;transform:translateY(-50%);font-size:1.7rem;font-weight:750;color:var(--accent);line-height:1}
+details.chapter[open]>summary.chapter-head::after{content:"⌃"}
+details.chapter[open]>summary.chapter-head{background:var(--pale);border-bottom:1px solid var(--edge)}
+details.chapter>.chapter-inside{padding:15px 17px 19px;min-width:0}
+details.chapter .panel{max-width:100%;min-width:0}
+details.nested-test{border:1px solid var(--edge);border-radius:11px;background:var(--pale);margin-top:19px;overflow:hidden}
+details.nested-test>summary{cursor:pointer;font-weight:800;font-size:1.06rem;padding:13px 18px;list-style:revert}
+details.nested-test[open]>summary{border-bottom:1px solid var(--edge)}
+.nested-test-content{padding:13px}
+.nested-test-content>.quiz{margin:0}
+.nested-test-content>.raid-duel{margin:0}
+.raid-family{grid-template-columns:repeat(3,minmax(0,1fr))}
+.raid-family article{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+.raid-family article>strong{margin:0}
+.raid-family article .raid-family-tag{font-size:.72rem}
+.raid-family article p{margin:0 0 7px}
+.raid-family article small{margin-top:auto}
+.raid-vignette-button{width:100%;max-width:275px;padding:4px;background:var(--paper);border:1px solid var(--edge);border-radius:9px;cursor:zoom-in;align-self:center;transition:transform .16s ease,border-color .16s ease}
+.raid-vignette-button:hover{transform:scale(1.035);border-color:var(--accent)}
+.raid-vignette-button svg{display:block;width:100%;height:auto;aspect-ratio:320/152}
+.raid-thumb-link{stroke:var(--accent);stroke-width:2;fill:none;opacity:.75}
+.raid-thumb-title{fill:var(--ink);font-weight:800;font-size:14px}
+.raid-thumb-group{fill:var(--muted);font-size:10px;font-weight:750}
+.raid-thumb-disk{fill:#317da7;stroke:#145477;stroke-width:1.8}
+.raid-thumb-disk-top{fill:#71b6d8;stroke:#145477;stroke-width:1.6}
+.raid-thumb-data{fill:#fff;font-size:19px;font-weight:800}
+.raid-thumb-parity{fill:#ffe28c;font-size:19px;font-weight:800}
+.raid-thumb-num{fill:var(--ink);font-size:12px;font-weight:700}
+.raid-vignette-dialog{width:min(90vw,660px);max-height:90vh;overflow:auto;background:var(--paper);color:var(--ink);border:2px solid var(--accent);border-radius:16px;padding:20px;box-shadow:0 12px 55px #0007}
+.raid-vignette-dialog::backdrop{background:#000a}
+.raid-vignette-dialog h3{margin:0 0 8px}
+.raid-vignette-large svg{display:block;width:100%;height:auto;max-height:340px}
+.raid-vignette-dialog p{font-size:.97rem;line-height:1.48}
+.raid-vignette-close{float:right;border-radius:8px;background:var(--pale);color:var(--ink);border:1px solid var(--edge);padding:7px 12px}
+@media(max-width:800px){.raid-family{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.raid-family{grid-template-columns:1fr}.raid-family article{gap:5px}.raid-vignette-button{max-width:255px}details.chapter>summary.chapter-head{padding:13px 40px 13px 11px;gap:9px}details.chapter>.chapter-inside{padding:10px}details.chapter>summary.chapter-head::after{right:12px}}
+@media(prefers-reduced-motion:reduce){.raid-vignette-button{transition:none}.raid-vignette-button:hover{transform:none}}

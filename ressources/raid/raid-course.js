@@ -44,6 +44,92 @@ function initRaidDuel(){
  restart.addEventListener("click",()=>{index=0;score=0;render();});
  render();
 }
+
+// Vignettes SVG homogènes et agrandissement accessible au toucher ou au clavier.
+
+// Un lien direct ou le menu peut ouvrir le chapitre visé.
+// Sans fragment dans l'URL, tous les chapitres restent fermés au chargement.
+function initChapterNavigation(){
+ function openTarget(){
+  const hash=window.location.hash.slice(1);
+  if(!hash)return;
+  const element=document.getElementById(decodeURIComponent(hash));
+  const chapter=element?.closest("details.chapter");
+  if(chapter)chapter.open=true;
+ }
+ window.addEventListener("hashchange",openTarget);
+ document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener("click",()=>{
+  const target=document.getElementById(link.getAttribute("href").slice(1));
+  const chapter=target?.closest("details.chapter");
+  if(chapter)chapter.open=true;
+ }));
+ openTarget();
+}
+
+function initRaidVignettes(){
+ const family=document.querySelector(".raid-family");if(!family)return;
+ const diagrams=[
+  {name:"RAID 0",disks:["A","B"],groups:[],note:"Les données A et B sont réparties sur deux disques. Pas de copie."},
+  {name:"RAID 1",disks:["AB","AB"],groups:[],note:"La même donnée AB se trouve sur les deux disques."},
+  {name:"RAID 5",disks:["A","B","P"],groups:[],note:"Un exemple de répartition de données et de parité P. La parité change de disque selon les blocs."},
+  {name:"RAID 6",disks:["A","B","P","Q"],groups:[],note:"Un exemple avec deux parités P et Q. Les parités sont réparties entre les disques."},
+  {name:"RAID 10",disks:["A","A","B","B"],groups:[[0,1],[2,3]],note:"Deux paires de miroirs : les disques 1 et 2 contiennent A, les disques 3 et 4 contiennent B."},
+  {name:"RAID 01",disks:["A","B","A","B"],groups:[[0,1],[2,3]],note:"Deux groupes répartissent A et B : le second groupe est une copie du premier."}
+ ];
+ const NS="http://www.w3.org/2000/svg";
+ function el(tag,attrs={},value){
+  const node=document.createElementNS(NS,tag);
+  for(const [name,data] of Object.entries(attrs))node.setAttribute(name,String(data));
+  if(value!==undefined)node.textContent=value;
+  return node;
+ }
+ function draw(diagram){
+  const svg=el("svg",{viewBox:"0 0 320 152",role:"img","aria-label":diagram.note});
+  const count=diagram.disks.length,w=54,gap=count===2?40:18;
+  const total=count*w+(count-1)*gap,left=(320-total)/2;
+  svg.append(el("text",{x:160,y:18,"text-anchor":"middle",class:"raid-thumb-title"},diagram.name));
+  if(diagram.groups.length){
+   const groupNames=diagram.name==="RAID 10"?["Miroir","Miroir"]:["Répartition","Répartition"];
+   diagram.groups.forEach(([first,last],index)=>{
+    const x1=left+first*(w+gap)+w/2,x2=left+last*(w+gap)+w/2;
+    svg.append(el("path",{d:`M ${x1} 51 V 44 H ${x2} V 51`,class:"raid-thumb-link"}));
+    svg.append(el("text",{x:(x1+x2)/2,y:37,"text-anchor":"middle",class:"raid-thumb-group"},groupNames[index]));
+   });
+  }else{
+   svg.append(el("path",{d:`M 160 30 V 45 M ${left+w/2} 45 H ${left+(count-1)*(w+gap)+w/2}`,class:"raid-thumb-link"}));
+  }
+  diagram.disks.forEach((label,i)=>{
+   const x=left+i*(w+gap);
+   svg.append(el("path",{d:`M ${x+w/2} 51 V 62`,class:"raid-thumb-link"}));
+   svg.append(el("rect",{x,y:62,width:w,height:66,rx:9,class:"raid-thumb-disk"}));
+   svg.append(el("ellipse",{cx:x+w/2,cy:67,rx:w/2,ry:8,class:"raid-thumb-disk-top"}));
+   svg.append(el("text",{x:x+w/2,y:102,"text-anchor":"middle",class:label==="P"||label==="Q"?"raid-thumb-parity":"raid-thumb-data"},label));
+   svg.append(el("text",{x:x+w/2,y:142,"text-anchor":"middle",class:"raid-thumb-num"},String(i+1)));
+  });
+  return svg;
+ }
+ const dialog=document.createElement("dialog");dialog.className="raid-vignette-dialog";
+ const close=document.createElement("button");close.type="button";close.className="raid-vignette-close";close.textContent="Fermer";
+ const name=document.createElement("h3"),visual=document.createElement("div"),description=document.createElement("p");
+ visual.className="raid-vignette-large";
+ dialog.append(close,name,visual,description);document.body.append(dialog);
+ close.addEventListener("click",()=>dialog.close());
+ dialog.addEventListener("click",event=>{if(event.target===dialog)dialog.close()});
+ for(const article of family.querySelectorAll("article")){
+  const heading=article.querySelector("strong");if(!heading)continue;
+  const diagram=diagrams.find(item=>item.name===heading.textContent.trim());if(!diagram)continue;
+  const button=document.createElement("button");button.type="button";button.className="raid-vignette-button";
+  button.setAttribute("aria-label","Agrandir le schéma "+diagram.name);
+  button.title="Agrandir le schéma "+diagram.name;
+  button.append(draw(diagram));
+  article.insertBefore(button,article.querySelector("p"));
+  button.addEventListener("click",()=>{
+   name.textContent=diagram.name;visual.replaceChildren(draw(diagram));description.textContent=diagram.note;
+   dialog.showModal();close.focus();
+  });
+ }
+}
+
 function bindQuizzes(){
  const explanations={
  base:"C: est souvent le nom du stockage affiché dans Windows. On appelle ça un volume.",
@@ -51,6 +137,7 @@ function bindQuizzes(){
  parity:"La parité P permet de recalculer un morceau manquant après la panne d\'un disque. Ce n\'est pas une copie de la photo.",
  backup:"Avec une sauvegarde, tu peux retrouver un fichier supprimé.",
  spare:"Le spare est un disque en attente pour une reconstruction après une panne. Il ne sert pas à augmenter la place pour les fichiers.",
+ summary:"Un NAS peut réunir plusieurs disques et permettre de choisir leur organisation RAID.",
  case:"On sépare le RAID 1 du système du RAID 6 des données. Le spare attend une panne du groupe auquel il est affecté."
  };
  for(const root of document.querySelectorAll(".quiz")){
@@ -456,4 +543,4 @@ function initFileRaidLab(){
 }
 
 
-bindQuizzes();initStorageLab();initFileRaidLab();initRaidDuel();renderTool();
+bindQuizzes();initStorageLab();initFileRaidLab();initRaidDuel();initRaidVignettes();initChapterNavigation();renderTool();
