@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Passerelle TeamViewer ChatCore</title>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#fff}iframe{display:block;width:100%;height:100%;border:0}</style>
+</head>
+<body>
+<iframe id="shared" title="Connexion TeamViewer" src="https://chaoli22000bzh.github.io/chatcore/teamviewer/v1/teamviewer.html?embed=1"></iframe>
+<script>
+(()=>{
+  const shared=document.getElementById('shared');
+  const remoteOrigin=new URL(shared.src).origin;
+  const hostOrigin=location.origin;
+  let loaded=false,latest=null;
+  shared.addEventListener('load',()=>{
+    loaded=true;
+    if(latest)shared.contentWindow.postMessage(latest,remoteOrigin);
+  });
+  window.addEventListener('message',event=>{
+    if(event.source===window.parent&&event.origin===hostOrigin){
+      const data=event.data;
+      if(data?.type!=='teamviewer:authorization'&&data?.type!=='teamviewer:reset')return;
+      latest=data.type==='teamviewer:reset'?null:data;
+      if(loaded)shared.contentWindow.postMessage(data,remoteOrigin);
+      return;
+    }
+    if(event.source===shared.contentWindow&&event.origin===remoteOrigin&&event.data?.type==='teamviewer:connected'){
+      window.parent.postMessage({type:'teamviewer:connected'},hostOrigin);
+    }
+  });
+})();
+</script>
+</body>
+</html>
