@@ -3,163 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TeamViewer | Aperçu pédagogique V3</title>
-<style>
-:root{font:14px/1.45 "Segoe UI",Arial,sans-serif;color:#3d4653;background:#e8edf3}
-*{box-sizing:border-box}
-body{min-height:100vh;margin:0;display:grid;place-items:center;padding:24px}
-.preview{width:min(100%,980px)}
-.note{font-size:13px;color:#52657a;margin:0 0 12px}
-.window{border:1px solid #c1cad5;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 18px 45px #243a5438}
-.titlebar{height:37px;display:flex;align-items:center;gap:8px;padding-left:11px;background:#fafbfc;border-bottom:1px solid #d9e1ea;color:#263649;font-size:12px}
-.logo{width:23px;height:23px;flex:none}
-.titlebar strong{font-size:12px;font-weight:600}
-.controls{height:100%;display:flex;margin-left:auto;color:#566474}
-.control{display:grid;place-items:center;width:40px;font-size:15px}.control:last-child{font-size:21px}
-.control .square{width:10px;height:10px;border:1.5px solid currentColor}
-.banner{height:54px;background:linear-gradient(100deg,#0875ce,#0863c6);display:flex;align-items:center;gap:14px;padding:0 18px;color:white}
-.banner .menu{font-size:23px;font-weight:300;line-height:1}
-.banner .gear{font-size:18px;opacity:.95}
-.banner .spacer{flex:1}
-.banner .brand{font-weight:600;font-size:15px;letter-spacing:.1px}
-.notice{background:#dceafa;color:#507194;text-align:center;padding:7px 12px;border-bottom:1px solid #d2e1f2;font-size:12px}
-.workspace{background:#fff;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;min-height:345px;padding:31px 25px}
-.panel{min-width:0;padding:8px 29px 12px}
-.panel+.panel{border-left:1px solid #d9e2ea}
-h1{margin:0 0 22px;font-size:21px;font-weight:400;line-height:1.3;color:#444c56}
-.mode{font-size:14px;margin:0 0 18px;color:#24629a;font-weight:600}
-.mode:before{content:"◆";font-size:12px;color:#0874ca;margin-right:8px}
-.fields{width:min(100%,300px);background:#f3f4f6;border-radius:4px;padding:15px 18px}
-.field+.field{margin-top:14px}
-.field label{display:block;margin-bottom:3px;font-size:12px;color:#687687;font-weight:600}
-.field strong{display:block;color:#343c47;font-size:23px;font-weight:600;letter-spacing:2px;line-height:1.25}
-.field .password{font-size:19px;letter-spacing:1.4px}
-.field small{display:block;color:#8a95a4;font-size:11px;margin-top:3px}
-.target-form{width:min(100%,300px)}
-.partner-label{display:block;font-size:12px;color:#526578;font-weight:600;margin-bottom:6px}
-.partner-input{width:100%;height:44px;border:1px solid #c5cfd9;border-radius:4px;background:#f6f8fa;color:#526578;padding:0 12px;font:16px "Segoe UI",Arial,sans-serif}
-.partner-input:disabled{opacity:1;-webkit-text-fill-color:#6f7b88}
-.connect{display:block;width:100%;max-width:200px;margin-top:16px;padding:10px 15px;background:#81bce8;color:white;border:0;border-radius:4px;font:600 15px "Segoe UI",Arial,sans-serif;cursor:not-allowed}
-.status{color:#6b7a8a;font-size:12px;margin:15px 0 0}
-.footer{height:36px;display:flex;align-items:center;gap:8px;background:#f2f5f8;color:#657487;border-top:1px solid #dce4ec;padding:0 15px;font-size:12px}
-.footer .online{height:8px;width:8px;background:#49a777;border-radius:50%}
-@media(max-width:700px){body{padding:12px}.workspace{grid-template-columns:1fr;padding:18px 8px}.panel{padding:17px 18px}.panel+.panel{border-left:0;border-top:1px solid #d9e2ea}h1{font-size:19px;margin-bottom:14px}.banner .brand{font-size:13px}.fields,.target-form{width:100%;max-width:370px}}
-
-/* L'intégration utilise exactement la même fenêtre V3, sans son cadre d'aperçu. */
-html.embedded,html.embedded body{margin:0;min-height:0;background:transparent}
-html.embedded body{display:block;padding:0}
-html.embedded .preview{width:100%}
-html.embedded .note{display:none}
-html.embedded .window{box-shadow:none}
-html.embedded .workspace{padding:22px 11px;min-height:310px}
-html.embedded .panel{padding:8px 16px 12px}
-html.embedded h1{font-size:19px}
-.partner-input:enabled{background:#fff;color:#2a394a;-webkit-text-fill-color:#2a394a}
-.connect:enabled{background:#096ac8;cursor:pointer}
-.connect:focus-visible,.partner-input:focus-visible{outline:3px solid #f8ba49;outline-offset:2px}
-.remote-password[hidden]{display:none}
-.remote-password{margin-top:12px}
-.remote-password label{display:block;font-size:12px;color:#526578;font-weight:600;margin-bottom:5px}
-.remote-password input{width:100%;height:40px;padding:0 10px;border:1px solid #c5cfd9;border-radius:4px;font:16px "Segoe UI",Arial,sans-serif}
-.remote-password button{margin-top:9px;padding:9px 14px;border:0;border-radius:4px;color:#fff;background:#096ac8;font-weight:600;cursor:pointer}
-.status[role="alert"]{color:#b52f2f}
-/* Dans le TP, les deux colonnes restent visibles jusqu’à 520 px. Sur petit écran, priorité au formulaire de connexion. */
-@media(max-width:520px){html.embedded .workspace{display:block;min-height:0;padding:12px 8px}html.embedded .panel:first-child{display:none}html.embedded .panel+.panel{border:0;padding:8px 12px 12px}html.embedded h1{margin-bottom:12px}}
-</style>
+<title>TeamViewer : aperçu déplacé vers ChatCore</title>
+<meta http-equiv="refresh" content="0;url=https://chaoli22000bzh.github.io/chatcore/teamviewer/v1/teamviewer.html">
 </head>
 <body>
-<main class="preview">
-<p class="note">Aperçu V3 uniquement. Les identifiants sont fictifs et la connexion est désactivée. Aucune liaison avec Outlook ou ChatCore.</p>
-<section class="window" aria-label="Fenêtre TeamViewer de démonstration, non connectée">
-<header class="titlebar">
-<svg class="logo" viewBox="0 0 48 48" role="img" aria-label="Logo TeamViewer"><rect x="2" y="2" width="44" height="44" rx="8" fill="#086bd4"/><circle cx="24" cy="24" r="17" fill="#fff"/><path d="M8 24l12-8v5h8v-5l12 8-12 8v-5h-8v5z" fill="#086bd4"/></svg>
-<strong>TeamViewer</strong>
-<div class="controls" aria-hidden="true"><span class="control">−</span><span class="control"><span class="square"></span></span><span class="control">×</span></div>
-</header>
-<div class="banner"><span class="menu" aria-hidden="true">☰</span><span class="gear" aria-hidden="true">⚙</span><span class="spacer"></span><span class="brand">TeamViewer</span></div>
-<div class="notice">Usage pédagogique : session de téléassistance simulée</div>
-<div class="workspace">
-<section class="panel" aria-label="Autoriser le contrôle à distance">
-<h1>Allow Remote Control</h1>
-<div class="fields">
-<div class="field"><label>Your ID</label><strong>173 705 251</strong><small>Identifiant fictif de cette session</small></div>
-<div class="field"><label>Password</label><strong class="password">735284</strong><small>Mot de passe fictif de cette session</small></div>
-</div>
-</section>
-<section class="panel" aria-label="Contrôler un ordinateur distant">
-<h1>Control Remote Computer</h1>
-<p class="mode">Remote control</p>
-<div class="target-form">
-<label class="partner-label" for="partner">Partner ID</label>
-<input class="partner-input" id="partner" type="text" inputmode="numeric" placeholder="Enter Partner ID" disabled>
-<button class="connect" type="button" disabled>Connect</button>
-<div class="remote-password" hidden><label for="remote-pass">Password</label><input id="remote-pass" type="password" inputmode="numeric" autocomplete="off" aria-label="Mot de passe distant"><button type="button" id="remote-confirm">OK</button></div><p class="status" role="status" aria-live="polite">Connexion disponible après autorisation dans ChatCore.</p>
-</div>
-</section>
-</div>
-<footer class="footer"><span class="online"></span><span>Ready to connect (secure connection)</span></footer>
-</section>
-</main>
+<p>TeamViewer fait désormais partie des composants partagés de ChatCore.</p>
 <script>
-(()=>{
-  if(new URLSearchParams(location.search).get('embed')!=='1')return;
-  document.documentElement.classList.add('embedded');
-  const input=document.getElementById('partner');
-  const connect=document.querySelector('.connect');
-  const panel=document.querySelector('.remote-password');
-  const password=document.getElementById('remote-pass');
-  const confirm=document.getElementById('remote-confirm');
-  const status=document.querySelector('.target-form .status');
-  let authorized=false,connected=false;
-  let expectedId='',expectedPassword='';
-  const parentOrigin=location.origin;
-  const normalize=value=>String(value).replace(/\D/g,'');
-  function inform(message,error=false){
-    status.textContent=message;
-    status.setAttribute('role',error?'alert':'status');
-  }
-  function lock(){
-    authorized=false;connected=false;expectedId='';expectedPassword='';
-    input.value='';input.disabled=true;password.value='';
-    connect.disabled=true;panel.hidden=true;
-    inform('Connexion disponible après autorisation dans ChatCore.');
-  }
-  window.addEventListener('message',event=>{
-    if(event.source!==window.parent||event.origin!==parentOrigin)return;
-    const data=event.data;
-    if(data?.type==='teamviewer:reset'){lock();return;}
-    if(data?.type!=='teamviewer:authorization'||connected)return;
-    authorized=data.allowed===true;
-    expectedId=authorized?normalize(data.partnerId):'';
-    expectedPassword=authorized?normalize(data.password):'';
-    if(!authorized||!expectedId||!expectedPassword){lock();return;}
-    input.disabled=false;
-    connect.disabled=false;
-    panel.hidden=true;password.value='';
-    inform('Autorisation accordée. Saisis le Partner ID communiqué par le client.');
-  });
-  connect.addEventListener('click',()=>{
-    if(!authorized||connect.disabled||connected)return;
-    if(normalize(input.value)!==expectedId){
-      panel.hidden=true;inform('Partner ID incorrect. Vérifie le numéro communiqué par le client.',true);return;
-    }
-    panel.hidden=false;
-    inform('Identifiant reconnu. Saisis le mot de passe communiqué par le client.');
-    password.focus();
-  });
-  confirm.addEventListener('click',()=>{
-    if(!authorized||connected||panel.hidden)return;
-    if(normalize(input.value)!==expectedId){panel.hidden=true;inform('Partner ID incorrect.',true);return;}
-    if(normalize(password.value)!==expectedPassword){
-      inform('Mot de passe incorrect. Vérifie les chiffres communiqués par le client.',true);return;
-    }
-    connected=true;connect.disabled=true;input.disabled=true;confirm.disabled=true;
-    inform('Connexion établie.');
-    window.parent.postMessage({type:'teamviewer:connected'},parentOrigin);
-  });
-  password.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();confirm.click();}});
-  lock();
-})();
+const embedded=new URLSearchParams(location.search).get('embed')==='1';
+const target=embedded
+  ? './pont-teamviewer.html'
+  : 'https://chaoli22000bzh.github.io/chatcore/teamviewer/v1/teamviewer.html';
+location.replace(target);
 </script>
+<p><a href="https://chaoli22000bzh.github.io/chatcore/teamviewer/v1/teamviewer.html">Ouvrir TeamViewer partagé</a></p>
 </body>
 </html>
