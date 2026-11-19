@@ -44,6 +44,26 @@ h1{margin:0 0 22px;font-size:21px;font-weight:400;line-height:1.3;color:#444c56}
 .footer{height:36px;display:flex;align-items:center;gap:8px;background:#f2f5f8;color:#657487;border-top:1px solid #dce4ec;padding:0 15px;font-size:12px}
 .footer .online{height:8px;width:8px;background:#49a777;border-radius:50%}
 @media(max-width:700px){body{padding:12px}.workspace{grid-template-columns:1fr;padding:18px 8px}.panel{padding:17px 18px}.panel+.panel{border-left:0;border-top:1px solid #d9e2ea}h1{font-size:19px;margin-bottom:14px}.banner .brand{font-size:13px}.fields,.target-form{width:100%;max-width:370px}}
+
+/* L'intégration utilise exactement la même fenêtre V3, sans son cadre d'aperçu. */
+html.embedded,html.embedded body{margin:0;min-height:0;background:transparent}
+html.embedded body{display:block;padding:0}
+html.embedded .preview{width:100%}
+html.embedded .note{display:none}
+html.embedded .window{box-shadow:none}
+html.embedded .workspace{padding:22px 11px;min-height:310px}
+html.embedded .panel{padding:8px 16px 12px}
+html.embedded h1{font-size:19px}
+.partner-input:enabled{background:#fff;color:#2a394a;-webkit-text-fill-color:#2a394a}
+.connect:enabled{background:#096ac8;cursor:pointer}
+.connect:focus-visible,.partner-input:focus-visible{outline:3px solid #f8ba49;outline-offset:2px}
+.remote-password[hidden]{display:none}
+.remote-password{margin-top:12px}
+.remote-password label{display:block;font-size:12px;color:#526578;font-weight:600;margin-bottom:5px}
+.remote-password input{width:100%;height:40px;padding:0 10px;border:1px solid #c5cfd9;border-radius:4px;font:16px "Segoe UI",Arial,sans-serif}
+.remote-password button{margin-top:9px;padding:9px 14px;border:0;border-radius:4px;color:#fff;background:#096ac8;font-weight:600;cursor:pointer}
+.status[role="alert"]{color:#b52f2f}
+@media(max-width:850px){html.embedded .workspace{grid-template-columns:1fr}html.embedded .panel+.panel{border:0;border-top:1px solid #d9e2ea;padding-top:22px}}
 </style>
 </head>
 <body>
@@ -72,12 +92,73 @@ h1{margin:0 0 22px;font-size:21px;font-weight:400;line-height:1.3;color:#444c56}
 <label class="partner-label" for="partner">Partner ID</label>
 <input class="partner-input" id="partner" type="text" inputmode="numeric" placeholder="Enter Partner ID" disabled>
 <button class="connect" type="button" disabled>Connect</button>
-<p class="status">Connexion disponible après autorisation dans ChatCore.</p>
+<div class="remote-password" hidden><label for="remote-pass">Password</label><input id="remote-pass" type="password" inputmode="numeric" autocomplete="off" aria-label="Mot de passe distant"><button type="button" id="remote-confirm">OK</button></div><p class="status" role="status" aria-live="polite">Connexion disponible après autorisation dans ChatCore.</p>
 </div>
 </section>
 </div>
 <footer class="footer"><span class="online"></span><span>Ready to connect (secure connection)</span></footer>
 </section>
 </main>
+<script>
+(()=>{
+  if(new URLSearchParams(location.search).get('embed')!=='1')return;
+  document.documentElement.classList.add('embedded');
+  const input=document.getElementById('partner');
+  const connect=document.querySelector('.connect');
+  const panel=document.querySelector('.remote-password');
+  const password=document.getElementById('remote-pass');
+  const confirm=document.getElementById('remote-confirm');
+  const status=document.querySelector('.target-form .status');
+  let authorized=false,connected=false;
+  let expectedId='',expectedPassword='';
+  const parentOrigin=location.origin;
+  const normalize=value=>String(value).replace(/\D/g,'');
+  function inform(message,error=false){
+    status.textContent=message;
+    status.setAttribute('role',error?'alert':'status');
+  }
+  function lock(){
+    authorized=false;connected=false;expectedId='';expectedPassword='';
+    input.value='';input.disabled=true;password.value='';
+    connect.disabled=true;panel.hidden=true;
+    inform('Connexion disponible après autorisation dans ChatCore.');
+  }
+  window.addEventListener('message',event=>{
+    if(event.source!==window.parent||event.origin!==parentOrigin)return;
+    const data=event.data;
+    if(data?.type==='teamviewer:reset'){lock();return;}
+    if(data?.type!=='teamviewer:authorization'||connected)return;
+    authorized=data.allowed===true;
+    expectedId=authorized?normalize(data.partnerId):'';
+    expectedPassword=authorized?normalize(data.password):'';
+    if(!authorized||!expectedId||!expectedPassword){lock();return;}
+    input.disabled=false;
+    connect.disabled=false;
+    panel.hidden=true;password.value='';
+    inform('Autorisation accordée. Saisis le Partner ID communiqué par le client.');
+  });
+  connect.addEventListener('click',()=>{
+    if(!authorized||connect.disabled||connected)return;
+    if(normalize(input.value)!==expectedId){
+      panel.hidden=true;inform('Partner ID incorrect. Vérifie le numéro communiqué par le client.',true);return;
+    }
+    panel.hidden=false;
+    inform('Identifiant reconnu. Saisis le mot de passe communiqué par le client.');
+    password.focus();
+  });
+  confirm.addEventListener('click',()=>{
+    if(!authorized||connected||panel.hidden)return;
+    if(normalize(input.value)!==expectedId){panel.hidden=true;inform('Partner ID incorrect.',true);return;}
+    if(normalize(password.value)!==expectedPassword){
+      inform('Mot de passe incorrect. Vérifie les chiffres communiqués par le client.',true);return;
+    }
+    connected=true;connect.disabled=true;input.disabled=true;confirm.disabled=true;
+    inform('Connexion établie.');
+    window.parent.postMessage({type:'teamviewer:connected'},parentOrigin);
+  });
+  password.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();confirm.click();}});
+  lock();
+})();
+</script>
 </body>
 </html>
