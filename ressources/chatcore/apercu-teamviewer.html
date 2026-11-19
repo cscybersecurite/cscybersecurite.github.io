@@ -3,59 +3,80 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TeamViewer | Aperçu pédagogique V2</title>
+<title>TeamViewer | Aperçu pédagogique V3</title>
 <style>
-:root{font:15px/1.5 "Segoe UI",Arial,sans-serif;color:#20324a;background:#e8edf3}
+:root{font:14px/1.45 "Segoe UI",Arial,sans-serif;color:#3d4653;background:#e8edf3}
 *{box-sizing:border-box}
 body{min-height:100vh;margin:0;display:grid;place-items:center;padding:24px}
-.preview{width:min(100%,880px)}
-.note{color:#52657a;font-size:13px;margin:0 0 12px}
-.window{background:#f9fbfd;border:1px solid #bfcad7;border-radius:9px;overflow:hidden;box-shadow:0 18px 45px #243a5438}
-.titlebar{height:46px;background:#fff;border-bottom:1px solid #dce3eb;display:flex;align-items:center;padding-left:14px;gap:10px;color:#1b2838;font-size:14px}
-.logo{height:30px;width:30px;display:block;flex:none}
-.controls{margin-left:auto;display:flex;align-items:stretch;height:100%;color:#344257}
-.control{width:46px;display:grid;place-items:center;font-size:17px;font-weight:300}
-.control:last-child{font-size:22px}
-.control .square{width:11px;height:11px;border:1.5px solid currentColor}
-.banner{height:98px;background:linear-gradient(120deg,#0554bd,#0769d6 68%,#1384ed);display:flex;align-items:center;gap:17px;padding:0 36px;color:#fff}
-.banner .logo{width:52px;height:52px;filter:drop-shadow(0 2px 4px #003b8b55)}
-.banner strong{font-size:28px;letter-spacing:-.5px;font-weight:600}
-.main{min-height:310px;display:grid;grid-template-columns:230px minmax(0,1fr);align-items:center;padding:35px 40px 42px;background:linear-gradient(#fff,#f7f9fc)}
-.illustration{display:flex;align-items:center;justify-content:center;border-right:1px solid #d7dfe8;min-height:220px;padding-right:30px}
-.monitor{position:relative;width:145px;height:105px;border:7px solid #3d91db;border-bottom-width:11px;border-radius:9px;background:linear-gradient(145deg,#e7f6ff,#bddfff);box-shadow:0 4px 0 #dceaf7,inset 0 0 0 2px #fff}
-.monitor:before{content:"";position:absolute;width:12px;height:28px;background:#3d91db;left:50%;top:100%;transform:translateX(-50%)}
-.monitor:after{content:"";position:absolute;width:65px;height:7px;border-radius:3px;background:#3d91db;left:50%;top:calc(100% + 23px);transform:translateX(-50%)}
-.monitor span{position:absolute;inset:0;display:grid;place-items:center;color:#086bc5;font-weight:700;font-size:36px}
-.content{padding-left:36px;max-width:530px}
-h1{font-size:24px;line-height:1.25;font-weight:600;color:#132b47;margin:0 0 18px}
-.description{margin:0 0 25px;font-size:15px;color:#425970}
-.connect{display:block;width:100%;padding:15px 16px;border-radius:6px;border:1px solid #c5ced9;background:#e3e7ec;color:#727e8c;font:600 15px "Segoe UI",Arial,sans-serif;cursor:not-allowed}
-.status{font-size:12px;color:#778698;margin:13px 0 0}
-@media(max-width:650px){body{padding:12px}.banner{height:76px;padding:0 20px}.banner .logo{width:42px;height:42px}.banner strong{font-size:23px}.main{display:block;padding:28px 22px 32px;min-height:0}.illustration{display:none}.content{padding:0}.titlebar{padding-left:11px}.control{width:32px}h1{font-size:21px}}
+.preview{width:min(100%,980px)}
+.note{font-size:13px;color:#52657a;margin:0 0 12px}
+.window{border:1px solid #c1cad5;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 18px 45px #243a5438}
+.titlebar{height:37px;display:flex;align-items:center;gap:8px;padding-left:11px;background:#fafbfc;border-bottom:1px solid #d9e1ea;color:#263649;font-size:12px}
+.logo{width:23px;height:23px;flex:none}
+.titlebar strong{font-size:12px;font-weight:600}
+.controls{height:100%;display:flex;margin-left:auto;color:#566474}
+.control{display:grid;place-items:center;width:40px;font-size:15px}.control:last-child{font-size:21px}
+.control .square{width:10px;height:10px;border:1.5px solid currentColor}
+.banner{height:54px;background:linear-gradient(100deg,#0875ce,#0863c6);display:flex;align-items:center;gap:14px;padding:0 18px;color:white}
+.banner .menu{font-size:23px;font-weight:300;line-height:1}
+.banner .gear{font-size:18px;opacity:.95}
+.banner .spacer{flex:1}
+.banner .brand{font-weight:600;font-size:15px;letter-spacing:.1px}
+.notice{background:#dceafa;color:#507194;text-align:center;padding:7px 12px;border-bottom:1px solid #d2e1f2;font-size:12px}
+.workspace{background:#fff;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;min-height:345px;padding:31px 25px}
+.panel{min-width:0;padding:8px 29px 12px}
+.panel+.panel{border-left:1px solid #d9e2ea}
+h1{margin:0 0 22px;font-size:21px;font-weight:400;line-height:1.3;color:#444c56}
+.mode{font-size:14px;margin:0 0 18px;color:#24629a;font-weight:600}
+.mode:before{content:"◆";font-size:12px;color:#0874ca;margin-right:8px}
+.fields{width:min(100%,300px);background:#f3f4f6;border-radius:4px;padding:15px 18px}
+.field+.field{margin-top:14px}
+.field label{display:block;margin-bottom:3px;font-size:12px;color:#687687;font-weight:600}
+.field strong{display:block;color:#343c47;font-size:23px;font-weight:600;letter-spacing:2px;line-height:1.25}
+.field .password{font-size:19px;letter-spacing:1.4px}
+.field small{display:block;color:#8a95a4;font-size:11px;margin-top:3px}
+.target-form{width:min(100%,300px)}
+.partner-label{display:block;font-size:12px;color:#526578;font-weight:600;margin-bottom:6px}
+.partner-input{width:100%;height:44px;border:1px solid #c5cfd9;border-radius:4px;background:#f6f8fa;color:#526578;padding:0 12px;font:16px "Segoe UI",Arial,sans-serif}
+.partner-input:disabled{opacity:1;-webkit-text-fill-color:#6f7b88}
+.connect{display:block;width:100%;max-width:200px;margin-top:16px;padding:10px 15px;background:#81bce8;color:white;border:0;border-radius:4px;font:600 15px "Segoe UI",Arial,sans-serif;cursor:not-allowed}
+.status{color:#6b7a8a;font-size:12px;margin:15px 0 0}
+.footer{height:36px;display:flex;align-items:center;gap:8px;background:#f2f5f8;color:#657487;border-top:1px solid #dce4ec;padding:0 15px;font-size:12px}
+.footer .online{height:8px;width:8px;background:#49a777;border-radius:50%}
+@media(max-width:700px){body{padding:12px}.workspace{grid-template-columns:1fr;padding:18px 8px}.panel{padding:17px 18px}.panel+.panel{border-left:0;border-top:1px solid #d9e2ea}h1{font-size:19px;margin-bottom:14px}.banner .brand{font-size:13px}.fields,.target-form{width:100%;max-width:370px}}
 </style>
 </head>
 <body>
 <main class="preview">
-<p class="note">Aperçu V2 uniquement. Connexion désactivée, sans intégration Outlook ou ChatCore.</p>
-<section class="window" aria-label="Aperçu d'une fenêtre TeamViewer non connectée">
+<p class="note">Aperçu V3 uniquement. Les identifiants sont fictifs et la connexion est désactivée. Aucune liaison avec Outlook ou ChatCore.</p>
+<section class="window" aria-label="Fenêtre TeamViewer de démonstration, non connectée">
 <header class="titlebar">
 <svg class="logo" viewBox="0 0 48 48" role="img" aria-label="Logo TeamViewer"><rect x="2" y="2" width="44" height="44" rx="8" fill="#086bd4"/><circle cx="24" cy="24" r="17" fill="#fff"/><path d="M8 24l12-8v5h8v-5l12 8-12 8v-5h-8v5z" fill="#086bd4"/></svg>
 <strong>TeamViewer</strong>
 <div class="controls" aria-hidden="true"><span class="control">−</span><span class="control"><span class="square"></span></span><span class="control">×</span></div>
 </header>
-<div class="banner">
-<svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="8" fill="#fff"/><circle cx="24" cy="24" r="17" fill="#0964c8"/><path d="M8 24l12-8v5h8v-5l12 8-12 8v-5h-8v5z" fill="#fff"/></svg>
-<strong>TeamViewer</strong>
+<div class="banner"><span class="menu" aria-hidden="true">☰</span><span class="gear" aria-hidden="true">⚙</span><span class="spacer"></span><span class="brand">TeamViewer</span></div>
+<div class="notice">Usage pédagogique : session de téléassistance simulée</div>
+<div class="workspace">
+<section class="panel" aria-label="Autoriser le contrôle à distance">
+<h1>Allow Remote Control</h1>
+<div class="fields">
+<div class="field"><label>Your ID</label><strong>173 705 251</strong><small>Identifiant fictif de cette session</small></div>
+<div class="field"><label>Password</label><strong class="password">735284</strong><small>Mot de passe fictif de cette session</small></div>
 </div>
-<div class="main">
-<div class="illustration" aria-hidden="true"><div class="monitor"><span>↔</span></div></div>
-<div class="content">
-<h1>Contrôler l’ordinateur distant</h1>
-<p class="description">Prendre le contrôle à distance de l’ordinateur du client.</p>
-<button class="connect" type="button" disabled>Se connecter à PC-SMARTIN</button>
-<p class="status">Connexion disponible après autorisation du client.</p>
+</section>
+<section class="panel" aria-label="Contrôler un ordinateur distant">
+<h1>Control Remote Computer</h1>
+<p class="mode">Remote control</p>
+<div class="target-form">
+<label class="partner-label" for="partner">Partner ID</label>
+<input class="partner-input" id="partner" type="text" inputmode="numeric" placeholder="Enter Partner ID" disabled>
+<button class="connect" type="button" disabled>Connect</button>
+<p class="status">Connexion disponible après autorisation dans ChatCore.</p>
 </div>
+</section>
 </div>
+<footer class="footer"><span class="online"></span><span>Ready to connect (secure connection)</span></footer>
 </section>
 </main>
 </body>
