@@ -63,7 +63,8 @@ html.embedded h1{font-size:19px}
 .remote-password input{width:100%;height:40px;padding:0 10px;border:1px solid #c5cfd9;border-radius:4px;font:16px "Segoe UI",Arial,sans-serif}
 .remote-password button{margin-top:9px;padding:9px 14px;border:0;border-radius:4px;color:#fff;background:#096ac8;font-weight:600;cursor:pointer}
 .status[role="alert"]{color:#b52f2f}
-@media(max-width:850px){html.embedded .workspace{grid-template-columns:1fr}html.embedded .panel+.panel{border:0;border-top:1px solid #d9e2ea;padding-top:22px}}
+/* Dans le TP, les deux colonnes restent visibles jusqu’à 520 px. Sur petit écran, priorité au formulaire de connexion. */
+@media(max-width:520px){html.embedded .workspace{display:block;min-height:0;padding:12px 8px}html.embedded .panel:first-child{display:none}html.embedded .panel+.panel{border:0;padding:8px 12px 12px}html.embedded h1{margin-bottom:12px}}
 </style>
 </head>
 <body>
