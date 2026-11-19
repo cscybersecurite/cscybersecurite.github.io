@@ -2,56 +2,58 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<title>Aperçu de la fenêtre TeamViewer | Diagnostic messagerie</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TeamViewer | Aperçu pédagogique V2</title>
 <style>
-:root{font:16px/1.45 Arial,sans-serif;color-scheme:light dark;background:light-dark(#eef3f9,#111d2b);color:light-dark(#1b344e,#eef5ff)}
+:root{font:15px/1.5 "Segoe UI",Arial,sans-serif;color:#20324a;background:#e8edf3}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px}
-.preview{width:min(100%,770px)}
-.note{margin:0 0 14px;font-size:14px;color:light-dark(#48627c,#b8c9dc)}
-.remote{border:1px solid #b5c9dd;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 16px 48px #061f3f32}
-.titlebar{height:46px;padding:0 16px;display:flex;align-items:center;gap:11px;background:#f7faff;border-bottom:1px solid #d7e2ee;color:#203b56}
-.titlebar strong{font-size:14px;font-weight:700}
-.dot{width:9px;height:9px;border-radius:50%;background:#d9e4ef;margin-left:auto}
-.logo-badge{height:27px;width:27px;border-radius:6px;background:#0e8de8;display:grid;place-items:center}
-.logo-badge svg{height:22px;width:22px}
-.workspace{min-height:420px;padding:33px 24px 45px;background:linear-gradient(145deg,#139eea 0%,#0b80d8 62%,#0a69c3 100%);display:flex;align-items:center;justify-content:center}
-.panel{width:min(100%,400px);background:#fff;color:#203a58;border-radius:12px;padding:31px 24px 27px;text-align:center;box-shadow:0 18px 42px #06467855}
-.brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:27px}
-.brand svg{width:44px;height:44px;flex:none}
-.brand-name{font-size:25px;font-weight:700;letter-spacing:-.7px;color:#126fbf}
-.line{height:1px;background:#e1e8f0;margin:0 0 23px}
-.remote-label{font-size:13px;letter-spacing:.02em;color:#5f7182;margin:0 0 6px}
-.target{font-size:20px;font-weight:700;margin:0 0 4px}
-.subtarget{font-size:13px;color:#667c90;margin:0 0 22px}
-.connect{border:0;border-radius:7px;background:#0f87d6;color:#fff;padding:14px 20px;width:100%;font:700 15px Arial,sans-serif;opacity:.48;cursor:not-allowed}
-.lock{margin:14px 0 0;font-size:12px;color:#697e92}
-@media(max-width:550px){body{padding:12px}.workspace{padding:18px 12px;min-height:370px}.panel{padding:26px 17px}.brand-name{font-size:23px}}
+body{min-height:100vh;margin:0;display:grid;place-items:center;padding:24px}
+.preview{width:min(100%,880px)}
+.note{color:#52657a;font-size:13px;margin:0 0 12px}
+.window{background:#f9fbfd;border:1px solid #bfcad7;border-radius:9px;overflow:hidden;box-shadow:0 18px 45px #243a5438}
+.titlebar{height:46px;background:#fff;border-bottom:1px solid #dce3eb;display:flex;align-items:center;padding-left:14px;gap:10px;color:#1b2838;font-size:14px}
+.logo{height:30px;width:30px;display:block;flex:none}
+.controls{margin-left:auto;display:flex;align-items:stretch;height:100%;color:#344257}
+.control{width:46px;display:grid;place-items:center;font-size:17px;font-weight:300}
+.control:last-child{font-size:22px}
+.control .square{width:11px;height:11px;border:1.5px solid currentColor}
+.banner{height:98px;background:linear-gradient(120deg,#0554bd,#0769d6 68%,#1384ed);display:flex;align-items:center;gap:17px;padding:0 36px;color:#fff}
+.banner .logo{width:52px;height:52px;filter:drop-shadow(0 2px 4px #003b8b55)}
+.banner strong{font-size:28px;letter-spacing:-.5px;font-weight:600}
+.main{min-height:310px;display:grid;grid-template-columns:230px minmax(0,1fr);align-items:center;padding:35px 40px 42px;background:linear-gradient(#fff,#f7f9fc)}
+.illustration{display:flex;align-items:center;justify-content:center;border-right:1px solid #d7dfe8;min-height:220px;padding-right:30px}
+.monitor{position:relative;width:145px;height:105px;border:7px solid #3d91db;border-bottom-width:11px;border-radius:9px;background:linear-gradient(145deg,#e7f6ff,#bddfff);box-shadow:0 4px 0 #dceaf7,inset 0 0 0 2px #fff}
+.monitor:before{content:"";position:absolute;width:12px;height:28px;background:#3d91db;left:50%;top:100%;transform:translateX(-50%)}
+.monitor:after{content:"";position:absolute;width:65px;height:7px;border-radius:3px;background:#3d91db;left:50%;top:calc(100% + 23px);transform:translateX(-50%)}
+.monitor span{position:absolute;inset:0;display:grid;place-items:center;color:#086bc5;font-weight:700;font-size:36px}
+.content{padding-left:36px;max-width:530px}
+h1{font-size:24px;line-height:1.25;font-weight:600;color:#132b47;margin:0 0 18px}
+.description{margin:0 0 25px;font-size:15px;color:#425970}
+.connect{display:block;width:100%;padding:15px 16px;border-radius:6px;border:1px solid #c5ced9;background:#e3e7ec;color:#727e8c;font:600 15px "Segoe UI",Arial,sans-serif;cursor:not-allowed}
+.status{font-size:12px;color:#778698;margin:13px 0 0}
+@media(max-width:650px){body{padding:12px}.banner{height:76px;padding:0 20px}.banner .logo{width:42px;height:42px}.banner strong{font-size:23px}.main{display:block;padding:28px 22px 32px;min-height:0}.illustration{display:none}.content{padding:0}.titlebar{padding-left:11px}.control{width:32px}h1{font-size:21px}}
 </style>
 </head>
 <body>
 <main class="preview">
-<p class="note">Aperçu visuel uniquement : fenêtre fermée, sans connexion ni liaison ChatCore.</p>
-<section class="remote" aria-label="Fenêtre TeamViewer, non connectée">
-<div class="titlebar">
-<span class="logo-badge" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="#fff" stroke-width="3.5"/><path d="M20 24H10m0 0 6-5m-6 5 6 5m12-5h10m0 0-6-5m6 5-6 5" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<p class="note">Aperçu V2 uniquement. Connexion désactivée, sans intégration Outlook ou ChatCore.</p>
+<section class="window" aria-label="Aperçu d'une fenêtre TeamViewer non connectée">
+<header class="titlebar">
+<svg class="logo" viewBox="0 0 48 48" role="img" aria-label="Logo TeamViewer"><rect x="2" y="2" width="44" height="44" rx="8" fill="#086bd4"/><circle cx="24" cy="24" r="17" fill="#fff"/><path d="M8 24l12-8v5h8v-5l12 8-12 8v-5h-8v5z" fill="#086bd4"/></svg>
 <strong>TeamViewer</strong>
-<span class="dot" aria-hidden="true"></span>
+<div class="controls" aria-hidden="true"><span class="control">−</span><span class="control"><span class="square"></span></span><span class="control">×</span></div>
+</header>
+<div class="banner">
+<svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="8" fill="#fff"/><circle cx="24" cy="24" r="17" fill="#0964c8"/><path d="M8 24l12-8v5h8v-5l12 8-12 8v-5h-8v5z" fill="#fff"/></svg>
+<strong>TeamViewer</strong>
 </div>
-<div class="workspace">
-<div class="panel">
-<div class="brand">
-<svg viewBox="0 0 48 48" fill="none" aria-label="Symbole TeamViewer" role="img"><rect width="48" height="48" rx="10" fill="#138de5"/><circle cx="24" cy="24" r="16" stroke="#fff" stroke-width="3.5"/><path d="M20 24H10m0 0 6-5m-6 5 6 5m12-5h10m0 0-6-5m6 5-6 5" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-<span class="brand-name">TeamViewer</span>
-</div>
-<div class="line"></div>
-<p class="remote-label">Ordinateur distant</p>
-<p class="target">PC du client</p>
-<p class="subtarget">Atelier Kerwen</p>
-<button class="connect" type="button" disabled>Se connecter au PC du client</button>
-<p class="lock">Connexion disponible après autorisation du client.</p>
+<div class="main">
+<div class="illustration" aria-hidden="true"><div class="monitor"><span>↔</span></div></div>
+<div class="content">
+<h1>Contrôler l’ordinateur distant</h1>
+<p class="description">Prendre le contrôle à distance de l’ordinateur du client.</p>
+<button class="connect" type="button" disabled>Se connecter à PC-SMARTIN</button>
+<p class="status">Connexion disponible après autorisation du client.</p>
 </div>
 </div>
 </section>
