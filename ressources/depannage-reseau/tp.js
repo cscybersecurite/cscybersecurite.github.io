@@ -82,7 +82,8 @@ function renderReport(){
  $("progress").replaceChildren(...checks.map(ok=>{const item=document.createElement("span");if(ok)item.className="done";return item;}));
  $("progress-label").textContent=n===9?"Intervention terminée":labels[checks.findIndex(ok=>!ok)]||"Poursuivre le diagnostic";
  $("export").disabled=!state.finalBrowserPassed;
- $("export-hint").textContent=state.finalBrowserPassed?"✓ Intervention terminée. Tu peux exporter ton travail.":"🔒 Vérifie Internet dans le navigateur final pour débloquer l’export.";
+ $("submit-form").disabled=!state.finalBrowserPassed;
+ $("submit-hint").textContent=state.finalBrowserPassed?"✓ Intervention terminée. Ouvre le formulaire pour remettre ton travail.":"🔒 Vérifie Internet dans le navigateur final pour débloquer la remise.";
 }
 // Une représentation pédagogique de la liaison physique, pas un moteur de paquets.
 const pathDescriptions=[
@@ -248,7 +249,7 @@ async function playFinalPath(){
  }
  caption.textContent="🎉 Bravo ! Le PC peut à nouveau accéder à Internet. Intervention terminée.";
  state.finalBrowserPassed=true;
- $("final-browser-status").textContent="✓ Accès à Internet vérifié. Tu peux exporter ton travail.";
+ $("final-browser-status").textContent="✓ Accès à Internet vérifié. Tu peux remettre ton travail.";
  log("navigateur_final",{adresse:"https://www.google.fr",success:true});
 }
 $("final-open-web").addEventListener("click",()=>{
@@ -261,6 +262,42 @@ $("final-open-web").addEventListener("click",()=>{
  $("final-browser-result").innerHTML='<div style="text-align:center;padding:12px 0 16px"><div style="font:bold clamp(32px,7vw,54px)/1.15 Arial,sans-serif;letter-spacing:-2px"><span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span></div><p style="margin:12px auto;border:1px solid var(--line);border-radius:25px;padding:10px;max-width:340px">🔍 Rechercher sur Google</p><p class="success">✓ La page google.fr se charge correctement !</p></div>';
  $("final-browser-status").textContent="Connexion rétablie. Regarde le parcours du signal jusqu’à Internet.";
  playFinalPath();
+});
+// Le bilan est envoyé par lien prérempli : aucun fichier ou nom d’élève dans le portail public.
+// Le code de session reste volontairement vide et est validé par Google Forms (section 1).
+const remiseGoogleForms={
+ url:"https://docs.google.com/forms/d/e/1FAIpQLSdxdG9AYHWT2xyFW492g7OFWcTwvoohUGBYnwdy_Bp_Bc7nHw/viewform",
+ fields:{code:"entry.1517420395",prenom:"entry.1233827885",nom:"entry.1180081436",bilan:"entry.1939025670"}
+};
+function buildBilanTechnique(){
+ const commands=events.filter(event=>event.type==="commande");
+ const lines=[
+  "TP Dépannage réseau - bilan technique (V1.17)",
+  "Intervention : PC portable dans un nouveau bureau",
+  "Date : "+new Date().toLocaleString("fr-FR"),
+  "Mini-baie F vers D : "+(state.miniDone?"validée":"non validée"),
+  "Grande baie D5 vers switch 23 : "+(state.mainDone?"validée":"non validée"),
+  "Continuité PC vers switch : "+(state.continuity?"vérifiée":"non vérifiée"),
+  "Adresse IPv4 finale : "+(state.ip||"aucune"),
+  "APIPA observée : "+(state.apipaSeen?"oui":"non"),
+  "Bail DHCP obtenu : "+(state.lease?"oui":"non"),
+  "Ping IP réussi : "+(state.ipPingPassed?"oui":"non"),
+  "Ping par nom réussi : "+(state.dnsPingPassed?"oui":"non"),
+  "Accès final au site : "+(state.finalBrowserPassed?"vérifié":"non vérifié"),
+  "Commandes exécutées (ordre) :"
+ ];
+ for(const command of commands){
+  lines.push("- "+command.commande+" : "+(command.success?"succès":"échec"));
+ }
+ return lines.join("\n");
+}
+$("submit-form").addEventListener("click",()=>{
+ if(!state.finalBrowserPassed)return;
+ const url=new URL(remiseGoogleForms.url);
+ url.searchParams.set("usp","pp_url");
+ url.searchParams.set(remiseGoogleForms.fields.bilan,buildBilanTechnique());
+ // Nom, prénom et code de session : renseignés par l’élève dans Google Forms.
+ window.location.assign(url.toString());
 });
 $("export").addEventListener("click",()=>{
  if(!state.finalBrowserPassed)return;
