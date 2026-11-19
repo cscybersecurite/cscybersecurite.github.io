@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Aperçu de la fenêtre TeamViewer | Diagnostic messagerie</title>
+<style>
+:root{font:16px/1.45 Arial,sans-serif;color-scheme:light dark;background:light-dark(#eef3f9,#111d2b);color:light-dark(#1b344e,#eef5ff)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px}
+.preview{width:min(100%,770px)}
+.note{margin:0 0 14px;font-size:14px;color:light-dark(#48627c,#b8c9dc)}
+.remote{border:1px solid #b5c9dd;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 16px 48px #061f3f32}
+.titlebar{height:46px;padding:0 16px;display:flex;align-items:center;gap:11px;background:#f7faff;border-bottom:1px solid #d7e2ee;color:#203b56}
+.titlebar strong{font-size:14px;font-weight:700}
+.dot{width:9px;height:9px;border-radius:50%;background:#d9e4ef;margin-left:auto}
+.logo-badge{height:27px;width:27px;border-radius:6px;background:#0e8de8;display:grid;place-items:center}
+.logo-badge svg{height:22px;width:22px}
+.workspace{min-height:420px;padding:33px 24px 45px;background:linear-gradient(145deg,#139eea 0%,#0b80d8 62%,#0a69c3 100%);display:flex;align-items:center;justify-content:center}
+.panel{width:min(100%,400px);background:#fff;color:#203a58;border-radius:12px;padding:31px 24px 27px;text-align:center;box-shadow:0 18px 42px #06467855}
+.brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:27px}
+.brand svg{width:44px;height:44px;flex:none}
+.brand-name{font-size:25px;font-weight:700;letter-spacing:-.7px;color:#126fbf}
+.line{height:1px;background:#e1e8f0;margin:0 0 23px}
+.remote-label{font-size:13px;letter-spacing:.02em;color:#5f7182;margin:0 0 6px}
+.target{font-size:20px;font-weight:700;margin:0 0 4px}
+.subtarget{font-size:13px;color:#667c90;margin:0 0 22px}
+.connect{border:0;border-radius:7px;background:#0f87d6;color:#fff;padding:14px 20px;width:100%;font:700 15px Arial,sans-serif;opacity:.48;cursor:not-allowed}
+.lock{margin:14px 0 0;font-size:12px;color:#697e92}
+@media(max-width:550px){body{padding:12px}.workspace{padding:18px 12px;min-height:370px}.panel{padding:26px 17px}.brand-name{font-size:23px}}
+</style>
+</head>
+<body>
+<main class="preview">
+<p class="note">Aperçu visuel uniquement : fenêtre fermée, sans connexion ni liaison ChatCore.</p>
+<section class="remote" aria-label="Fenêtre TeamViewer, non connectée">
+<div class="titlebar">
+<span class="logo-badge" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="#fff" stroke-width="3.5"/><path d="M20 24H10m0 0 6-5m-6 5 6 5m12-5h10m0 0-6-5m6 5-6 5" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<strong>TeamViewer</strong>
+<span class="dot" aria-hidden="true"></span>
+</div>
+<div class="workspace">
+<div class="panel">
+<div class="brand">
+<svg viewBox="0 0 48 48" fill="none" aria-label="Symbole TeamViewer" role="img"><rect width="48" height="48" rx="10" fill="#138de5"/><circle cx="24" cy="24" r="16" stroke="#fff" stroke-width="3.5"/><path d="M20 24H10m0 0 6-5m-6 5 6 5m12-5h10m0 0-6-5m6 5-6 5" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<span class="brand-name">TeamViewer</span>
+</div>
+<div class="line"></div>
+<p class="remote-label">Ordinateur distant</p>
+<p class="target">PC du client</p>
+<p class="subtarget">Atelier Kerwen</p>
+<button class="connect" type="button" disabled>Se connecter au PC du client</button>
+<p class="lock">Connexion disponible après autorisation du client.</p>
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>
