@@ -5,6 +5,11 @@ import { connectMailOutlook } from 'https://chaoli22000bzh.github.io/C2-Lab/r2d3
 import { createMailEngine } from 'https://chaoli22000bzh.github.io/C2-Lab/r2d3-v1/mail-core.js';
 
 const outlookHost=document.getElementById('outlook-host');
+const remoteGate=document.getElementById('remote-gate');
+const remoteTitle=document.getElementById('remote-title');
+const sessionIndicator=document.getElementById('session-indicator');
+const partnerId='847216390';
+const partnerPassword='683512';
 const chatHost=document.getElementById('chat-host');
 const status=document.getElementById('status');
 const reset=document.getElementById('reset');
@@ -35,7 +40,33 @@ const scenario={
   body:'La réception fonctionne, mais les messages ne partent plus depuis la migration de prestataire.',minutesAgo:90
  }]
 };
-let bridge=null,chat=null,unsubscribeClosure=null,closureTimer=null;
+let bridge=null,chat=null,engine=null,unsubscribeClosure=null,unsubscribePermission=null,closureTimer=null;
+let remoteAllowed=false,remoteConnected=false;
+function sendAuthorization(){
+ if(!remoteGate.contentWindow)return;
+ remoteGate.contentWindow.postMessage({type:'teamviewer:authorization',allowed:remoteAllowed,partnerId:remoteAllowed?partnerId:'',password:remoteAllowed?partnerPassword:''},location.origin);
+}
+remoteGate.addEventListener('load',sendAuthorization);
+window.addEventListener('message',event=>{
+ if(event.origin!==location.origin||event.source!==remoteGate.contentWindow||event.data?.type!=='teamviewer:connected')return;
+ if(!remoteAllowed||remoteConnected||!chat)return;
+ remoteConnected=true;
+ remoteGate.hidden=true;
+ sessionIndicator.hidden=false;
+ outlookHost.hidden=false;
+ remoteTitle.textContent='Poste distant : Outlook du client';
+ mountOutlook();
+ chat.setFacts({connected:true});
+ inform('Session distante établie. Outlook du client est accessible.');
+});
+function watchPermission(snapshot){
+ if(remoteAllowed)return;
+ const granted=snapshot.history.some(x=>x.role==='client'&&x.id==='permission'&&x.text.startsWith('Oui, je vous autorise'));
+ if(!granted)return;
+ remoteAllowed=true;
+ sendAuthorization();
+ inform('Autorisation du client reçue. Tu peux maintenant te connecter avec TeamViewer.');
+}
 let state={inspected:false,testAttempted:false,testPassed:false,detailsShown:false,closed:false};
 function inform(message,error=false){
  status.textContent=message;
@@ -112,11 +143,12 @@ function makeChatScenario(){
  return {
   clientName:'Client de l’Atelier Kerwen',typingSpeed:'normal',
   greeting:"Bonjour. Depuis notre changement de prestataire, je reçois les courriels dans Outlook, mais je n'arrive plus à en envoyer. Pouvez-vous m'aider ?",
-  facts:{inspected:false,testAttempted:false,testPassed:false},
+  facts:{inspected:false,testAttempted:false,testPassed:false,connected:false},
   messages:[
    {id:'since',text:'Depuis quand rencontrez-vous ce problème ?',answer:'Depuis notre passage de Nova Mail à Orange.'},
    {id:'reception',text:'Recevez-vous encore les messages dans Outlook ?',answer:'Oui, la réception fonctionne normalement. Seul l’envoi ne fonctionne plus.'},
-   {id:'permission',text:'Puis-je vérifier les paramètres de votre compte Outlook ?',answer:'Oui, bien sûr. Vous pouvez consulter la configuration.'},
+   {id:'permission',text:'Puis-je prendre la main à distance sur votre ordinateur avec TeamViewer ?',answer:'Oui, je vous autorise à prendre la main. Mon identifiant TeamViewer est 847 216 390 et le mot de passe est 683512.'},
+   {id:'connected',text:'La connexion à distance est établie. Voyez-vous que j’ai pris la main ?',answer:'Oui, je vois que vous avez pris la main sur mon ordinateur. Vous pouvez vérifier Outlook.',enabled:({facts})=>facts.connected},
    {id:'orange',text:'Pouvez-vous me communiquer les nouveaux paramètres Orange ?',once:false,
     answer:'Je vous les communiquerai après la vérification de la configuration actuelle.',
     resolve:({facts})=>facts.inspected?
@@ -132,18 +164,14 @@ function makeChatScenario(){
   ]
  };
 }
-async function begin(){
- try{
-  if(!window.ChatCore)await loadScript('https://chaoli22000bzh.github.io/chatcore/v0.1/chatcore.js');
-  if(!window.ChatCoreUI)await loadScript('https://chaoli22000bzh.github.io/chatcore/v0.1/chatcore-ui.js');
-  const engine=createMailEngine(scenario);
-  bridge=connectMailOutlook(outlookHost,scenario,{
+function mountOutlook(){
+ if(bridge||!remoteConnected||!engine)return;
+ bridge=connectMailOutlook(outlookHost,scenario,{
    engine,accounts:[structuredClone(oldConfig)],
    callbacks:{
     async onTestAccount(account){
      const report=engine.validateAccount(account);
      if(report.success){
-      // La configuration validée ne prouve PAS qu'un courriel a été envoyé.
       state.testAttempted=false;state.testPassed=false;facts();
       inform('Configuration reconnue par R2D3. Envoie maintenant un véritable message de test.');
      }else inform('Test du compte : '+report.message,true);
@@ -158,9 +186,17 @@ async function begin(){
     }
    }
   });
+}
+async function begin(){
+ try{
+  if(!window.ChatCore)await loadScript('https://chaoli22000bzh.github.io/chatcore/v0.1/chatcore.js');
+  if(!window.ChatCoreUI)await loadScript('https://chaoli22000bzh.github.io/chatcore/v0.1/chatcore-ui.js');
+  engine=createMailEngine(scenario);
   chat=window.ChatCoreUI.mount(chatHost,makeChatScenario());
   unsubscribeClosure=chat.chat.subscribe(watchClosure);
-  inform('Laboratoire prêt. Le dialogue et Outlook sont deux interfaces distinctes.');
+  unsubscribePermission=chat.chat.subscribe(watchPermission);
+  sendAuthorization();
+  inform('Demande au client l’autorisation de prise en main dans ChatCore.');
  }catch(error){
   inform('Laboratoire indisponible : '+error.message,true);
  }
@@ -168,11 +204,16 @@ async function begin(){
 reset.addEventListener('click',()=>{
  clearTimeout(closureTimer);closureTimer=null;
  unsubscribeClosure?.();unsubscribeClosure=null;
+ unsubscribePermission?.();unsubscribePermission=null;
+ remoteAllowed=false;remoteConnected=false;
+ remoteGate.hidden=false;outlookHost.hidden=true;outlookHost.replaceChildren();
+ sessionIndicator.hidden=true;remoteTitle.textContent='TeamViewer : prise en main à distance';
+ remoteGate.contentWindow?.postMessage({type:'teamviewer:reset'},location.origin);
  completion.hidden=true;chatHost.hidden=false;
  chatTitle.textContent='Échanger avec le client';
  outgoingVisibilityObserver?.disconnect();outgoingVisibilityObserver=null;
  watchedOutgoingField=null;
- bridge?.destroy();bridge=null;
+ bridge?.destroy();bridge=null;engine=null;
  chat?.destroy?.();chat=null;
  chatHost.replaceChildren();
  state={inspected:false,testAttempted:false,testPassed:false,detailsShown:false,closed:false};
