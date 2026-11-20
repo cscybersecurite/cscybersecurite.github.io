@@ -41,8 +41,9 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <button id="envoyer" type="submit" disabled>Envoyer mon travail</button>
 </form>
 <p id="status" role="status" aria-live="polite"></p>
-<p class="note">Mode diagnostic : la réponse de Google Forms s'ouvrira après l'envoi pour vérifier si le code de session est accepté ou refusé.</p>
+<p class="note">Le travail est transmis sans ouvrir Google Forms. Le professeur vérifie la réception dans son tableau.</p>
 </article></main>
+<iframe name="reception-google" title="Transmission" hidden></iframe>
 <script>
 "use strict";
 const GOOGLE_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSdxdG9AYHWT2xyFW492g7OFWcTwvoohUGBYnwdy_Bp_Bc7nHw/formResponse";
@@ -79,7 +80,7 @@ form.addEventListener("submit",event=>{
   const transmission=document.createElement("form");
   transmission.method="POST";
   transmission.action=GOOGLE_ACTION;
-  transmission.target="_blank";
+  transmission.target="reception-google";
   transmission.style.display="none";
   transmission.acceptCharset="UTF-8";
   const data={
@@ -99,7 +100,7 @@ form.addEventListener("submit",event=>{
   transmission.submit();
   transmission.remove();
   envoyer.disabled=true;
-  status.textContent="Envoi effectué vers Google Forms. Consulte la fenêtre Google pour connaître le résultat.";
+  status.textContent="Transmission lancée. Le professeur vérifie la réception dans son tableau.";
 });
 </script>
 </body>
